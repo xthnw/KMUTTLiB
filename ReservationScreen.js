@@ -145,6 +145,7 @@ export default class ReservationScreen extends Component {
                 style={styles.input}
                 placeholder="Search room name"
                 placeholderTextColor="gray"
+
               />
             </View>
           </View>
@@ -316,6 +317,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     fontSize: 11,
+    fontFamily: 'LeagueSpartan',
 
   },
   icon: {
@@ -355,6 +357,7 @@ const styles = StyleSheet.create({
     color: 'gray',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'LeagueSpartan'
   },
   buttonSelected: {
     borderWidth: 1,
@@ -445,6 +448,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     textAlign: 'left',
+    fontFamily: 'LeagueSpartan'
   },
   description: {
     fontSize: 8, // Adjust the font size as needed

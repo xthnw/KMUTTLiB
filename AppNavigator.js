@@ -24,7 +24,7 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-      initialRouteName={authenticated ? 'Welcome' : 'Login'}
+      initialRouteName={authenticated ? 'ReservationIndex' : 'Login'}
       screenOptions={{
         headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
         headerTintColor: 'black', // Set the text color of the header
