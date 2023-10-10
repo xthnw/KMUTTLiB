@@ -64,7 +64,6 @@ export default class ReservationScreen extends Component {
   async componentDidMount() {
     await Font.loadAsync({
       LeagueSpartan: require("./ios/LeagueSpartan-Regular.ttf"),
-      LeagueSpartanBold: require("./ios/LeagueSpartan-Bold.ttf"),
     });
 
     this.setState({ fontLoaded: true });
@@ -184,7 +183,7 @@ export default class ReservationScreen extends Component {
                   height: screenHeight * 0.13,
                   paddingTop: 10,
                   paddingBottom: 10,
-                  fontFamily: 'LeagueSpartan',
+                  fontFamily: "LeagueSpartan",
                 }}
                 calendarAnimation={{ type: "sequence", duration: 10 }}
                 dateNumberStyle={{ color: "gray" }}

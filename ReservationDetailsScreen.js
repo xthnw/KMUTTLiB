@@ -115,7 +115,6 @@ export default class ReservationDetailsScreen extends Component {
                                     alignItems: 'center',
                                     color: 'orange',
                                     marginTop: screenWidth * 0.02,
-                                    fontFamily: 'LeagueSpartanBold'
                                 }]}>Overview</Text>
                                 <View style={[{
                                     flexDirection: 'row', // Arrange items horizontally
