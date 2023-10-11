@@ -22,7 +22,7 @@ import { customText } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import IconM from "react-native-vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -103,13 +103,13 @@ export default class ReservationRequestScreen extends Component {
     const { isModalCompleteVisible } = this.state;
     const { width, height } = Dimensions.get("window");
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}>
         <View>
-          <ScrollView
-            contentContainerStyle={styles.scrollViewContainer}
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={styles.contentContainer}>
+          <View style={styles.contentContainer}>
+            <ScrollView
+              contentContainerStyle={styles.scrollViewContainer}
+              showsVerticalScrollIndicator={false}
+            >
               <TouchableOpacity
                 onPress={this.handleBackPress}
                 style={[
@@ -693,8 +693,8 @@ export default class ReservationRequestScreen extends Component {
                   </View>
                 </Modal>
               </View>
-            </View>
-          </ScrollView>
+            </ScrollView>
+          </View>
         </View>
       </SafeAreaView>
     );
@@ -708,7 +708,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   contentContainer: {
-    flex: 1,
     backgroundColor: "#fbfbfb",
     borderRadius: 10,
     padding: 20,

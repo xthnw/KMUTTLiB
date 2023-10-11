@@ -24,7 +24,7 @@ import {
 } from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
 import customPinImage from "./picture/pin.png";
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -93,208 +93,204 @@ export default class ReservationCheckInScreen extends Component {
     const { width, height } = Dimensions.get("window");
     return (
       <SafeAreaView
-        style={{ flex: 1 }}
-        edges={[]}
-        forceInset={{ bottom: "never" }}
+        style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}
       >
-        <View>
+        <View style={styles.contentContainer}>
           <ScrollView
             contentContainerStyle={styles.scrollViewContainer}
             showsVerticalScrollIndicator={false}
           >
-            <View style={styles.contentContainer}>
-              <TouchableOpacity
-                onPress={this.handleBackPress}
+            <TouchableOpacity
+              onPress={this.handleBackPress}
+              style={[
+                {
+                  width: 40,
+                  height: 40,
+                  borderRadius: 20, // Half of the width/height to create a circle
+                  backgroundColor: "white",
+                  borderColor: "#dadada",
+                  borderWidth: 0.5,
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: 10,
+                  shadowColor: "black",
+                  shadowOffset: { width: 0, height: 3 },
+                  shadowOpacity: 0.1,
+                  shadowRadius: 1,
+                },
+              ]}
+            >
+              <View
                 style={[
                   {
-                    width: 40,
-                    height: 40,
-                    borderRadius: 20, // Half of the width/height to create a circle
-                    backgroundColor: "white",
-                    borderColor: "#dadada",
-                    borderWidth: 0.5,
                     alignItems: "center",
                     justifyContent: "center",
+                  },
+                ]}
+              >
+                <IconM name="keyboard-arrow-left" size={30} color="orange" />
+              </View>
+            </TouchableOpacity>
+            <View style={[{ alignContent: "center", alignItems: "center" }]}>
+              <Image
+                source={require("./picture/floor1.jpg")}
+                style={[
+                  {
+                    width: screenWidth * 0.9,
+                    height: screenWidth * 0.8,
+                    borderRadius: 15,
+                  },
+                ]}
+                resizeMode="cover"
+              />
+            </View>
+
+            <View style={[{ padding: 8 }]}>
+              <Text
+                style={[
+                  {
+                    fontSize: 18,
+                    alignItems: "center",
+                    color: "orange",
+                    marginTop: 20,
                     marginBottom: 10,
-                    shadowColor: "black",
-                    shadowOffset: { width: 0, height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 1,
+                    fontFamily: "LeagueSpartanSemiBold",
+                  },
+                ]}
+              >
+                Overview
+              </Text>
+              <View
+                style={[
+                  {
+                    flexDirection: "row", // Arrange items horizontally
+                    marginBottom: 10,
                   },
                 ]}
               >
                 <View
                   style={[
                     {
-                      alignItems: "center",
-                      justifyContent: "center",
+                      marginRight: 10,
+                      backgroundColor: "#F2F2F2",
+                      paddingHorizontal: 4,
+                      paddingVertical: 2,
+                      borderRadius: 4,
                     },
                   ]}
                 >
-                  <IconM name="keyboard-arrow-left" size={30} color="orange" />
+                  <Icon name="clock-o" size={32} color="orange" />
                 </View>
-              </TouchableOpacity>
-              <View style={[{ alignContent: "center", alignItems: "center" }]}>
-                <Image
-                  source={require("./picture/floor1.jpg")}
-                  style={[
-                    {
-                      width: screenWidth * 0.9,
-                      height: screenWidth * 0.8,
-                      borderRadius: 15,
-                    },
-                  ]}
-                  resizeMode="cover"
-                />
+
+                <View style={[{}]}>
+                  <Text
+                    style={[
+                      {
+                        fontSize: 14, // Adjust font size as needed
+                        color: "#b7b7b7",
+                        fontFamily: "LeagueSpartanMedium",
+                      },
+                    ]}
+                  >
+                    Time
+                  </Text>
+                  <Text
+                    style={[
+                      {
+                        flex: 1,
+                        flexWrap: "wrap",
+                        fontSize: 14, // Adjust font size as needed
+                        fontFamily: "LeagueSpartanMedium",
+                      },
+                    ]}
+                  >
+                    2 hours
+                  </Text>
+                </View>
               </View>
 
-              <View style={[{ padding: 8 }]}>
-                <Text
-                  style={[
-                    {
-                      fontSize: 18,
-                      alignItems: "center",
-                      color: "orange",
-                      marginTop: 20,
-                      marginBottom: 10,
-                      fontFamily: "LeagueSpartanSemiBold",
-                    },
-                  ]}
-                >
-                  Overview
-                </Text>
-                <View
-                  style={[
-                    {
-                      flexDirection: "row", // Arrange items horizontally
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
-                  <View
-                    style={[
-                      {
-                        marginRight: 10,
-                        backgroundColor: "#F2F2F2",
-                        paddingHorizontal: 4,
-                        paddingVertical: 2,
-                        borderRadius: 4,
-                      },
-                    ]}
-                  >
-                    <Icon name="clock-o" size={32} color="orange" />
-                  </View>
+              {/* --------- */}
 
-                  <View style={[{}]}>
-                    <Text
-                      style={[
-                        {
-                          fontSize: 14, // Adjust font size as needed
-                          color: "#b7b7b7",
-                          fontFamily: "LeagueSpartanMedium",
-                        },
-                      ]}
-                    >
-                      Time
-                    </Text>
-                    <Text
-                      style={[
-                        {
-                          flex: 1,
-                          flexWrap: "wrap",
-                          fontSize: 14, // Adjust font size as needed
-                          fontFamily: "LeagueSpartanMedium",
-                        },
-                      ]}
-                    >
-                      2 hours
-                    </Text>
-                  </View>
-                </View>
+              <Text
+                style={[
+                  {
+                    fontSize: 18,
+                    fontFamily: "LeagueSpartanSemiBold",
+                    alignItems: "center",
+                    color: "orange",
+                    marginTop: 8,
+                    marginBottom: 10,
+                  },
+                ]}
+              >
+                Date/Time
+              </Text>
+              <Text
+                style={[
+                  {
+                    fontSize: 14, // Adjust font size as needed
+                    fontFamily: "LeagueSpartanMedium",
+                    color: "black",
+                    marginBottom: 10,
+                  },
+                ]}
+              >
+                24 SUNDAY 12:30 - 14:20
+              </Text>
 
-                {/* --------- */}
-
-                <Text
+              <View
+                style={[
+                  {
+                    borderRadius: 25,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  },
+                ]}
+              >
+                <MapView
                   style={[
                     {
-                      fontSize: 18,
-                      fontFamily: "LeagueSpartanSemiBold",
-                      alignItems: "center",
-                      color: "orange",
-                      marginTop: 8,
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
-                  Date/Time
-                </Text>
-                <Text
-                  style={[
-                    {
-                      fontSize: 14, // Adjust font size as needed
-                      fontFamily: "LeagueSpartanMedium",
-                      color: "black",
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
-                  24 SUNDAY 12:30 - 14:20
-                </Text>
-
-                <View
-                  style={[
-                    {
+                      width: width * 0.8,
+                      height: height * 0.4,
+                      borderBlockColor: "white",
                       borderRadius: 25,
-                      justifyContent: "center",
-                      alignItems: "center",
+                      padding: 8,
+
+                      elevation: 2,
+                      shadowColor: "black",
+                      shadowOffset: { width: 0, height: 6 },
+                      shadowOpacity: 0.3,
+                      shadowRadius: 6,
                     },
                   ]}
-                >
-                  <MapView
-                    style={[
-                      {
-                        width: width * 0.8,
-                        height: height * 0.4,
-                        borderBlockColor: "white",
-                        borderRadius: 25,
-                        padding: 8,
-
-                        elevation: 2,
-                        shadowColor: "black",
-                        shadowOffset: { width: 0, height: 6 },
-                        shadowOpacity: 0.3,
-                        shadowRadius: 6,
-                      },
-                    ]}
-                    initialRegion={
-                      userLocation
-                        ? {
-                            latitude: userLocation.latitude,
-                            longitude: userLocation.longitude,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                          }
-                        : null
-                    }
-                  >
-                    {userLocation && (
-                      <Marker
-                        coordinate={{
+                  initialRegion={
+                    userLocation
+                      ? {
                           latitude: userLocation.latitude,
                           longitude: userLocation.longitude,
-                        }}
-                        title="Your Location"
-                      >
-                        <Image
-                          source={customPinImage}
-                          style={{ width: 62, height: 92 }}
-                        />
-                      </Marker>
-                    )}
-                  </MapView>
-                </View>
-                {/* --------- */}
+                          latitudeDelta: 0.0922,
+                          longitudeDelta: 0.0421,
+                        }
+                      : null
+                  }
+                >
+                  {userLocation && (
+                    <Marker
+                      coordinate={{
+                        latitude: userLocation.latitude,
+                        longitude: userLocation.longitude,
+                      }}
+                      title="Your Location"
+                    >
+                      <Image
+                        source={customPinImage}
+                        style={{ width: 62, height: 92 }}
+                      />
+                    </Marker>
+                  )}
+                </MapView>
               </View>
+              {/* --------- */}
             </View>
 
             <TouchableOpacity
