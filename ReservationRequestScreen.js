@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  SafeAreaView,
   StatusBar,
   Animated,
   TextInput,
@@ -23,6 +22,7 @@ import { customText } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import IconM from "react-native-vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -523,7 +523,7 @@ export default class ReservationRequestScreen extends Component {
                           justifyContent: "center",
                           alignItems: "center",
                           width: height * 0.4,
-                          maxHeight: height * 0.4,
+                          maxHeight: height * 0.7,
                           backgroundColor: "white",
                           borderRadius: 35,
                           borderWidth: 2,
@@ -600,9 +600,8 @@ export default class ReservationRequestScreen extends Component {
                           style={[
                             {
                               backgroundColor: "orange",
-                              padding: 16,
+                              padding: 12,
                               borderRadius: 20,
-                              width: "30%",
                               marginTop: 16,
                             },
                           ]}

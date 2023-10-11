@@ -1,6 +1,6 @@
 import { style } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
 import React, { Component } from 'react';
-import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, Dimensions, StatusBar, Animated, TextInput, SafeAreaView } from 'react-native';
+import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, Dimensions, StatusBar, Animated, TextInput, } from 'react-native';
 import { ScrollView, Image } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
 import Gradient from './Gradient'; // Import the Gradient component
@@ -8,6 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { customText } from 'react-native-paper';
 import IconM from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const screenWidth = Dimensions.get('window').width;

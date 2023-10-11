@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  SafeAreaView,
   StatusBar,
   Animated,
   TextInput,
@@ -25,6 +24,7 @@ import {
 } from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
 import customPinImage from "./picture/pin.png";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -153,7 +153,6 @@ export default class ReservationCheckInScreen extends Component {
                   style={[
                     {
                       fontSize: 18,
-                      fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
                       marginTop: 20,
@@ -205,7 +204,6 @@ export default class ReservationCheckInScreen extends Component {
                           flexWrap: "wrap",
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
-                          fontWeight: "bold", // Bold font for lab
                         },
                       ]}
                     >
@@ -221,7 +219,6 @@ export default class ReservationCheckInScreen extends Component {
                     {
                       fontSize: 18,
                       fontFamily: "LeagueSpartanSemiBold",
-                      fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
                       marginTop: 8,
@@ -236,7 +233,6 @@ export default class ReservationCheckInScreen extends Component {
                     {
                       fontSize: 14, // Adjust font size as needed
                       fontFamily: "LeagueSpartanMedium",
-                      fontWeight: "bold", // Bold font for label
                       color: "black",
                       marginBottom: 10,
                     },
@@ -245,72 +241,59 @@ export default class ReservationCheckInScreen extends Component {
                   24 SUNDAY 12:30 - 14:20
                 </Text>
 
-                {/* --------- */}
-              </View>
-              <View style={{ flex: 1 }}>
-                <MapView
-                  style={{
-                    flex: 1,
-                    borderBlockColor: "white",
-                    borderRadius: 25,
-                    padding: 8,
-                  }}
-                  initialRegion={
-                    userLocation
-                      ? {
+                <View
+                  style={[
+                    {
+                      borderRadius: 25,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    },
+                  ]}
+                >
+                  <MapView
+                    style={[
+                      {
+                        width: width * 0.8,
+                        height: height * 0.4,
+                        borderBlockColor: "white",
+                        borderRadius: 25,
+                        padding: 8,
+
+                        elevation: 2,
+                        shadowColor: "black",
+                        shadowOffset: { width: 0, height: 6 },
+                        shadowOpacity: 0.3,
+                        shadowRadius: 6,
+                      },
+                    ]}
+                    initialRegion={
+                      userLocation
+                        ? {
+                            latitude: userLocation.latitude,
+                            longitude: userLocation.longitude,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                          }
+                        : null
+                    }
+                  >
+                    {userLocation && (
+                      <Marker
+                        coordinate={{
                           latitude: userLocation.latitude,
                           longitude: userLocation.longitude,
-                          latitudeDelta: 0.0922,
-                          longitudeDelta: 0.0421,
-                        }
-                      : null
-                  }
-                >
-                  {userLocation && (
-                    <Marker
-                      coordinate={{
-                        latitude: userLocation.latitude,
-                        longitude: userLocation.longitude,
-                      }}
-                      title="Your Location"
-                    >
-                      <Image
-                        source={customPinImage}
-                        style={{ width: 62, height: 92 }}
-                      />
-                    </Marker>
-                  )}
-
-                  {/* You can add markers or other map elements here */}
-
-                  <Text
-                    style={[
-                      {
-                        fontSize: 40, // Adjust font size as needed
-                        fontFamily: "LeagueSpartan",
-                        fontWeight: "bold", // Bold font for label
-                        color: "black",
-                        marginTop: screenWidth * 0.5,
-                      },
-                    ]}
-                  ></Text>
-                  <Marker
-                    coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-                    title="Marker Title"
-                    description="Marker Description"
-                  />
-                  <Text
-                    style={[
-                      {
-                        fontSize: 40, // Adjust font size as needed
-                        fontFamily: "LeagueSpartan",
-                        fontWeight: "bold", // Bold font for label
-                        color: "black",
-                        marginTop: screenWidth * 0.5,
-                      },
-                    ]}
-                  ></Text>
-                </MapView>
+                        }}
+                        title="Your Location"
+                      >
+                        <Image
+                          source={customPinImage}
+                          style={{ width: 62, height: 92 }}
+                        />
+                      </Marker>
+                    )}
+                  </MapView>
+                </View>
+                {/* --------- */}
               </View>
             </View>
 
@@ -338,7 +321,6 @@ export default class ReservationCheckInScreen extends Component {
                       color: "white",
                       fontSize: 18,
                       fontFamily: "LeagueSpartanSemiBold",
-                      fontWeight: "bold",
                     },
                   ]}
                 >
@@ -454,7 +436,6 @@ export default class ReservationCheckInScreen extends Component {
                             color: "white",
                             fontSize: 18,
                             fontFamily: "LeagueSpartanSemiBold",
-                            fontWeight: "bold",
                           },
                         ]}
                       >
@@ -534,7 +515,6 @@ export default class ReservationCheckInScreen extends Component {
                         {
                           fontSize: 18,
                           fontFamily: "LeagueSpartanSemiBold",
-                          fontWeight: "bold",
                           textAlign: "center",
                           color: "orange",
                           marginTop: 16,
@@ -554,7 +534,6 @@ export default class ReservationCheckInScreen extends Component {
                   color: "red",
                   fontSize: 14,
                   fontFamily: "LeagueSpartan",
-                  fontWeight: "normal",
                   textAlign: "center",
                 },
               ]}
@@ -584,7 +563,6 @@ const styles = StyleSheet.create({
   formTitle: {
     fontSize: 24,
     fontFamily: "LeagueSpartan",
-    fontWeight: "bold",
     color: "black",
     marginBottom: 10,
   },
@@ -602,7 +580,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontFamily: "LeagueSpartan",
-    fontWeight: "bold",
   },
   input: {
     borderWidth: 1,

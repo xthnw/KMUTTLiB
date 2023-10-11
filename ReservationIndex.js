@@ -7,14 +7,16 @@ import {
   Dimensions,
   StatusBar,
   Animated,
-  SafeAreaView,
   TextInput,
+  Platform,
 } from "react-native";
 import { ScrollView, Image } from "react-native";
 import CalendarStrip from "react-native-calendar-strip";
 import IconM from "react-native-vector-icons/MaterialIcons";
 import * as Font from "expo-font";
 import ReservationDetailsScreen from "./ReservationDetailsScreen";
+import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -93,7 +95,7 @@ export default class ReservationScreen extends Component {
       textDecorationLine: "underline", // Add underline for selected dates
     };
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "white",}}>
         <ScrollView
           contentContainerStyle={styles.scrollViewContainer}
           showsVerticalScrollIndicator={false}
@@ -452,7 +454,6 @@ const styles = StyleSheet.create({
   },
   box: {
     width: screenWidth * 0.45, // Adjust the width as needed
-    height: screenHeight * 0.3,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,

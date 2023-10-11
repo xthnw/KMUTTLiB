@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
-  SafeAreaView,
   StatusBar,
   Animated,
   TextInput,
@@ -22,6 +21,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { customText } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import IconM from "react-native-vector-icons/MaterialIcons";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -78,8 +78,6 @@ export default class ReservationDetailsScreen extends Component {
     return (
       <SafeAreaView
         style={{ flex: 1 }}
-        edges={[]}
-        forceInset={{ bottom: "never" }}
       >
         <View>
           <ScrollView
@@ -138,7 +136,6 @@ export default class ReservationDetailsScreen extends Component {
                     {
                       fontSize: 18,
                       fontFamily: "LeagueSpartanSemiBold",
-                      fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
                       marginTop: 20,
@@ -185,7 +182,6 @@ export default class ReservationDetailsScreen extends Component {
                           flexWrap: "wrap",
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
-                          fontWeight: "bold", // Bold font for lab
                         },
                       ]}
                     >
@@ -201,7 +197,6 @@ export default class ReservationDetailsScreen extends Component {
                     {
                       fontSize: 18,
                       fontFamily: "LeagueSpartanSemiBold",
-                      fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
                       marginTop: 8,
@@ -216,7 +211,6 @@ export default class ReservationDetailsScreen extends Component {
                     {
                       fontSize: 14, // Adjust font size as needed
                       fontFamily: "LeagueSpartanMedium",
-                      fontWeight: "bold", // Bold font for label
                       color: "black",
                       marginBottom: 20,
                     },
@@ -232,7 +226,6 @@ export default class ReservationDetailsScreen extends Component {
                     {
                       fontSize: 18,
                       fontFamily: "LeagueSpartanSemiBold",
-                      fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
                       marginBottom: 10,
@@ -286,7 +279,6 @@ export default class ReservationDetailsScreen extends Component {
                           flexWrap: "wrap",
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
-                          fontWeight: "bold", // Bold font for lab
                           marginBottom: 10,
                         },
                       ]}
@@ -300,7 +292,6 @@ export default class ReservationDetailsScreen extends Component {
                           flexWrap: "wrap",
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
-                          fontWeight: "bold", // Bold font for lab
                           marginBottom: 10,
                         },
                       ]}
@@ -314,7 +305,6 @@ export default class ReservationDetailsScreen extends Component {
                           flexWrap: "wrap",
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
-                          fontWeight: "bold", // Bold font for lab
                           marginBottom: 10,
                         },
                       ]}
@@ -328,7 +318,6 @@ export default class ReservationDetailsScreen extends Component {
                           flexWrap: "wrap",
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
-                          fontWeight: "bold", // Bold font for lab
                           marginBottom: 10,
                         },
                       ]}
@@ -342,7 +331,6 @@ export default class ReservationDetailsScreen extends Component {
                           flexWrap: "wrap",
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
-                          fontWeight: "bold", // Bold font for lab
                         },
                       ]}
                     >
@@ -373,7 +361,6 @@ export default class ReservationDetailsScreen extends Component {
                       color: "white",
                       fontSize: 18,
                       fontFamily: "LeagueSpartanSemiBold",
-                      fontWeight: "bold",
                     },
                   ]}
                 >
@@ -403,7 +390,6 @@ const styles = StyleSheet.create({
   },
   formTitle: {
     fontSize: 24,
-    fontWeight: "bold",
     color: "black",
     marginBottom: 10,
   },
@@ -420,7 +406,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: "bold",
   },
   input: {
     borderWidth: 1,
