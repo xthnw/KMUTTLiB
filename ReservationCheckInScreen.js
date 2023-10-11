@@ -41,10 +41,27 @@ export default class ReservationCheckInScreen extends Component {
     this.state = {
       userLocation: null,
       isModalVisible: false,
+      isModalCompleteVisible: false,
     };
   }
   toggleModal = () => {
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    this.setState({ isModalVisible: !this.state.isModalVisible }, () => {
+      // After the modal state is updated, check if it's closed
+      if (!this.state.isModalVisible) {
+        // Call the function you want when the modal is closed
+        this.toggleModalComplete();
+      }
+    });
+  };
+  toggleModalComplete = () => {
+    this.setState({
+      isModalCompleteVisible: !this.state.isModalCompleteVisible,
+    });
+  };
+  toggleModalClose = () => {
+    this.setState({
+      isModalVisible: !this.state.isModalVisible,
+    });
   };
   componentDidMount() {
     // Request location permissions
@@ -72,6 +89,7 @@ export default class ReservationCheckInScreen extends Component {
   render() {
     const { userLocation } = this.state;
     const { isModalVisible } = this.state;
+    const { isModalCompleteVisible } = this.state;
     const { width, height } = Dimensions.get("window");
     return (
       <SafeAreaView
@@ -138,7 +156,8 @@ export default class ReservationCheckInScreen extends Component {
                       fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
-                      marginTop: screenWidth * 0.02,
+                      marginTop: 20,
+                      marginBottom: 10,
                       fontFamily: "LeagueSpartanSemiBold",
                     },
                   ]}
@@ -149,7 +168,7 @@ export default class ReservationCheckInScreen extends Component {
                   style={[
                     {
                       flexDirection: "row", // Arrange items horizontally
-                      marginTop: 8,
+                      marginBottom: 10,
                     },
                   ]}
                 >
@@ -205,7 +224,8 @@ export default class ReservationCheckInScreen extends Component {
                       fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
-                      marginTop: screenWidth * 0.02,
+                      marginTop: 8,
+                      marginBottom: 10,
                     },
                   ]}
                 >
@@ -218,7 +238,7 @@ export default class ReservationCheckInScreen extends Component {
                       fontFamily: "LeagueSpartanMedium",
                       fontWeight: "bold", // Bold font for label
                       color: "black",
-                      marginTop: screenWidth * 0.02,
+                      marginBottom: 10,
                     },
                   ]}
                 >
@@ -355,7 +375,7 @@ export default class ReservationCheckInScreen extends Component {
                   ]}
                 >
                   <TouchableOpacity
-                    onPress={this.toggleModal}
+                    onPress={this.toggleModalClose}
                     style={[
                       {
                         position: "absolute",
@@ -442,6 +462,88 @@ export default class ReservationCheckInScreen extends Component {
                       </Text>
                     </View>
                   </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={isModalCompleteVisible}
+            >
+              <View
+                style={[
+                  {
+                    flex: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "rgba(0, 0, 0, 0)",
+                  },
+                ]}
+              >
+                <View
+                  style={[
+                    {
+                      justifyContent: "center",
+                      alignItems: "center",
+                      width: height * 0.4,
+                      height: height * 0.3,
+                      backgroundColor: "white",
+                      borderRadius: 35,
+                      elevation: 8,
+                      shadowColor: "#000",
+                      shadowOffset: { width: 0, height: 3 },
+                      shadowOpacity: 0.2,
+                      shadowRadius: 4,
+                    },
+                  ]}
+                >
+                  <TouchableOpacity
+                    onPress={this.toggleModalComplete}
+                    style={[
+                      {
+                        position: "absolute",
+                        top: 16,
+                        right: 16,
+                        zIndex: 1, // Ensure the icon is displayed above the map
+                      },
+                    ]}
+                  >
+                    <Ionicons name="close" size={32} color="orange" />
+                  </TouchableOpacity>
+                  <View
+                    style={[
+                      {
+                        padding: 16,
+                        alignItems: "center",
+                        flexDirection: "column",
+                      },
+                    ]}
+                  >
+                    <Image
+                      source={require("./picture/LogoApp.png")}
+                      style={{ width: 105, height: 55 }}
+                    />
+                    <Image
+                      source={require("./picture/check.png")}
+                      style={{ width: 50, height: 50, marginTop: 16 }}
+                    />
+
+                    <Text
+                      style={[
+                        {
+                          fontSize: 18,
+                          fontFamily: "LeagueSpartanSemiBold",
+                          fontWeight: "bold",
+                          textAlign: "center",
+                          color: "orange",
+                          marginTop: 16,
+                        },
+                      ]}
+                    >
+                      Location Verified
+                    </Text>
+                  </View>
                 </View>
               </View>
             </Modal>

@@ -160,10 +160,6 @@ export default class ReservationDetailsScreen extends Component {
                     style={[
                       {
                         marginRight: 10,
-                        backgroundColor: "#F2F2F2",
-                        paddingHorizontal: 4,
-                        paddingVertical: 2,
-                        borderRadius: 4,
                       },
                     ]}
                   >

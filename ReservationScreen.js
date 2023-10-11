@@ -78,7 +78,7 @@ export default class ReservationScreen extends Component {
       <TouchableOpacity
         onPress={() => this.handleButtonClick(buttonId)}
         style={styles.touchableButton}
-        activeOpacity={0.6} // Set the opacity when pressed
+        activeOpacity={1} // Set the opacity when pressed
       >
         <View style={buttonStyle}>
           <Text style={textStyle}>{text}</Text>
@@ -320,7 +320,6 @@ const styles = StyleSheet.create({
   buttonConfirmText: {
     fontSize: 11,
     color: 'white',
-    fontWeight: 'bold',
     textAlign: 'center',
   },
   button: {
@@ -335,7 +334,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 10,
     color: 'black',
-    fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: 'LeagueSpartan'
   },
@@ -352,7 +350,6 @@ const styles = StyleSheet.create({
   textSelected: {
     fontSize: 8,
     color: 'white',
-    fontWeight: 'bold',
     textAlign: 'center',
   },
   buttonDisabled: {
@@ -366,7 +363,6 @@ const styles = StyleSheet.create({
   buttonDisabledText: {
     fontSize: 8,
     color: 'white',
-    fontWeight: 'bold',
     textAlign: 'center',
   },
   innerBox: {
@@ -426,7 +422,6 @@ const styles = StyleSheet.create({
   textbold: {
     marginTop: 5,
     fontSize: 14,
-    fontWeight: 'bold',
     textAlign: 'left',
     fontFamily: 'LeagueSpartan'
   },

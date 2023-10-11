@@ -73,6 +73,8 @@ export default class ReservationScreen extends Component {
       LeagueSpartan: require("./ios/LeagueSpartan-Regular.ttf"),
       LeagueSpartanMedium: require("./ios/LeagueSpartan-Medium.ttf"),
       LeagueSpartanSemiBold: require("./ios/LeagueSpartan-SemiBold.ttf"),
+      IBMPlexSansThaiBold: require("./ios/IBMPlexSansThai-Bold.ttf"),
+      IBMPlexSansThaiSemiBold: require("./ios/IBMPlexSansThai-SemiBold.ttf"),
     });
 
     this.setState({ fontLoaded: true });
@@ -133,7 +135,6 @@ export default class ReservationScreen extends Component {
                   {
                     marginLeft: 20, // Add spacing between image and text
                     fontSize: 18,
-                    fontWeight: "bold",
                     fontFamily: "LeagueSpartan",
                   },
                 ]}
@@ -188,7 +189,7 @@ export default class ReservationScreen extends Component {
 
             <View>
               <CalendarStrip
-                scrollable
+                scrollable={true}
                 style={{
                   height: screenHeight * 0.13,
                   paddingTop: 10,
@@ -198,9 +199,12 @@ export default class ReservationScreen extends Component {
                 calendarAnimation={{ type: "sequence", duration: 10 }}
                 dateNumberStyle={{ color: "gray" }}
                 dateNameStyle={{ color: "gray" }}
-                highlightDateNumberStyle={{ color: "orange" }}
+                highlightDateNumberStyle={{ color: "gray",
+                textDecorationLine: "underline", // Add underline style
+                textDecorationColor: "orange", // Color of the underline
+              }}
                 //selectedDateNumberStyle ขีดเส้นใต้
-                highlightDateNameStyle={{ color: "orange" }}
+                highlightDateNameStyle={{ color: "gray" }}
                 disabledDateNameStyle={{ color: "grey" }}
                 disabledDateNumberStyle={{ color: "grey" }}
                 calendarHeaderStyle={{ color: "black" }}
@@ -404,7 +408,6 @@ const styles = StyleSheet.create({
   },
   statusText: {
     color: "black", // Color of "Status:"
-    fontWeight: "bold",
     fontFamily: "LeagueSpartan",
   },
   statusLabel: {
@@ -433,7 +436,6 @@ const styles = StyleSheet.create({
   },
   statusLabelInner: {
     color: "white", // Text color
-    fontWeight: "bold",
     fontFamily: "LeagueSpartan",
   },
   innerBox: {
@@ -481,7 +483,6 @@ const styles = StyleSheet.create({
   textbold: {
     marginTop: 10,
     fontSize: 14,
-    fontWeight: "bold",
     textAlign: "left",
     fontFamily: "LeagueSpartan",
   },

@@ -207,7 +207,6 @@ export default class ReservationRequestScreen extends Component {
                       marginRight: 10,
                       fontSize: 16,
                       fontFamily: "LeagueSpartan",
-                      fontWeight: "bold",
                       marginBottom: 10,
                     },
                   ]}
@@ -290,7 +289,6 @@ export default class ReservationRequestScreen extends Component {
                       marginRight: 10,
                       fontSize: 16,
                       fontFamily: "LeagueSpartan",
-                      fontWeight: "bold",
                       marginBottom: 10,
                     },
                   ]}
@@ -312,7 +310,6 @@ export default class ReservationRequestScreen extends Component {
                         fontSize: 18,
                         fontFamily: "LeagueSpartan",
                         marginRight: 10,
-                        fontWeight: "bold",
                       },
                     ]}
                   >
@@ -347,7 +344,6 @@ export default class ReservationRequestScreen extends Component {
                         fontSize: 18,
                         fontFamily: "LeagueSpartan",
                         marginRight: 10,
-                        fontWeight: "bold",
                       },
                     ]}
                   >
@@ -382,7 +378,6 @@ export default class ReservationRequestScreen extends Component {
                         fontSize: 18,
                         fontFamily: "LeagueSpartan",
                         marginRight: 10,
-                        fontWeight: "bold",
                       },
                     ]}
                   >
@@ -417,7 +412,6 @@ export default class ReservationRequestScreen extends Component {
                         fontSize: 18,
                         fontFamily: "LeagueSpartan",
                         marginRight: 10,
-                        fontWeight: "bold",
                       },
                     ]}
                   >
@@ -452,7 +446,6 @@ export default class ReservationRequestScreen extends Component {
                         fontSize: 18,
                         fontFamily: "LeagueSpartan",
                         marginRight: 10,
-                        fontWeight: "bold",
                       },
                     ]}
                   >
@@ -501,7 +494,6 @@ export default class ReservationRequestScreen extends Component {
                         color: "white",
                         fontSize: 16,
                         fontFamily: "LeagueSpartanSemiBold",
-                        fontWeight: "bold",
                         textAlign: "center",
                       },
                     ]}
@@ -568,8 +560,7 @@ export default class ReservationRequestScreen extends Component {
                           style={[
                             {
                               fontSize: 18,
-                              fontFamily: "LeagueSpartan",
-                              fontWeight: "bold",
+                              fontFamily: "IBMPlexSansThaiBold",
                               textAlign: "center",
                               color: "red",
                             },
@@ -580,9 +571,8 @@ export default class ReservationRequestScreen extends Component {
                         <Text
                           style={[
                             {
-                              fontSize: 16,
-                              fontFamily: "LeagueSpartan",
-                              fontWeight: "bold",
+                              fontSize: 14,
+                              fontFamily: "IBMPlexSansThaiSemiBold",
                               textAlign: "center",
                               marginTop: 16,
                             },
@@ -595,9 +585,8 @@ export default class ReservationRequestScreen extends Component {
                         <Text
                           style={[
                             {
-                              fontSize: 16,
-                              fontFamily: "LeagueSpartan",
-                              fontWeight: "bold",
+                              fontSize: 14,
+                              fontFamily: "IBMPlexSansThaiSemiBold",
                               textAlign: "center",
                               marginTop: 16,
                             },
@@ -624,8 +613,7 @@ export default class ReservationRequestScreen extends Component {
                               {
                                 color: "white",
                                 fontSize: 16,
-                                fontFamily: "LeagueSpartan",
-                                fontWeight: "bold",
+                                fontFamily: "LeagueSpartanSemiBold",
                                 textAlign: "center",
                               },
                             ]}
@@ -693,7 +681,6 @@ export default class ReservationRequestScreen extends Component {
                             {
                               fontSize: 18,
                               fontFamily: "LeagueSpartan",
-                              fontWeight: "bold",
                               textAlign: "center",
                               color: "#32ba7c",
                               marginTop: 16,
@@ -731,7 +718,6 @@ const styles = StyleSheet.create({
   formTitle: {
     fontSize: 24,
     fontFamily: "LeagueSpartanSemiBold",
-    fontWeight: "bold",
     color: "black",
     marginBottom: 10,
   },
@@ -750,7 +736,6 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontFamily: "LeagueSpartan",
-    fontWeight: "bold",
   },
   input: {
     borderWidth: 2,
