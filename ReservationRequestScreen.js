@@ -607,32 +607,33 @@ export default class ReservationRequestScreen extends Component {
                           KM5 สามารถเขียนติวได้
                           (ต้องเป็นปากกาที่สามารถลบออกได้เท่านั้น)
                         </Text>
-                      </View>
-                      <TouchableOpacity
-                        style={[
-                          {
-                            backgroundColor: "orange",
-                            padding: 16,
-                            borderRadius: 20,
-                            width: "30%",
-                          },
-                        ]}
-                        onPress={this.toggleModal}
-                      >
-                        <Text
+                        <TouchableOpacity
                           style={[
                             {
-                              color: "white",
-                              fontSize: 16,
-                              fontFamily: "LeagueSpartan",
-                              fontWeight: "bold",
-                              textAlign: "center",
+                              backgroundColor: "orange",
+                              padding: 16,
+                              borderRadius: 20,
+                              width: "30%",
+                              marginTop: 16,
                             },
                           ]}
+                          onPress={this.toggleModal}
                         >
-                          Accept
-                        </Text>
-                      </TouchableOpacity>
+                          <Text
+                            style={[
+                              {
+                                color: "white",
+                                fontSize: 16,
+                                fontFamily: "LeagueSpartan",
+                                fontWeight: "bold",
+                                textAlign: "center",
+                              },
+                            ]}
+                          >
+                            Accept
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   </View>
                 </Modal>

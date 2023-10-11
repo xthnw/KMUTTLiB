@@ -141,7 +141,8 @@ export default class ReservationDetailsScreen extends Component {
                       fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
-                      marginTop: screenWidth * 0.02,
+                      marginTop: 20,
+                      marginBottom: 10,
                     },
                   ]}
                 >
@@ -151,7 +152,7 @@ export default class ReservationDetailsScreen extends Component {
                   style={[
                     {
                       flexDirection: "row", // Arrange items horizontally
-                      marginTop: 8,
+                      marginBottom: 10,
                     },
                   ]}
                 >
@@ -207,7 +208,8 @@ export default class ReservationDetailsScreen extends Component {
                       fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
-                      marginTop: screenWidth * 0.02,
+                      marginTop: 8,
+                      marginBottom: 10,
                     },
                   ]}
                 >
@@ -220,7 +222,7 @@ export default class ReservationDetailsScreen extends Component {
                       fontFamily: "LeagueSpartanMedium",
                       fontWeight: "bold", // Bold font for label
                       color: "black",
-                      marginTop: screenWidth * 0.02,
+                      marginBottom: 20,
                     },
                   ]}
                 >
@@ -237,7 +239,7 @@ export default class ReservationDetailsScreen extends Component {
                       fontWeight: "bold",
                       alignItems: "center",
                       color: "orange",
-                      marginTop: screenWidth * 0.02,
+                      marginBottom: 10,
                     },
                   ]}
                 >
@@ -247,7 +249,7 @@ export default class ReservationDetailsScreen extends Component {
                   style={[
                     {
                       flexDirection: "row", // Arrange items horizontally
-                      marginTop: 8,
+                      marginBottom: 10,
                     },
                   ]}
                 >
@@ -256,7 +258,6 @@ export default class ReservationDetailsScreen extends Component {
                       {
                         marginRight: 10,
                         paddingHorizontal: 4,
-                        paddingVertical: 2,
                       },
                     ]}
                   >
@@ -276,6 +277,7 @@ export default class ReservationDetailsScreen extends Component {
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
                           color: "gray",
+                          marginBottom: 10,
                         },
                       ]}
                     >
@@ -289,7 +291,7 @@ export default class ReservationDetailsScreen extends Component {
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
                           fontWeight: "bold", // Bold font for lab
-                          marginTop: screenWidth * 0.01,
+                          marginBottom: 10,
                         },
                       ]}
                     >
@@ -303,7 +305,7 @@ export default class ReservationDetailsScreen extends Component {
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
                           fontWeight: "bold", // Bold font for lab
-                          marginTop: screenWidth * 0.01,
+                          marginBottom: 10,
                         },
                       ]}
                     >
@@ -317,7 +319,7 @@ export default class ReservationDetailsScreen extends Component {
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
                           fontWeight: "bold", // Bold font for lab
-                          marginTop: screenWidth * 0.01,
+                          marginBottom: 10,
                         },
                       ]}
                     >
@@ -331,7 +333,7 @@ export default class ReservationDetailsScreen extends Component {
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
                           fontWeight: "bold", // Bold font for lab
-                          marginTop: screenWidth * 0.01,
+                          marginBottom: 10,
                         },
                       ]}
                     >
@@ -345,7 +347,6 @@ export default class ReservationDetailsScreen extends Component {
                           fontSize: 14, // Adjust font size as needed
                           fontFamily: "LeagueSpartanMedium",
                           fontWeight: "bold", // Bold font for lab
-                          marginTop: screenWidth * 0.01,
                         },
                       ]}
                     >
