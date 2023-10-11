@@ -197,7 +197,8 @@ export default class ReservationScreen extends Component {
                   flex: 1,
                   flexGrow: 1,
                   backgroundColor: "white",
-                  borderRadius: 35,
+                  borderTopLeftRadius: 25, // Adjust the top-left corner radius
+                  borderTopRightRadius: 25, // Adjust the top-right corner radius
                   overflow: "hidden",
                 },
               ]}
@@ -365,60 +366,73 @@ export default class ReservationScreen extends Component {
             <View
               style={[
                 {
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor: "transparent",
-                  marginBottom: -10,
-                  padding: 10,
-                  elevation: 2,
-                  shadowColor: "#000",
-                  shadowOffset: { width: 0, height: 3 },
-                  shadowOpacity: 0.2,
-                  shadowRadius: 8,
+                  shadowColor: "black", // Adjust shadow color as needed
+                  shadowOffset: { width: 0, height: -3 }, // Adjust shadow offset for the direction you want
+                  shadowOpacity: 0.3, // Adjust shadow opacity as needed
+                  shadowRadius: 3, // Adjust shadow radius as needed
+                  elevation: 5, // For Android shadow
+                  backgroundColor: 'rgba(0,0,0,0.9)', // Make the background color transparent
                 },
               ]}
             >
-              <TouchableOpacity
+              <View
                 style={[
                   {
-                    flex: 1,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                     alignItems: "center",
+                    backgroundColor: "transparent",
+                    marginBottom: -10,
+                    padding: 10,
+                    elevation: 2,
+                    shadowColor: "#000",
+                    shadowOffset: { width: 0, height: 3 },
+                    shadowOpacity: 1,
+                    shadowRadius: 8,
                   },
                 ]}
               >
-                <Image
-                  source={require("./picture/left.png")}
-                  style={[{ width: 28, height: 27, resizeMode: "center" }]}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={this.handleCheckIn}
-                style={[
-                  {
-                    flex: 1,
-                    alignItems: "center",
-                  },
-                ]}
-              >
-                <Image
-                  source={require("./picture/mid.png")}
-                  style={[{ width: 30, height: 24, resizeMode: "center" }]}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[
-                  {
-                    flex: 1,
-                    alignItems: "center",
-                  },
-                ]}
-              >
-                <Image
-                  source={require("./picture/right.png")}
-                  style={[{ width: 23, height: 23, resizeMode: "center" }]}
-                />
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    {
+                      flex: 1,
+                      alignItems: "center",
+                    },
+                  ]}
+                >
+                  <Image
+                    source={require("./picture/left.png")}
+                    style={[{ width: 28, height: 27, resizeMode: "center" }]}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.handleCheckIn}
+                  style={[
+                    {
+                      flex: 1,
+                      alignItems: "center",
+                    },
+                  ]}
+                >
+                  <Image
+                    source={require("./picture/mid.png")}
+                    style={[{ width: 30, height: 24, resizeMode: "center" }]}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    {
+                      flex: 1,
+                      alignItems: "center",
+                    },
+                  ]}
+                >
+                  <Image
+                    source={require("./picture/right.png")}
+                    style={[{ width: 23, height: 23, resizeMode: "center" }]}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </SafeAreaView>
