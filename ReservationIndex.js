@@ -371,7 +371,7 @@ export default class ReservationScreen extends Component {
                   shadowOpacity: 0.3, // Adjust shadow opacity as needed
                   shadowRadius: 3, // Adjust shadow radius as needed
                   elevation: 5, // For Android shadow
-                  backgroundColor: 'rgba(0,0,0,0.9)', // Make the background color transparent
+                  backgroundColor: "white", // Make the background color transparent
                 },
               ]}
             >
@@ -382,13 +382,8 @@ export default class ReservationScreen extends Component {
                     justifyContent: "space-between",
                     alignItems: "center",
                     backgroundColor: "transparent",
-                    marginBottom: -10,
-                    padding: 10,
-                    elevation: 2,
-                    shadowColor: "#000",
-                    shadowOffset: { width: 0, height: 3 },
-                    shadowOpacity: 1,
-                    shadowRadius: 8,
+                    marginBottom: 4,
+                    marginTop: 4,
                   },
                 ]}
               >
@@ -400,10 +395,7 @@ export default class ReservationScreen extends Component {
                     },
                   ]}
                 >
-                  <Image
-                    source={require("./picture/left.png")}
-                    style={[{ width: 28, height: 27, resizeMode: "center" }]}
-                  />
+                  <IconM name="home" size={24} color="#f14e24" />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={this.handleCheckIn}
@@ -414,10 +406,30 @@ export default class ReservationScreen extends Component {
                     },
                   ]}
                 >
-                  <Image
-                    source={require("./picture/mid.png")}
-                    style={[{ width: 30, height: 24, resizeMode: "center" }]}
-                  />
+                  <View
+                    style={[
+                      {
+                        backgroundColor: "#f14e24",
+                        borderRadius: 40,
+                        marginTop: -40,
+                        borderColor: "white",
+                        borderWidth: 2,
+                        padding: 10,
+                        shadowColor: "black", // Adjust shadow color as needed
+                        shadowOffset: { width: 0, height: 1 }, // Adjust shadow offset for the direction you want
+                        shadowOpacity: 0.3, // Adjust shadow opacity as needed
+                        shadowRadius: 4, // Adjust shadow radius as needed
+                        elevation: 5, // For Android shadow
+                      },
+                    ]}
+                  >
+                    <IconM
+                      name="settings-input-antenna"
+                      size={32}
+                      color="white"
+                      style={[{}]}
+                    />
+                  </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[
@@ -427,10 +439,7 @@ export default class ReservationScreen extends Component {
                     },
                   ]}
                 >
-                  <Image
-                    source={require("./picture/right.png")}
-                    style={[{ width: 23, height: 23, resizeMode: "center" }]}
-                  />
+                  <IconM name="person" size={24} color="#f14e24" style={[{}]} />
                 </TouchableOpacity>
               </View>
             </View>
