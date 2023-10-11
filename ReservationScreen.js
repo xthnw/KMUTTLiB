@@ -185,11 +185,6 @@ export default class ReservationScreen extends Component {
                 </View>
                 <View style={styles.innerBox}>
                   <View style={styles.imageContainer}>
-                    <Image
-                      source={require('./picture/floor1.jpg')}
-                      style={styles.image}
-                      resizeMode="cover"
-                    />
                   </View>
                   <View style={styles.ButtonRowcontainer}>
                     {this.renderButton(1, '08:30 - 10:20')}
@@ -211,11 +206,6 @@ export default class ReservationScreen extends Component {
                 </View>
                 <View style={styles.innerBox}>
                   <View style={styles.imageContainer}>
-                    <Image
-                      source={require('./picture/floor1.jpg')}
-                      style={styles.image}
-                      resizeMode="cover"
-                    />
                   </View>
                   <View style={styles.ButtonRowcontainer}>
                     {this.renderButton(5, '08:30 - 10:20')}
@@ -237,11 +227,6 @@ export default class ReservationScreen extends Component {
                 </View>
                 <View style={styles.innerBox}>
                   <View style={styles.imageContainer}>
-                    <Image
-                      source={require('./picture/floor1.jpg')}
-                      style={styles.image}
-                      resizeMode="cover"
-                    />
                   </View>
                   <View style={styles.ButtonRowcontainer}>
                     {this.renderButton(9, '08:30 - 10:20')}
@@ -263,11 +248,6 @@ export default class ReservationScreen extends Component {
                 </View>
                 <View style={styles.innerBox}>
                   <View style={styles.imageContainer}>
-                    <Image
-                      source={require('./picture/floor1.jpg')}
-                      style={styles.image}
-                      resizeMode="cover"
-                    />
                   </View>
                   <View style={styles.ButtonRowcontainer}>
                     {this.renderButton(13, '08:30 - 10:20')}
@@ -353,8 +333,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonText: {
-    fontSize: 9,
-    color: 'gray',
+    fontSize: 10,
+    color: 'black',
     fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: 'LeagueSpartan'
@@ -404,13 +384,12 @@ const styles = StyleSheet.create({
   },
   box: {
     width: screenWidth * 0.95, // Adjust the width as needed
-    height: screenHeight * 0.15,
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'white',
     borderRadius: 15,
     padding: 8, // ขอบบนรูปกับขอบกล่อง
-    marginVertical: screenHeight * 0.02, // ความห่างของแต่ละกล่องบนล่าง
+    marginVertical: screenHeight * 0.01, // ความห่างของแต่ละกล่องบนล่าง
     backgroundColor: 'white',
     elevation: 8,
     shadowColor: '#000',
@@ -431,6 +410,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignItems: 'flex-end',
+    marginVertical: screenHeight * 0.02,
   },
   textContent: {
     alignItems: 'flex-start', // Align text to the left
@@ -445,7 +425,7 @@ const styles = StyleSheet.create({
   },
   textbold: {
     marginTop: 5,
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'left',
     fontFamily: 'LeagueSpartan'

@@ -119,10 +119,14 @@ export default class ReservationRequestScreen extends Component {
                     borderRadius: 20, // Half of the width/height to create a circle
                     backgroundColor: "white",
                     borderColor: "#e7e7e7",
-                    borderWidth: 2,
+                    borderWidth: 0.5,
                     alignItems: "center",
                     justifyContent: "center",
                     marginBottom: 10,
+                    shadowColor: "black",
+                    shadowOffset: { width: 0, height: 3 },
+                    shadowOpacity: 0.1,
+                    shadowRadius: 1,
                   },
                 ]}
               >
@@ -202,6 +206,7 @@ export default class ReservationRequestScreen extends Component {
                     {
                       marginRight: 10,
                       fontSize: 16,
+                      fontFamily: "LeagueSpartan",
                       fontWeight: "bold",
                       marginBottom: 10,
                     },
@@ -216,7 +221,7 @@ export default class ReservationRequestScreen extends Component {
                       borderWidth: 2,
                       borderColor: "#e7e7e7",
                       borderRadius: 15,
-                      backgroundColor: 'white',
+                      backgroundColor: "white",
                       padding: 10,
                       flexDirection: "row", // Add flexDirection to align icon and text horizontally
                       justifyContent: "space-between", // Add this to space out icon and text
@@ -225,7 +230,9 @@ export default class ReservationRequestScreen extends Component {
                   ]}
                   onPress={this.toggleDropdown}
                 >
-                  <Text style={{ color: "#666666" }}>
+                  <Text
+                    style={{ color: "#666666", fontFamily: "LeagueSpartan" }}
+                  >
                     {selectedOption || "Select an option"}
                   </Text>
                   <Icon name="angle-down" size={20} color="orange" />
@@ -243,6 +250,7 @@ export default class ReservationRequestScreen extends Component {
                         backgroundColor: "white",
                         overflow: "hidden",
                         height: dropdownHeight,
+                        fontFamily: "LeagueSpartan",
                       },
                     ]}
                   >
@@ -251,14 +259,24 @@ export default class ReservationRequestScreen extends Component {
                         key={index}
                         style={[
                           {
-                            padding: 10,
+                            padding: 12,
                             borderBottomWidth: 0,
                             borderBottomColor: "gray",
                           },
                         ]}
                         onPress={() => this.selectOption(option)}
                       >
-                        <Text style={[{ color: "gray" }]}>{option}</Text>
+                        <Text
+                          style={[
+                            {
+                              color: "gray",
+                              fontSize: 14,
+                              fontFamily: "LeagueSpartan",
+                            },
+                          ]}
+                        >
+                          {option}
+                        </Text>
                       </TouchableOpacity>
                     ))}
                   </View>
@@ -271,6 +289,7 @@ export default class ReservationRequestScreen extends Component {
                     {
                       marginRight: 10,
                       fontSize: 16,
+                      fontFamily: "LeagueSpartan",
                       fontWeight: "bold",
                       marginBottom: 10,
                     },
@@ -291,6 +310,7 @@ export default class ReservationRequestScreen extends Component {
                     style={[
                       {
                         fontSize: 18,
+                        fontFamily: "LeagueSpartan",
                         marginRight: 10,
                         fontWeight: "bold",
                       },
@@ -304,7 +324,7 @@ export default class ReservationRequestScreen extends Component {
                         flex: 1,
                         borderColor: "#e7e7e7",
                         borderWidth: 2,
-                        backgroundColor: 'white',
+                        backgroundColor: "white",
                         borderRadius: 15,
                         padding: 10,
                       },
@@ -325,6 +345,7 @@ export default class ReservationRequestScreen extends Component {
                     style={[
                       {
                         fontSize: 18,
+                        fontFamily: "LeagueSpartan",
                         marginRight: 10,
                         fontWeight: "bold",
                       },
@@ -338,7 +359,7 @@ export default class ReservationRequestScreen extends Component {
                         flex: 1,
                         borderColor: "#e7e7e7",
                         borderWidth: 2,
-                        backgroundColor: 'white',
+                        backgroundColor: "white",
                         borderRadius: 15,
                         padding: 10,
                       },
@@ -359,6 +380,7 @@ export default class ReservationRequestScreen extends Component {
                     style={[
                       {
                         fontSize: 18,
+                        fontFamily: "LeagueSpartan",
                         marginRight: 10,
                         fontWeight: "bold",
                       },
@@ -372,7 +394,7 @@ export default class ReservationRequestScreen extends Component {
                         flex: 1,
                         borderColor: "#e7e7e7",
                         borderWidth: 2,
-                        backgroundColor: 'white',
+                        backgroundColor: "white",
                         borderRadius: 15,
                         padding: 10,
                       },
@@ -393,6 +415,7 @@ export default class ReservationRequestScreen extends Component {
                     style={[
                       {
                         fontSize: 18,
+                        fontFamily: "LeagueSpartan",
                         marginRight: 10,
                         fontWeight: "bold",
                       },
@@ -406,7 +429,7 @@ export default class ReservationRequestScreen extends Component {
                         flex: 1,
                         borderColor: "#e7e7e7",
                         borderWidth: 2,
-                        backgroundColor: 'white',
+                        backgroundColor: "white",
                         borderRadius: 15,
                         padding: 10,
                       },
@@ -427,6 +450,7 @@ export default class ReservationRequestScreen extends Component {
                     style={[
                       {
                         fontSize: 18,
+                        fontFamily: "LeagueSpartan",
                         marginRight: 10,
                         fontWeight: "bold",
                       },
@@ -440,7 +464,7 @@ export default class ReservationRequestScreen extends Component {
                         flex: 1,
                         borderColor: "#e7e7e7",
                         borderWidth: 2,
-                        backgroundColor: 'white',
+                        backgroundColor: "white",
                         borderRadius: 15,
                         padding: 10,
                       },
@@ -476,6 +500,7 @@ export default class ReservationRequestScreen extends Component {
                       {
                         color: "white",
                         fontSize: 16,
+                        fontFamily: "LeagueSpartanSemiBold",
                         fontWeight: "bold",
                         textAlign: "center",
                       },
@@ -506,16 +531,17 @@ export default class ReservationRequestScreen extends Component {
                           justifyContent: "center",
                           alignItems: "center",
                           width: height * 0.4,
-                          height: height * 0.3,
+                          maxHeight: height * 0.4,
                           backgroundColor: "white",
                           borderRadius: 35,
                           borderWidth: 2,
-                          borderColor: '#e7e7e7',
+                          borderColor: "#e7e7e7",
                           elevation: 8,
                           shadowColor: "#000",
                           shadowOffset: { width: 0, height: 3 },
                           shadowOpacity: 0.2,
                           shadowRadius: 4,
+                          overflow: "hidden",
                         },
                       ]}
                     >
@@ -542,6 +568,7 @@ export default class ReservationRequestScreen extends Component {
                           style={[
                             {
                               fontSize: 18,
+                              fontFamily: "LeagueSpartan",
                               fontWeight: "bold",
                               textAlign: "center",
                               color: "red",
@@ -554,6 +581,7 @@ export default class ReservationRequestScreen extends Component {
                           style={[
                             {
                               fontSize: 16,
+                              fontFamily: "LeagueSpartan",
                               fontWeight: "bold",
                               textAlign: "center",
                               marginTop: 16,
@@ -568,6 +596,7 @@ export default class ReservationRequestScreen extends Component {
                           style={[
                             {
                               fontSize: 16,
+                              fontFamily: "LeagueSpartan",
                               fontWeight: "bold",
                               textAlign: "center",
                               marginTop: 16,
@@ -595,6 +624,7 @@ export default class ReservationRequestScreen extends Component {
                             {
                               color: "white",
                               fontSize: 16,
+                              fontFamily: "LeagueSpartan",
                               fontWeight: "bold",
                               textAlign: "center",
                             },
@@ -653,11 +683,15 @@ export default class ReservationRequestScreen extends Component {
                         <Ionicons name="close" size={32} color="orange" />
                       </TouchableOpacity>
                       <View style={[{ padding: 16, alignItems: "center" }]}>
-                      <Image source={require('./picture/check.png')} style={{ width: 50, height: 50 }} />
+                        <Image
+                          source={require("./picture/check.png")}
+                          style={{ width: 50, height: 50 }}
+                        />
                         <Text
                           style={[
                             {
                               fontSize: 18,
+                              fontFamily: "LeagueSpartan",
                               fontWeight: "bold",
                               textAlign: "center",
                               color: "#32ba7c",
@@ -695,6 +729,7 @@ const styles = StyleSheet.create({
   },
   formTitle: {
     fontSize: 24,
+    fontFamily: "LeagueSpartanSemiBold",
     fontWeight: "bold",
     color: "black",
     marginBottom: 10,
@@ -702,6 +737,7 @@ const styles = StyleSheet.create({
   detailsText: {
     color: "orange",
     marginBottom: 20,
+    fontFamily: "LeagueSpartanMedium",
   },
   inputRow: {
     flexDirection: "row", // Arrange inputs horizontally
@@ -712,15 +748,17 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
+    fontFamily: "LeagueSpartan",
     fontWeight: "bold",
   },
   input: {
     borderWidth: 2,
     borderColor: "#e7e7e7",
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 15,
     padding: "3%",
     fontSize: 16,
+    fontFamily: "LeagueSpartan",
     height: 40,
     width: screenWidth * 0.35,
   },

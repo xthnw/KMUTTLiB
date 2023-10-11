@@ -50,6 +50,13 @@ export default class ReservationScreen extends Component {
     this.props.navigation.navigate("Reservation");
   };
 
+  handleCheckIn = () => {
+    // Implement your logic here when a box is clicked
+    // alert(`Box ${boxNumber} clicked!`);
+    // Navigate to ReservationDetailsScreen
+    this.props.navigation.navigate("ReservationCheckIn");
+  };
+
   // Callback function to handle date selection
   handleDateSelected = (date) => {
     // Parse the date to ensure it's a Date object
@@ -64,12 +71,15 @@ export default class ReservationScreen extends Component {
   async componentDidMount() {
     await Font.loadAsync({
       LeagueSpartan: require("./ios/LeagueSpartan-Regular.ttf"),
+      LeagueSpartanMedium: require("./ios/LeagueSpartan-Medium.ttf"),
+      LeagueSpartanSemiBold: require("./ios/LeagueSpartan-SemiBold.ttf"),
     });
 
     this.setState({ fontLoaded: true });
   }
 
   render() {
+    const { navigation } = this.props;
     if (!this.state.fontLoaded) {
       return <ReservationDetailsScreen />;
     }
@@ -151,7 +161,7 @@ export default class ReservationScreen extends Component {
                     borderRadius: 15,
                     backgroundColor: "white",
                     width: screenWidth * 0.8, // Set the desired width
-                    height: screenHeight * 0.05,
+                    height: screenHeight * 0.06, // Set the desired width
                     marginTop: screenHeight * 0.05,
                     marginBottom: 10,
                     elevation: 8,
@@ -169,7 +179,7 @@ export default class ReservationScreen extends Component {
                   style={styles.icon}
                 />
                 <TextInput
-                  style={[{ fontFamily: "LeagueSpartan" }]}
+                  style={[{ fontFamily: "LeagueSpartan", fontSize: 16 }]}
                   placeholder="Search room name"
                   placeholderTextColor="gray"
                 />
@@ -350,6 +360,7 @@ export default class ReservationScreen extends Component {
             <Image source={require("./picture/left.png")} style={styles.icon} />
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={this.handleCheckIn}
             style={[
               {
                 flex: 1,
@@ -397,7 +408,7 @@ const styles = StyleSheet.create({
     fontFamily: "LeagueSpartan",
   },
   statusLabel: {
-    backgroundColor: "green", // Green background color
+    backgroundColor: "#29b95f", // Green background color
     borderRadius: 15, // Adjust the border radius as needed
     marginLeft: 5, // Add spacing between "Status:" and the green label
     paddingVertical: 5, // Add vertical padding for better appearance
@@ -405,7 +416,7 @@ const styles = StyleSheet.create({
     fontFamily: "LeagueSpartan",
   },
   statusLabelFull: {
-    backgroundColor: "gray", // Green background color
+    backgroundColor: "#979797", // Green background color
     borderRadius: 15, // Adjust the border radius as needed
     marginLeft: 5, // Add spacing between "Status:" and the green label
     paddingVertical: 5, // Add vertical padding for better appearance
@@ -413,7 +424,7 @@ const styles = StyleSheet.create({
     fontFamily: "LeagueSpartan",
   },
   statusLabelClose: {
-    backgroundColor: "red", // Green background color
+    backgroundColor: "#d10000", // Green background color
     borderRadius: 15, // Adjust the border radius as needed
     marginLeft: 5, // Add spacing between "Status:" and the green label
     paddingVertical: 5, // Add vertical padding for better appearance
@@ -446,13 +457,13 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderRadius: 15,
     padding: 8, // ขอบบนรูปกับขอบกล่อง
-    marginVertical: 10, // ความห่างของแต่ละกล่องบนล่าง
+    marginVertical: 2, // ความห่างของแต่ละกล่องบนล่าง
     backgroundColor: "white",
     elevation: 2,
-    shadowColor: "#000",
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
   },
   imageContainer: {
     alignItems: "center",
@@ -468,15 +479,16 @@ const styles = StyleSheet.create({
     alignItems: "center", // Center the image horizontally
   },
   textbold: {
-    marginTop: 5,
+    marginTop: 10,
     fontSize: 14,
     fontWeight: "bold",
     textAlign: "left",
     fontFamily: "LeagueSpartan",
   },
   description: {
+    marginTop: 5,
     fontSize: 12, // Adjust the font size as needed
-    color: "gray", // You can adjust the color
+    color: "#a1a1a1", // You can adjust the color
     textAlign: "left",
     fontFamily: "LeagueSpartan",
   },
