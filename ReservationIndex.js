@@ -167,7 +167,7 @@ export default class ReservationScreen extends Component {
                     backgroundColor: "white",
                     width: screenWidth * 0.8, // Set the desired width
                     height: screenHeight * 0.06, // Set the desired width
-                    marginTop: screenHeight * 0.1,
+                    marginTop: screenHeight * 0.025,
                     marginBottom: 20,
                     elevation: 8,
                     shadowColor: "#000",
@@ -360,6 +360,85 @@ export default class ReservationScreen extends Component {
                       </View>
                     </TouchableOpacity>
                   </View>
+
+
+
+
+
+                  <View style={styles.boxRow}>
+                    <TouchableOpacity
+                      style={styles.box}
+                      onPress={() => this.handleBoxPress(1)}
+                    >
+                      <View style={styles.innerBox}>
+                        <View style={styles.imageContainer}>
+                          <Image
+                            source={require("./picture/floor1.jpg")}
+                            style={styles.image}
+                            resizeMode="cover"
+                          />
+                        </View>
+                        <View style={styles.textContent}>
+                          <Text style={styles.textbold}>5th floor library</Text>
+                          <Text style={styles.description}>
+                            Description of Room 1st goes here
+                          </Text>
+                          <View style={[styles.statusContainer, {}]}>
+                            <Text style={styles.statusText}>Status:</Text>
+                            <View style={[styles.statusLabelFull]}>
+                              <Text style={styles.statusLabelInner}>Full</Text>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+
+                    <View style={styles.space} />
+
+                    <TouchableOpacity
+                      style={styles.box}
+                      onPress={() => this.handleBoxPress(1)}
+                    >
+                      <View style={styles.innerBox}>
+                        <View style={styles.imageContainer}>
+                          <Image
+                            source={require("./picture/floor1.jpg")}
+                            style={styles.image}
+                            resizeMode="cover"
+                          />
+                        </View>
+                        <View style={styles.textContent}>
+                          <Text style={styles.textbold}>5th floor libary</Text>
+                          <Text style={styles.description}>
+                            Description of Room 1st goes here
+                          </Text>
+                          <View style={[styles.statusContainer, {}]}>
+                            <Text style={styles.statusText}>Status:</Text>
+                            <View style={[styles.statusLabel]}>
+                              <Text style={styles.statusLabelInner}>
+                                Available
+                              </Text>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </View>
               </ScrollView>
             </View>
