@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo-google-fonts/league-spartan": "^0.2.3",
     "@expo/webpack-config": "^19.0.0",
+    "@react-navigation/bottom-tabs": "^6.5.9",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/stack": "^6.3.17",
     "deprecated-react-native-prop-types": "^4.2.1",
