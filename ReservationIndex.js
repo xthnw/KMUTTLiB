@@ -17,6 +17,7 @@ import * as Font from "expo-font";
 import ReservationDetailsScreen from "./ReservationDetailsScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -149,7 +150,6 @@ export default class ReservationScreen extends Component {
               </Text>
             </View>
 
-
             <View
               style={[
                 {
@@ -212,10 +212,8 @@ export default class ReservationScreen extends Component {
                           />
                         </View>
                         <View style={styles.textContent}>
-                          <Text style={styles.textbold}>5th floor libary</Text>
-                          <Text style={styles.description}>
-                            Description of Room 1st goes here
-                          </Text>
+                          <Text style={styles.textbold}>KM-Room 1</Text>
+                          <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
                             <Text style={styles.statusText}>Status:</Text>
                             <View style={[styles.statusLabel]}>
@@ -243,10 +241,8 @@ export default class ReservationScreen extends Component {
                           />
                         </View>
                         <View style={styles.textContent}>
-                          <Text style={styles.textbold}>5th floor libary</Text>
-                          <Text style={styles.description}>
-                            Description of Room 1st goes here
-                          </Text>
+                          <Text style={styles.textbold}>KM-Room 2</Text>
+                          <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
                             <Text style={styles.statusText}>Status:</Text>
                             <View style={[styles.statusLabelClose]}>
@@ -274,10 +270,8 @@ export default class ReservationScreen extends Component {
                           />
                         </View>
                         <View style={styles.textContent}>
-                          <Text style={styles.textbold}>5th floor library</Text>
-                          <Text style={styles.description}>
-                            Description of Room 1st goes here
-                          </Text>
+                          <Text style={styles.textbold}>KM-Room 3</Text>
+                          <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
                             <Text style={styles.statusText}>Status:</Text>
                             <View style={[styles.statusLabelFull]}>
@@ -303,10 +297,8 @@ export default class ReservationScreen extends Component {
                           />
                         </View>
                         <View style={styles.textContent}>
-                          <Text style={styles.textbold}>5th floor libary</Text>
-                          <Text style={styles.description}>
-                            Description of Room 1st goes here
-                          </Text>
+                          <Text style={styles.textbold}>KM-Room 4</Text>
+                          <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
                             <Text style={styles.statusText}>Status:</Text>
                             <View style={[styles.statusLabel]}>
@@ -319,10 +311,6 @@ export default class ReservationScreen extends Component {
                       </View>
                     </TouchableOpacity>
                   </View>
-
-
-
-
 
                   <View style={styles.boxRow}>
                     <TouchableOpacity
@@ -338,10 +326,8 @@ export default class ReservationScreen extends Component {
                           />
                         </View>
                         <View style={styles.textContent}>
-                          <Text style={styles.textbold}>5th floor library</Text>
-                          <Text style={styles.description}>
-                            Description of Room 1st goes here
-                          </Text>
+                          <Text style={styles.textbold}>KM-Room 5</Text>
+                          <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
                             <Text style={styles.statusText}>Status:</Text>
                             <View style={[styles.statusLabelFull]}>
@@ -383,21 +369,6 @@ export default class ReservationScreen extends Component {
                       </View>
                     </TouchableOpacity>
                   </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </View>
               </ScrollView>
             </View>
@@ -405,8 +376,8 @@ export default class ReservationScreen extends Component {
               style={[
                 {
                   shadowColor: "black", // Adjust shadow color as needed
-                  shadowOffset: { width: 0, height: -3 }, // Adjust shadow offset for the direction you want
-                  shadowOpacity: 0.3, // Adjust shadow opacity as needed
+                  shadowOffset: { width: 0, height: -2 }, // Adjust shadow offset for the direction you want
+                  shadowOpacity: 0.2, // Adjust shadow opacity as needed
                   shadowRadius: 3, // Adjust shadow radius as needed
                   elevation: 5, // For Android shadow
                   backgroundColor: "white", // Make the background color transparent
@@ -418,8 +389,8 @@ export default class ReservationScreen extends Component {
                   {
                     flexDirection: "row",
                     justifyContent: "space-between",
+                    borderRadius: 20,
                     alignItems: "center",
-                    backgroundColor: "transparent",
                     marginBottom: 4,
                     marginTop: 4,
                   },
@@ -433,7 +404,17 @@ export default class ReservationScreen extends Component {
                     },
                   ]}
                 >
-                  <IconM name="home" size={24} color="#f14e24" />
+                  <View
+                    style={[
+                      {
+                        backgroundColor: "#f14e24",
+                        borderRadius: 40,
+                        padding: 4,
+                      },
+                    ]}
+                  >
+                    <IconM name="home" size={24} color="white" />
+                  </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={this.handleCheckIn}
