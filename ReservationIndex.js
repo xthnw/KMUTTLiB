@@ -110,6 +110,7 @@ export default class ReservationScreen extends Component {
                   justifyContent: "flex-start",
                   marginTop: 10,
                   marginLeft: 10,
+                  marginBottom: 30,
                 },
               ]}
             >
@@ -148,48 +149,6 @@ export default class ReservationScreen extends Component {
               </Text>
             </View>
 
-            <View
-              style={[
-                {
-                  alignItems: "center",
-                },
-              ]}
-            >
-              <View
-                style={[
-                  {
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderColor: "white",
-                    borderWidth: 1,
-                    borderRadius: 15,
-                    backgroundColor: "white",
-                    width: screenWidth * 0.8, // Set the desired width
-                    height: screenHeight * 0.06, // Set the desired width
-                    marginTop: screenHeight * 0.025,
-                    marginBottom: 20,
-                    elevation: 8,
-                    shadowColor: "#000",
-                    shadowOffset: { width: 0, height: 3 },
-                    shadowOpacity: 0.2,
-                    shadowRadius: 4,
-                  },
-                ]}
-              >
-                <IconM
-                  name="search"
-                  size={24}
-                  color="gray"
-                  style={styles.icon}
-                />
-                <TextInput
-                  style={[{ fontFamily: "LeagueSpartan", fontSize: 16 }]}
-                  placeholder="Search room name"
-                  placeholderTextColor="gray"
-                />
-              </View>
-            </View>
 
             <View
               style={[
