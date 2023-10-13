@@ -109,8 +109,8 @@ export default class ReservationScreen extends Component {
                   flexDirection: "row",
                   alignItems: "center",
                   justifyContent: "flex-start",
-                  marginTop: 10,
-                  marginLeft: 10,
+                  marginTop: 20,
+                  marginLeft: 20,
                   marginBottom: 30,
                 },
               ]}
@@ -118,9 +118,9 @@ export default class ReservationScreen extends Component {
               <View
                 style={[
                   {
-                    width: 40,
-                    height: 40,
-                    borderRadius: 20,
+                    width: 60,
+                    height: 60,
+                    borderRadius: 30,
                     backgroundColor: "white",
                     shadowColor: "black",
                     shadowOffset: { width: 0, height: 3 },
@@ -200,6 +200,7 @@ export default class ReservationScreen extends Component {
                   {/* Create two boxes per row */}
                   <View style={styles.boxRow}>
                     <TouchableOpacity
+                      activeOpacity={1}
                       style={styles.box}
                       onPress={this.navigateToNextScreen}
                     >
@@ -229,6 +230,7 @@ export default class ReservationScreen extends Component {
                     <View style={styles.space} />
 
                     <TouchableOpacity
+                      activeOpacity={1}
                       style={styles.box}
                       onPress={() => this.handleBoxPress(1)}
                     >
@@ -258,6 +260,7 @@ export default class ReservationScreen extends Component {
 
                   <View style={styles.boxRow}>
                     <TouchableOpacity
+                      activeOpacity={1}
                       style={styles.box}
                       onPress={() => this.handleBoxPress(1)}
                     >
@@ -285,6 +288,7 @@ export default class ReservationScreen extends Component {
                     <View style={styles.space} />
 
                     <TouchableOpacity
+                      activeOpacity={1}
                       style={styles.box}
                       onPress={() => this.handleBoxPress(1)}
                     >
@@ -314,6 +318,7 @@ export default class ReservationScreen extends Component {
 
                   <View style={styles.boxRow}>
                     <TouchableOpacity
+                      activeOpacity={1}
                       style={styles.box}
                       onPress={() => this.handleBoxPress(1)}
                     >
@@ -341,6 +346,7 @@ export default class ReservationScreen extends Component {
                     <View style={styles.space} />
 
                     <TouchableOpacity
+                      activeOpacity={1}
                       style={styles.box}
                       onPress={() => this.handleBoxPress(1)}
                     >
