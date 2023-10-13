@@ -17,7 +17,6 @@ import * as Font from "expo-font";
 import ReservationDetailsScreen from "./ReservationDetailsScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -208,11 +207,24 @@ export default class ReservationScreen extends Component {
                         <View style={styles.imageContainer}>
                           <Image
                             source={require("./picture/floor1.jpg")}
-                            style={styles.image}
+                            style={[
+                              {
+                                width: screenWidth * 0.4, // Set the desired width
+                                height: screenHeight * 0.15, // Set the desired height
+                                borderRadius: 15,
+                                alignItems: "center", // Center the image horizontally
+                              },
+                            ]}
                             resizeMode="cover"
                           />
                         </View>
-                        <View style={styles.textContent}>
+                        <View
+                          style={[
+                            {
+                              alignItems: "flex-start", // Align text to the left
+                            },
+                          ]}
+                        >
                           <Text style={styles.textbold}>KM-Room 1</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -238,11 +250,24 @@ export default class ReservationScreen extends Component {
                         <View style={styles.imageContainer}>
                           <Image
                             source={require("./picture/floor1.jpg")}
-                            style={styles.image}
+                            style={[
+                              {
+                                width: screenWidth * 0.4, // Set the desired width
+                                height: screenHeight * 0.15, // Set the desired height
+                                borderRadius: 15,
+                                alignItems: "center", // Center the image horizontally
+                              },
+                            ]}
                             resizeMode="cover"
                           />
                         </View>
-                        <View style={styles.textContent}>
+                        <View
+                          style={[
+                            {
+                              alignItems: "flex-start",
+                            },
+                          ]}
+                        >
                           <Text style={styles.textbold}>KM-Room 2</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -268,11 +293,18 @@ export default class ReservationScreen extends Component {
                         <View style={styles.imageContainer}>
                           <Image
                             source={require("./picture/floor1.jpg")}
-                            style={styles.image}
+                            style={[
+                              {
+                                width: screenWidth * 0.4, // Set the desired width
+                                height: screenHeight * 0.15, // Set the desired height
+                                borderRadius: 15,
+                                alignItems: "center", // Center the image horizontally
+                              },
+                            ]}
                             resizeMode="cover"
                           />
                         </View>
-                        <View style={styles.textContent}>
+                        <View style={[{ alignItems: "flex-start" }]}>
                           <Text style={styles.textbold}>KM-Room 3</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -296,11 +328,18 @@ export default class ReservationScreen extends Component {
                         <View style={styles.imageContainer}>
                           <Image
                             source={require("./picture/floor1.jpg")}
-                            style={styles.image}
+                            style={[
+                              {
+                                width: screenWidth * 0.4, // Set the desired width
+                                height: screenHeight * 0.15, // Set the desired height
+                                borderRadius: 15,
+                                alignItems: "center", // Center the image horizontally
+                              },
+                            ]}
                             resizeMode="cover"
                           />
                         </View>
-                        <View style={styles.textContent}>
+                        <View style={[{ alignItems: "flex-start" }]}>
                           <Text style={styles.textbold}>KM-Room 4</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -326,11 +365,18 @@ export default class ReservationScreen extends Component {
                         <View style={styles.imageContainer}>
                           <Image
                             source={require("./picture/floor1.jpg")}
-                            style={styles.image}
+                            style={[
+                              {
+                                width: screenWidth * 0.4, // Set the desired width
+                                height: screenHeight * 0.15, // Set the desired height
+                                borderRadius: 15,
+                                alignItems: "center", // Center the image horizontally
+                              },
+                            ]}
                             resizeMode="cover"
                           />
                         </View>
-                        <View style={styles.textContent}>
+                        <View style={[{ alignItems: "flex-start" }]}>
                           <Text style={styles.textbold}>KM-Room 5</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -354,11 +400,18 @@ export default class ReservationScreen extends Component {
                         <View style={styles.imageContainer}>
                           <Image
                             source={require("./picture/floor1.jpg")}
-                            style={styles.image}
+                            style={[
+                              {
+                                width: screenWidth * 0.4, // Set the desired width
+                                height: screenHeight * 0.15, // Set the desired height
+                                borderRadius: 15,
+                                alignItems: "center", // Center the image horizontally
+                              },
+                            ]}
                             resizeMode="cover"
                           />
                         </View>
-                        <View style={styles.textContent}>
+                        <View style={[{ alignItems: "flex-start" }]}>
                           <Text style={styles.textbold}>5th floor libary</Text>
                           <Text style={styles.description}>
                             Description of Room 1st goes here
@@ -542,15 +595,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     alignItems: "center",
     justifyContent: "center",
-  },
-  textContent: {
-    alignItems: "flex-start", // Align text to the left
-  },
-  image: {
-    width: screenWidth * 0.4, // Set the desired width
-    height: screenHeight * 0.15, // Set the desired height
-    borderRadius: 15,
-    alignItems: "center", // Center the image horizontally
   },
   textbold: {
     marginTop: 10,

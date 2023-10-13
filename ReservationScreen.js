@@ -10,13 +10,15 @@ import {
   StatusBar,
   Animated,
   TextInput,
+  ScrollView,
+  Image,
 } from "react-native";
-import { ScrollView, Image } from "react-native";
 import CalendarStrip from "react-native-calendar-strip";
 import Gradient from "./Gradient"; // Import the Gradient component
 import { LinearGradient } from "expo-linear-gradient";
 import { customText } from "react-native-paper";
 import IconM from "react-native-vector-icons/MaterialIcons";
+import * as Font from "expo-font";
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -100,26 +102,6 @@ export default class ReservationScreen extends Component {
     const headerImageBackgroundWidth = screenWidth;
     const headerImageBackgroundHeight = screenHeight / 3;
     const { selectedDate } = this.state;
-
-    const { label, style } = this.props;
-    const {
-      isSelected,
-      isSelected2,
-      isSelected3,
-      isSelected4,
-      isSelected5,
-      isSelected6,
-      isSelected7,
-      isSelected8,
-      isSelected9,
-      isSelected10,
-      isSelected11,
-      isSelected12,
-      isSelected13,
-      isSelected14,
-      isSelected15,
-      isSelected16,
-    } = this.state;
 
     // Define a custom dateNumberStyle for selected dates
     const selectedDateNumberStyle = {
@@ -286,55 +268,14 @@ export default class ReservationScreen extends Component {
 const desiredMarginTop = screenHeight * 0.265; // 2% of the screen height
 
 const styles = StyleSheet.create({
-  SearchBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "white",
-    borderWidth: 1,
-    borderRadius: 15,
-    backgroundColor: "white",
-    width: screenWidth * 0.8, // Set the desired width
-    height: screenHeight * 0.05,
-    marginTop: screenHeight * 0.1,
-    elevation: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
   touchableButton: {
     borderRadius: 10,
     overflow: "hidden", // Clip the child view to fit the button's rounded corners
     // margin: 5,
   },
-  input: {
-    flex: 1,
-    padding: 10,
-    fontSize: 11,
-    fontFamily: "LeagueSpartan",
-  },
-  icon: {
-    marginLeft: 10,
-    alignItems: "center",
-  },
   ButtonRowcontainer: {
     flexDirection: "row", // Arrange buttons horizontally
     justifyContent: "space-between", // Add space between buttons
-  },
-  buttonConfirm: {
-    borderWidth: 0,
-    backgroundColor: "orange",
-    borderRadius: 10,
-    width: screenWidth * 0.2, // Set the desired width
-    height: screenHeight * 0.03,
-    marginTop: screenHeight * 0.02,
-    justifyContent: "center",
-  },
-  buttonConfirmText: {
-    fontSize: 11,
-    color: "white",
-    textAlign: "center",
   },
   button: {
     borderWidth: 1,
@@ -381,10 +322,6 @@ const styles = StyleSheet.create({
   },
   innerBox: {
     flex: 1,
-  },
-  space: {
-    width: screenWidth * 0.08, // Adjust the width to add space between boxes
-    height: screenHeight * 0.05,
   },
   boxRow: {
     flexDirection: "column", // Arrange boxes horizontally

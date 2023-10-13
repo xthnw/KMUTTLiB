@@ -36,7 +36,7 @@
     "react-native-modal": "^13.0.1",
     "react-native-paper": "^5.10.4",
     "react-native-permissions": "^3.9.3",
-    "react-native-svg": "^13.14.0",
+    "react-native-svg": "13.9.0",
     "react-native-table-component": "^1.2.2",
     "react-native-vector-icons": "^10.0.0",
     "react-native-web": "~0.19.6"
