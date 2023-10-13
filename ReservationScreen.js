@@ -40,10 +40,6 @@ export default class ReservationScreen extends Component {
       selectedButton: null, // Initially, no button is selected
     };
   }
-  componentDidMount() {
-    // Set the status bar visibility when the component mounts
-    StatusBar.setHidden(false); // Set to false to show the status bar
-  }
   handleBoxPress = (boxNumber) => {
     // Implement your logic here when a box is clicked
     // alert(`Box ${boxNumber} clicked!`);

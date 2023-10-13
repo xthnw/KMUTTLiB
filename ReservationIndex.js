@@ -38,11 +38,6 @@ export default class ReservationScreen extends Component {
       selectedDate: dateString,
     });
   };
-
-  componentDidMount() {
-    // Set the status bar visibility when the component mounts
-    StatusBar.setHidden(false); // Set to false to show the status bar
-  }
   handleBoxPress = (boxNumber) => {
     // Implement your logic here when a box is clicked
     // alert(`Box ${boxNumber} clicked!`);
@@ -99,8 +94,12 @@ export default class ReservationScreen extends Component {
         end={{ x: 1, y: 0 }} // Adjust the end point
         style={[{ flex: 1 }]}
       >
-        <StatusBar barStyle="light-content" />
         <SafeAreaView style={{ flex: 1 }}>
+          {Platform.OS === "ios" ? (
+            <StatusBar barStyle="light-content" />
+          ) : (
+            <StatusBar barStyle="dark-content" />
+          )}
           <View style={styles.container}>
             <View
               style={[

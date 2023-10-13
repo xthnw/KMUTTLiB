@@ -56,7 +56,6 @@ export default class ReservationDetailsScreen extends Component {
       isDropdownOpen: false, // Close the dropdown after selection
     });
   };
-  componentDidMount() {}
 
   handleBoxPress = (boxNumber) => {
     // Implement your logic here when a box is clicked
