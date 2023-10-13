@@ -129,13 +129,15 @@ export default class ReservationScreen extends Component {
     const calendarStripMarginTop = screenHeight * 0.12 * -1;
 
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: "white", paddingVertical: 10,}}>
-        {Platform.OS === 'ios' ? (
-        <StatusBar barStyle="dark-content" />
-      ) : (
-        <StatusBar barStyle="light-content" />
-      )}
-        
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: "white", paddingVertical: 10 }}
+      >
+        {Platform.OS === "ios" ? (
+          <StatusBar barStyle="dark-content" />
+        ) : (
+          <StatusBar barStyle="light-content" />
+        )}
+
         {/* <View style={{ flex: 1 }}></View> imangeblock */}
         <TouchableOpacity
           onPress={this.handleBackPress}
@@ -165,17 +167,6 @@ export default class ReservationScreen extends Component {
           contentContainerStyle={styles.scrollViewContainer}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.container}>
-            <View style={styles.SearchBar}>
-              <IconM name="search" size={24} color="gray" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Search room name"
-                placeholderTextColor="gray"
-              />
-            </View>
-          </View>
-
           <View style={styles.canlendar}>
             <CalendarStrip
               scrollable
@@ -206,6 +197,7 @@ export default class ReservationScreen extends Component {
             {/* Create two boxes per row */}
             <View style={styles.boxRow}>
               <TouchableOpacity
+                activeOpacity={1}
                 style={styles.box}
                 onPress={() => this.handleBoxPress(1)}
               >
@@ -225,6 +217,7 @@ export default class ReservationScreen extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
+                activeOpacity={1}
                 style={styles.box}
                 onPress={() => this.handleBoxPress(1)}
               >
@@ -244,6 +237,7 @@ export default class ReservationScreen extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
+                activeOpacity={1}
                 style={styles.box}
                 onPress={() => this.handleBoxPress(1)}
               >
@@ -263,6 +257,7 @@ export default class ReservationScreen extends Component {
               </TouchableOpacity>
 
               <TouchableOpacity
+                activeOpacity={1}
                 style={styles.box}
                 onPress={() => this.handleBoxPress(1)}
               >
