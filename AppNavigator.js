@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import ReservationScreen from './ReservationScreen';
 import ReservationIndexScreen from './ReservationIndex';
 import ReservationDetailsScreen from './ReservationDetailsScreen';
@@ -31,52 +32,50 @@ function AppNavigator() {
 theme.colors.secondaryContainer = "#ff8a00"
 
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName="Home"
-          shifting={false}
-          sceneAnimationEnabled={true}
-          activeColor="white"
-          inactiveColor="black"
-          barStyle={{ backgroundColor: 'white' }}
-        >
-          <Tab.Screen
-            name="Home"
-            component={ReservationIndexScreen}
-            options={{
-              tabBarLabel: 'Home',
-              tabBarColor: 'black',
-              tabBarIcon: ({ color }) => (
-                <Icon name="home" color={color} size={24} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Profile"
-            component={ReservationRequestScreen}
-            options={{
-              tabBarLabel: 'Reserve',
-              tabBarColor: 'black',
-              tabBarIcon: ({ color }) => (
-                <Icon name="account" color={color} size={24} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Settings"
-            component={ReservationCheckInScreen}
-            options={{
-              tabBarLabel: 'Check in',
-              tabBarColor: '#FF6F61', // Change the background color for the "Settings" tab
-              tabBarIcon: ({ color }) => (
-                <Icon name="cog" color={color} size={24} />
-              ),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="ReservationIndexScreen"
+        shifting={false}
+        sceneAnimationEnabled={true}
+        activeColor="white"
+        inactiveColor="black"
+        barStyle={{ backgroundColor: 'white' }}
+      >
+        <Tab.Screen
+          name="ReservationIndexScreen"
+          component={ReservationIndexScreen}
+          options={{
+            tabBarLabel: 'Home',
+            tabBarColor: 'black',
+            tabBarIcon: ({ color }) => (
+              <Icon name="home" color={color} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="ReservationScreen"
+          component={ReservationScreen}
+          options={{
+            tabBarLabel: 'Reserve',
+            tabBarColor: 'black',
+            tabBarIcon: ({ color }) => (
+              <Icon name="account" color={color} size={24} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="ReservationRequestScreen"
+          component={ReservationRequestScreen}
+          options={{
+            tabBarLabel: 'Check in',
+            tabBarColor: '#FF6F61', // Change the background color for the "Settings" tab
+            tabBarIcon: ({ color }) => (
+              <Icon name="cog" color={color} size={24} />
+            ),
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
 
