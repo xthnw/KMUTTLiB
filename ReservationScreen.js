@@ -340,8 +340,9 @@ export default class ReservationScreen extends Component {
           </TouchableOpacity>
           <Modal
             isVisible={isModalVisibleForm}
-            animationIn="slideInUp"
-            animationOut="slideOutDown"
+            animationIn="fadeIn"
+            animationOut="fadeOut"
+            useNativeDriverForBackdrop={true}
             onBackdropPress={this.toggleModalForm}
             style={styles.modalContainer}
           >
