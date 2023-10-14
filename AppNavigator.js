@@ -15,6 +15,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from 'react-native-paper';
+import { Iconify } from 'react-native-iconify';
 
 
 
@@ -29,15 +30,15 @@ function AppNavigator() {
   const [authenticated, setAuthenticated] = useState(true);
 
   const theme = useTheme();
-theme.colors.secondaryContainer = "#ff8a00"
+theme.colors.secondaryContainer = "transparent"
 
   return (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="ReservationIndexScreen"
-        shifting={false}
+        shifting={true}
         sceneAnimationEnabled={true}
-        activeColor="white"
+        activeColor="black"
         inactiveColor="black"
         barStyle={{ backgroundColor: 'white' }}
       >
@@ -45,11 +46,18 @@ theme.colors.secondaryContainer = "#ff8a00"
           name="ReservationIndexScreen"
           component={ReservationIndexScreen}
           options={{
+            tabBarBadge: '1',
             tabBarLabel: 'Home',
-            tabBarColor: 'black',
+            tabBarLabelStyle: {
+              fontSize: 16,  // Customize the font size
+              fontWeight: 'bold',  // Customize the font weight
+              color: 'red', // Customize the text color
+              // You can add more text styles as needed
+            },
             tabBarIcon: ({ color }) => (
-              <Icon name="home" color={color} size={24} />
+              <Iconify icon="noto:house" color={color} size={32} />
             ),
+
           }}
         />
         <Tab.Screen
@@ -57,9 +65,16 @@ theme.colors.secondaryContainer = "#ff8a00"
           component={ReservationScreen}
           options={{
             tabBarLabel: 'Reserve',
-            tabBarColor: 'black',
+            tabBarLabelStyle: {
+              fontSize: 16,  // Customize the font size
+              fontWeight: 'bold',  // Customize the font weight
+              color: 'red', // Customize the text color
+              // You can add more text styles as needed
+            },
+            tabBarBadge : true,
             tabBarIcon: ({ color }) => (
-              <Icon name="account" color={color} size={24} />
+              <Iconify icon="noto:thumbs-up-light-skin-tone" color={color} size={32} />
+
             ),
           }}
         />
@@ -67,10 +82,15 @@ theme.colors.secondaryContainer = "#ff8a00"
           name="ReservationRequestScreen"
           component={ReservationRequestScreen}
           options={{
-            tabBarLabel: 'Check in',
-            tabBarColor: '#FF6F61', // Change the background color for the "Settings" tab
+            tabBarLabel: 'My Room',
+            tabBarLabelStyle: {
+              fontSize: 16,  // Customize the font size
+              fontWeight: 'bold',  // Customize the font weight
+              color: 'red', // Customize the text color
+              // You can add more text styles as needed
+            },
             tabBarIcon: ({ color }) => (
-              <Icon name="cog" color={color} size={24} />
+              <Iconify icon="fluent-emoji-flat:man-light" color={color} size={32} />
             ),
           }}
         />
