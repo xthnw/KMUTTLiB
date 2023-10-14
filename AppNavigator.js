@@ -30,7 +30,7 @@ function AppNavigator() {
   const [authenticated, setAuthenticated] = useState(true);
 
   const theme = useTheme();
-theme.colors.secondaryContainer = "transparent"
+  theme.colors.secondaryContainer = "transparent"
 
   return (
     <NavigationContainer>
@@ -38,7 +38,7 @@ theme.colors.secondaryContainer = "transparent"
         initialRouteName="ReservationIndexScreen"
         shifting={true}
         sceneAnimationEnabled={true}
-        activeColor="black"
+        activeColor="gray"
         inactiveColor="black"
         barStyle={{ backgroundColor: 'white' }}
       >
@@ -47,13 +47,7 @@ theme.colors.secondaryContainer = "transparent"
           component={ReservationIndexScreen}
           options={{
             tabBarBadge: '1',
-            tabBarLabel: 'Home',
-            tabBarLabelStyle: {
-              fontSize: 16,  // Customize the font size
-              fontWeight: 'bold',  // Customize the font weight
-              color: 'red', // Customize the text color
-              // You can add more text styles as needed
-            },
+            tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
             tabBarIcon: ({ color }) => (
               <Iconify icon="noto:house" color={color} size={32} />
             ),
@@ -64,14 +58,8 @@ theme.colors.secondaryContainer = "transparent"
           name="ReservationScreen"
           component={ReservationScreen}
           options={{
-            tabBarLabel: 'Reserve',
-            tabBarLabelStyle: {
-              fontSize: 16,  // Customize the font size
-              fontWeight: 'bold',  // Customize the font weight
-              color: 'red', // Customize the text color
-              // You can add more text styles as needed
-            },
-            tabBarBadge : true,
+            tabBarLabel: <Text style={styles.tabBarLabel}>Reserve</Text>,
+            tabBarBadge: true,
             tabBarIcon: ({ color }) => (
               <Iconify icon="noto:thumbs-up-light-skin-tone" color={color} size={32} />
 
@@ -82,13 +70,7 @@ theme.colors.secondaryContainer = "transparent"
           name="ReservationRequestScreen"
           component={ReservationRequestScreen}
           options={{
-            tabBarLabel: 'My Room',
-            tabBarLabelStyle: {
-              fontSize: 16,  // Customize the font size
-              fontWeight: 'bold',  // Customize the font weight
-              color: 'red', // Customize the text color
-              // You can add more text styles as needed
-            },
+            tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
             tabBarIcon: ({ color }) => (
               <Iconify icon="fluent-emoji-flat:man-light" color={color} size={32} />
             ),
@@ -98,5 +80,11 @@ theme.colors.secondaryContainer = "transparent"
     </NavigationContainer>
   );
 }
-
+const styles = StyleSheet.create({
+  tabBarLabel: {
+    fontSize: 12,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+});
 export default AppNavigator;
