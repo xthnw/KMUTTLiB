@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import ReservationScreen from './ReservationScreen';
 import ReservationIndexScreen from './ReservationIndex';
 import ReservationDetailsScreen from './ReservationDetailsScreen';
@@ -8,47 +8,75 @@ import ReservationRequestScreen from './ReservationRequestScreen';
 import ReservationCheckInScreen from './ReservationCheckInScreen';
 import LoginFIFA from './LoginFIFA';
 import Welcome from './Welcome';
-
-
 import LoginScreen from './LoginScreen'; // Import the LoginScreen component
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useTheme } from 'react-native-paper';
+
+
+
+
 import PropTypes from 'deprecated-react-native-prop-types';
 
 
-const Stack = createStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 function AppNavigator() {
   // Use a state variable to track the user's authentication status
   const [authenticated, setAuthenticated] = useState(true);
 
+  const theme = useTheme();
+theme.colors.secondaryContainer = "#ff8a00"
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-      initialRouteName={authenticated ? 'ReservationIndex' : 'Login'}
-      screenOptions={{
-        headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
-        headerTintColor: 'black', // Set the text color of the header
-        headerShown: false,
-      }}
-    >
-      {authenticated ? (
-        <>
-          <Stack.Screen name="Reservation" component={ReservationScreen} options={{title: 'ModLib'}} />
-          <Stack.Screen name="ReservationIndex" component={ReservationIndexScreen} options={{title: 'Home'}} />
-          <Stack.Screen name="ReservationDetails" component={ReservationDetailsScreen} options={{title: '5th floor library', headerLeft: null}}/>
-          <Stack.Screen name="ReservationRequest" component={ReservationRequestScreen} options={{title: null, headerLeft: null}}/>
-          <Stack.Screen name="ReservationDetailsOld" component={ReservationDetailsScreenOld} options={{title: null, headerLeft: null}}/>
-          <Stack.Screen name="ReservationCheckIn" component={ReservationCheckInScreen} options={{title: null, headerLeft: null}}/>
-          <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{title: null, headerLeft: null}}/>
-          <Stack.Screen name="Welcome" component={Welcome} options={{title: null, headerLeft: null}}/>
-        </>
-      ) : (
-        <Stack.Screen name="Login">
-          {(props) => <LoginScreen {...props} setAuthenticated={setAuthenticated} />}
-        </Stack.Screen>
-      )}
-    </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <Tab.Navigator
+          initialRouteName="Home"
+          shifting={false}
+          sceneAnimationEnabled={true}
+          activeColor="white"
+          inactiveColor="black"
+          barStyle={{ backgroundColor: 'white' }}
+        >
+          <Tab.Screen
+            name="Home"
+            component={ReservationIndexScreen}
+            options={{
+              tabBarLabel: 'Home',
+              tabBarColor: 'black',
+              tabBarIcon: ({ color }) => (
+                <Icon name="home" color={color} size={24} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Profile"
+            component={ReservationRequestScreen}
+            options={{
+              tabBarLabel: 'Reserve',
+              tabBarColor: 'black',
+              tabBarIcon: ({ color }) => (
+                <Icon name="account" color={color} size={24} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name="Settings"
+            component={ReservationCheckInScreen}
+            options={{
+              tabBarLabel: 'Check in',
+              tabBarColor: '#FF6F61', // Change the background color for the "Settings" tab
+              tabBarIcon: ({ color }) => (
+                <Icon name="cog" color={color} size={24} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
 

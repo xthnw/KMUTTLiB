@@ -71,9 +71,22 @@ export default class ReservationScreen extends Component {
       IBMPlexSansThaiBold: require("./ios/IBMPlexSansThai-Bold.ttf"),
       IBMPlexSansThaiSemiBold: require("./ios/IBMPlexSansThai-SemiBold.ttf"),
     });
-
     this.setState({ fontLoaded: true });
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      StatusBar.setBarStyle('light-content');
+    });
+    this.blurListener = this.props.navigation.addListener('blur', () => {
+      StatusBar.setBarStyle('dark-content');
+    });
   }
+  
+  componentWillUnmount() {
+    this.focusListener();
+    this.blurListener();
+  }
+
+
+  
 
   render() {
     const { navigation } = this.props;
@@ -88,441 +101,367 @@ export default class ReservationScreen extends Component {
       textDecorationLine: "underline", // Add underline for selected dates
     };
     return (
+      
       <LinearGradient
         colors={["#fe4914", "#ff9f26"]} // Adjust these colors as needed
         start={{ x: 0, y: 0 }} // Adjust the start point
         end={{ x: 1, y: 0 }} // Adjust the end point
         style={[{ flex: 1 }]}
       >
-        <SafeAreaView style={{ flex: 1 }}>
-          {Platform.OS === "ios" ? (
-            <StatusBar barStyle="light-content" />
-          ) : (
-            <StatusBar barStyle="dark-content" />
-          )}
-          <View style={styles.container}>
+        {Platform.OS === 'ios' ? (
+        <StatusBar barStyle="light-content" />
+      ) : (
+        <StatusBar barStyle="dark-content" />
+      )}
+        <View style={styles.container}>
+          <View
+            style={[
+              {
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "flex-start",
+                marginTop: 60,
+                marginLeft: 20,
+                marginBottom: 60,
+              },
+            ]}
+          >
             <View
               style={[
                 {
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "flex-start",
-                  marginTop: 20,
-                  marginLeft: 20,
-                  marginBottom: 30,
-                },
-              ]}
-            >
-              <View
-                style={[
-                  {
-                    width: 60,
-                    height: 60,
-                    borderRadius: 30,
-                    backgroundColor: "white",
-                    shadowColor: "black",
-                    shadowOffset: { width: 0, height: 3 },
-                    shadowOpacity: 0.3,
-                    shadowRadius: 4,
-                    elevation: 4, // Android shadow
-                  },
-                ]}
-              >
-                {/* You can place your profile picture here */}
-                <Image
-                  source={require("./picture/profile.png")}
-                  style={{ width: "100%", height: "100%", borderRadius: 50 }}
-                />
-              </View>
-              <Text
-                style={[
-                  {
-                    marginLeft: 20, // Add spacing between image and text
-                    fontSize: 18,
-                    color: "white",
-                    fontFamily: "LeagueSpartan",
-                  },
-                ]}
-              >
-                Hi, TANATON
-              </Text>
-            </View>
-
-            <View
-              style={[
-                {
-                  flex: 1,
-                  flexGrow: 1,
+                  width: 60,
+                  height: 60,
+                  borderRadius: 30,
                   backgroundColor: "white",
-                  borderTopLeftRadius: 25, // Adjust the top-left corner radius
-                  borderTopRightRadius: 25, // Adjust the top-right corner radius
-                  overflow: "hidden",
+                  shadowColor: "black",
+                  shadowOffset: { width: 0, height: 3 },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 4,
+                  elevation: 4, // Android shadow
                 },
               ]}
             >
-              <ScrollView
-                contentContainerStyle={styles.scrollViewContainer}
-                showsVerticalScrollIndicator={false}
-              >
-                <View style={[{ flex: 1, margin: 12 }]}>
-                  <View style={[{}]}>
-                    <CalendarStrip
-                      scrollable={true}
-                      style={{
-                        height: screenHeight * 0.13,
-                        paddingTop: 10,
-                        paddingBottom: 10,
-                        fontFamily: "LeagueSpartan",
-                      }}
-                      calendarAnimation={{ type: "sequence", duration: 10 }}
-                      dateNumberStyle={{ color: "gray" }}
-                      dateNameStyle={{ color: "gray" }}
-                      highlightDateNumberStyle={{
-                        color: "gray",
-                        textDecorationLine: "underline", // Add underline style
-                        textDecorationColor: "orange", // Color of the underline
-                      }}
-                      //selectedDateNumberStyle ขีดเส้นใต้
-                      highlightDateNameStyle={{ color: "gray" }}
-                      disabledDateNameStyle={{ color: "grey" }}
-                      disabledDateNumberStyle={{ color: "grey" }}
-                      calendarHeaderStyle={{ color: "black" }}
-                      iconContainer={{ flex: 0.1 }}
-                      onDateSelected={this.handleDateSelected} // Callback for date selection
-                    />
-                    <Text style={styles.description}>
-                      Selected Date:{" "}
-                      {selectedDate ? selectedDate.toDateString() : "None"}
-                    </Text>
-                  </View>
-                  {/* Create two boxes per row */}
-                  <View style={styles.boxRow}>
-                    <TouchableOpacity
-                      activeOpacity={1}
-                      style={styles.box}
-                      onPress={this.navigateToNextScreen}
-                    >
-                      <View style={styles.innerBox}>
-                        <View style={styles.imageContainer}>
-                          <Image
-                            source={require("./picture/floor1.jpg")}
-                            style={[
-                              {
-                                width: screenWidth * 0.4, // Set the desired width
-                                height: screenHeight * 0.15, // Set the desired height
-                                borderRadius: 15,
-                                alignItems: "center", // Center the image horizontally
-                              },
-                            ]}
-                            resizeMode="cover"
-                          />
-                        </View>
-                        <View
-                          style={[
-                            {
-                              alignItems: "flex-start", // Align text to the left
-                            },
-                          ]}
-                        >
-                          <Text style={styles.textbold}>KM-Room 1</Text>
-                          <Text style={styles.description}>5th Floor</Text>
-                          <View style={[styles.statusContainer, {}]}>
-                            <Text style={styles.statusText}>Status:</Text>
-                            <View style={[styles.statusLabel]}>
-                              <Text style={styles.statusLabelInner}>
-                                Available
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-
-                    <View style={styles.space} />
-
-                    <TouchableOpacity
-                      activeOpacity={1}
-                      style={styles.box}
-                      onPress={() => this.handleBoxPress(1)}
-                    >
-                      <View style={styles.innerBox}>
-                        <View style={styles.imageContainer}>
-                          <Image
-                            source={require("./picture/floor1.jpg")}
-                            style={[
-                              {
-                                width: screenWidth * 0.4, // Set the desired width
-                                height: screenHeight * 0.15, // Set the desired height
-                                borderRadius: 15,
-                                alignItems: "center", // Center the image horizontally
-                              },
-                            ]}
-                            resizeMode="cover"
-                          />
-                        </View>
-                        <View
-                          style={[
-                            {
-                              alignItems: "flex-start",
-                            },
-                          ]}
-                        >
-                          <Text style={styles.textbold}>KM-Room 2</Text>
-                          <Text style={styles.description}>5th Floor</Text>
-                          <View style={[styles.statusContainer, {}]}>
-                            <Text style={styles.statusText}>Status:</Text>
-                            <View style={[styles.statusLabelClose]}>
-                              <Text style={styles.statusLabelInner}>
-                                Teacher
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-
-                  <View style={styles.boxRow}>
-                    <TouchableOpacity
-                      activeOpacity={1}
-                      style={styles.box}
-                      onPress={() => this.handleBoxPress(1)}
-                    >
-                      <View style={styles.innerBox}>
-                        <View style={styles.imageContainer}>
-                          <Image
-                            source={require("./picture/floor1.jpg")}
-                            style={[
-                              {
-                                width: screenWidth * 0.4, // Set the desired width
-                                height: screenHeight * 0.15, // Set the desired height
-                                borderRadius: 15,
-                                alignItems: "center", // Center the image horizontally
-                              },
-                            ]}
-                            resizeMode="cover"
-                          />
-                        </View>
-                        <View style={[{ alignItems: "flex-start" }]}>
-                          <Text style={styles.textbold}>KM-Room 3</Text>
-                          <Text style={styles.description}>5th Floor</Text>
-                          <View style={[styles.statusContainer, {}]}>
-                            <Text style={styles.statusText}>Status:</Text>
-                            <View style={[styles.statusLabelFull]}>
-                              <Text style={styles.statusLabelInner}>Full</Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-
-                    <View style={styles.space} />
-
-                    <TouchableOpacity
-                      activeOpacity={1}
-                      style={styles.box}
-                      onPress={() => this.handleBoxPress(1)}
-                    >
-                      <View style={styles.innerBox}>
-                        <View style={styles.imageContainer}>
-                          <Image
-                            source={require("./picture/floor1.jpg")}
-                            style={[
-                              {
-                                width: screenWidth * 0.4, // Set the desired width
-                                height: screenHeight * 0.15, // Set the desired height
-                                borderRadius: 15,
-                                alignItems: "center", // Center the image horizontally
-                              },
-                            ]}
-                            resizeMode="cover"
-                          />
-                        </View>
-                        <View style={[{ alignItems: "flex-start" }]}>
-                          <Text style={styles.textbold}>KM-Room 4</Text>
-                          <Text style={styles.description}>5th Floor</Text>
-                          <View style={[styles.statusContainer, {}]}>
-                            <Text style={styles.statusText}>Status:</Text>
-                            <View style={[styles.statusLabel]}>
-                              <Text style={styles.statusLabelInner}>
-                                Available
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-
-                  <View style={styles.boxRow}>
-                    <TouchableOpacity
-                      activeOpacity={1}
-                      style={styles.box}
-                      onPress={() => this.handleBoxPress(1)}
-                    >
-                      <View style={styles.innerBox}>
-                        <View style={styles.imageContainer}>
-                          <Image
-                            source={require("./picture/floor1.jpg")}
-                            style={[
-                              {
-                                width: screenWidth * 0.4, // Set the desired width
-                                height: screenHeight * 0.15, // Set the desired height
-                                borderRadius: 15,
-                                alignItems: "center", // Center the image horizontally
-                              },
-                            ]}
-                            resizeMode="cover"
-                          />
-                        </View>
-                        <View style={[{ alignItems: "flex-start" }]}>
-                          <Text style={styles.textbold}>KM-Room 5</Text>
-                          <Text style={styles.description}>5th Floor</Text>
-                          <View style={[styles.statusContainer, {}]}>
-                            <Text style={styles.statusText}>Status:</Text>
-                            <View style={[styles.statusLabelFull]}>
-                              <Text style={styles.statusLabelInner}>Full</Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-
-                    <View style={styles.space} />
-
-                    <TouchableOpacity
-                      activeOpacity={1}
-                      style={styles.box}
-                      onPress={() => this.handleBoxPress(1)}
-                    >
-                      <View style={styles.innerBox}>
-                        <View style={styles.imageContainer}>
-                          <Image
-                            source={require("./picture/floor1.jpg")}
-                            style={[
-                              {
-                                width: screenWidth * 0.4, // Set the desired width
-                                height: screenHeight * 0.15, // Set the desired height
-                                borderRadius: 15,
-                                alignItems: "center", // Center the image horizontally
-                              },
-                            ]}
-                            resizeMode="cover"
-                          />
-                        </View>
-                        <View style={[{ alignItems: "flex-start" }]}>
-                          <Text style={styles.textbold}>5th floor libary</Text>
-                          <Text style={styles.description}>
-                            Description of Room 1st goes here
-                          </Text>
-                          <View style={[styles.statusContainer, {}]}>
-                            <Text style={styles.statusText}>Status:</Text>
-                            <View style={[styles.statusLabel]}>
-                              <Text style={styles.statusLabelInner}>
-                                Available
-                              </Text>
-                            </View>
-                          </View>
-                        </View>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </ScrollView>
+              {/* You can place your profile picture here */}
+              <Image
+                source={require("./picture/profile.png")}
+                style={{ width: "100%", height: "100%", borderRadius: 50 }}
+              />
             </View>
-            <View
+            <Text
               style={[
                 {
-                  shadowColor: "black", // Adjust shadow color as needed
-                  shadowOffset: { width: 0, height: -2 }, // Adjust shadow offset for the direction you want
-                  shadowOpacity: 0.2, // Adjust shadow opacity as needed
-                  shadowRadius: 3, // Adjust shadow radius as needed
-                  elevation: 5, // For Android shadow
-                  backgroundColor: "white", // Make the background color transparent
+                  marginLeft: 20, // Add spacing between image and text
+                  fontSize: 18,
+                  color: "white",
+                  fontFamily: "LeagueSpartan",
                 },
               ]}
             >
-              <View
-                style={[
-                  {
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    borderRadius: 20,
-                    alignItems: "center",
-                    marginBottom: 4,
-                    marginTop: 4,
-                  },
-                ]}
-              >
-                <TouchableOpacity
-                  style={[
-                    {
-                      flex: 1,
-                      alignItems: "center",
-                    },
-                  ]}
-                >
-                  <View
-                    style={[
-                      {
-                        backgroundColor: "#f14e24",
-                        borderRadius: 40,
-                        padding: 4,
-                      },
-                    ]}
-                  >
-                    <IconM name="home" size={24} color="white" />
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={this.handleCheckIn}
-                  style={[
-                    {
-                      flex: 1,
-                      alignItems: "center",
-                    },
-                  ]}
-                >
-                  <View
-                    style={[
-                      {
-                        backgroundColor: "#f14e24",
-                        borderRadius: 40,
-                        marginTop: -40,
-                        borderColor: "white",
-                        borderWidth: 2,
-                        padding: 10,
-                        shadowColor: "black", // Adjust shadow color as needed
-                        shadowOffset: { width: 0, height: 1 }, // Adjust shadow offset for the direction you want
-                        shadowOpacity: 0.3, // Adjust shadow opacity as needed
-                        shadowRadius: 4, // Adjust shadow radius as needed
-                        elevation: 5, // For Android shadow
-                      },
-                    ]}
-                  >
-                    <IconM
-                      name="settings-input-antenna"
-                      size={32}
-                      color="white"
-                      style={[{}]}
-                    />
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[
-                    {
-                      flex: 1,
-                      alignItems: "center",
-                    },
-                  ]}
-                >
-                  <IconM name="person" size={24} color="#f14e24" style={[{}]} />
-                </TouchableOpacity>
-              </View>
-            </View>
+              Hi, TANATON
+            </Text>
           </View>
-        </SafeAreaView>
-      </LinearGradient>
+
+          <View
+            style={[
+              {
+                flex: 1,
+                flexGrow: 1,
+                backgroundColor: "white",
+                borderTopLeftRadius: 25, // Adjust the top-left corner radius
+                borderTopRightRadius: 25, // Adjust the top-right corner radius
+                overflow: "hidden",
+              },
+            ]}
+          >
+            <ScrollView
+              contentContainerStyle={styles.scrollViewContainer}
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={[{ flex: 1, margin: 12 }]}>
+                <View style={[{}]}>
+                  <CalendarStrip
+                    scrollable={true}
+                    style={{
+                      height: screenHeight * 0.13,
+                      paddingTop: 10,
+                      paddingBottom: 10,
+                      fontFamily: "LeagueSpartan",
+                    }}
+                    calendarAnimation={{ type: "sequence", duration: 10 }}
+                    dateNumberStyle={{ color: "gray" }}
+                    dateNameStyle={{ color: "gray" }}
+                    highlightDateNumberStyle={{
+                      color: "gray",
+                      textDecorationLine: "underline", // Add underline style
+                      textDecorationColor: "orange", // Color of the underline
+                    }}
+                    //selectedDateNumberStyle ขีดเส้นใต้
+                    highlightDateNameStyle={{ color: "gray" }}
+                    disabledDateNameStyle={{ color: "grey" }}
+                    disabledDateNumberStyle={{ color: "grey" }}
+                    calendarHeaderStyle={{ color: "black" }}
+                    iconContainer={{ flex: 0.1 }}
+                    onDateSelected={this.handleDateSelected} // Callback for date selection
+                  />
+                  <Text style={styles.description}>
+                    Selected Date:{" "}
+                    {selectedDate ? selectedDate.toDateString() : "None"}
+                  </Text>
+                </View>
+                {/* Create two boxes per row */}
+                <View style={styles.boxRow}>
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={this.navigateToNextScreen}
+                  >
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}>
+                        <Image
+                          source={require("./picture/floor1.jpg")}
+                          style={[
+                            {
+                              width: screenWidth * 0.4, // Set the desired width
+                              height: screenHeight * 0.15, // Set the desired height
+                              borderRadius: 15,
+                              alignItems: "center", // Center the image horizontally
+                            },
+                          ]}
+                          resizeMode="cover"
+                        />
+                      </View>
+                      <View
+                        style={[
+                          {
+                            alignItems: "flex-start", // Align text to the left
+                          },
+                        ]}
+                      >
+                        <Text style={styles.textbold}>KM-Room 1</Text>
+                        <Text style={styles.description}>5th Floor</Text>
+                        <View style={[styles.statusContainer, {}]}>
+                          <Text style={styles.statusText}>Status:</Text>
+                          <View style={[styles.statusLabel]}>
+                            <Text style={styles.statusLabelInner}>
+                              Available
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+
+                  <View style={styles.space} />
+
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}>
+                        <Image
+                          source={require("./picture/floor1.jpg")}
+                          style={[
+                            {
+                              width: screenWidth * 0.4, // Set the desired width
+                              height: screenHeight * 0.15, // Set the desired height
+                              borderRadius: 15,
+                              alignItems: "center", // Center the image horizontally
+                            },
+                          ]}
+                          resizeMode="cover"
+                        />
+                      </View>
+                      <View
+                        style={[
+                          {
+                            alignItems: "flex-start",
+                          },
+                        ]}
+                      >
+                        <Text style={styles.textbold}>KM-Room 2</Text>
+                        <Text style={styles.description}>5th Floor</Text>
+                        <View style={[styles.statusContainer, {}]}>
+                          <Text style={styles.statusText}>Status:</Text>
+                          <View style={[styles.statusLabelClose]}>
+                            <Text style={styles.statusLabelInner}>
+                              Teacher
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
+                <View style={styles.boxRow}>
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}>
+                        <Image
+                          source={require("./picture/floor1.jpg")}
+                          style={[
+                            {
+                              width: screenWidth * 0.4, // Set the desired width
+                              height: screenHeight * 0.15, // Set the desired height
+                              borderRadius: 15,
+                              alignItems: "center", // Center the image horizontally
+                            },
+                          ]}
+                          resizeMode="cover"
+                        />
+                      </View>
+                      <View style={[{ alignItems: "flex-start" }]}>
+                        <Text style={styles.textbold}>KM-Room 3</Text>
+                        <Text style={styles.description}>5th Floor</Text>
+                        <View style={[styles.statusContainer, {}]}>
+                          <Text style={styles.statusText}>Status:</Text>
+                          <View style={[styles.statusLabelFull]}>
+                            <Text style={styles.statusLabelInner}>Full</Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+
+                  <View style={styles.space} />
+
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}>
+                        <Image
+                          source={require("./picture/floor1.jpg")}
+                          style={[
+                            {
+                              width: screenWidth * 0.4, // Set the desired width
+                              height: screenHeight * 0.15, // Set the desired height
+                              borderRadius: 15,
+                              alignItems: "center", // Center the image horizontally
+                            },
+                          ]}
+                          resizeMode="cover"
+                        />
+                      </View>
+                      <View style={[{ alignItems: "flex-start" }]}>
+                        <Text style={styles.textbold}>KM-Room 4</Text>
+                        <Text style={styles.description}>5th Floor</Text>
+                        <View style={[styles.statusContainer, {}]}>
+                          <Text style={styles.statusText}>Status:</Text>
+                          <View style={[styles.statusLabel]}>
+                            <Text style={styles.statusLabelInner}>
+                              Available
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
+                <View style={styles.boxRow}>
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}>
+                        <Image
+                          source={require("./picture/floor1.jpg")}
+                          style={[
+                            {
+                              width: screenWidth * 0.4, // Set the desired width
+                              height: screenHeight * 0.15, // Set the desired height
+                              borderRadius: 15,
+                              alignItems: "center", // Center the image horizontally
+                            },
+                          ]}
+                          resizeMode="cover"
+                        />
+                      </View>
+                      <View style={[{ alignItems: "flex-start" }]}>
+                        <Text style={styles.textbold}>KM-Room 5</Text>
+                        <Text style={styles.description}>5th Floor</Text>
+                        <View style={[styles.statusContainer, {}]}>
+                          <Text style={styles.statusText}>Status:</Text>
+                          <View style={[styles.statusLabelFull]}>
+                            <Text style={styles.statusLabelInner}>Full</Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+
+                  <View style={styles.space} />
+
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}>
+                        <Image
+                          source={require("./picture/floor1.jpg")}
+                          style={[
+                            {
+                              width: screenWidth * 0.4, // Set the desired width
+                              height: screenHeight * 0.15, // Set the desired height
+                              borderRadius: 15,
+                              alignItems: "center", // Center the image horizontally
+                            },
+                          ]}
+                          resizeMode="cover"
+                        />
+                      </View>
+                      <View style={[{ alignItems: "flex-start" }]}>
+                        <Text style={styles.textbold}>5th floor libary</Text>
+                        <Text style={styles.description}>
+                          Description of Room 1st goes here
+                        </Text>
+                        <View style={[styles.statusContainer, {}]}>
+                          <Text style={styles.statusText}>Status:</Text>
+                          <View style={[styles.statusLabel]}>
+                            <Text style={styles.statusLabelInner}>
+                              Available
+                            </Text>
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </ScrollView>
+          </View>
+          <View style={[{ flex: 0, backgroundColor: 'black' }]}>
+            {/* Your other content here */}
+            <View style={[{
+              backgroundColor: 'white', // Background color of the shadow view (match with main container)
+              shadowColor: 'black',
+              shadowOffset: { width: 0, height: -4 },
+              shadowOpacity: 0.5,
+              shadowRadius: 4,
+              elevation: 3, // Elevation for Android (simulates shadow)
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 1, // Adjust the height of the shadow as needed
+            }]}></View>
+          </View>
+
+        </View>
+      </LinearGradient >
     );
   }
 }

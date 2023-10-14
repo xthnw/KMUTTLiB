@@ -95,11 +95,6 @@ export default class ReservationCheckInScreen extends Component {
       <SafeAreaView
         style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}
       >
-        {Platform.OS === 'ios' ? (
-        <StatusBar barStyle="dark-content" />
-      ) : (
-        <StatusBar barStyle="light-content" />
-      )}
         <View style={styles.contentContainer}>
           <ScrollView
             contentContainerStyle={styles.scrollViewContainer}
