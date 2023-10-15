@@ -1386,7 +1386,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 10,
-    maxHeight: '80%', // Maximum height set to 50% of the screen height
+    maxHeight: '60%', // Maximum height set to 50% of the screen height
     justifyContent: 'flex-start', // Align content at the top
   },
   modalText: {
