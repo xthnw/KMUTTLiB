@@ -333,161 +333,192 @@ export default class ReservationScreen extends Component {
               left: 0,
               right: 0,
               bottom: 0,
-              zIndex: 1, // Ensure it's on top of the image
+              zIndex: 0, // Ensure it's on top of the image (set 0 for shadow navbar)
             },
           ]}
         >
-          <ScrollView
-            contentContainerStyle={styles.scrollViewContainer}
-            showsVerticalScrollIndicator={false}
-          >
-            <View style={[{ flex: 1, marginTop: 12 }]}>
-              <CalendarStrip
-                scrollable
-                style={{
-                  height: screenHeight * 0.12,
-                  paddingTop: 10,
-                  paddingBottom: 10,
-                  backgroundColor: "rgba(255, 255, 255, 1)",
-                }}
-                calendarAnimation={{ type: "sequence", duration: 50 }}
-                // calendarColor={'#fff'}
-                dateNumberStyle={{ color: "gray" }}
-                dateNameStyle={{ color: "gray" }}
-                highlightDateNumberStyle={{
-                  color: "black",
-                  textDecorationLine: "underline", // Add underline style
-                  textDecorationColor: "orange", // Color of the underline
-                }}
-                //selectedDateNumberStyle ขีดเส้นใต้
-                highlightDateNameStyle={{ color: "black" }}
-                disabledDateNameStyle={{ color: "grey" }}
-                disabledDateNumberStyle={{ color: "grey" }}
-                calendarHeaderStyle={{ color: "black" }}
-                iconContainer={{ flex: 0.1 }}
-                selectedDate={this.state.selectedDate}
-                onDateSelected={this.handleDateSelected} // Callback for date selection
-              />
-              <Text style={[{
-                marginTop: 12,
-                marginLeft: 12,
-                fontSize: 12, // Adjust the font size as needed
-                color: "#a1a1a1", // You can adjust the color
-                textAlign: "left",
+
+          <View style={[{ flex: 0, marginTop: 12 }]}>
+            <CalendarStrip
+              scrollable={true}
+              style={{
+                height: screenHeight * 0.13,
+                paddingTop: 10,
+                paddingBottom: 10,
                 fontFamily: "LeagueSpartan",
-              }]}>
-                Selected Date:{" "}
-                {selectedDate ? selectedDate.toDateString() : "None"}
-              </Text>
-            </View>
-            {/* <Text style={styles.description} >Selected Date: {selectedDate ? selectedDate.toDateString() : 'None'}</Text> */}
+              }}
+              calendarAnimation={{ type: "sequence", duration: 10 }}
+              dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
+              dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
+              highlightDateNumberStyle={{
+                color: "black",
+                textDecorationLine: "underline", // Add underline style
+                textDecorationColor: "orange", // Color of the underline
+                fontFamily: 'LeagueSpartanMedium',
+              }}
+              // selectedDateNumberStyle ขีดเส้นใต้
+              highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
+              disabledDateNameStyle={{ color: "grey" }}
+              disabledDateNumberStyle={{ color: "grey" }}
+              calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium' }}
+              iconContainer={{ flex: 0.1 }}
+              onDateSelected={this.handleDateSelected} // Callback for date selection
+            />
+            <Text style={[{
+              marginBottom: 12,
+              marginLeft: 12,
+              fontSize: 12, // Adjust the font size as needed
+              color: "#a1a1a1", // You can adjust the color
+              textAlign: "left",
+              fontFamily: "LeagueSpartan",
+            }]}>
+              Selected Date:{" "}
+              {selectedDate ? selectedDate.toDateString() : "None"}
+            </Text>
+          </View>
+          {/* <Text style={styles.description} >Selected Date: {selectedDate ? selectedDate.toDateString() : 'None'}</Text> */}
 
-            <View style={styles.contentContainer}>
-              {/* Create two boxes per row */}
-              <View style={styles.boxRow}>
-                <TouchableOpacity
-                  activeOpacity={1}
-                  style={styles.box}
-                  onPress={() => this.handleBoxPress(1)}
-                >
-                  <View style={styles.textContent}>
-                    <Text style={styles.textbold}>KM-Room 1</Text>
-                    {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
-                  </View>
-                  <View style={styles.innerBox}>
-                    <View style={styles.imageContainer}></View>
-                    <View style={styles.ButtonRowcontainer}>
-                      {this.renderButton(1, "08:30 - 10:20", true)}
-                      {this.renderButton(2, "10:30 - 12:20")}
-                      {this.renderButton(3, "12:30 - 14:20")}
-                      {this.renderButton(4, "14:30 - 16:20")}
+          <View style={[{
+            flex: 0,
+            zIndex: 1,
+          }]}>
+            <View style={[{
+              width: screenWidth,
+              height: 1,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              position: 'absolute',
+              backgroundColor: 'white',
+              elevation: 3, // Adjust the elevation value for the shadow
+              shadowColor: 'gray',
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.8,
+              shadowRadius: 5,
+            }]}></View>
+          </View>
+
+          <View
+            style={[
+              {
+                flex: 1,
+                flexGrow: 1,
+                backgroundColor: "white",
+                overflow: "hidden",
+              },
+            ]}
+          >
+            <ScrollView
+              contentContainerStyle={styles.scrollViewContainer}
+              showsVerticalScrollIndicator={false}
+            >
+              <View style={styles.contentContainer}>
+                {/* Create two boxes per row */}
+                <View style={styles.boxRow}>
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.textContent}>
+                      <Text style={styles.textbold}>KM-Room 1</Text>
+                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
                     </View>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  activeOpacity={1}
-                  style={styles.box}
-                  onPress={() => this.handleBoxPress(1)}
-                >
-                  <View style={styles.textContent}>
-                    <Text style={styles.textbold}>KM-Room 2</Text>
-                    {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
-                  </View>
-                  <View style={styles.innerBox}>
-                    <View style={styles.imageContainer}></View>
-                    <View style={styles.ButtonRowcontainer}>
-                      {this.renderButton(5, "08:30 - 10:20")}
-                      {this.renderButton(6, "10:30 - 12:20")}
-                      {this.renderButton(7, "12:30 - 14:20")}
-                      {this.renderButton(8, "14:30 - 16:20")}
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}></View>
+                      <View style={styles.ButtonRowcontainer}>
+                        {this.renderButton(1, "08:30 - 10:20", true)}
+                        {this.renderButton(2, "10:30 - 12:20")}
+                        {this.renderButton(3, "12:30 - 14:20")}
+                        {this.renderButton(4, "14:30 - 16:20")}
+                      </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
+                  </TouchableOpacity>
 
-                <TouchableOpacity
-                  activeOpacity={1}
-                  style={styles.box}
-                  onPress={() => this.handleBoxPress(1)}
-                >
-                  <View style={styles.textContent}>
-                    <Text style={styles.textbold}>KM-Room 3</Text>
-                    {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
-                  </View>
-                  <View style={styles.innerBox}>
-                    <View style={styles.imageContainer}></View>
-                    <View style={styles.ButtonRowcontainer}>
-                      {this.renderButton(9, "08:30 - 10:20", true)}
-                      {this.renderButton(10, "10:30 - 12:20", true)}
-                      {this.renderButton(11, "12:30 - 14:20")}
-                      {this.renderButton(12, "14:30 - 16:20")}
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.textContent}>
+                      <Text style={styles.textbold}>KM-Room 2</Text>
+                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
                     </View>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  activeOpacity={1}
-                  style={styles.box}
-                  onPress={() => this.handleBoxPress(1)}
-                >
-                  <View style={styles.textContent}>
-                    <Text style={styles.textbold}>KM-Room 4</Text>
-                    {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
-                  </View>
-                  <View style={styles.innerBox}>
-                    <View style={styles.imageContainer}></View>
-                    <View style={styles.ButtonRowcontainer}>
-                      {this.renderButton(13, "08:30 - 10:20")}
-                      {this.renderButton(14, "10:30 - 12:20")}
-                      {this.renderButton(15, "12:30 - 14:20", true)}
-                      {this.renderButton(16, "14:30 - 16:20")}
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}></View>
+                      <View style={styles.ButtonRowcontainer}>
+                        {this.renderButton(5, "08:30 - 10:20")}
+                        {this.renderButton(6, "10:30 - 12:20")}
+                        {this.renderButton(7, "12:30 - 14:20")}
+                        {this.renderButton(8, "14:30 - 16:20")}
+                      </View>
                     </View>
-                  </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  activeOpacity={1}
-                  style={styles.box}
-                  onPress={() => this.handleBoxPress(1)}
-                >
-                  <View style={styles.textContent}>
-                    <Text style={styles.textbold}>KM-Room 5</Text>
-                    {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
-                  </View>
-                  <View style={styles.innerBox}>
-                    <View style={styles.imageContainer}></View>
-                    <View style={styles.ButtonRowcontainer}>
-                      {this.renderButton(17, "08:30 - 10:20")}
-                      {this.renderButton(18, "10:30 - 12:20", true)}
-                      {this.renderButton(19, "12:30 - 14:20")}
-                      {this.renderButton(20, "14:30 - 16:20", true)}
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.textContent}>
+                      <Text style={styles.textbold}>KM-Room 3</Text>
+                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
                     </View>
-                  </View>
-                </TouchableOpacity>
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}></View>
+                      <View style={styles.ButtonRowcontainer}>
+                        {this.renderButton(9, "08:30 - 10:20", true)}
+                        {this.renderButton(10, "10:30 - 12:20", true)}
+                        {this.renderButton(11, "12:30 - 14:20")}
+                        {this.renderButton(12, "14:30 - 16:20")}
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.textContent}>
+                      <Text style={styles.textbold}>KM-Room 4</Text>
+                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
+                    </View>
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}></View>
+                      <View style={styles.ButtonRowcontainer}>
+                        {this.renderButton(13, "08:30 - 10:20")}
+                        {this.renderButton(14, "10:30 - 12:20")}
+                        {this.renderButton(15, "12:30 - 14:20", true)}
+                        {this.renderButton(16, "14:30 - 16:20")}
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    activeOpacity={1}
+                    style={styles.box}
+                    onPress={() => this.handleBoxPress(1)}
+                  >
+                    <View style={styles.textContent}>
+                      <Text style={styles.textbold}>KM-Room 5</Text>
+                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
+                    </View>
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}></View>
+                      <View style={styles.ButtonRowcontainer}>
+                        {this.renderButton(17, "08:30 - 10:20")}
+                        {this.renderButton(18, "10:30 - 12:20", true)}
+                        {this.renderButton(19, "12:30 - 14:20")}
+                        {this.renderButton(20, "14:30 - 16:20", true)}
+                      </View>
+                    </View>
+                  </TouchableOpacity>
 
 
+                </View>
               </View>
-            </View>
-          </ScrollView>
+            </ScrollView>
+          </View>
         </View>
         <View style={[{ flex: 0, backgroundColor: 'black' }]}>
           {/* Your other content here */}
@@ -578,8 +609,8 @@ export default class ReservationScreen extends Component {
                     <TextInput
                       style={styles.input}
                       placeholder="Bachelor"
-                      onChangeText={(text) => this.setState({ studentID: text })}
-                      value={this.state.studentID}
+                      onChangeText={(text) => this.setState({ Service: text })}
+                      value={this.state.Service}
                     />
                   </View>
 
@@ -588,8 +619,8 @@ export default class ReservationScreen extends Component {
                     <TextInput
                       style={styles.input}
                       placeholder="Computer Engineering"
-                      onChangeText={(text) => this.setState({ name: text })}
-                      value={this.state.name}
+                      onChangeText={(text) => this.setState({ Department: text })}
+                      value={this.state.Department}
                     />
                   </View>
                 </View>

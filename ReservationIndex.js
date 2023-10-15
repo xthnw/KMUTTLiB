@@ -187,7 +187,7 @@ export default class ReservationScreen extends Component {
               showsVerticalScrollIndicator={false}
             >
               <View style={[{ flex: 1, margin: 12 }]}>
-                <View style={[{ flex: 1}]}>
+                <View style={[{ flex: 1 }]}>
                   <CalendarStrip
                     scrollable={true}
                     style={{
@@ -197,18 +197,19 @@ export default class ReservationScreen extends Component {
                       fontFamily: "LeagueSpartan",
                     }}
                     calendarAnimation={{ type: "sequence", duration: 10 }}
-                    dateNumberStyle={{ color: "gray" }}
-                    dateNameStyle={{ color: "gray" }}
+                    dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
+                    dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
                     highlightDateNumberStyle={{
-                      color: "gray",
+                      color: "black",
                       textDecorationLine: "underline", // Add underline style
                       textDecorationColor: "orange", // Color of the underline
+                      fontFamily: 'LeagueSpartanMedium',
                     }}
                     //selectedDateNumberStyle ขีดเส้นใต้
-                    highlightDateNameStyle={{ color: "gray" }}
+                    highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
                     disabledDateNameStyle={{ color: "grey" }}
                     disabledDateNumberStyle={{ color: "grey" }}
-                    calendarHeaderStyle={{ color: "black" }}
+                    calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium' }}
                     iconContainer={{ flex: 0.1 }}
                     onDateSelected={this.handleDateSelected} // Callback for date selection
                   />

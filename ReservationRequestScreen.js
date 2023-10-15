@@ -176,8 +176,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="Bachelor"
-                    onChangeText={(text) => this.setState({ studentID: text })}
-                    value={this.state.studentID}
+                    onChangeText={(text) => this.setState({ Service: text })}
+                    value={this.state.Service}
                   />
                 </View>
 
@@ -186,8 +186,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="Computer Engineering"
-                    onChangeText={(text) => this.setState({ name: text })}
-                    value={this.state.name}
+                    onChangeText={(text) => this.setState({ Department: text })}
+                    value={this.state.Department}
                   />
                 </View>
               </View>
