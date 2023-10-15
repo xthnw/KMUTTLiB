@@ -13,6 +13,7 @@ import {
   Image,
   Easing,
   TouchableWithoutFeedback,
+  ImageBackground,
 } from "react-native";
 import CalendarStrip from "react-native-calendar-strip";
 import IconM from "react-native-vector-icons/MaterialIcons";
@@ -20,12 +21,19 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import { Ionicons } from "@expo/vector-icons";
 import { Iconify } from 'react-native-iconify';
 import Modal from 'react-native-modal';
+import { LinearGradient } from "expo-linear-gradient";
 
 import * as Font from "expo-font";
 
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
+
+const images = [
+  require('./picture/kmuttlib1.jpg'),
+  require('./picture/kmuttlib2.jpg'),
+  require('./picture/kmuttlib3.jpg'),
+];
 
 const { width, height } = Dimensions.get("window");
 
@@ -48,6 +56,9 @@ export default class ReservationScreen extends Component {
       isModalCompleteVisible: false,
 
 
+      activeImageIndex: 0, //for header image background
+
+
 
     };
     this.inputBoxRef = React.createRef();
@@ -55,7 +66,38 @@ export default class ReservationScreen extends Component {
     for (let i = 1; i <= 20; i++) {
       this.buttonScaleValues[i] = new Animated.Value(1);
     }
+    this.scrollViewRef = React.createRef(); //for header image background
   }
+
+  componentDidMount() {
+    this.startAutoSlide();
+  }
+
+  componentWillUnmount() {
+    this.stopAutoSlide();
+  }
+
+  startAutoSlide = () => {
+    this.timer = setInterval(() => {
+      this.scrollToNextImage();
+    }, 3000); // Change image every 3 seconds
+  };
+
+  stopAutoSlide = () => {
+    clearInterval(this.timer);
+  };
+
+  scrollToNextImage = () => {
+    const { activeImageIndex } = this.state;
+    const nextIndex = (activeImageIndex + 1) % images.length;
+
+    this.setState({ activeImageIndex: nextIndex }, () => {
+      this.scrollViewRef.current.scrollTo({
+        x: screenWidth * nextIndex,
+        animated: true,
+      });
+    });
+  };
 
   toggleModalFull = () => {
     this.setState({
@@ -146,7 +188,24 @@ export default class ReservationScreen extends Component {
     const buttonFunctions = {
       1: this.toggleModalFull,
       2: this.toggleModalForm,
-      3: this.handleCheckInPress,
+      3: this.toggleModalForm,
+      4: this.toggleModalForm,
+      5: this.toggleModalForm,
+      6: this.toggleModalForm,
+      7: this.toggleModalForm,
+      8: this.toggleModalForm,
+      9: this.toggleModalFull,
+      10: this.toggleModalFull,
+      11: this.toggleModalForm,
+      12: this.toggleModalForm,
+      13: this.toggleModalForm,
+      14: this.toggleModalForm,
+      15: this.toggleModalFull,
+      16: this.toggleModalForm,
+      17: this.toggleModalForm,
+      18: this.toggleModalFull,
+      19: this.toggleModalForm,
+      20: this.toggleModalFull,
       // Add more button IDs and functions as needed
     };
 
@@ -224,49 +283,57 @@ export default class ReservationScreen extends Component {
 
 
 
-      <View style={[{ marginTop: 60, flex: 1, flexGrow: 1, }]}>
+      <View style={[{ marginTop: 0, flex: 1, flexGrow: 1, }]}>
         {Platform.OS === "ios" ? (
           <StatusBar barStyle="dark-content" />
         ) : (
           <StatusBar barStyle="light-content" />
         )}
 
-        {/* <View style={{ flex: 1 }}></View> imangeblock */}
-        <TouchableOpacity
-          onPress={this.handleBackPress}
-          style={{ paddingLeft: 20 }}
-        >
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "white",
-              borderColor: "#dadada",
-              borderWidth: 0.5,
-              shadowColor: "black",
-              shadowOffset: { width: 0, height: 3 },
-              shadowOpacity: 0.1,
-              shadowRadius: 1,
+
+        <View style={{ flex: 1 }}>
+          <ScrollView
+            ref={this.scrollViewRef}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={(event) => {
+              const offset = event.nativeEvent.contentOffset.x;
+              const index = Math.floor(offset / screenWidth);
+              this.setState({ activeImageIndex: index });
             }}
           >
-            <IconM name="keyboard-arrow-left" size={40} color="orange" />
-          </View>
-        </TouchableOpacity>
+            {images.map((image, index) => (
+              <ImageBackground
+                key={index}
+                source={image}
+                style={styles.headerImageBackground}>
+                <LinearGradient
+                  colors={['transparent', 'rgba(0,0,0,0.6)']}
+                  style={styles.gradient}
+                >
+                </LinearGradient>
+              </ImageBackground>
+            ))}
+          </ScrollView>
+        </View>
+        {/* <arrow-left block */}
 
 
         <View
           style={[
             {
               flex: 1,
-              flexGrow: 1,
               backgroundColor: "white",
               borderTopLeftRadius: 25, // Adjust the top-left corner radius
               borderTopRightRadius: 25, // Adjust the top-right corner radius
               overflow: "hidden",
-              marginTop: 60,
+              position: 'absolute',
+              top: screenHeight / 4, // Adjust the top position to control the overlap
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 1, // Ensure it's on top of the image
             },
           ]}
         >
@@ -370,8 +437,8 @@ export default class ReservationScreen extends Component {
                   <View style={styles.innerBox}>
                     <View style={styles.imageContainer}></View>
                     <View style={styles.ButtonRowcontainer}>
-                      {this.renderButton(9, "08:30 - 10:20")}
-                      {this.renderButton(10, "10:30 - 12:20")}
+                      {this.renderButton(9, "08:30 - 10:20", true)}
+                      {this.renderButton(10, "10:30 - 12:20", true)}
                       {this.renderButton(11, "12:30 - 14:20")}
                       {this.renderButton(12, "14:30 - 16:20")}
                     </View>
@@ -392,7 +459,7 @@ export default class ReservationScreen extends Component {
                     <View style={styles.ButtonRowcontainer}>
                       {this.renderButton(13, "08:30 - 10:20")}
                       {this.renderButton(14, "10:30 - 12:20")}
-                      {this.renderButton(15, "12:30 - 14:20")}
+                      {this.renderButton(15, "12:30 - 14:20", true)}
                       {this.renderButton(16, "14:30 - 16:20")}
                     </View>
                   </View>
@@ -410,9 +477,9 @@ export default class ReservationScreen extends Component {
                     <View style={styles.imageContainer}></View>
                     <View style={styles.ButtonRowcontainer}>
                       {this.renderButton(17, "08:30 - 10:20")}
-                      {this.renderButton(18, "10:30 - 12:20")}
+                      {this.renderButton(18, "10:30 - 12:20", true)}
                       {this.renderButton(19, "12:30 - 14:20")}
-                      {this.renderButton(20, "14:30 - 16:20")}
+                      {this.renderButton(20, "14:30 - 16:20", true)}
                     </View>
                   </View>
                 </TouchableOpacity>
@@ -1464,10 +1531,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerImageBackground: {
-    width: "100%", // Adjust the width as needed
-    height: screenHeight / 3,
-    position: "absolute", // Position the image behind other components
+    height: screenHeight / 3.5,
     resizeMode: "cover", // Adjust as needed
+    width: screenWidth
   },
   headerContainer: {
     zIndex: 1, // Place the header container above the image
