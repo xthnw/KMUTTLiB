@@ -22,8 +22,62 @@ import { Iconify } from 'react-native-iconify';
 
 import PropTypes from 'deprecated-react-native-prop-types';
 
-
+const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
+
+
+function MainNavigator() {
+  return (
+    <Tab.Navigator
+      initialRouteName="ReservationIndexScreen"
+      shifting={true}
+      sceneAnimationEnabled={true}
+      activeColor="gray"
+      inactiveColor="black"
+      barStyle={{ backgroundColor: 'white' }}
+    >
+      <Tab.Screen
+        name="ReservationIndexScreen"
+        component={ReservationIndexScreen}
+        options={{
+          tabBarBadge: '1',
+          tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
+          tabBarIcon: ({ color }) => (
+            <Iconify icon="noto:house" color={color} size={32} />
+          ),
+
+        }}
+      />
+      <Tab.Screen
+        name="ReservationScreen"
+        component={ReservationScreen}
+        options={{
+          tabBarLabel: <Text style={styles.tabBarLabel}>Reserve</Text>,
+          tabBarBadge: true,
+          tabBarIcon: ({ color }) => (
+            <Iconify icon="noto:thumbs-up-light-skin-tone" color={color} size={32} />
+
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ReservationRequestScreen"
+        component={ReservationRequestScreen}
+        options={{
+          tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
+          tabBarIcon: ({ color }) => (
+            <Iconify icon="fluent-emoji-flat:man-light" color={color} size={32} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+
+
+
+
 
 function AppNavigator() {
   // Use a state variable to track the user's authentication status
@@ -34,49 +88,27 @@ function AppNavigator() {
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="ReservationIndexScreen"
-        shifting={true}
-        sceneAnimationEnabled={true}
-        activeColor="gray"
-        inactiveColor="black"
-        barStyle={{ backgroundColor: 'white' }}
-      >
-        <Tab.Screen
-          name="ReservationIndexScreen"
-          component={ReservationIndexScreen}
-          options={{
-            tabBarBadge: '1',
-            tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
-            tabBarIcon: ({ color }) => (
-              <Iconify icon="noto:house" color={color} size={32} />
-            ),
-
-          }}
-        />
-        <Tab.Screen
-          name="ReservationScreen"
-          component={ReservationScreen}
-          options={{
-            tabBarLabel: <Text style={styles.tabBarLabel}>Reserve</Text>,
-            tabBarBadge: true,
-            tabBarIcon: ({ color }) => (
-              <Iconify icon="noto:thumbs-up-light-skin-tone" color={color} size={32} />
-
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ReservationRequestScreen"
-          component={ReservationRequestScreen}
-          options={{
-            tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
-            tabBarIcon: ({ color }) => (
-              <Iconify icon="fluent-emoji-flat:man-light" color={color} size={32} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      <Stack.Navigator
+        initialRouteName={authenticated ? 'ReservationIndexScreen' : 'LoginFIFA'}
+        screenOptions={{
+          headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
+          headerTintColor: 'black', // Set the text color of the header
+          headerShown: false,
+        }}>
+        {authenticated ? (
+          <>
+            <Stack.Screen name="Main" component={MainNavigator} options={{title: null, headerLeft: null}} />
+            <Stack.Screen name="ReservationCheckInScreen" component={ReservationCheckInScreen} options={{title: null, headerLeft: null}} />
+            <Stack.Screen name="ReservationDetailsScreen" component={ReservationDetailsScreen} options={{title: null, headerLeft: null}} />
+            <Stack.Screen name="Welcome" component={Welcome} options={{title: null, headerLeft: null}} />
+            <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{title: null, headerLeft: null}} />
+          </>
+        ) : (
+          <Stack.Screen name="LoginFIFA">
+            {(props) => <LoginFIFA {...props} setAuthenticated={setAuthenticated} />}
+          </Stack.Screen>
+        )}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

@@ -20,6 +20,8 @@ import { customText } from "react-native-paper";
 import IconM from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Ionicons } from "@expo/vector-icons";
+import { Iconify } from 'react-native-iconify';
+
 
 import * as Font from "expo-font";
 import { useNavigation } from "@react-navigation/native";
@@ -49,6 +51,7 @@ export default class ReservationScreen extends Component {
 
 
       isModalVisibleForm: false,
+      isModalVisibleFull: false,
       isModalVisible: false,
       isDropdownOpen: false,
       selectedOption: "",
@@ -56,7 +59,13 @@ export default class ReservationScreen extends Component {
     };
     this.inputBoxRef = React.createRef();
   }
-  
+
+  toggleModalFull = () => {
+    this.setState({
+      isModalVisibleFull: !this.state.isModalVisibleFull,
+    });
+  };
+
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible }, () => {
       // After the modal state is updated, check if it's closed
@@ -92,7 +101,9 @@ export default class ReservationScreen extends Component {
   };
 
 
-
+  handleCheckInPress = () => {
+    this.props.navigation.navigate('ReservationCheckInScreen');
+  };
 
 
 
@@ -138,11 +149,22 @@ export default class ReservationScreen extends Component {
       ? { ...styles.textSelected }
       : { ...styles.buttonText };
 
+    // Define a mapping of button IDs to corresponding functions
+    const buttonFunctions = {
+      1: this.toggleModalForm,
+      2: this.toggleModalFull,
+      3: this.handleCheckInPress,
+      // Add more button IDs and functions as needed
+    };
+
+    // Determine the onPress function based on the buttonId
+    const onPressFunction = buttonFunctions[buttonId];
+
     return (
       <TouchableOpacity
-        onPress={this.toggleModalForm}
+        onPress={onPressFunction} // Call the appropriate function based on the buttonId
         style={styles.touchableButton}
-        activeOpacity={1} // Set the opacity when pressed
+        activeOpacity={1}
       >
         <View style={buttonStyle}>
           <Text style={textStyle}>{text}</Text>
@@ -161,6 +183,7 @@ export default class ReservationScreen extends Component {
     const { isModalVisibleForm } = this.state;
     const { isModalVisible } = this.state;
     const { isModalCompleteVisible } = this.state;
+    const { isModalVisibleFull } = this.state;
     const { selectedOption, isDropdownOpen } = this.state;
     const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
     const dropdownHeight = isDropdownOpen ? options.length * 40 : 0;
@@ -697,232 +720,241 @@ export default class ReservationScreen extends Component {
                     </View>
                   </View>
                   <View
-                style={[
-                  {
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginBottom: '70%',
-                  },
-                ]}
-              >
-                {/* Other content goes here */}
-                <TouchableOpacity
-                  style={[
-                    {
-                      backgroundColor: "orange",
-                      padding: 16,
-                      borderRadius: 15,
-                      width: "80%",
-                    },
-                  ]}
-                  onPress={this.toggleModal}
-                >
-                  <Text
-                    style={[
-                      {
-                        color: "white",
-                        fontSize: 16,
-                        fontFamily: "LeagueSpartanSemiBold",
-                        textAlign: "center",
-                      },
-                    ]}
-                  >
-                    Submit
-                  </Text>
-                </TouchableOpacity>
-
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={isModalVisible}
-                >
-                  <View
                     style={[
                       {
                         flex: 1,
                         justifyContent: "center",
                         alignItems: "center",
-                        backgroundColor: "rgba(0, 0, 0, 0)",
+                        marginBottom: '70%',
                       },
                     ]}
                   >
-                    <View
+                    {/* Other content goes here */}
+                    <TouchableOpacity
                       style={[
                         {
-                          justifyContent: "center",
-                          alignItems: "center",
-                          width: height * 0.4,
-                          maxHeight: height * 0.7,
-                          backgroundColor: "white",
-                          borderRadius: 35,
-                          borderWidth: 2,
-                          borderColor: "#e7e7e7",
-                          elevation: 8,
-                          shadowColor: "#000",
-                          shadowOffset: { width: 0, height: 3 },
-                          shadowOpacity: 0.2,
-                          shadowRadius: 4,
-                          overflow: "hidden",
+                          backgroundColor: "orange",
+                          padding: 16,
+                          borderRadius: 15,
+                          width: "80%",
                         },
                       ]}
+                      onPress={this.toggleModal}
                     >
-                      <TouchableOpacity
-                        onPress={this.toggleModalClose}
+                      <Text
                         style={[
                           {
-                            position: "absolute",
-                            top: 16,
-                            right: 16,
-                            zIndex: 1, // Ensure the icon is displayed above the map
+                            color: "white",
+                            fontSize: 16,
+                            fontFamily: "LeagueSpartanSemiBold",
+                            textAlign: "center",
                           },
                         ]}
                       >
-                        <Ionicons name="close" size={32} color="orange" />
-                      </TouchableOpacity>
-                      <View style={[{ padding: 16, alignItems: "center" }]}>
-                        <Icon
-                          name="exclamation-triangle"
-                          size={24}
-                          color="red"
-                        />
-                        <Text
+                        Submit
+                      </Text>
+                    </TouchableOpacity>
+
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={isModalVisible}
+                    >
+                      <View
+                        style={[
+                          {
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "rgba(0, 0, 0, 0)",
+                          },
+                        ]}
+                      >
+                        <View
                           style={[
                             {
-                              fontSize: 18,
-                              fontFamily: "IBMPlexSansThaiBold",
-                              textAlign: "center",
-                              color: "red",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: height * 0.4,
+                              maxHeight: height * 0.7,
+                              backgroundColor: "white",
+                              borderRadius: 35,
+                              borderWidth: 2,
+                              borderColor: "#e7e7e7",
+                              elevation: 8,
+                              shadowColor: "#000",
+                              shadowOffset: { width: 0, height: 3 },
+                              shadowOpacity: 0.2,
+                              shadowRadius: 4,
+                              overflow: "hidden",
                             },
                           ]}
                         >
-                          คำเตือน
-                        </Text>
-                        <Text
-                          style={[
-                            {
-                              fontSize: 14,
-                              fontFamily: "IBMPlexSansThaiSemiBold",
-                              textAlign: "center",
-                              marginTop: 16,
-                            },
-                          ]}
-                        >
-                          1.
-                          หากมีอุปกรณ์ชำรุดเสียหายจะถือเป็นความรับผิดชอบของผู้ใช้บริการห้อง
-                          KM โปรเจ็คเตอร์ มูลค่า 100,000 บาท
-                        </Text>
-                        <Text
-                          style={[
-                            {
-                              fontSize: 14,
-                              fontFamily: "IBMPlexSansThaiSemiBold",
-                              textAlign: "center",
-                              marginTop: 16,
-                            },
-                          ]}
-                        >
-                          2. การขีด/เขียนบนผนังห้อง มูลค่า 9,000 บาท ยกเว้นห้อง
-                          KM5 สามารถเขียนติวได้
-                          (ต้องเป็นปากกาที่สามารถลบออกได้เท่านั้น)
-                        </Text>
-                        <TouchableOpacity
-                          style={[
-                            {
-                              backgroundColor: "orange",
-                              padding: 12,
-                              borderRadius: 20,
-                              marginTop: 16,
-                            },
-                          ]}
-                          onPress={this.toggleModal}
-                        >
-                          <Text
+                          <TouchableOpacity
+                            onPress={this.toggleModalClose}
                             style={[
                               {
-                                color: "white",
-                                fontSize: 16,
-                                fontFamily: "LeagueSpartanSemiBold",
-                                textAlign: "center",
+                                position: "absolute",
+                                top: 16,
+                                right: 16,
+                                zIndex: 1, // Ensure the icon is displayed above the map
                               },
                             ]}
                           >
-                            Accept
-                          </Text>
-                        </TouchableOpacity>
+                            <Ionicons name="close" size={32} color="orange" />
+                          </TouchableOpacity>
+                          <View style={[{ padding: 16, alignItems: "center" }]}>
+                            <Icon
+                              name="exclamation-triangle"
+                              size={24}
+                              color="red"
+                            />
+                            <Text
+                              style={[
+                                {
+                                  fontSize: 18,
+                                  fontFamily: "IBMPlexSansThaiBold",
+                                  textAlign: "center",
+                                  color: "red",
+                                },
+                              ]}
+                            >
+                              คำเตือน
+                            </Text>
+                            <Text
+                              style={[
+                                {
+                                  fontSize: 14,
+                                  fontFamily: "IBMPlexSansThaiSemiBold",
+                                  textAlign: "center",
+                                  marginTop: 16,
+                                },
+                              ]}
+                            >
+                              1.
+                              เธอน่ารักมาก ๆ &lt;3
+                            </Text>
+                            <Text
+                              style={[
+                                {
+                                  fontSize: 14,
+                                  fontFamily: "IBMPlexSansThaiSemiBold",
+                                  textAlign: "center",
+                                  marginTop: 16,
+                                },
+                              ]}
+                            >
+                              2. ระวังสิ้นสุดทางเพื่อน
+                            </Text>
+                            <TouchableOpacity
+                              style={[
+                                {
+                                  backgroundColor: "orange",
+                                  padding: 12,
+                                  borderRadius: 20,
+                                  marginTop: 16,
+                                },
+                              ]}
+                              onPress={this.toggleModal}
+                            >
+                              <Text
+                                style={[
+                                  {
+                                    color: "white",
+                                    fontSize: 16,
+                                    fontFamily: "LeagueSpartanSemiBold",
+                                    textAlign: "center",
+                                  },
+                                ]}
+                              >
+                                Accept
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                        </View>
                       </View>
-                    </View>
-                  </View>
-                </Modal>
+                    </Modal>
 
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={isModalCompleteVisible}
-                >
-                  <View
-                    style={[
-                      {
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backgroundColor: "rgba(0, 0, 0, 0)",
-                      },
-                    ]}
-                  >
-                    <View
-                      style={[
-                        {
-                          justifyContent: "center",
-                          alignItems: "center",
-                          width: height * 0.4,
-                          height: height * 0.3,
-                          backgroundColor: "white",
-                          borderRadius: 35,
-                          elevation: 8,
-                          shadowColor: "#000",
-                          shadowOffset: { width: 0, height: 3 },
-                          shadowOpacity: 0.2,
-                          shadowRadius: 4,
-                        },
-                      ]}
+                    <Modal
+                      animationType="slide"
+                      transparent={true}
+                      visible={isModalCompleteVisible}
                     >
-                      <TouchableOpacity
-                        onPress={this.toggleModalComplete}
+                      <View
                         style={[
                           {
-                            position: "absolute",
-                            top: 16,
-                            right: 16,
-                            zIndex: 1, // Ensure the icon is displayed above the map
+                            flex: 1,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            backgroundColor: "rgba(0, 0, 0, 0)",
                           },
                         ]}
                       >
-                        <Ionicons name="close" size={32} color="orange" />
-                      </TouchableOpacity>
-                      <View style={[{ padding: 16, alignItems: "center" }]}>
-                        <Image
-                          source={require("./picture/check.png")}
-                          style={{ width: 50, height: 50 }}
-                        />
-                        <Text
+                        <View
                           style={[
                             {
-                              fontSize: 18,
-                              fontFamily: "LeagueSpartan",
-                              textAlign: "center",
-                              color: "#32ba7c",
-                              marginTop: 16,
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: height * 0.4,
+                              height: height * 0.4,
+                              backgroundColor: "white",
+                              borderRadius: 35,
+                              elevation: 8,
+                              shadowColor: "#000",
+                              shadowOffset: { width: 0, height: 3 },
+                              shadowOpacity: 0.2,
+                              shadowRadius: 4,
                             },
                           ]}
                         >
-                          Reserve Room Successfully!
-                        </Text>
+                          <TouchableOpacity
+                            onPress={this.toggleModalComplete}
+                            style={[
+                              {
+                                position: "absolute",
+                                top: 16,
+                                right: 16,
+                                zIndex: 1, // Ensure the icon is displayed above the map
+                              },
+                            ]}
+                          >
+                            <Ionicons name="close" size={32} color="orange" />
+                          </TouchableOpacity>
+                          <View style={[{ padding: 32, alignItems: "center" }]}>
+                            <Image
+                              source={require("./picture/check.png")}
+                              style={{ width: 200, height: 200 }}
+                            />
+                            <Text
+                              style={[
+                                {
+                                  fontSize: 18,
+                                  fontFamily: "IBMPlexSansThaiSemiBold",
+                                  textAlign: "center",
+                                  color: "pink",
+                                  marginTop: 16,
+                                },
+                              ]}
+                            >
+                              ความสัมพันธ์นี้ยังคงไม่พัฒนา &lt;/3
+                            </Text>
+                            <Text
+                              style={[
+                                {
+                                  fontSize: 18,
+                                  fontFamily: "IBMPlexSansThaiSemiBold",
+                                  textAlign: "center",
+                                  color: "pink",
+                                },
+                              ]}
+                            >
+                              T_T
+                            </Text>
+                          </View>
+                        </View>
                       </View>
-                    </View>
+                    </Modal>
                   </View>
-                </Modal>
-              </View>
 
 
 
@@ -936,8 +968,215 @@ export default class ReservationScreen extends Component {
               </View>
             </View>
           </Modal>
-        </View>
-      </View>
+
+
+
+          <Modal
+            isVisible={isModalVisibleFull}
+            animationIn="slideInUp"
+            animationOut="slideOutDown"
+            useNativeDriverForBackdrop={true}
+            onBackdropPress={this.toggleModalFull}
+            style={styles.modalContainerFull}
+          >
+
+            <View style={styles.modalContentFull}>
+
+
+              <View style={[{
+                flex: 0,
+                backgroundColor: "white",
+                borderRadius: 10,
+                padding: 20,
+                elevation: 3,
+              }]}>
+                <ScrollView
+                  contentContainerStyle={[{
+                    flexGrow: 1,
+                  }]}
+                  showsVerticalScrollIndicator={false}
+                >
+                  <Text style={[{
+                    fontSize: 24,
+                    fontFamily: "LeagueSpartanSemiBold",
+                    color: "black",
+                    marginBottom: 10,
+                  }]}>KM Room 1</Text>
+                  <Text style={[{
+                    color: "orange",
+                    fontFamily: "LeagueSpartanMedium",
+                  }]}>
+                    Time : 10:30 - 12:20 | 24 Oct 2023
+                  </Text>
+                  <View style={[{
+                    borderBottomColor: 'gray', // Color of the horizontal line
+                    borderBottomWidth: 1, // Thickness of the line
+                    borderRadius: 50,
+                    marginVertical: 10, // Adjust as needed to control the spacing
+                  }]} />
+                  <View style={[{
+                    flexDirection: 'row', // Arrange children horizontally
+                    alignItems: 'center', // Align children vertically
+                  }]}>
+                    < View style={[{ flex: 1, }]} >
+                      {/* styles.leftContent */}
+                      < Text
+                        style={
+                          [
+                            {
+                              fontSize: 18,
+                              fontFamily: "LeagueSpartanMedium",
+                              alignItems: "center",
+                              color: "orange",
+                              marginBottom: 10,
+                            },
+                          ]}
+                      >
+                        Reservations by
+                      </Text>
+                      <View
+                        style={[
+                          {
+                            flexDirection: "row", // Arrange items horizontally
+                            marginBottom: 10,
+                          },
+                        ]}
+                      >
+                        <View
+                          style={[
+                            {
+                              marginRight: 10,
+                              paddingHorizontal: 4,
+                            },
+                          ]}
+                        >
+                          <Iconify icon="fluent-emoji:man-student-medium-light" size={32} />
+                        </View>
+
+                        <View
+                          style={[
+                            {
+                              flexDirection: "column", // Arrange items horizontally
+                            },
+                          ]}
+                        >
+                          <Text
+                            style={[
+                              {
+                                fontSize: 14, // Adjust font size as needed
+                                fontFamily: "LeagueSpartanMedium",
+                                color: "gray",
+                                marginBottom: 10,
+                              },
+                            ]}
+                          >
+                            Students
+                          </Text>
+                          <Text
+                            style={[
+                              {
+                                flex: 1,
+                                flexWrap: "wrap",
+                                fontSize: 14, // Adjust font size as needed
+                                fontFamily: "LeagueSpartanMedium",
+                                marginBottom: 10,
+                              },
+                            ]}
+                          >
+                            Mr.Teerapong Longpenying
+                          </Text>
+                          <Text
+                            style={[
+                              {
+                                flex: 1,
+                                flexWrap: "wrap",
+                                fontSize: 14, // Adjust font size as needed
+                                fontFamily: "LeagueSpartanMedium",
+                                marginBottom: 10,
+                              },
+                            ]}
+                          >
+                            Mrs.Susano Uchiha
+                          </Text>
+                          <Text
+                            style={[
+                              {
+                                flex: 1,
+                                flexWrap: "wrap",
+                                fontSize: 14, // Adjust font size as needed
+                                fontFamily: "LeagueSpartanMedium",
+                                marginBottom: 10,
+                              },
+                            ]}
+                          >
+                            Ms.Singchai Areenaimpact
+                          </Text>
+                          <Text
+                            style={[
+                              {
+                                flex: 1,
+                                flexWrap: "wrap",
+                                fontSize: 14, // Adjust font size as needed
+                                fontFamily: "LeagueSpartanMedium",
+                                marginBottom: 10,
+                              },
+                            ]}
+                          >
+                            Mr.Thanawan Sutthasena
+                          </Text>
+                          <Text
+                            style={[
+                              {
+                                flex: 1,
+                                flexWrap: "wrap",
+                                fontSize: 14, // Adjust font size as needed
+                                fontFamily: "LeagueSpartanMedium",
+                              },
+                            ]}
+                          >
+                            Mr.Tanatorn Yuwaawech
+                          </Text>
+                        </View>
+                      </View>
+                    </View>
+                    <View style={[{ marginLeft: 10, }]}>
+                      <Iconify icon="openmoji:no-entry" color='black' size={48} />
+                    </View>
+                  </View>
+
+                  <View
+                    style={[
+                      {
+                        flex: 1,
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginBottom: 20,
+                      },
+                    ]}
+                  >
+                  </View>
+                </ScrollView>
+              </View>
+
+
+
+
+
+
+
+            </View>
+          </Modal >
+
+
+
+
+
+
+
+
+
+        </View >
+      </View >
 
     );
   }
@@ -946,6 +1185,19 @@ export default class ReservationScreen extends Component {
 const desiredMarginTop = screenHeight * 0.265; // 2% of the screen height
 
 const styles = StyleSheet.create({
+  modalContainerFull: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  modalContentFull: {
+    flex: 1,
+    backgroundColor: '#fbfbfb',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 10,
+    maxHeight: '30%', // Maximum height set to 50% of the screen height
+    justifyContent: 'flex-start', // Align content at the top
+  },
 
   modalContainer: {
     justifyContent: 'flex-end',
@@ -1010,13 +1262,21 @@ const styles = StyleSheet.create({
     justifyContent: "space-between", // Add space between buttons
   },
   button: {
-    borderWidth: 1,
     borderColor: "gray",
+    borderWidth: 1,
     borderRadius: 10,
+    backgroundColor: 'white',
     width: screenWidth * 0.2, // Set the desired width
     height: screenHeight * 0.03,
-    marginTop: screenHeight * 0.02,
+    marginBottom: screenHeight * 0.02,
     justifyContent: "center",
+    // Shadow properties for iOS
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 4 }, // Decrease the height value
+    shadowOpacity: 0.3,
+    shadowRadius: 0,
+    // Shadow properties for Android
+    elevation: 2,
   },
   buttonText: {
     fontSize: 10,

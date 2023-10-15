@@ -17,6 +17,9 @@ import * as Font from "expo-font";
 import ReservationDetailsScreen from "./ReservationDetailsScreen";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
+import { Iconify } from 'react-native-iconify';
+import LottieView from 'lottie-react-native';
+
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -79,14 +82,14 @@ export default class ReservationScreen extends Component {
       StatusBar.setBarStyle('dark-content');
     });
   }
-  
+
   componentWillUnmount() {
     this.focusListener();
     this.blurListener();
   }
 
 
-  
+
 
   render() {
     const { navigation } = this.props;
@@ -101,7 +104,7 @@ export default class ReservationScreen extends Component {
       textDecorationLine: "underline", // Add underline for selected dates
     };
     return (
-      
+
       <LinearGradient
         colors={["#fe4914", "#ff9f26"]} // Adjust these colors as needed
         start={{ x: 0, y: 0 }} // Adjust the start point
@@ -109,10 +112,10 @@ export default class ReservationScreen extends Component {
         style={[{ flex: 1 }]}
       >
         {Platform.OS === 'ios' ? (
-        <StatusBar barStyle="light-content" />
-      ) : (
-        <StatusBar barStyle="dark-content" />
-      )}
+          <StatusBar barStyle="light-content" />
+        ) : (
+          <StatusBar barStyle="dark-content" />
+        )}
         <View style={styles.container}>
           <View
             style={[
@@ -159,6 +162,10 @@ export default class ReservationScreen extends Component {
             >
               Hi, TANATON
             </Text>
+            <Iconify
+              style={[{ marginLeft: 20, marginTop: 20, }]}
+              icon="streamline-emojis:ant" size={32} />
+
           </View>
 
           <View
