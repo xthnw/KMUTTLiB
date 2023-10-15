@@ -1,7 +1,6 @@
 import { style } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 import React, { Component } from "react";
 import {
-  ImageBackground,
   View,
   Text,
   StyleSheet,
@@ -12,32 +11,24 @@ import {
   TextInput,
   ScrollView,
   Image,
+  Easing,
+  TouchableWithoutFeedback,
 } from "react-native";
 import CalendarStrip from "react-native-calendar-strip";
-import Gradient from "./Gradient"; // Import the Gradient component
-import { LinearGradient } from "expo-linear-gradient";
-import { customText } from "react-native-paper";
 import IconM from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Ionicons } from "@expo/vector-icons";
 import { Iconify } from 'react-native-iconify';
-
+import Modal from 'react-native-modal';
 
 import * as Font from "expo-font";
-import { useNavigation } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import Modal from 'react-native-modal';
 
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
-const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
-// Calculate the font size based on screen dimensions
-const CustomfontSize = Math.min(screenWidth, screenHeight);
 
-const iconContainerLeft = screenWidth * 0.08;
-const iconContainerTop = screenWidth * 0.08;
 const { width, height } = Dimensions.get("window");
+
 
 export default class ReservationScreen extends Component {
   constructor(props) {
@@ -49,15 +40,21 @@ export default class ReservationScreen extends Component {
 
 
 
-
       isModalVisibleForm: false,
       isModalVisibleFull: false,
       isModalVisible: false,
       isDropdownOpen: false,
       selectedOption: "",
       isModalCompleteVisible: false,
+
+
+
     };
     this.inputBoxRef = React.createRef();
+    this.buttonScaleValues = {};
+    for (let i = 1; i <= 20; i++) {
+      this.buttonScaleValues[i] = new Animated.Value(1);
+    }
   }
 
   toggleModalFull = () => {
@@ -100,13 +97,9 @@ export default class ReservationScreen extends Component {
     });
   };
 
-
   handleCheckInPress = () => {
     this.props.navigation.navigate('ReservationCheckInScreen');
   };
-
-
-
 
   handleBoxPress = (boxNumber) => {
     // Implement your logic here when a box is clicked
@@ -127,32 +120,32 @@ export default class ReservationScreen extends Component {
     }));
     // Navigate to ReservationRequest page when a button is clicked
     this.props.navigation.navigate("ReservationRequest");
-    // Automatically reset the selectedButton state after a delay (e.g., 1 second)
-    setTimeout(() => {
-      this.setState({ selectedButton: null });
-    }, 1000); // 1000 milliseconds (1 second)
   };
 
   handleBackPress = () => {
     this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
   };
 
-  renderButton = (buttonId, text) => {
+  renderButton = (buttonId, text, isDisabled = false) => {
     const { selectedButton } = this.state;
     const isSelected = selectedButton === buttonId;
 
     const buttonStyle = isSelected
       ? { ...styles.buttonSelected }
-      : { ...styles.button };
+      : isDisabled
+        ? { ...styles.buttonDisabled }
+        : { ...styles.button };
 
     const textStyle = isSelected
       ? { ...styles.textSelected }
-      : { ...styles.buttonText };
+      : isDisabled
+        ? { ...styles.textDisabled }
+        : { ...styles.buttonText };
 
     // Define a mapping of button IDs to corresponding functions
     const buttonFunctions = {
-      1: this.toggleModalForm,
-      2: this.toggleModalFull,
+      1: this.toggleModalFull,
+      2: this.toggleModalForm,
       3: this.handleCheckInPress,
       // Add more button IDs and functions as needed
     };
@@ -161,19 +154,45 @@ export default class ReservationScreen extends Component {
     const onPressFunction = buttonFunctions[buttonId];
 
     return (
-      <TouchableOpacity
+      <TouchableWithoutFeedback
         onPress={onPressFunction} // Call the appropriate function based on the buttonId
+        onPressIn={() => this.handleButtonPressIn(buttonId)}
+        onPressOut={() => this.handleButtonPressOut(buttonId)}
         style={styles.touchableButton}
         activeOpacity={1}
       >
-        <View style={buttonStyle}>
-          <Text style={textStyle}>{text}</Text>
-        </View>
-      </TouchableOpacity>
+        <Animated.View
+          style={[
+            {
+              transform: [{ scale: this.buttonScaleValues[buttonId] }],
+            },
+          ]}
+        >
+          <View style={buttonStyle}>
+            <Text style={textStyle}>{text}</Text>
+          </View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
     );
   };
 
+  handleButtonPressIn(buttonId) {
+    Animated.timing(this.buttonScaleValues[buttonId], {
+      toValue: 0.95,
+      duration: 150,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  }
 
+  handleButtonPressOut(buttonId) {
+    Animated.timing(this.buttonScaleValues[buttonId], {
+      toValue: 1,
+      duration: 150,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  }
 
 
 
@@ -189,9 +208,6 @@ export default class ReservationScreen extends Component {
     const dropdownHeight = isDropdownOpen ? options.length * 40 : 0;
 
 
-
-
-
     const headerImageBackgroundWidth = screenWidth;
     const headerImageBackgroundHeight = screenHeight / 3;
     const { selectedDate } = this.state;
@@ -201,7 +217,6 @@ export default class ReservationScreen extends Component {
       color: "orange", // You can change the color to your preference
       textDecorationLine: "underline", // Add underline for selected dates
     };
-    const calendarStripMarginTop = screenHeight * 0.12 * -1;
 
     return (
 
@@ -272,9 +287,13 @@ export default class ReservationScreen extends Component {
                 // calendarColor={'#fff'}
                 dateNumberStyle={{ color: "gray" }}
                 dateNameStyle={{ color: "gray" }}
-                highlightDateNumberStyle={{ color: "orange" }}
+                highlightDateNumberStyle={{
+                  color: "black",
+                  textDecorationLine: "underline", // Add underline style
+                  textDecorationColor: "orange", // Color of the underline
+                }}
                 //selectedDateNumberStyle ขีดเส้นใต้
-                highlightDateNameStyle={{ color: "orange" }}
+                highlightDateNameStyle={{ color: "black" }}
                 disabledDateNameStyle={{ color: "grey" }}
                 disabledDateNumberStyle={{ color: "grey" }}
                 calendarHeaderStyle={{ color: "black" }}
@@ -311,7 +330,7 @@ export default class ReservationScreen extends Component {
                   <View style={styles.innerBox}>
                     <View style={styles.imageContainer}></View>
                     <View style={styles.ButtonRowcontainer}>
-                      {this.renderButton(1, "08:30 - 10:20")}
+                      {this.renderButton(1, "08:30 - 10:20", true)}
                       {this.renderButton(2, "10:30 - 12:20")}
                       {this.renderButton(3, "12:30 - 14:20")}
                       {this.renderButton(4, "14:30 - 16:20")}
@@ -1360,17 +1379,27 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   buttonDisabled: {
-    backgroundColor: "gray",
+    borderColor: "white",
+    borderWidth: 1,
     borderRadius: 10,
+    backgroundColor: '#5f5f5f',
     width: screenWidth * 0.2, // Set the desired width
     height: screenHeight * 0.03,
-    marginTop: screenHeight * 0.02,
+    marginBottom: screenHeight * 0.02,
     justifyContent: "center",
+    // Shadow properties for iOS
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 4 }, // Decrease the height value
+    shadowOpacity: 0.3,
+    shadowRadius: 0,
+    // Shadow properties for Android
+    elevation: 2,
   },
-  buttonDisabledText: {
-    fontSize: 8,
+  textDisabled: {
+    fontSize: 10,
     color: "white",
     textAlign: "center",
+    fontFamily: "LeagueSpartan",
   },
   innerBox: {
     flex: 1,
