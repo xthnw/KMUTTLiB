@@ -124,8 +124,9 @@ export default class ReservationScreen extends Component {
                 alignItems: "center",
                 justifyContent: "flex-start",
                 marginTop: 60,
-                marginLeft: 20,
                 marginBottom: 60,
+                marginLeft: 20,
+                
               },
             ]}
           >
@@ -185,7 +186,7 @@ export default class ReservationScreen extends Component {
               showsVerticalScrollIndicator={false}
             >
               <View style={[{ flex: 1, margin: 12 }]}>
-                <View style={[{}]}>
+                <View style={[{ flex: 1}]}>
                   <CalendarStrip
                     scrollable={true}
                     style={{
