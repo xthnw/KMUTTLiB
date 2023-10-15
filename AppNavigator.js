@@ -30,17 +30,17 @@ function MainNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="ReservationIndexScreen"
-      shifting={true}
+      shifting={false}
       sceneAnimationEnabled={true}
-      activeColor="gray"
-      inactiveColor="black"
+      activeColor="black"
+      inactiveColor="gray"
       barStyle={{ backgroundColor: 'white' }}
     >
       <Tab.Screen
         name="ReservationIndexScreen"
         component={ReservationIndexScreen}
         options={{
-          tabBarBadge: '1',
+          
           tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
           tabBarIcon: ({ color }) => (
             <Iconify icon="noto:house" color={color} size={32} />
@@ -53,7 +53,7 @@ function MainNavigator() {
         component={ReservationScreen}
         options={{
           tabBarLabel: <Text style={styles.tabBarLabel}>Reserve</Text>,
-          tabBarBadge: true,
+          // tabBarBadge: true,
           tabBarIcon: ({ color }) => (
             <Iconify icon="noto:thumbs-up-light-skin-tone" color={color} size={32} />
 
@@ -61,9 +61,10 @@ function MainNavigator() {
         }}
       />
       <Tab.Screen
-        name="ReservationRequestScreen"
-        component={ReservationRequestScreen}
+        name="ReservationCheckInScreen"
+        component={ReservationCheckInScreen}
         options={{
+          tabBarBadge: '1',
           tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
           tabBarIcon: ({ color }) => (
             <Iconify icon="fluent-emoji-flat:man-light" color={color} size={32} />
@@ -114,9 +115,9 @@ function AppNavigator() {
 }
 const styles = StyleSheet.create({
   tabBarLabel: {
-    fontSize: 12,
+    fontSize: 14,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'LeagueSpartanMedium',
   },
 });
 export default AppNavigator;
