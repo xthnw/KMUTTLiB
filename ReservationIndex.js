@@ -19,6 +19,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Iconify } from 'react-native-iconify';
 import LottieView from 'lottie-react-native';
+import App from "./App";
 
 
 const screenWidth = Dimensions.get("window").width;
@@ -94,7 +95,7 @@ export default class ReservationScreen extends Component {
   render() {
     const { navigation } = this.props;
     if (!this.state.fontLoaded) {
-      return <ReservationDetailsScreen />;
+      return <App />;
     }
     const { selectedDate } = this.state;
 
