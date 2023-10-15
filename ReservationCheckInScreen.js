@@ -36,6 +36,18 @@ const scalingFactor = 0.04; // You can adjust this value
 const fontSize = screenWidth * scalingFactor;
 
 export default class ReservationCheckInScreen extends Component {
+  componentDidMount() {
+    // Request location permissions
+    this.requestLocationPermission();
+  }
+  async requestLocationPermission() {
+    const { status } = await requestForegroundPermissionsAsync();
+    if (status === "granted") {
+      // Get the user's current location
+      const location = await getCurrentPositionAsync({});
+      this.setState({ userLocation: location.coords });
+    }
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -63,18 +75,7 @@ export default class ReservationCheckInScreen extends Component {
       isModalVisible: !this.state.isModalVisible,
     });
   };
-  componentDidMount() {
-    // Request location permissions
-    this.requestLocationPermission();
-  }
-  async requestLocationPermission() {
-    const { status } = await requestForegroundPermissionsAsync();
-    if (status === "granted") {
-      // Get the user's current location
-      const location = await getCurrentPositionAsync({});
-      this.setState({ userLocation: location.coords });
-    }
-  }
+
 
   handleBoxPress = (boxNumber) => {
     // Implement your logic here when a box is clicked
@@ -266,11 +267,11 @@ export default class ReservationCheckInScreen extends Component {
                   initialRegion={
                     userLocation
                       ? {
-                          latitude: userLocation.latitude,
-                          longitude: userLocation.longitude,
-                          latitudeDelta: 0.0922,
-                          longitudeDelta: 0.0421,
-                        }
+                        latitude: userLocation.latitude,
+                        longitude: userLocation.longitude,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                      }
                       : null
                   }
                 >
@@ -384,11 +385,11 @@ export default class ReservationCheckInScreen extends Component {
                     initialRegion={
                       userLocation
                         ? {
-                            latitude: userLocation.latitude,
-                            longitude: userLocation.longitude,
-                            latitudeDelta: 0.0922,
-                            longitudeDelta: 0.0421,
-                          }
+                          latitude: userLocation.latitude,
+                          longitude: userLocation.longitude,
+                          latitudeDelta: 0.0922,
+                          longitudeDelta: 0.0421,
+                        }
                         : null
                     }
                   >

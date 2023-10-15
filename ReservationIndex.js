@@ -19,7 +19,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Iconify } from 'react-native-iconify';
 import LottieView from 'lottie-react-native';
-import App from "./App";
 
 
 const screenWidth = Dimensions.get("window").width;
@@ -31,7 +30,6 @@ export default class ReservationScreen extends Component {
     super(props);
     this.state = {
       selectedDate: new Date(), // Initialize with the current date or the default selected date
-      fontLoaded: false,
     };
   }
   // Function to navigate to the next screen with selected date
@@ -68,14 +66,6 @@ export default class ReservationScreen extends Component {
   };
 
   async componentDidMount() {
-    await Font.loadAsync({
-      LeagueSpartan: require("./ios/LeagueSpartan-Regular.ttf"),
-      LeagueSpartanMedium: require("./ios/LeagueSpartan-Medium.ttf"),
-      LeagueSpartanSemiBold: require("./ios/LeagueSpartan-SemiBold.ttf"),
-      IBMPlexSansThaiBold: require("./ios/IBMPlexSansThai-Bold.ttf"),
-      IBMPlexSansThaiSemiBold: require("./ios/IBMPlexSansThai-SemiBold.ttf"),
-    });
-    this.setState({ fontLoaded: true });
     this.focusListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setBarStyle('light-content');
     });
@@ -90,13 +80,8 @@ export default class ReservationScreen extends Component {
   }
 
 
-
-
   render() {
     const { navigation } = this.props;
-    if (!this.state.fontLoaded) {
-      return <App />;
-    }
     const { selectedDate } = this.state;
 
     // Define a custom dateNumberStyle for selected dates
