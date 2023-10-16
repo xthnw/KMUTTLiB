@@ -12,7 +12,7 @@ import { ScrollView, Image } from "react-native";
 import CalendarStrip from "react-native-calendar-strip";
 import { LinearGradient } from "expo-linear-gradient";
 import { Iconify } from 'react-native-iconify';
-import styles from './customStyles/Index styles';
+import styles from './customStyles/ReservationIndexStyles';
 
 export default class ReservationScreen extends Component {
   constructor(props) {

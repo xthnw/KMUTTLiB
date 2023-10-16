@@ -1,7 +1,5 @@
-import { style } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
-import React, { Component, useState } from "react";
+import React, { Component, } from "react";
 import {
-  ImageBackground,
   View,
   Text,
   StyleSheet,
@@ -11,27 +9,19 @@ import {
   Animated,
   TextInput,
   Modal,
-  UIManager,
-  findNodeHandle,
 } from "react-native";
 import { ScrollView, Image } from "react-native";
-import CalendarStrip from "react-native-calendar-strip";
-import Gradient from "./Gradient"; // Import the Gradient component
-import { LinearGradient } from "expo-linear-gradient";
-import { customText } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome";
 import IconM from "react-native-vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
+import styles from './customStyles/ReservationRequestStyles';
+
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
+const { width, height } = Dimensions.get("window");
 
-// Define a scaling factor based on your design or preferences
-const scalingFactor = 0.04; // You can adjust this value
-
-// Calculate the responsive font size
-const fontSize = screenWidth * scalingFactor;
 
 export default class ReservationRequestScreen extends Component {
   constructor(props) {
@@ -100,7 +90,7 @@ export default class ReservationRequestScreen extends Component {
     };
     const { isModalVisible } = this.state;
     const { isModalCompleteVisible } = this.state;
-    const { width, height } = Dimensions.get("window");
+
     return (
       <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}>
         <View>
@@ -111,32 +101,9 @@ export default class ReservationRequestScreen extends Component {
             >
               <TouchableOpacity
                 onPress={this.handleBackPress}
-                style={[
-                  {
-                    width: 40,
-                    height: 40,
-                    borderRadius: 20, // Half of the width/height to create a circle
-                    backgroundColor: "white",
-                    borderColor: "#e7e7e7",
-                    borderWidth: 0.5,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginBottom: 10,
-                    shadowColor: "black",
-                    shadowOffset: { width: 0, height: 3 },
-                    shadowOpacity: 0.1,
-                    shadowRadius: 1,
-                  },
-                ]}
+                style={styles.backcirclebutton}
               >
-                <View
-                  style={[
-                    {
-                      alignItems: "center",
-                      justifyContent: "center",
-                    },
-                  ]}
-                >
+                <View style={styles.subbackcirclebutton}>
                   <IconM name="keyboard-arrow-left" size={30} color="orange" />
                 </View>
               </TouchableOpacity>
@@ -147,7 +114,7 @@ export default class ReservationRequestScreen extends Component {
 
               <View style={styles.inputRow}>
                 <View style={styles.inputContainer}>
-                  <Text style={[styles.label, { marginBottom: 10 }]}>
+                  <Text style={styles.label}>
                     Student ID
                   </Text>
                   <TextInput
@@ -159,7 +126,7 @@ export default class ReservationRequestScreen extends Component {
                 </View>
 
                 <View style={styles.inputContainer}>
-                  <Text style={[styles.label, { marginBottom: 10 }]}>Name</Text>
+                  <Text style={styles.label}>Name</Text>
                   <TextInput
                     style={styles.input}
                     placeholder="Enter Name"
@@ -170,7 +137,7 @@ export default class ReservationRequestScreen extends Component {
               </View>
               <View style={styles.inputRow}>
                 <View style={styles.inputContainer}>
-                  <Text style={[styles.label, { marginBottom: 10 }]}>
+                  <Text style={styles.label}>
                     Service group
                   </Text>
                   <TextInput
@@ -182,7 +149,7 @@ export default class ReservationRequestScreen extends Component {
                 </View>
 
                 <View style={styles.inputContainer}>
-                  <Text style={[styles.label, { marginBottom: 10 }]}>Department</Text>
+                  <Text style={styles.label}>Department</Text>
                   <TextInput
                     style={styles.input}
                     placeholder="Computer Engineering"
@@ -192,40 +159,12 @@ export default class ReservationRequestScreen extends Component {
                 </View>
               </View>
 
-              <View
-                style={[
-                  {
-                    flexDirection: "column",
-                    marginBottom: 20,
-                  },
-                ]}
-              >
-                <Text
-                  style={[
-                    {
-                      marginRight: 10,
-                      fontSize: 16,
-                      fontFamily: "LeagueSpartan",
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
+              <View style={styles.dropdownOptionView}>
+                <Text style={styles.label}>
                   Request for
                 </Text>
                 <TouchableOpacity
-                  style={[
-                    {
-                      flex: 1,
-                      borderWidth: 2,
-                      borderColor: "#e7e7e7",
-                      borderRadius: 15,
-                      backgroundColor: "white",
-                      padding: 10,
-                      flexDirection: "row", // Add flexDirection to align icon and text horizontally
-                      justifyContent: "space-between", // Add this to space out icon and text
-                      alignItems: "center", // Center items vertically
-                    },
-                  ]}
+                  style={styles.waitforDropdownOptionContainer}
                   onPress={this.toggleDropdown}
                 >
                   <Text
@@ -236,42 +175,15 @@ export default class ReservationRequestScreen extends Component {
                   <Icon name="angle-down" size={20} color="orange" />
                 </TouchableOpacity>
                 {isDropdownOpen && (
-                  <View
-                    style={[
-                      {
-                        top: "5%",
-                        left: 0,
-                        right: 0,
-                        borderWidth: 2,
-                        borderColor: "#e7e7e7",
-                        borderRadius: 15,
-                        backgroundColor: "white",
-                        overflow: "hidden",
-                        height: dropdownHeight,
-                        fontFamily: "LeagueSpartan",
-                      },
-                    ]}
-                  >
+                  <View style={[styles.dropdownOptionContainer, { height: dropdownHeight }]}>
                     {options.map((option, index) => (
                       <TouchableOpacity
                         key={index}
-                        style={[
-                          {
-                            padding: 12,
-                            borderBottomWidth: 0,
-                            borderBottomColor: "gray",
-                          },
-                        ]}
+                        style={styles.subDropdownOptionContainer}
                         onPress={() => this.selectOption(option)}
                       >
                         <Text
-                          style={[
-                            {
-                              color: "gray",
-                              fontSize: 14,
-                              fontFamily: "LeagueSpartan",
-                            },
-                          ]}
+                          style={[{ color: "gray", fontFamily: "LeagueSpartan", }]}
                         >
                           {option}
                         </Text>
@@ -281,222 +193,64 @@ export default class ReservationRequestScreen extends Component {
                 )}
               </View>
 
-              <View style={[{ padding: 16 }]}>
-                <Text
-                  style={[
-                    {
-                      marginRight: 10,
-                      fontSize: 16,
-                      fontFamily: "LeagueSpartan",
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
+              <View style={styles.studentIdformPadding}>
+                <Text style={styles.label}>
                   Please Specify: Username/Student ID
                 </Text>
-                <View
-                  style={[
-                    {
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      {
-                        fontSize: 18,
-                        fontFamily: "LeagueSpartan",
-                        marginRight: 10,
-                      },
-                    ]}
-                  >
+                <View style={styles.studentIdrowInput}>
+                  <Text style={styles.numberInfrontstudentIdrowInput}>
                     1.
                   </Text>
                   <TextInput
-                    style={[
-                      {
-                        flex: 1,
-                        borderColor: "#e7e7e7",
-                        borderWidth: 2,
-                        backgroundColor: "white",
-                        borderRadius: 15,
-                        padding: 10,
-                      },
-                    ]}
+                    style={styles.studentIdInputboxContainer}
                     placeholder=""
                   />
                 </View>
-                <View
-                  style={[
-                    {
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      {
-                        fontSize: 18,
-                        fontFamily: "LeagueSpartan",
-                        marginRight: 10,
-                      },
-                    ]}
-                  >
+                <View style={styles.studentIdrowInput}>
+                  <Text style={styles.numberInfrontstudentIdrowInput}>
                     2.
                   </Text>
                   <TextInput
-                    style={[
-                      {
-                        flex: 1,
-                        borderColor: "#e7e7e7",
-                        borderWidth: 2,
-                        backgroundColor: "white",
-                        borderRadius: 15,
-                        padding: 10,
-                      },
-                    ]}
+                    style={styles.studentIdInputboxContainer}
                     placeholder=""
                   />
                 </View>
-                <View
-                  style={[
-                    {
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      {
-                        fontSize: 18,
-                        fontFamily: "LeagueSpartan",
-                        marginRight: 10,
-                      },
-                    ]}
-                  >
+                <View style={styles.studentIdrowInput}>
+                  <Text style={styles.numberInfrontstudentIdrowInput}>
                     3.
                   </Text>
                   <TextInput
-                    style={[
-                      {
-                        flex: 1,
-                        borderColor: "#e7e7e7",
-                        borderWidth: 2,
-                        backgroundColor: "white",
-                        borderRadius: 15,
-                        padding: 10,
-                      },
-                    ]}
+                    style={styles.studentIdInputboxContainer}
                     placeholder=""
                   />
                 </View>
-                <View
-                  style={[
-                    {
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      {
-                        fontSize: 18,
-                        fontFamily: "LeagueSpartan",
-                        marginRight: 10,
-                      },
-                    ]}
-                  >
+                <View style={styles.studentIdrowInput}>
+                  <Text style={styles.numberInfrontstudentIdrowInput}>
                     4.
                   </Text>
                   <TextInput
-                    style={[
-                      {
-                        flex: 1,
-                        borderColor: "#e7e7e7",
-                        borderWidth: 2,
-                        backgroundColor: "white",
-                        borderRadius: 15,
-                        padding: 10,
-                      },
-                    ]}
+                    style={styles.studentIdInputboxContainer}
                     placeholder=""
                   />
                 </View>
-                <View
-                  style={[
-                    {
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginBottom: 10,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[
-                      {
-                        fontSize: 18,
-                        fontFamily: "LeagueSpartan",
-                        marginRight: 10,
-                      },
-                    ]}
-                  >
+                <View style={styles.studentIdrowInput}>
+                  <Text style={styles.numberInfrontstudentIdrowInput}>
                     5.
                   </Text>
                   <TextInput
-                    style={[
-                      {
-                        flex: 1,
-                        borderColor: "#e7e7e7",
-                        borderWidth: 2,
-                        backgroundColor: "white",
-                        borderRadius: 15,
-                        padding: 10,
-                      },
-                    ]}
+                    style={styles.studentIdInputboxContainer}
                     placeholder=""
                   />
                 </View>
+
               </View>
 
-              <View
-                style={[
-                  {
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  },
-                ]}
-              >
-                {/* Other content goes here */}
+              <View style={styles.submitButtonView}>
                 <TouchableOpacity
-                  style={[
-                    {
-                      backgroundColor: "orange",
-                      padding: 16,
-                      borderRadius: 15,
-                      width: "80%",
-                    },
-                  ]}
+                  style={styles.submitButtonStyle}
                   onPress={this.toggleModal}
                 >
-                  <Text
-                    style={[
-                      {
-                        color: "white",
-                        fontSize: 16,
-                        fontFamily: "LeagueSpartanSemiBold",
-                        textAlign: "center",
-                      },
-                    ]}
-                  >
+                  <Text style={styles.submitTextStyle}>
                     Submit
                   </Text>
                 </TouchableOpacity>
@@ -506,46 +260,11 @@ export default class ReservationRequestScreen extends Component {
                   transparent={true}
                   visible={isModalVisible}
                 >
-                  <View
-                    style={[
-                      {
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backgroundColor: "rgba(0, 0, 0, 0)",
-                      },
-                    ]}
-                  >
-                    <View
-                      style={[
-                        {
-                          justifyContent: "center",
-                          alignItems: "center",
-                          width: height * 0.4,
-                          maxHeight: height * 0.7,
-                          backgroundColor: "white",
-                          borderRadius: 35,
-                          borderWidth: 2,
-                          borderColor: "#e7e7e7",
-                          elevation: 8,
-                          shadowColor: "#000",
-                          shadowOffset: { width: 0, height: 3 },
-                          shadowOpacity: 0.2,
-                          shadowRadius: 4,
-                          overflow: "hidden",
-                        },
-                      ]}
-                    >
+                  <View style={styles.blankBgModalView}>
+                    <View style={styles.alertModalcontainer}>
                       <TouchableOpacity
                         onPress={this.toggleModalClose}
-                        style={[
-                          {
-                            position: "absolute",
-                            top: 16,
-                            right: 16,
-                            zIndex: 1, // Ensure the icon is displayed above the map
-                          },
-                        ]}
+                        style={styles.closebuttonView}
                       >
                         <Ionicons name="close" size={32} color="orange" />
                       </TouchableOpacity>
@@ -555,67 +274,23 @@ export default class ReservationRequestScreen extends Component {
                           size={24}
                           color="red"
                         />
-                        <Text
-                          style={[
-                            {
-                              fontSize: 18,
-                              fontFamily: "IBMPlexSansThaiBold",
-                              textAlign: "center",
-                              color: "red",
-                            },
-                          ]}
-                        >
+                        <Text style={styles.alertheaderText}>
                           คำเตือน
                         </Text>
-                        <Text
-                          style={[
-                            {
-                              fontSize: 14,
-                              fontFamily: "IBMPlexSansThaiSemiBold",
-                              textAlign: "center",
-                              marginTop: 16,
-                            },
-                          ]}
-                        >
+                        <Text style={styles.alertdetailsText}>
                           1.
                           หากมีอุปกรณ์ชำรุดเสียหายจะถือเป็นความรับผิดชอบของผู้ใช้บริการห้อง
                           KM โปรเจ็คเตอร์ มูลค่า 100,000 บาท
                         </Text>
-                        <Text
-                          style={[
-                            {
-                              fontSize: 14,
-                              fontFamily: "IBMPlexSansThaiSemiBold",
-                              textAlign: "center",
-                              marginTop: 16,
-                            },
-                          ]}
-                        >
+                        <Text style={styles.alertdetailsText}>
                           2. การขีด/เขียนบนผนังห้อง มูลค่า 9,000 บาท ยกเว้นห้อง
-                          KM5 สามารถเขียนติวได้
-                          (ต้องเป็นปากกาที่สามารถลบออกได้เท่านั้น)
+                          KM5 สามารถเขียนติวได้ (ต้องเป็นปากกาที่สามารถลบออกได้เท่านั้น)
                         </Text>
                         <TouchableOpacity
-                          style={[
-                            {
-                              backgroundColor: "orange",
-                              padding: 12,
-                              borderRadius: 20,
-                              marginTop: 16,
-                            },
-                          ]}
+                          style={styles.acceptbuttonStyle}
                           onPress={this.toggleModal}
                         >
-                          <Text
-                            style={[
-                              {
-                                color: "white",
-                                fontSize: 16,
-                                fontFamily: "LeagueSpartanSemiBold",
-                                textAlign: "center",
-                              },
-                            ]}
-                          >
+                          <Text style={styles.acceptTextStyle}>
                             Accept
                           </Text>
                         </TouchableOpacity>
@@ -629,62 +304,20 @@ export default class ReservationRequestScreen extends Component {
                   transparent={true}
                   visible={isModalCompleteVisible}
                 >
-                  <View
-                    style={[
-                      {
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center",
-                        backgroundColor: "rgba(0, 0, 0, 0)",
-                      },
-                    ]}
-                  >
-                    <View
-                      style={[
-                        {
-                          justifyContent: "center",
-                          alignItems: "center",
-                          width: height * 0.4,
-                          height: height * 0.3,
-                          backgroundColor: "white",
-                          borderRadius: 35,
-                          elevation: 8,
-                          shadowColor: "#000",
-                          shadowOffset: { width: 0, height: 3 },
-                          shadowOpacity: 0.2,
-                          shadowRadius: 4,
-                        },
-                      ]}
-                    >
+                  <View style={styles.blankBgModalView}>
+                    <View style={styles.sucessModalcontainer}>
                       <TouchableOpacity
                         onPress={this.toggleModalComplete}
-                        style={[
-                          {
-                            position: "absolute",
-                            top: 16,
-                            right: 16,
-                            zIndex: 1, // Ensure the icon is displayed above the map
-                          },
-                        ]}
+                        style={styles.closebuttonView}
                       >
                         <Ionicons name="close" size={32} color="orange" />
                       </TouchableOpacity>
-                      <View style={[{ padding: 16, alignItems: "center" }]}>
+                      <View style={styles.paddingViewforinsideModal}>
                         <Image
                           source={require("./picture/check.png")}
                           style={{ width: 50, height: 50 }}
                         />
-                        <Text
-                          style={[
-                            {
-                              fontSize: 18,
-                              fontFamily: "LeagueSpartan",
-                              textAlign: "center",
-                              color: "#32ba7c",
-                              marginTop: 16,
-                            },
-                          ]}
-                        >
+                        <Text style={styles.sucessTextStyle}>
                           Reserve Room Successfully!
                         </Text>
                       </View>
@@ -699,50 +332,3 @@ export default class ReservationRequestScreen extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  scrollViewContainer: {
-    flexGrow: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-  },
-  contentContainer: {
-    backgroundColor: "#fbfbfb",
-    borderRadius: 10,
-    padding: 20,
-    elevation: 3,
-  },
-  formTitle: {
-    fontSize: 24,
-    fontFamily: "LeagueSpartanSemiBold",
-    color: "black",
-    marginBottom: 10,
-  },
-  detailsText: {
-    color: "orange",
-    marginBottom: 20,
-    fontFamily: "LeagueSpartanMedium",
-  },
-  inputRow: {
-    flexDirection: "row", // Arrange inputs horizontally
-    justifyContent: "space-between", // Add space between inputs
-  },
-  inputContainer: {
-    marginBottom: 20, //ยืด Container ขาว ๆ ลงล่าง
-  },
-  label: {
-    fontSize: 16,
-    fontFamily: "LeagueSpartan",
-  },
-  input: {
-    borderWidth: 2,
-    borderColor: "#e7e7e7",
-    backgroundColor: "white",
-    borderRadius: 15,
-    padding: "3%",
-    fontSize: 16,
-    fontFamily: "LeagueSpartan",
-    height: 40,
-    width: screenWidth * 0.35,
-  },
-});
