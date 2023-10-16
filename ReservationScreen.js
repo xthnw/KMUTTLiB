@@ -142,6 +142,9 @@ export default class ReservationScreen extends Component {
   handleCheckInPress = () => {
     this.props.navigation.navigate('ReservationCheckInScreen');
   };
+  handleRequestPress = () => {
+    this.props.navigation.navigate('ReservationRequestScreen');
+  };
 
   handleBoxPress = (boxNumber) => {
     // Implement your logic here when a box is clicked
@@ -187,24 +190,24 @@ export default class ReservationScreen extends Component {
     // Define a mapping of button IDs to corresponding functions
     const buttonFunctions = {
       1: this.toggleModalFull,
-      2: this.toggleModalForm,
-      3: this.toggleModalForm,
-      4: this.toggleModalForm,
-      5: this.toggleModalForm,
-      6: this.toggleModalForm,
-      7: this.toggleModalForm,
-      8: this.toggleModalForm,
+      2: this.handleRequestPress,
+      3: this.handleRequestPress,
+      4: this.handleRequestPress,
+      5: this.handleRequestPress,
+      6: this.handleRequestPress,
+      7: this.handleRequestPress,
+      8: this.handleRequestPress,
       9: this.toggleModalFull,
       10: this.toggleModalFull,
-      11: this.toggleModalForm,
-      12: this.toggleModalForm,
-      13: this.toggleModalForm,
-      14: this.toggleModalForm,
+      11: this.handleRequestPress,
+      12: this.handleRequestPress,
+      13: this.handleRequestPress,
+      14: this.handleRequestPress,
       15: this.toggleModalFull,
-      16: this.toggleModalForm,
-      17: this.toggleModalForm,
+      16: this.handleRequestPress,
+      17: this.handleRequestPress,
       18: this.toggleModalFull,
-      19: this.toggleModalForm,
+      19: this.handleRequestPress,
       20: this.toggleModalFull,
       // Add more button IDs and functions as needed
     };
