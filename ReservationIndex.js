@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, } from "react";
 import {
   View,
   Text,
@@ -6,24 +6,16 @@ import {
   TouchableOpacity,
   Dimensions,
   StatusBar,
-  Animated,
-  TextInput,
   Platform,
 } from "react-native";
 import { ScrollView, Image } from "react-native";
 import CalendarStrip from "react-native-calendar-strip";
-import IconM from "react-native-vector-icons/MaterialIcons";
-import * as Font from "expo-font";
-import ReservationDetailsScreen from "./ReservationDetailsScreen";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Iconify } from 'react-native-iconify';
-import LottieView from 'lottie-react-native';
 
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
-const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
 
 export default class ReservationScreen extends Component {
   constructor(props) {
@@ -81,7 +73,6 @@ export default class ReservationScreen extends Component {
 
 
   render() {
-    const { navigation } = this.props;
     const { selectedDate } = this.state;
 
     // Define a custom dateNumberStyle for selected dates
@@ -103,94 +94,34 @@ export default class ReservationScreen extends Component {
           <StatusBar barStyle="dark-content" />
         )}
         <View style={styles.container}>
-          <View
-            style={[
-              {
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                marginTop: 60,
-                marginBottom: 60,
-                marginLeft: 20,
-                
-              },
-            ]}
-          >
-            <View
-              style={[
-                {
-                  width: 60,
-                  height: 60,
-                  borderRadius: 30,
-                  backgroundColor: "white",
-                  shadowColor: "black",
-                  shadowOffset: { width: 0, height: 3 },
-                  shadowOpacity: 0.3,
-                  shadowRadius: 4,
-                  elevation: 4, // Android shadow
-                },
-              ]}
-            >
-              {/* You can place your profile picture here */}
+          <View style={styles.topProfileContainer}>
+            <View style={styles.circleViewProfile}>
               <Image
                 source={require("./picture/profile.png")}
                 style={{ width: "100%", height: "100%", borderRadius: 50 }}
               />
             </View>
-            <Text
-              style={[
-                {
-                  marginLeft: 20, // Add spacing between image and text
-                  fontSize: 18,
-                  color: "white",
-                  fontFamily: "LeagueSpartan",
-                },
-              ]}
-            >
+            <Text style={styles.hiUserNameLabel}>
               Hi, TANATON
             </Text>
-            <Iconify
-              style={[{ marginLeft: 20, marginTop: 20, }]}
+            <Iconify style={[{ marginLeft: 20, marginTop: 20, }]}
               icon="streamline-emojis:ant" size={32} />
-
           </View>
 
-          <View
-            style={[
-              {
-                flex: 1,
-                flexGrow: 1,
-                backgroundColor: "white",
-                borderTopLeftRadius: 25, // Adjust the top-left corner radius
-                borderTopRightRadius: 25, // Adjust the top-right corner radius
-                overflow: "hidden",
-              },
-            ]}
-          >
+          <View style={styles.RoundedWhiteCoverContainer}>
             <ScrollView
-              contentContainerStyle={styles.scrollViewContainer}
-              showsVerticalScrollIndicator={false}
-            >
-              <View style={[{ flex: 1, margin: 12 }]}>
-                <View style={[{ flex: 1 }]}>
+              contentContainerStyle={[{ flexGrow: 1 }]}
+              showsVerticalScrollIndicator={false}>
+              <View style={styles.subRoundedWhiteCoverContainer}>
+                <View style={[styles.calendarView, { flex: 1, }]}>
                   <CalendarStrip
                     scrollable={true}
-                    style={{
-                      height: screenHeight * 0.13,
-                      paddingTop: 10,
-                      paddingBottom: 10,
-                      fontFamily: "LeagueSpartan",
-                    }}
+                    style={styles.calendarGapVerticalSapce}
                     calendarAnimation={{ type: "sequence", duration: 10 }}
                     dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
                     dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
-                    highlightDateNumberStyle={{
-                      color: "black",
-                      textDecorationLine: "underline", // Add underline style
-                      textDecorationColor: "orange", // Color of the underline
-                      fontFamily: 'LeagueSpartanMedium',
-                    }}
-                    //selectedDateNumberStyle ขีดเส้นใต้
+                    highlightDateNumberStyle={styles.calendarHighlightDateNumber}
+                    //selectedDateNumberStyle My custom underline
                     highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
                     disabledDateNameStyle={{ color: "grey" }}
                     disabledDateNumberStyle={{ color: "grey" }}
@@ -203,6 +134,8 @@ export default class ReservationScreen extends Component {
                     {selectedDate ? selectedDate.toDateString() : "None"}
                   </Text>
                 </View>
+
+
                 {/* Create two boxes per row */}
                 <View style={styles.boxRow}>
                   <TouchableOpacity
@@ -214,24 +147,11 @@ export default class ReservationScreen extends Component {
                       <View style={styles.imageContainer}>
                         <Image
                           source={require("./picture/floor1.jpg")}
-                          style={[
-                            {
-                              width: screenWidth * 0.4, // Set the desired width
-                              height: screenHeight * 0.15, // Set the desired height
-                              borderRadius: 15,
-                              alignItems: "center", // Center the image horizontally
-                            },
-                          ]}
+                          style={styles.imageInBoxContainer}
                           resizeMode="cover"
                         />
                       </View>
-                      <View
-                        style={[
-                          {
-                            alignItems: "flex-start", // Align text to the left
-                          },
-                        ]}
-                      >
+                      <View style={[{ alignItems: "flex-start" }]}>
                         <Text style={styles.textbold}>KM-Room 1</Text>
                         <Text style={styles.description}>5th Floor</Text>
                         <View style={[styles.statusContainer, {}]}>
@@ -257,24 +177,11 @@ export default class ReservationScreen extends Component {
                       <View style={styles.imageContainer}>
                         <Image
                           source={require("./picture/floor1.jpg")}
-                          style={[
-                            {
-                              width: screenWidth * 0.4, // Set the desired width
-                              height: screenHeight * 0.15, // Set the desired height
-                              borderRadius: 15,
-                              alignItems: "center", // Center the image horizontally
-                            },
-                          ]}
+                          style={styles.imageInBoxContainer}
                           resizeMode="cover"
                         />
                       </View>
-                      <View
-                        style={[
-                          {
-                            alignItems: "flex-start",
-                          },
-                        ]}
-                      >
+                      <View style={[{ alignItems: "flex-start" }]}>
                         <Text style={styles.textbold}>KM-Room 2</Text>
                         <Text style={styles.description}>5th Floor</Text>
                         <View style={[styles.statusContainer, {}]}>
@@ -289,7 +196,7 @@ export default class ReservationScreen extends Component {
                     </View>
                   </TouchableOpacity>
                 </View>
-
+                {/* Create two boxes per row */}
                 <View style={styles.boxRow}>
                   <TouchableOpacity
                     activeOpacity={1}
@@ -300,14 +207,7 @@ export default class ReservationScreen extends Component {
                       <View style={styles.imageContainer}>
                         <Image
                           source={require("./picture/floor1.jpg")}
-                          style={[
-                            {
-                              width: screenWidth * 0.4, // Set the desired width
-                              height: screenHeight * 0.15, // Set the desired height
-                              borderRadius: 15,
-                              alignItems: "center", // Center the image horizontally
-                            },
-                          ]}
+                          style={styles.imageInBoxContainer}
                           resizeMode="cover"
                         />
                       </View>
@@ -335,14 +235,7 @@ export default class ReservationScreen extends Component {
                       <View style={styles.imageContainer}>
                         <Image
                           source={require("./picture/floor1.jpg")}
-                          style={[
-                            {
-                              width: screenWidth * 0.4, // Set the desired width
-                              height: screenHeight * 0.15, // Set the desired height
-                              borderRadius: 15,
-                              alignItems: "center", // Center the image horizontally
-                            },
-                          ]}
+                          style={styles.imageInBoxContainer}
                           resizeMode="cover"
                         />
                       </View>
@@ -361,7 +254,7 @@ export default class ReservationScreen extends Component {
                     </View>
                   </TouchableOpacity>
                 </View>
-
+                {/* Create two boxes per row */}
                 <View style={styles.boxRow}>
                   <TouchableOpacity
                     activeOpacity={1}
@@ -372,19 +265,12 @@ export default class ReservationScreen extends Component {
                       <View style={styles.imageContainer}>
                         <Image
                           source={require("./picture/floor1.jpg")}
-                          style={[
-                            {
-                              width: screenWidth * 0.4, // Set the desired width
-                              height: screenHeight * 0.15, // Set the desired height
-                              borderRadius: 15,
-                              alignItems: "center", // Center the image horizontally
-                            },
-                          ]}
+                          style={styles.imageInBoxContainer}
                           resizeMode="cover"
                         />
                       </View>
                       <View style={[{ alignItems: "flex-start" }]}>
-                        <Text style={styles.textbold}>KM-Room 5</Text>
+                        <Text style={styles.textbold}>KM-Room 3</Text>
                         <Text style={styles.description}>5th Floor</Text>
                         <View style={[styles.statusContainer, {}]}>
                           <Text style={styles.statusText}>Status:</Text>
@@ -407,22 +293,13 @@ export default class ReservationScreen extends Component {
                       <View style={styles.imageContainer}>
                         <Image
                           source={require("./picture/floor1.jpg")}
-                          style={[
-                            {
-                              width: screenWidth * 0.4, // Set the desired width
-                              height: screenHeight * 0.15, // Set the desired height
-                              borderRadius: 15,
-                              alignItems: "center", // Center the image horizontally
-                            },
-                          ]}
+                          style={styles.imageInBoxContainer}
                           resizeMode="cover"
                         />
                       </View>
                       <View style={[{ alignItems: "flex-start" }]}>
-                        <Text style={styles.textbold}>5th floor libary</Text>
-                        <Text style={styles.description}>
-                          Description of Room 1st goes here
-                        </Text>
+                        <Text style={styles.textbold}>KM-Room 4</Text>
+                        <Text style={styles.description}>5th Floor</Text>
                         <View style={[styles.statusContainer, {}]}>
                           <Text style={styles.statusText}>Status:</Text>
                           <View style={[styles.statusLabel]}>
@@ -438,23 +315,10 @@ export default class ReservationScreen extends Component {
               </View>
             </ScrollView>
           </View>
-          <View style={[{ flex: 0, backgroundColor: 'black' }]}>
-            {/* Your other content here */}
-            <View style={[{
-              backgroundColor: 'white', // Background color of the shadow view (match with main container)
-              shadowColor: 'black',
-              shadowOffset: { width: 0, height: -4 },
-              shadowOpacity: 0.5,
-              shadowRadius: 4,
-              elevation: 3, // Elevation for Android (simulates shadow)
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              height: 1, // Adjust the height of the shadow as needed
-            }]}></View>
+          <View style={styles.emptyViewforNavbarShadow}>
+            <View style={styles.subemptyViewforNavbarShadow}>
+            </View>
           </View>
-
         </View>
       </LinearGradient >
     );
@@ -462,6 +326,85 @@ export default class ReservationScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+
+  topProfileContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    marginTop: 60,
+    marginBottom: 60,
+    marginLeft: 20,
+  },
+  circleViewProfile: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "white",
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  hiUserNameLabel: {
+    marginLeft: 20,
+    fontSize: 18,
+    color: "white",
+    fontFamily: "LeagueSpartan",
+  },
+
+  RoundedWhiteCoverContainer: {
+    flex: 1,
+    flexGrow: 1,
+    backgroundColor: "white",
+    borderTopLeftRadius: 25, // Adjust the top-left corner radius
+    borderTopRightRadius: 25, // Adjust the top-right corner radius
+    overflow: "hidden",
+  },
+
+  subRoundedWhiteCoverContainer: {
+    flex: 1,
+    margin: 12,
+  },
+  calendarView: {
+  },
+  calendarGapVerticalSapce: {
+    height: screenHeight * 0.13,
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
+  calendarHighlightDateNumber: {
+    color: "black",
+    textDecorationLine: "underline", // Add underline style
+    textDecorationColor: "orange", // Color of the underline
+    fontFamily: 'LeagueSpartanMedium',
+  },
+  imageInBoxContainer: {
+    width: screenWidth * 0.4, // Set the desired width
+    height: screenHeight * 0.15, // Set the desired height
+    borderRadius: 15,
+    alignItems: "center", // Center the image horizontally
+  },
+  emptyViewforNavbarShadow: {
+    flex: 0,
+    backgroundColor: 'black'
+  },
+  subemptyViewforNavbarShadow: {
+    backgroundColor: 'white', // Background color of the shadow view (match with main container)
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 3, // Elevation for Android (simulates shadow)
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 1, // Adjust the height of the shadow as needed
+  },
+
+  
+
   statusContainer: {
     flexDirection: "row",
     alignItems: "center",
@@ -541,9 +484,6 @@ const styles = StyleSheet.create({
     color: "#a1a1a1", // You can adjust the color
     textAlign: "left",
     fontFamily: "LeagueSpartan",
-  },
-  scrollViewContainer: {
-    flexGrow: 1,
   },
   container: {
     flex: 1,
