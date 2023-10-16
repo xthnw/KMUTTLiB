@@ -182,7 +182,7 @@ export default class ReservationRequestScreen extends Component {
                 </View>
 
                 <View style={styles.inputContainer}>
-                  <Text style={[styles.label, { marginBottom: 10 }]}> </Text>
+                  <Text style={[styles.label, { marginBottom: 10 }]}>Department</Text>
                   <TextInput
                     style={styles.input}
                     placeholder="Computer Engineering"
