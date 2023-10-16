@@ -25,7 +25,7 @@ export default class ReservationScreen extends Component {
   navigateToNextScreen = () => {
     const { selectedDate } = this.state;
     const dateString = selectedDate.toISOString();
-    this.props.navigation.navigate("Reservation", {
+    this.props.navigation.navigate("ReservationScreen", {
       selectedDate: dateString,
     });
   };
@@ -33,27 +33,14 @@ export default class ReservationScreen extends Component {
     // Implement your logic here when a box is clicked
     // alert(`Box ${boxNumber} clicked!`);
     // Navigate to ReservationDetailsScreen
-    this.props.navigation.navigate("Reservation");
+    this.props.navigation.navigate("ReservationScreen");
   };
-
-  handleCheckIn = () => {
-    // Implement your logic here when a box is clicked
-    // alert(`Box ${boxNumber} clicked!`);
-    // Navigate to ReservationDetailsScreen
-    this.props.navigation.navigate("ReservationCheckIn");
-  };
-
   // Callback function to handle date selection
   handleDateSelected = (date) => {
     // Parse the date to ensure it's a Date object
     const parsedDate = new Date(date);
     this.setState({ selectedDate: parsedDate });
   };
-
-  handleBackPress = () => {
-    this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
-  };
-
   async componentDidMount() {
     this.focusListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setBarStyle('light-content');
@@ -62,25 +49,17 @@ export default class ReservationScreen extends Component {
       StatusBar.setBarStyle('dark-content');
     });
   }
-
   componentWillUnmount() {
     this.focusListener();
     this.blurListener();
   }
 
-
   render() {
     const { selectedDate } = this.state;
-
     // Define a custom dateNumberStyle for selected dates
-    const selectedDateNumberStyle = {
-      color: "orange", // You can change the color to your preference
-      textDecorationLine: "underline", // Add underline for selected dates
-    };
     return (
-
       <LinearGradient
-        colors={["#fe4914", "#ff9f26"]} // Adjust these colors as needed
+        colors={["#fe4914", "#ff9f24"]} // Adjust these colors as needed
         start={{ x: 0, y: 0 }} // Adjust the start point
         end={{ x: 1, y: 0 }} // Adjust the end point
         style={[{ flex: 1 }]}
@@ -118,7 +97,6 @@ export default class ReservationScreen extends Component {
                     dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
                     dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
                     highlightDateNumberStyle={styles.calendarHighlightDateNumber}
-                    //selectedDateNumberStyle My custom underline
                     highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
                     disabledDateNameStyle={{ color: "grey" }}
                     disabledDateNumberStyle={{ color: "grey" }}
@@ -138,7 +116,7 @@ export default class ReservationScreen extends Component {
                   <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
-                    onPress={this.navigateToNextScreen}
+                    onPress={() => this.handleBoxPress(1)}
                   >
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}>
@@ -168,7 +146,7 @@ export default class ReservationScreen extends Component {
                   <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
+                    onPress={() => this.handleBoxPress(2)}
                   >
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}>
@@ -198,7 +176,7 @@ export default class ReservationScreen extends Component {
                   <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
+                    onPress={() => this.handleBoxPress(3)}
                   >
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}>
@@ -226,7 +204,7 @@ export default class ReservationScreen extends Component {
                   <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
+                    onPress={() => this.handleBoxPress(4)}
                   >
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}>
@@ -256,7 +234,7 @@ export default class ReservationScreen extends Component {
                   <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
+                    onPress={() => this.handleBoxPress(5)}
                   >
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}>
@@ -284,7 +262,7 @@ export default class ReservationScreen extends Component {
                   <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
+                    onPress={() => this.handleBoxPress(6)}
                   >
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}>
