@@ -101,6 +101,7 @@ function AppNavigator() {
             <Stack.Screen name="Main" component={MainNavigator} options={{title: null, headerLeft: null}} />
             <Stack.Screen name="ReservationCheckInScreen" component={ReservationCheckInScreen} options={{title: null, headerLeft: null}} />
             <Stack.Screen name="ReservationDetailsScreen" component={ReservationDetailsScreen} options={{title: null, headerLeft: null}} />
+            <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{title: null, headerLeft: null}} />
             <Stack.Screen name="Welcome" component={Welcome} options={{title: null, headerLeft: null}} />
             <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{title: null, headerLeft: null}} />
           </>

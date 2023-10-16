@@ -17,12 +17,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from './customStyles/ReservationRequestStyles';
 
-
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
-const { width, height } = Dimensions.get("window");
-
-
 export default class ReservationRequestScreen extends Component {
   constructor(props) {
     super(props);
@@ -69,13 +63,6 @@ export default class ReservationRequestScreen extends Component {
       selectedOption: option,
       isDropdownOpen: false, // Close the dropdown after selection
     });
-  };
-
-  handleBoxPress = (boxNumber) => {
-    // Implement your logic here when a box is clicked
-    // alert(`Box ${boxNumber} clicked!`);
-    // Navigate to ReservationDetailsScreen
-    this.props.navigation.navigate("ReservationDetails");
   };
   handleBackPress = () => {
     this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
