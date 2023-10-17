@@ -42,8 +42,18 @@ function MainNavigator() {
         options={{
           
           tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
-          tabBarIcon: ({ color }) => (
-            <Iconify icon="noto:house" color={color} size={32} />
+          tabBarIcon: ({ color, focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View
+                style={{
+                  backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
+                  borderRadius: 999, // Set a large value for borderRadius to create a circle
+                  padding: 8, // Adjust the padding as needed
+                }}
+              >
+                <Iconify icon="uil:home-alt" color={focused ? 'white' : color} size={32} />
+              </View>
+            </View>
           ),
 
         }}
@@ -54,9 +64,18 @@ function MainNavigator() {
         options={{
           tabBarLabel: <Text style={styles.tabBarLabel}>Reserve</Text>,
           // tabBarBadge: true,
-          tabBarIcon: ({ color }) => (
-            <Iconify icon="noto:thumbs-up-light-skin-tone" color={color} size={32} />
-
+          tabBarIcon: ({ color, focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View
+                style={{
+                  backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
+                  borderRadius: 999, // Set a large value for borderRadius to create a circle
+                  padding: 8, // Adjust the padding as needed
+                }}
+              >
+                <Iconify icon="mdi:ticket" color={focused ? 'white' : color} size={32} />
+              </View>
+            </View>
           ),
         }}
       />
@@ -66,8 +85,18 @@ function MainNavigator() {
         options={{
           tabBarBadge: '1',
           tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
-          tabBarIcon: ({ color }) => (
-            <Iconify icon="fluent-emoji-flat:man-light" color={color} size={32} />
+          tabBarIcon: ({ color, focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View
+                style={{
+                  backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
+                  borderRadius: 999, // Set a large value for borderRadius to create a circle
+                  padding: 8, // Adjust the padding as needed
+                }}
+              >
+                <Iconify icon="clarity:user-solid" color={focused ? 'white' : color} size={32} />
+              </View>
+            </View>
           ),
         }}
       />
@@ -116,6 +145,7 @@ function AppNavigator() {
 }
 const styles = StyleSheet.create({
   tabBarLabel: {
+    paddingTop: 12,
     fontSize: 14,
     textAlign: 'center',
     fontFamily: 'LeagueSpartanMedium',
