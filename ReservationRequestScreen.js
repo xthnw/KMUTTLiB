@@ -178,6 +178,16 @@ export default class ReservationRequestScreen extends Component {
                     ))}
                   </View>
                 )}
+
+              </View>
+              <View style={styles.courseCodeView}>
+                <Text style={styles.labelInfrontcourseCodeInput}>
+                  Course code
+                </Text>
+                <TextInput
+                  style={styles.studentIdInputboxContainer}
+                  placeholder="Fill course code"
+                />
               </View>
 
               <View style={styles.studentIdformPadding}>

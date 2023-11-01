@@ -75,9 +75,25 @@ const styles = StyleSheet.create({
       alignItems: "center",
       marginBottom: 10,
     },
+    courseCodeView: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginTop: 10,
+      marginBottom: 10,
+    },
+    courseCodeInput: {
+      flexDirection: "row",
+      alignItems: "center",
+      marginBottom: 10,
+    },
     numberInfrontstudentIdrowInput: {
       fontSize: 18,
       fontFamily: "LeagueSpartan",
+      marginRight: 10,
+    },
+    labelInfrontcourseCodeInput: {
+      fontSize: 16,
+      fontFamily: "LeagueSpartanMedium",
       marginRight: 10,
     },
     studentIdInputboxContainer: {
@@ -201,7 +217,7 @@ const styles = StyleSheet.create({
     },
     label: {
       fontSize: 16,
-      fontFamily: "LeagueSpartan",
+      fontFamily: "LeagueSpartanMedium",
       marginBottom: 10,
     },
     input: {
