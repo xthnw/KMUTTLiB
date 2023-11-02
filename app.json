@@ -10,6 +10,9 @@
       "eas": {
         "projectId": "b565a6e8-78ca-4899-8117-f26c6e0470e5"
       }
+    },
+    "androidNavigationBar": {
+      "visible": "immersive"
     }
   }
 }

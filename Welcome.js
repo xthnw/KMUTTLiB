@@ -3,7 +3,7 @@ import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from './fifa/colors';
 import Button from './fifa/button';
-StatusBar.setHidden(true);
+import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 
 
@@ -17,7 +17,7 @@ const Welcome = ({ navigation }) => {
         <LinearGradient
             style={{
                 flex: 1
-                
+
             }}
             colors={[
                 COLORS.white,
