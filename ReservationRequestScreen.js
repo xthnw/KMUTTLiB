@@ -4,6 +4,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  Easing,
   Dimensions,
   StatusBar,
   Animated,
@@ -31,6 +33,7 @@ export default class ReservationRequestScreen extends Component {
       isModalCompleteVisible: false,
     };
     this.inputBoxRef = React.createRef();
+    this.buttonScale = new Animated.Value(1);
   }
 
   toggleModal = () => {
@@ -67,6 +70,23 @@ export default class ReservationRequestScreen extends Component {
   handleBackPress = () => {
     this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
   };
+  handleButtonPressIn = () => {
+    Animated.timing(this.buttonScale, {
+      toValue: 0.95,
+      duration: 150,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  handleButtonPressOut = () => {
+    Animated.timing(this.buttonScale, {
+      toValue: 1,
+      duration: 150,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  };
 
   render() {
     const { selectedOption, isDropdownOpen } = this.state;
@@ -77,6 +97,7 @@ export default class ReservationRequestScreen extends Component {
     };
     const { isModalVisible } = this.state;
     const { isModalCompleteVisible } = this.state;
+    const buttonScale = this.buttonScale;
 
     return (
       <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}>
@@ -243,14 +264,20 @@ export default class ReservationRequestScreen extends Component {
               </View>
 
               <View style={styles.submitButtonView}>
-                <TouchableOpacity
-                  style={styles.submitButtonStyle}
+                <TouchableWithoutFeedback
+                  onPressIn={this.handleButtonPressIn}
+                  onPressOut={this.handleButtonPressOut}
                   onPress={this.toggleModal}
                 >
-                  <Text style={styles.submitTextStyle}>
-                    Submit
-                  </Text>
-                </TouchableOpacity>
+                  <Animated.View
+                    style={[
+                      styles.submitButtonStyle,
+                      { transform: [{ scale: buttonScale }] },
+                    ]}
+                  >
+                    <Text style={styles.submitTextStyle}>Submit</Text>
+                  </Animated.View>
+                </TouchableWithoutFeedback>
 
                 <Modal
                   animationType="slide"
