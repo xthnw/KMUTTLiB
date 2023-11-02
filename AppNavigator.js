@@ -7,6 +7,7 @@ import ReservationDetailsScreen from './ReservationDetailsScreen';
 import ReservationDetailsScreenOld from './ReservationDetailsScreenOld';
 import ReservationRequestScreen from './ReservationRequestScreen';
 import ReservationCheckInScreen from './ReservationCheckInScreen';
+import ReservationList from './ReservationList';
 import LoginFIFA from './LoginFIFA';
 import Welcome from './Welcome';
 import LoginScreen from './LoginScreen'; // Import the LoginScreen component
@@ -80,8 +81,8 @@ function MainNavigator() {
         }}
       />
       <Tab.Screen
-        name="ReservationCheckInScreen"
-        component={ReservationCheckInScreen}
+        name="ReservationList"
+        component={ReservationList}
         options={{
           tabBarBadge: '1',
           tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
@@ -133,6 +134,7 @@ function AppNavigator() {
             <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{title: null, headerLeft: null}} />
             <Stack.Screen name="Welcome" component={Welcome} options={{title: null, headerLeft: null}} />
             <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{title: null, headerLeft: null}} />
+            <Stack.Screen name="ReservationList" component={ReservationList} options={{title: null, headerLeft: null}} />
           </>
         ) : (
           <Stack.Screen name="LoginFIFA">
