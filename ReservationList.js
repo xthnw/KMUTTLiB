@@ -98,6 +98,12 @@ export default class ReservationList extends Component {
     // Navigate to ReservationDetailsScreen
     this.props.navigation.navigate('ReservationDetails');
   };
+  navigateToNextScreen = () => {
+    // Implement your logic here when a box is clicked
+    // alert(`Box ${boxNumber} clicked!`);
+    // Navigate to ReservationDetailsScreen
+    this.props.navigation.navigate('ReservationCheckInScreen');
+  };
   handleBackPress = () => {
     this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
   };
