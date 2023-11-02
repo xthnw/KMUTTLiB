@@ -84,7 +84,7 @@ function MainNavigator() {
         name="ReservationList"
         component={ReservationList}
         options={{
-          tabBarBadge: '1',
+          // tabBarBadge: '1',
           tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
           tabBarIcon: ({ color, focused }) => (
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -120,7 +120,7 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={authenticated ? 'ReservationIndexScreen' : 'LoginFIFA'}
+        initialRouteName={authenticated ? 'Welcome' : 'Welcome'}
         screenOptions={{
           headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
           headerTintColor: 'black', // Set the text color of the header
@@ -128,7 +128,8 @@ function AppNavigator() {
         }}>
         {authenticated ? (
           <>
-            <Stack.Screen name="Main" component={MainNavigator} options={{title: null, headerLeft: null}} />
+            <Stack.Screen name="MainNavigator" component={MainNavigator} options={{title: null, headerLeft: null}} />
+            <Stack.Screen name="ReservationIndex" component={ReservationIndexScreen} options={{title: null, headerLeft: null}} />
             <Stack.Screen name="ReservationCheckInScreen" component={ReservationCheckInScreen} options={{title: null, headerLeft: null}} />
             <Stack.Screen name="ReservationDetailsScreen" component={ReservationDetailsScreen} options={{title: null, headerLeft: null}} />
             <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{title: null, headerLeft: null}} />

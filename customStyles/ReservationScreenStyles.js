@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     position: 'absolute',
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
     elevation: 3, // Adjust the elevation value for the shadow
     shadowColor: 'gray',
     shadowOffset: { width: 0, height: 4 },
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: 300, // Adjust the height of the gradient overlay
+    height: 100, // Adjust the height of the gradient overlay
     justifyContent: "center",
     alignItems: "center",
   },

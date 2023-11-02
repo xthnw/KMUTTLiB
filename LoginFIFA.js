@@ -1,39 +1,47 @@
-import { View, Text, Image , TextInput, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, Pressable, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import COLORS from './fifa/colors';
 import Button from './fifa/button';
+StatusBar.setHidden(true);
+
+// import font from './react-native.config';
+
+// import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300&display=swap');
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
+// async componentDidMount() {
+//     await Font.loadAsync({
+//       'LeagueSpartan': require('./path-to-your-font/LeagueSpartan-Regular.ttf'),
+//     });
+//     this.setState({ fontLoaded: true });
+//   }
 
 const LoginFIFA = ({ navigation }) => {
-    const [isPasswordShown, setIsPasswordShown] = useState(false);
+    const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-            <View style={{ 
-                paddingHorizontal: 150,
-                position: "absolute",
-                top: 25,
-                width: "100%",
-                flex: 1 
-            }}>
+            <View style={[{ padding: 24, alignItems: 'center', }]}>
                 <Image
-                    source={require("./picture/logo.png")}
+                    source={require("./picture/LogoApp.png")}
                     style={{
-                        height: 100,
-                        width: 100,
-                        borderRadius: 20,
-                        top: 10,
+                        height: 138,
+                        width: 244,
                     }}
                 />
             </View>
 
-            <View style={{ flex: 1, marginHorizontal: 22 ,top:100 }}>
-                <View style={{ marginVertical: 22 }}>
+            <View style={{ padding: 24, }}>
+                <View style={[{}]}>
                     <Text style={{
                         fontSize: 22,
+                        // fontFamily: "LeagueSpartan",
                         fontWeight: 'bold',
                         marginVertical: 12,
                         color: COLORS.black
@@ -119,25 +127,13 @@ const LoginFIFA = ({ navigation }) => {
                     </View>
                 </View>
 
-                <View style={{
-                    flexDirection: 'row',
-                    marginVertical: 6
-                }}>
-                    <Checkbox
-                        style={{ marginRight: 8 }}
-                        value={isChecked}
-                        onValueChange={setIsChecked}
-                        color={isChecked ? COLORS.primary : undefined}
-                    />
-
-                    <Text>Remember Me</Text>
-                </View>
 
                 <Button
-                    title="Login"
-                    // onPress={() => navigation.navigate("Home")} // Corrected the navigation here
-                    filled
+                    title="Login with Email"
+                    onPress={() => navigation.navigate("MainNavigator")} // Corrected the navigation here
+                    // filled
                     style={{
+                        borderColor: COLORS.primary,
                         marginTop: 18,
                         marginBottom: 4,
                     }}

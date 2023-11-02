@@ -61,11 +61,25 @@ export default class ReservationScreen extends Component {
     this.scrollViewRef = React.createRef(); //for header image background
   }
 
+
+
+
+
+
   componentDidMount() {
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      StatusBar.setHidden(true);
+    });
+    this.blurListener = this.props.navigation.addListener('blur', () => {
+      StatusBar.setHidden(false);
+    });
+    
     this.startAutoSlide();
   }
 
   componentWillUnmount() {
+    this.focusListener();
+    this.blurListener();
     this.stopAutoSlide();
   }
 
@@ -249,7 +263,7 @@ export default class ReservationScreen extends Component {
                 source={image}
                 style={styles.headerImageBackground}>
                 <LinearGradient
-                  colors={['transparent', 'rgba(0,0,0,0.6)']}
+                  colors={['transparent', 'rgba(0,0,0,0.4)']}
                   style={styles.gradient}
                 >
                 </LinearGradient>

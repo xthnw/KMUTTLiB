@@ -1,8 +1,15 @@
-import { View, Text, Pressable, Image } from 'react-native'
+import { View, Text, Pressable, Image, Dimensions, StatusBar } from 'react-native'
 import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from './fifa/colors';
 import Button from './fifa/button';
+StatusBar.setHidden(true);
+
+
+
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
 
 const Welcome = ({ navigation }) => {
 
@@ -10,98 +17,73 @@ const Welcome = ({ navigation }) => {
         <LinearGradient
             style={{
                 flex: 1
-                
+
             }}
             colors={[
-                COLORS.white, 
+                COLORS.white,
                 COLORS.white
             ]}>
-            <View style={{ 
-                paddingHorizontal: 22,
-                position: "absolute",
-                top: 50,
-                width: "100%",
-                flex: 1 
+            <View style={{
+                padding: 10,
+                flex: 1
             }}>
-                <View>
+                {/* <StatusBar hidden /> */}
+                <View style={[{ padding: 24, marginTop: 24, }]}>
                     <Image
-                            source={require("./picture/logo.png")}
-                            style={{
-                                height: 100,
-                                width: 100,
-                                borderRadius: 20,
-                                top: 10,
-            
-                            }}
-                        />
+                        source={require("./picture/LogoApp.png")}
+                        style={{
+                            height: 138,
+                            width: 244,
+                        }}
+                    />
                     <Text style={{
-                            paddingTop:20,
-                            fontSize: 50,
-                            fontWeight: 800,
-                            color: COLORS.black
-                        }}>Welcome to</Text>
-                        <Text style={{
-                            fontSize: 46,
-                            fontWeight: 800,
-                            color: COLORS.black
-                        }}>Kujong</Text>
+                        paddingTop: 20,
+                        fontSize: 30,
+                        fontWeight: 600,
+                        color: COLORS.black
+                    }}>Welcome to</Text>
+                    <Text style={{
+                        fontSize: 27,
+                        fontWeight: 600,
+                        color: COLORS.black
+                    }}>KMUTT LiB</Text>
 
                 </View>
-
-                <View style={{
-                    borderColor: COLORS.primary,
-                    paddingHorizontal: 0,
-                    position: "absolute",
-                    top: 600,
-                    width: "100%",
-                    marginLeft: 22
-                    // justifyContent: "center"
-                }}>
-
+                <View style={[{ padding: 12, alignItems: 'center', }]}>
+                    <Image
+                        source={require("./picture/iconWelcome.png")}
+                        style={{
+                            height: 371,
+                            width: 354,
+                        }}
+                    />
+                </View>
+                <View style={[{ alignItems: 'center', }]}>
                     <Button
-                        title="Join Now"
+                        title="Sign in with Email"
                         onPress={() => navigation.navigate("LoginFIFA")}
                         style={{
                             marginTop: 22,
-                            width: "100%",
-                            color: COLORS.black
+                            borderColor: COLORS.primary,
+                            width: "90%",
+                            color: COLORS.black,
                         }}
                     />
                     <Button
-                        title="Join Now"
-                        onPress={() => navigation.navigate("LoginFIFA")}
+                        title="Login with guest"
+                        onPress={() => navigation.navigate("MainNavigator")}
                         style={{
                             marginTop: 22,
-                            width: "100%",
+                            borderColor: COLORS.grey,
+                            backgroundColor: COLORS.grey,
+                            // textColor: 
+                            width: "90%",
                             color: COLORS.black
                         }}
                     />
-{/* 
-                    <View style={{
-                        flexDirection: "row",
-                        marginTop: 12,
-                        justifyContent: "center"
-                    }}>
-                        <Text style={{
-                            fontSize: 16,
-                            color: COLORS.primary
-                        }}>Already have an account ?</Text>
-                        
-                        <Pressable
-                            onPress={() => navigation.navigate("Login")}
-                        >
-                            <Text style={{
-                                fontSize: 16,
-                                color: COLORS.primary,
-                                fontWeight: "bold",
-                                marginLeft: 4
-                            }}>Login</Text>
-                        </Pressable>
-
-                    </View> */}
                 </View>
             </View>
-        </LinearGradient>
+        </LinearGradient >
     )
 }
 

@@ -9,6 +9,7 @@ import { customText } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconM from 'react-native-vector-icons/MaterialIcons';
 import COLORS from './fifa/colors';
+StatusBar.setHidden(false);
 
 
 const screenWidth = Dimensions.get('window').width;
