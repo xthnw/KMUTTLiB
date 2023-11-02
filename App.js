@@ -4,7 +4,6 @@ import { StyleSheet, Text, View } from 'react-native';
 import AppNavigator from './AppNavigator';
 import PropTypes from 'deprecated-react-native-prop-types';
 import { useFonts } from 'expo-font';
-StatusBar.setHidden(false);
 
 export default function App() {
   const [fontLoaded] = useFonts({

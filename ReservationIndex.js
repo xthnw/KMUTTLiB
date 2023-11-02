@@ -45,6 +45,7 @@ export default class ReservationScreen extends Component {
   async componentDidMount() {
     this.focusListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setBarStyle('light-content');
+      StatusBar.setHidden(false);
     });
     this.blurListener = this.props.navigation.addListener('blur', () => {
       StatusBar.setBarStyle('dark-content');

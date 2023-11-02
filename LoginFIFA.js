@@ -27,7 +27,7 @@ const LoginFIFA = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-            <View style={[{ padding: 24, alignItems: 'center', }]}>
+            <View style={[{ padding: 24, alignItems: 'center', marginTop: 24, }]}>
                 <Image
                     source={require("./picture/LogoApp.png")}
                     style={{

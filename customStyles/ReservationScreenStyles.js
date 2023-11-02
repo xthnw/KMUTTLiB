@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 0,
   },
 
   modalContainerFull: {
@@ -102,12 +102,12 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   modalContentFull: {
-    flex: 1,
+    flex: 0,
     backgroundColor: '#fbfbfb',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 10,
-    maxHeight: '30%', // Maximum height set to 50% of the screen height
+    maxHeight: '40%', // Maximum height set to 50% of the screen height
     justifyContent: 'flex-start', // Align content at the top
   },
 
