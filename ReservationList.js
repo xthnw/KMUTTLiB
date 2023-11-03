@@ -1,4 +1,3 @@
-import { style } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
 import React, { Component, useState } from 'react';
 import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView, StatusBar, Animated, TextInput, Modal, UIManager, findNodeHandle } from 'react-native';
 import { ScrollView, Image } from 'react-native';
@@ -15,11 +14,6 @@ StatusBar.setHidden(false);
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
-// Define a scaling factor based on your design or preferences
-const scalingFactor = 0.04; // You can adjust this value
-
-// Calculate the responsive font size
-const fontSize = screenWidth * scalingFactor;
 
 export const SIZES = {
   // global SIZES
@@ -68,41 +62,12 @@ export default class ReservationList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentID: '', // Student ID input value
-      name: '', // Name input value
-
-      isDropdownOpen: false,
-      selectedOption: '',
-
     };
-    this.inputBoxRef = React.createRef();
   }
-
-  toggleDropdown = () => {
-    this.setState((prevState) => ({
-      isDropdownOpen: !prevState.isDropdownOpen,
-    }));
-  };
-  selectOption = (option) => {
-    this.setState({
-      selectedOption: option,
-      isDropdownOpen: false, // Close the dropdown after selection
-    });
-  };
   componentDidMount() {
-
   }
 
-  handleBoxPress = (boxNumber) => {
-    // Implement your logic here when a box is clicked
-    // alert(`Box ${boxNumber} clicked!`);
-    // Navigate to ReservationDetailsScreen
-    this.props.navigation.navigate('ReservationDetails');
-  };
   navigateToNextScreen = () => {
-    // Implement your logic here when a box is clicked
-    // alert(`Box ${boxNumber} clicked!`);
-    // Navigate to ReservationDetailsScreen
     this.props.navigation.navigate('ReservationCheckInScreen');
   };
   handleBackPress = () => {
@@ -110,20 +75,15 @@ export default class ReservationList extends Component {
   };
 
   render() {
-    const { selectedOption, isDropdownOpen } = this.state;
-    const options = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
-    const dropdownHeight = isDropdownOpen ? options.length * 40 : 0;
-    const handleSubmission = () => {
-      // Handle the submission logic here
-    };
+
     return (
-      <SafeAreaView style={{
+      <SafeAreaView style={[{
         // flex: 1 ,
         height: screenHeight,
         width: screenWidth,
         backgroundColor: COLORS.white,
         paddingVertical: screenHeight * 0.03
-      }}>
+      }]}>
 
         <ScrollView
           contentContainerStyle={styles.scrollViewContainer}
@@ -133,14 +93,13 @@ export default class ReservationList extends Component {
 
           <View style={[{
             // flex: 1,
-            top: screenHeight * 0.03,
             justifyContent: 'center',
             alignItems: 'center',
           }]}>
             <Text style={styles.formTitle}>My Room</Text></View>
           <View style={[{
             // flex: 1,
-            top: screenHeight * 0.07,
+            marginTop: screenHeight * 0.07,
             justifyContent: 'center',
             alignItems: 'center',
           }]}>
@@ -175,7 +134,7 @@ export default class ReservationList extends Component {
                         <Text style={styles.statusInner}>Available</Text>
                       </View>
                       <Text style={styles.text}><Icon name="calendar" size={15} color={COLORS.primary} />16 Oct, 2023</Text>
-                      <Text style={styles.text}>15.00 - 17.00</Text>
+                      <Text style={[styles.text, { flex: 1 }]}>15.00 - 17.00</Text>
                     </View>
 
                   </View>
@@ -183,96 +142,12 @@ export default class ReservationList extends Component {
               </View>
             </TouchableOpacity>
 
-
             <View style={styles.space} />
-
-
-            <TouchableOpacity
-              // style={styles.box}
-              onPress={this.navigateToNextScreen}
-            >
-              <View style={styles.innerBox}>
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={require('./picture/floor1.jpg')}
-                    style={styles.image}
-                    resizeMode="cover"
-                  />
-                </View>
-                <View style={styles.textContent}>
-                  <Text style={styles.textbold}>KM-ROOM 5</Text>
-                  <View style={styles.boxRow}>
-
-                    <View style={styles.label}>
-                      <Text style={styles.Tag}>Location</Text>
-                      <Text style={styles.Tag}>Status</Text>
-                      <Text style={styles.Tag}>Date</Text>
-                      <Text style={styles.Tag}>Time</Text>
-                    </View>
-                    <View style={styles.space} />
-
-                    <View style={styles.label}>
-                      <Text style={styles.text}>5th floor</Text>
-                      <View style={[styles.status]}>
-                        <Text style={styles.statusInner}>Available</Text>
-                      </View>
-                      <Text style={styles.text}><Icon name="calendar" size={15} color={COLORS.primary} />16 Oct, 2023</Text>
-                      <Text style={styles.text}>15.00 - 17.00</Text>
-                    </View>
-
-                  </View>
-                </View>
-              </View>
-            </TouchableOpacity>
-
-
-            <View style={styles.space} />
-
 
 
           </View>
 
-
         </ScrollView>
-
-        <View style={[{
-          flexDirection: 'row',
-          // justifyContent: 'space-between',
-          alignItems: 'center',
-          backgroundColor: COLORS.primary,
-          borderRadius: 25,
-          padding: 10,
-          marginHorizontal: 10,
-          marginBottom: 5,
-          elevation: 2,
-          shadowColor: '#000',
-          shadowOffset: { width: 0, height: 3 },
-          shadowOpacity: 0.2,
-          shadowRadius: 8,
-          // position:'absolute'
-        }]}>
-          <TouchableOpacity style={[{ flex: 1, alignItems: 'center' }]}>
-            <Image source={require('./picture/left.png')} />
-          </TouchableOpacity>
-
-
-          <TouchableOpacity onPress={this.handleList} style={{ flex: 1, alignItems: 'center' }}>
-            <Image source={require('./picture/mid.png')} />
-          </TouchableOpacity>
-
-
-          <TouchableOpacity onPress={this.handleEditPro} style={{ flex: 1, alignItems: 'center' }}>
-            <Image
-              source={require('./picture/right.png')}
-              style={{
-                width: 24,
-                height: 24,
-                resizeMode: 'contain',
-              }}
-            />
-          </TouchableOpacity>
-
-        </View>
 
       </SafeAreaView>
 
@@ -282,13 +157,11 @@ export default class ReservationList extends Component {
 
 }
 
-
 const styles = StyleSheet.create({
   scrollViewContainer: {
     flexGrow: 1,
     paddingVertical: 10,
     paddingHorizontal: 10,
-
   },
   contentContainer: {
     flex: 1,
@@ -312,18 +185,15 @@ const styles = StyleSheet.create({
   innerBox: {
     flexDirection: 'row',
     backgroundColor: COLORS.grey,
-    // width: screenWidth * 0.8
-    width: screenWidth * 0.8, // Adjust the width as needed
+    width: screenWidth * 0.85, // Adjust the width as needed
     // height: screenWidth * 0.3,
     // flex: 1,
-    alignItems: 'start',
+    justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: COLORS.grey,
     borderRadius: 15,
     padding: 10,
     marginVertical: 4,
-    // marginHorizontal: 2,
-    // flexDirection:'row',
     backgroundColor: COLORS.white,
     elevation: 8,
     shadowColor: "#000",
@@ -332,8 +202,6 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   space: {
-    width: screenWidth * 0.1, // Adjust the width to add space between boxes
-    height: screenHeight * 0.02,
   },
 
   boxColumn: {
@@ -343,7 +211,7 @@ const styles = StyleSheet.create({
   },
   boxRow: {
     flexDirection: 'row', // Arrange boxes vertical
-    marginEnd: 10,
+    marginEnd: 30,
     // borderWidth: 5,
     borderColor: COLORS.primary,
     // width: screenWidth * 0.5,
@@ -351,25 +219,22 @@ const styles = StyleSheet.create({
 
   box: {
     width: screenWidth * 0.8, // Adjust the width as needed
-    // height: screenWidth * 0.3,
-    // flex: 1,
+    height: screenWidth * 0.3,
+    flex: 1,
     alignItems: 'start',
     borderWidth: 1,
     borderColor: COLORS.grey,
     borderRadius: 15,
     padding: 10, // ขอบบนรูปกับขอบกล่อง
     marginVertical: 4, // ความห่างของ0แต่ละกล่องบนล่าง
-    // marginHorizontal: 2,
-    // flexDirection:'row',
+    marginHorizontal: 2,
+    flexDirection:'row',
     backgroundColor: COLORS.white,
     elevation: 8,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
-  },
-  inputContainer: {
-    // marginBottom: 20, //ยืด Container ขาว ๆ ลงล่าง
   },
   label: {
     alignItems: 'start',
@@ -380,21 +245,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0,
     shadowRadius: 8,
-
-  },
-  label2: {
-    alignItems: 'start',
-    // borderWidth: 1,
-    // borderColor: COLORS.grey,
-    elevation: 8,
-    shadowColor: COLORS.black,
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0,
-    shadowRadius: 8,
-    width: screenWidth * 0.25,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-
   },
   icon: {
     color: COLORS.black,
@@ -415,10 +265,10 @@ const styles = StyleSheet.create({
   },
   image: {
     width: screenWidth * 0.3, // Set the desired width
-    height: screenHeight * 0.12, // Set the desired height
+    height: screenHeight * 0.14, // Set the desired height
     borderRadius: 15,
     alignItems: 'center', // Center the image horizontally
-    marginEnd: 10
+    marginEnd: 0,
   },
   textbold: {
     marginTop: 5,
@@ -427,8 +277,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   status: {
-    backgroundColor: COLORS.primary, // Green background color
-    opacity: '15%',
+    backgroundColor: 'green', // Green background color
     borderRadius: 15, // Adjust the border radius as needed
     marginLeft: 5, // Add spacing between "Status:" and the green label
     paddingVertical: 5, // Add vertical padding for better appearance
@@ -436,14 +285,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   statusInner: {
-    color: COLORS.white,
-    opacity: 10,
+    color: 'white',
     fontSize: 9
   },
   scrollViewContainer: {
     flexGrow: 1,
-    alignItems: 'center',
-    // gap:10
   },
 
 });
