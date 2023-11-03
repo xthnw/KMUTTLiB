@@ -184,16 +184,13 @@ const styles = StyleSheet.create({
   },
   innerBox: {
     flexDirection: 'row',
-    backgroundColor: COLORS.grey,
     width: screenWidth * 0.85, // Adjust the width as needed
-    // height: screenWidth * 0.3,
     // flex: 1,
     justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: COLORS.grey,
     borderRadius: 15,
-    padding: 10,
-    marginVertical: 4,
+    padding: 12,
     backgroundColor: COLORS.white,
     elevation: 8,
     shadowColor: "#000",
@@ -211,7 +208,7 @@ const styles = StyleSheet.create({
   },
   boxRow: {
     flexDirection: 'row', // Arrange boxes vertical
-    marginEnd: 30,
+    marginEnd: 10,
     // borderWidth: 5,
     borderColor: COLORS.primary,
     // width: screenWidth * 0.5,
@@ -228,8 +225,8 @@ const styles = StyleSheet.create({
     padding: 10, // ขอบบนรูปกับขอบกล่อง
     marginVertical: 4, // ความห่างของ0แต่ละกล่องบนล่าง
     marginHorizontal: 2,
-    flexDirection:'row',
-    backgroundColor: COLORS.white,
+    flexDirection: 'row',
+    backgroundColor: 'black',
     elevation: 8,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
@@ -237,7 +234,9 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   label: {
+    flexDirection: 'column',
     alignItems: 'start',
+    justifyContent: 'space-between',
     // borderWidth: 1,
     // borderColor: COLORS.grey,
     elevation: 8,
@@ -264,10 +263,12 @@ const styles = StyleSheet.create({
     fontWeight: 'semibold',
   },
   image: {
+    flex: 1,
     width: screenWidth * 0.3, // Set the desired width
-    height: screenHeight * 0.14, // Set the desired height
+    height: screenHeight * 0.11, // Set the desired height
+    maxHeight: screenHeight * 0.14, // Set the desired height
     borderRadius: 15,
-    alignItems: 'center', // Center the image horizontally
+    alignItems: 'center', // Center the image horizontally/
     marginEnd: 0,
   },
   textbold: {
@@ -279,14 +280,13 @@ const styles = StyleSheet.create({
   status: {
     backgroundColor: 'green', // Green background color
     borderRadius: 15, // Adjust the border radius as needed
-    marginLeft: 5, // Add spacing between "Status:" and the green label
-    paddingVertical: 5, // Add vertical padding for better appearance
-    paddingHorizontal: 5,
-    alignItems: 'center'
+    alignItems: 'center',
+    fontSize: 12,
   },
   statusInner: {
     color: 'white',
-    fontSize: 9
+    fontSize: 12,
+    padding: '1%',
   },
   scrollViewContainer: {
     flexGrow: 1,
