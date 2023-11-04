@@ -1,4 +1,8 @@
 import { StyleSheet, Dimensions, } from 'react-native';
+import { PixelRatio } from 'react-native';
+
+// Get the pixel ratio of the device
+const pixelRatio = PixelRatio.get();
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -152,13 +156,13 @@ const styles = StyleSheet.create({
     },
     textbold: {
         marginTop: 10,
-        fontSize: 14,
+        fontSize: PixelRatio.getFontScale() * 14,
         textAlign: "left",
         fontFamily: "LeagueSpartan",
     },
     description: {
         marginTop: 5,
-        fontSize: 12, // Adjust the font size as needed
+        fontSize: PixelRatio.getFontScale() * 12, // Adjust the font size as needed
         color: "#a1a1a1", // You can adjust the color
         textAlign: "left",
         fontFamily: "LeagueSpartan",

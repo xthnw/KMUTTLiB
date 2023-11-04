@@ -19,7 +19,7 @@ export default class ReservationScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: new Date(), // Initialize with the current date or the default selected date
+      // selectedDate: new Date(), // Initialize with the current date or the default selected date
     };
   }
   // Function to navigate to the next screen with selected date
@@ -40,7 +40,11 @@ export default class ReservationScreen extends Component {
   handleDateSelected = (date) => {
     // Parse the date to ensure it's a Date object
     const parsedDate = new Date(date);
-    this.setState({ selectedDate: parsedDate });
+    const day = parsedDate.getDate().toString().padStart(2, "0");
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = parsedDate.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+    this.setState({ selectedDate: formattedDate });
   };
   async componentDidMount() {
     this.focusListener = this.props.navigation.addListener('focus', () => {
@@ -107,8 +111,7 @@ export default class ReservationScreen extends Component {
                     onDateSelected={this.handleDateSelected} // Callback for date selection
                   />
                   <Text style={styles.description}>
-                    Selected Date:{" "}
-                    {selectedDate ? selectedDate.toDateString() : "None"}
+                    Selected Date: {selectedDate || "None"}
                   </Text>
                 </View>
 
