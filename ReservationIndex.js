@@ -192,30 +192,28 @@ export default class ReservationScreen extends Component {
           </View>
 
           <View style={styles.RoundedWhiteCoverContainer}>
-            <ScrollView
-              contentContainerStyle={[{ flexGrow: 1 }]}
-              showsVerticalScrollIndicator={false}>
-              <View style={styles.subRoundedWhiteCoverContainer}>
-                <View style={[styles.calendarView, { flex: 1, }]}>
-                  <CalendarStrip
-                    scrollable={true}
-                    style={styles.calendarGapVerticalSapce}
-                    calendarAnimation={{ type: "sequence", duration: 10 }}
-                    dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
-                    dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
-                    highlightDateNumberStyle={styles.calendarHighlightDateNumber}
-                    highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
-                    disabledDateNameStyle={{ color: "red" }}
-                    disabledDateNumberStyle={{ color: "red" }}
-                    calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium' }}
-                    iconContainer={{ flex: 0.1 }}
-                    onDateSelected={this.handleDateSelected} // Callback for date selection
-                  />
-                  <Text style={styles.description}>
-                    Selected Date: {selectedDate || "None"}
-                  </Text>
 
-                  {/* {roomStatus && (
+            <View style={styles.subRoundedWhiteCoverContainer}>
+              <View style={[styles.calendarView, { flex: 0, }]}>
+                <CalendarStrip
+                  scrollable={true}
+                  style={styles.calendarGapVerticalSapce}
+                  calendarAnimation={{ type: "sequence", duration: 10 }}
+                  dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
+                  dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
+                  highlightDateNumberStyle={styles.calendarHighlightDateNumber}
+                  highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
+                  disabledDateNameStyle={{ color: "red" }}
+                  disabledDateNumberStyle={{ color: "red" }}
+                  calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium' }}
+                  iconContainer={{ flex: 0.1 }}
+                  onDateSelected={this.handleDateSelected} // Callback for date selection
+                />
+                <Text style={styles.description}>
+                  Selected Date: {selectedDate || "None"}
+                </Text>
+
+                {/* {roomStatus && (
                     <View>
                       <Text>Room Status:</Text>
                       {roomStatus.map((room, index) => (
@@ -223,162 +221,165 @@ export default class ReservationScreen extends Component {
                       ))}
                     </View>
                   )} */}
-                </View>
+              </View>
 
-
-                {/* Create two boxes per row */}
-                <View style={styles.boxRow}>
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
-                  >
-                    <View style={styles.innerBox}>
-                      <View style={styles.imageContainer}>
-                        <Image
-                          source={require("./picture/floor1.jpg")}
-                          style={styles.imageInBoxContainer}
-                          resizeMode="cover"
-                        />
-                      </View>
-                      <View style={[{ alignItems: "flex-start" }]}>
-                        <Text style={styles.textbold}>KM-Room 1</Text>
-                        <Text style={styles.description}>5th Floor</Text>
-                        <View style={[styles.statusContainer, {}]}>
-                          <Text style={styles.statusText}>Status:</Text>
-                          <View style={statusStyleChecker_1}>
-                            <Text style={styles.statusLabelInner}>
-                              {isAllSlotsReserved_1 ? 'Full' : 'Available'}
-                            </Text>
+              <View style={styles.spaceOutsideRoomBox}>
+                <ScrollView
+                  contentContainerStyle={[{ flexGrow: 1 }]}
+                  showsVerticalScrollIndicator={false}>
+                  {/* Create two boxes per row */}
+                  <View style={styles.boxRow}>
+                    <TouchableOpacity
+                      activeOpacity={1}
+                      style={styles.box}
+                      onPress={() => this.handleBoxPress(1)}
+                    >
+                      <View style={styles.innerBox}>
+                        <View style={styles.imageContainer}>
+                          <Image
+                            source={require("./picture/floor1.jpg")}
+                            style={styles.imageInBoxContainer}
+                            resizeMode="cover"
+                          />
+                        </View>
+                        <View style={[{ alignItems: "flex-start" }]}>
+                          <Text style={styles.textbold}>KM-Room 1</Text>
+                          <Text style={styles.description}>5th Floor</Text>
+                          <View style={[styles.statusContainer, {}]}>
+                            <Text style={styles.statusText}>Status:</Text>
+                            <View style={statusStyleChecker_1}>
+                              <Text style={styles.statusLabelInner}>
+                                {isAllSlotsReserved_1 ? 'Full' : 'Available'}
+                              </Text>
+                            </View>
                           </View>
                         </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
 
-                  <View style={styles.space} />
+                    <View style={styles.space} />
 
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                    onPress={() => this.handleBoxPress(2)}
-                  >
-                    <View style={styles.innerBox}>
-                      <View style={styles.imageContainer}>
-                        <Image
-                          source={require("./picture/floor1.jpg")}
-                          style={styles.imageInBoxContainer}
-                          resizeMode="cover"
-                        />
-                      </View>
-                      <View style={[{ alignItems: "flex-start" }]}>
-                        <Text style={styles.textbold}>KM-Room 2</Text>
-                        <Text style={styles.description}>5th Floor</Text>
-                        <View style={[styles.statusContainer, {}]}>
-                          <Text style={styles.statusText}>Status:</Text>
-                          <View style={[styles.statusLabelClose]}>
-                            <Text style={styles.statusLabelInner}>
-                              Teacher
-                            </Text>
+                    <TouchableOpacity
+                      activeOpacity={1}
+                      style={styles.box}
+                      onPress={() => this.handleBoxPress(2)}
+                    >
+                      <View style={styles.innerBox}>
+                        <View style={styles.imageContainer}>
+                          <Image
+                            source={require("./picture/floor1.jpg")}
+                            style={styles.imageInBoxContainer}
+                            resizeMode="cover"
+                          />
+                        </View>
+                        <View style={[{ alignItems: "flex-start" }]}>
+                          <Text style={styles.textbold}>KM-Room 2</Text>
+                          <Text style={styles.description}>5th Floor</Text>
+                          <View style={[styles.statusContainer, {}]}>
+                            <Text style={styles.statusText}>Status:</Text>
+                            <View style={[styles.statusLabelClose]}>
+                              <Text style={styles.statusLabelInner}>
+                                Teacher
+                              </Text>
+                            </View>
                           </View>
                         </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-                {/* Create two boxes per row */}
-                <View style={styles.boxRow}>
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                    onPress={() => this.handleBoxPress(3)}
-                  >
-                    <View style={styles.innerBox}>
-                      <View style={styles.imageContainer}>
-                        <Image
-                          source={require("./picture/floor1.jpg")}
-                          style={styles.imageInBoxContainer}
-                          resizeMode="cover"
-                        />
-                      </View>
-                      <View style={[{ alignItems: "flex-start" }]}>
-                        <Text style={styles.textbold}>KM-Room 3</Text>
-                        <Text style={styles.description}>5th Floor</Text>
-                        <View style={[styles.statusContainer, {}]}>
-                          <Text style={styles.statusText}>Status:</Text>
-                          <View style={statusStyleChecker_3}>
-                            <Text style={styles.statusLabelInner}>
-                              {isAllSlotsReserved_3 ? 'Full' : 'Available'}
-                            </Text>
+                    </TouchableOpacity>
+                  </View>
+                  {/* Create two boxes per row */}
+                  <View style={styles.boxRow}>
+                    <TouchableOpacity
+                      activeOpacity={1}
+                      style={styles.box}
+                      onPress={() => this.handleBoxPress(3)}
+                    >
+                      <View style={styles.innerBox}>
+                        <View style={styles.imageContainer}>
+                          <Image
+                            source={require("./picture/floor1.jpg")}
+                            style={styles.imageInBoxContainer}
+                            resizeMode="cover"
+                          />
+                        </View>
+                        <View style={[{ alignItems: "flex-start" }]}>
+                          <Text style={styles.textbold}>KM-Room 3</Text>
+                          <Text style={styles.description}>5th Floor</Text>
+                          <View style={[styles.statusContainer, {}]}>
+                            <Text style={styles.statusText}>Status:</Text>
+                            <View style={statusStyleChecker_3}>
+                              <Text style={styles.statusLabelInner}>
+                                {isAllSlotsReserved_3 ? 'Full' : 'Available'}
+                              </Text>
+                            </View>
                           </View>
                         </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
 
-                  <View style={styles.space} />
+                    <View style={styles.space} />
 
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                    onPress={() => this.handleBoxPress(4)}
-                  >
-                    <View style={styles.innerBox}>
-                      <View style={styles.imageContainer}>
-                        <Image
-                          source={require("./picture/floor1.jpg")}
-                          style={styles.imageInBoxContainer}
-                          resizeMode="cover"
-                        />
-                      </View>
-                      <View style={[{ alignItems: "flex-start" }]}>
-                        <Text style={styles.textbold}>KM-Room 4</Text>
-                        <Text style={styles.description}>5th Floor</Text>
-                        <View style={[styles.statusContainer, {}]}>
-                          <Text style={styles.statusText}>Status:</Text>
-                          <View style={statusStyleChecker_4}>
-                            <Text style={styles.statusLabelInner}>
-                              {isAllSlotsReserved_4 ? 'Full' : 'Available'}
-                            </Text>
+                    <TouchableOpacity
+                      activeOpacity={1}
+                      style={styles.box}
+                      onPress={() => this.handleBoxPress(4)}
+                    >
+                      <View style={styles.innerBox}>
+                        <View style={styles.imageContainer}>
+                          <Image
+                            source={require("./picture/floor1.jpg")}
+                            style={styles.imageInBoxContainer}
+                            resizeMode="cover"
+                          />
+                        </View>
+                        <View style={[{ alignItems: "flex-start" }]}>
+                          <Text style={styles.textbold}>KM-Room 4</Text>
+                          <Text style={styles.description}>5th Floor</Text>
+                          <View style={[styles.statusContainer, {}]}>
+                            <Text style={styles.statusText}>Status:</Text>
+                            <View style={statusStyleChecker_4}>
+                              <Text style={styles.statusLabelInner}>
+                                {isAllSlotsReserved_4 ? 'Full' : 'Available'}
+                              </Text>
+                            </View>
                           </View>
                         </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-                {/* Create two boxes per row */}
-                <View style={styles.boxRow}>
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                    onPress={() => this.handleBoxPress(5)}
-                  >
-                    <View style={styles.innerBox}>
-                      <View style={styles.imageContainer}>
-                        <Image
-                          source={require("./picture/floor1.jpg")}
-                          style={styles.imageInBoxContainer}
-                          resizeMode="cover"
-                        />
-                      </View>
-                      <View style={[{ alignItems: "flex-start" }]}>
-                        <Text style={styles.textbold}>KM-Room 5</Text>
-                        <Text style={styles.description}>5th Floor</Text>
-                        <View style={[styles.statusContainer, {}]}>
-                          <Text style={styles.statusText}>Status:</Text>
-                          <View style={statusStyleChecker_5}>
-                            <Text style={styles.statusLabelInner}>
-                              {isAllSlotsReserved_5 ? 'Full' : 'Available'}
-                            </Text>
+                    </TouchableOpacity>
+                  </View>
+                  {/* Create two boxes per row */}
+                  <View style={styles.boxRow}>
+                    <TouchableOpacity
+                      activeOpacity={1}
+                      style={styles.box}
+                      onPress={() => this.handleBoxPress(5)}
+                    >
+                      <View style={styles.innerBox}>
+                        <View style={styles.imageContainer}>
+                          <Image
+                            source={require("./picture/floor1.jpg")}
+                            style={styles.imageInBoxContainer}
+                            resizeMode="cover"
+                          />
+                        </View>
+                        <View style={[{ alignItems: "flex-start" }]}>
+                          <Text style={styles.textbold}>KM-Room 5</Text>
+                          <Text style={styles.description}>5th Floor</Text>
+                          <View style={[styles.statusContainer, {}]}>
+                            <Text style={styles.statusText}>Status:</Text>
+                            <View style={statusStyleChecker_5}>
+                              <Text style={styles.statusLabelInner}>
+                                {isAllSlotsReserved_5 ? 'Full' : 'Available'}
+                              </Text>
+                            </View>
                           </View>
                         </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
 
-                  <View style={styles.space} />
+                    <View style={styles.space} />
 
-                  {/* <TouchableOpacity
+                    {/* <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
                     onPress={() => this.handleBoxPress(6)}
@@ -405,9 +406,10 @@ export default class ReservationScreen extends Component {
                       </View>
                     </View>
                   </TouchableOpacity> */}
-                </View>
+                  </View>
+                </ScrollView>
               </View>
-            </ScrollView>
+            </View>
           </View>
           <View style={styles.emptyViewforNavbarShadow}>
             <View style={styles.subemptyViewforNavbarShadow}>
