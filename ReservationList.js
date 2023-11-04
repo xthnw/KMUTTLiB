@@ -1,60 +1,18 @@
 import React, { Component, useState } from 'react';
-import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView, StatusBar, Animated, TextInput, Modal, UIManager, findNodeHandle } from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView, StatusBar, Button } from 'react-native';
 import { ScrollView, Image } from 'react-native';
-import CalendarStrip from 'react-native-calendar-strip';
-import Gradient from './Gradient'; // Import the Gradient component
-import { LinearGradient } from "expo-linear-gradient";
-import { customText } from 'react-native-paper';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
-import IconM from 'react-native-vector-icons/MaterialIcons';
 import COLORS from './fifa/colors';
+import axios from 'axios';
+import { width } from 'deprecated-react-native-prop-types/DeprecatedImagePropType';
 StatusBar.setHidden(false);
+import { deleteBooking } from './source/deleteBooking'; // Adjust the import path
+
 
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
-
-
-export const SIZES = {
-  // global SIZES
-  base: 8,
-  font: 14,
-  radius: 30,
-  padding: 10,
-  padding2: 12,
-  padding3: 16,
-
-  // font sizes
-  largeTitle: 50,
-  h1: 30,
-  h2: 20,
-  h3: 18,
-  h4: 16,
-  body1: 30,
-  body2: 20,
-  body3: 18,
-  body4: 14,
-  body5: 12,
-
-  // // app dimensions
-  // width,
-  // height,
-}
-export const FONTS = {
-  largeTitle: {
-    fontFamily: 'black',
-    fontSize: SIZES.largeTitle,
-    lineHeight: 55,
-  },
-  h1: { fontSize: SIZES.h1, lineHeight: 36 },
-  h2: { fontSize: SIZES.h2, lineHeight: 30 },
-  h3: { fontSize: SIZES.h3, lineHeight: 22 },
-  h4: { fontSize: SIZES.h4, lineHeight: 20 },
-  body1: { fontSize: SIZES.body1, lineHeight: 36 },
-  body2: { fontSize: SIZES.body2, lineHeight: 30 },
-  body3: { fontSize: SIZES.body3, lineHeight: 22 },
-  body4: { fontSize: SIZES.body4, lineHeight: 20 },
-}
 
 
 
@@ -64,7 +22,21 @@ export default class ReservationList extends Component {
     this.state = {
     };
   }
+ 
+
   componentDidMount() {
+    // Make an API request to fetch booking data
+    axios
+      .get('http://localhost:8080/api/list') // Replace with your API endpoint
+      .then(response => {
+        // Extract the date and time from the response and store them in the state
+        this.setState({
+          bookingData: response.data, // Assuming the response contains date and time fields
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching booking data:', error);
+      });
   }
 
   navigateToNextScreen = () => {
@@ -73,7 +45,16 @@ export default class ReservationList extends Component {
   handleBackPress = () => {
     this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
   };
-
+  handleDeleteBooking = () => {
+    deleteBooking()
+      .then(response => {
+        console.log('Booking deleted:', response.data);
+        this.setState({ deleted: true });
+      })
+      .catch(error => {
+        console.error('Error deleting booking:', error);
+      });
+  }
   render() {
 
     return (
@@ -104,11 +85,11 @@ export default class ReservationList extends Component {
             alignItems: 'center',
           }]}>
 
-            <TouchableOpacity
+            <View
               // style={styles.box}
-              onPress={this.navigateToNextScreen}
+              // onPress={this.navigateToNextScreen}
             >
-              <View style={styles.innerBox}>
+              <View style={styles.Box}>
                 <View style={styles.imageContainer}>
                   <Image
                     source={require('./picture/floor1.jpg')}
@@ -125,6 +106,11 @@ export default class ReservationList extends Component {
                       <Text style={styles.Tag}>Status</Text>
                       <Text style={styles.Tag}>Date</Text>
                       <Text style={styles.Tag}>Time</Text>
+                      <View style={styles.space} />
+                      <TouchableOpacity style={styles.deleteBooking} onPress={this.handleDeleteBooking}>
+                        <Text style={styles.statusDelete}>Cancel</Text>
+                        
+                      </TouchableOpacity>
                     </View>
                     <View style={styles.space} />
 
@@ -135,12 +121,16 @@ export default class ReservationList extends Component {
                       </View>
                       <Text style={styles.text}><Icon name="calendar" size={15} color={COLORS.primary} />16 Oct, 2023</Text>
                       <Text style={[styles.text, { flex: 1 }]}>15.00 - 17.00</Text>
+                      <View style={styles.space} />
+                      <TouchableOpacity style={[styles.statusDetail]} onPress={this.navigateToNextScreen}>
+                        <Text style={styles.statusInner}>Detail</Text>
+                      </TouchableOpacity>
                     </View>
 
                   </View>
                 </View>
               </View>
-            </TouchableOpacity>
+            </View>
 
             <View style={styles.space} />
 
@@ -163,42 +153,44 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
   },
-  contentContainer: {
-    flex: 1,
-    backgroundColor: 'white',
+  textContent: {
+    // flex: 1,
+    // backgroundColor: 'red',
     borderRadius: 10,
-    padding: 20,
-    elevation: 3,
+    width: '60%',
+    paddingLeft: 10,
+    // elevation: 3,
   },
   formTitle: {
     fontSize: 24,
     fontWeight: 'bold',
     color: COLORS.primary,
-    // left: screenWidth * 0.275
-    // marginBottom: 10,
 
   },
   detailsText: {
     color: 'orange',
     marginBottom: 20,
   },
-  innerBox: {
+  Box: {
     flexDirection: 'row',
     width: screenWidth * 0.85, // Adjust the width as needed
     // flex: 1,
+    
     justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: COLORS.grey,
     borderRadius: 15,
     padding: 12,
     backgroundColor: COLORS.white,
-    elevation: 8,
+    elevation: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
+    // shadowOpacity: 0.2,
     shadowRadius: 2,
   },
   space: {
+    width:screenWidth*0.1,
+    height:screenHeight*0.005
   },
 
   boxColumn: {
@@ -283,6 +275,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 12,
   },
+  statusDetail: {
+    backgroundColor: COLORS.primary, // Green background color
+    borderRadius: 15, // Adjust the border radius as needed
+    alignItems: 'center',
+    fontSize: 12,
+  },
+deleteBooking: {   
+  // backgroundColor: 'green', // Green background color
+  borderRadius: 15, // Adjust the border radius as needed
+  alignItems: 'center',
+  fontSize: 12,
+  borderColor:'red',
+  borderWidth: 1
+},
+statusDelete: {
+  // color: 'white',
+  fontSize: 12,
+  padding: '1%',
+},
   statusInner: {
     color: 'white',
     fontSize: 12,
