@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 
     subRoundedWhiteCoverContainer: {
         flex: 1,
-        margin: 12,
+        paddingHorizontal: 12,
     },
     calendarView: {
     },
@@ -133,6 +133,8 @@ const styles = StyleSheet.create({
         flexDirection: "row", // Arrange boxes horizontally
         justifyContent: "space-between", // Add space between boxes
         marginBottom: 10, // Add vertical spacing between rows
+        paddingTop: 12,
+        paddingHorizontal: 4,
     },
     box: {
         width: screenWidth * 0.45, // Adjust the width as needed
@@ -172,10 +174,9 @@ const styles = StyleSheet.create({
     },
     spaceOutsideRoomBox: {
         flex: 1,
-        flexGrow: 1,
         backgroundColor: "white",
         overflow: "hidden",
-      },
+    },
 });
 
 export default styles;
