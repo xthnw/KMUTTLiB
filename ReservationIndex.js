@@ -13,13 +13,23 @@ import CalendarStrip from "react-native-calendar-strip";
 import { LinearGradient } from "expo-linear-gradient";
 import { Iconify } from 'react-native-iconify';
 import styles from './customStyles/ReservationIndexStyles';
+import axios from "axios";
+
+
+
+const apiUrl = 'http://192.168.1.104:8080/api/room';
+
+
+
+
 StatusBar.setHidden(false);
 
 export default class ReservationScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // selectedDate: new Date(), // Initialize with the current date or the default selected date
+      selectedDate: null, // Initialize with the current date or the default selected date
+      roomStatus: null, // Initialize as null
     };
   }
   // Function to navigate to the next screen with selected date
@@ -37,7 +47,7 @@ export default class ReservationScreen extends Component {
     this.props.navigation.navigate("ReservationScreen");
   };
   // Callback function to handle date selection
-  handleDateSelected = (date) => {
+  handleDateSelected = async (date) => {
     // Parse the date to ensure it's a Date object
     const parsedDate = new Date(date);
     const day = parsedDate.getDate().toString().padStart(2, "0");
@@ -45,6 +55,26 @@ export default class ReservationScreen extends Component {
     const year = parsedDate.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
     this.setState({ selectedDate: formattedDate });
+
+    try {
+      const jsonData = {
+        Booking_date: formattedDate, // Update key without quotes
+      };
+
+      const response = await axios.post(apiUrl, jsonData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Set the roomStatus in the component's state
+      this.setState({ roomStatus: response.data.bookings });
+
+      // Handle the response data
+      console.log('Room Status for 05/11/2023:', response.data.bookings);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
   async componentDidMount() {
     this.focusListener = this.props.navigation.addListener('focus', () => {
@@ -54,15 +84,86 @@ export default class ReservationScreen extends Component {
     this.blurListener = this.props.navigation.addListener('blur', () => {
       StatusBar.setBarStyle('dark-content');
     });
+
+    // Get the current date and format it
+    const currentDate = new Date();
+    const day = currentDate.getDate().toString().padStart(2, "0");
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = currentDate.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+
+    this.setState({ selectedDate: formattedDate });
+
+    try {
+      const jsonData = {
+        Booking_date: formattedDate,
+      };
+
+      const response = await axios.post(apiUrl, jsonData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      this.setState({ roomStatus: response.data.bookings });
+
+      console.log('Room Status for current date:', response.data.bookings);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+
+
+
+
+
+
+
   }
   componentWillUnmount() {
     this.focusListener();
     this.blurListener();
   }
 
+
   render() {
-    const { selectedDate } = this.state;
-    // Define a custom dateNumberStyle for selected dates
+    const { selectedDate, roomStatus, } = this.state;
+    const roomToCheck = 'KM3'; // Replace with the desired room ID
+    const timeSlotsToCheck = ['08:30 - 10:20', '10:30 - 12:20', '12:30 - 14:20', '14:30 - 16:20'];
+    // Filter the JSON data to include only the room you want to check
+    const filteredData_1 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM1');
+    const filteredData_2 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM2');
+    const filteredData_3 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM3');
+    const filteredData_4 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM4');
+    const filteredData_5 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM5');
+
+    // Check if all time slots are reserved for the selected room
+    const isAllSlotsReserved_1 = timeSlotsToCheck.every(timeSlot =>
+      filteredData_1 && filteredData_1.some(room => room.data.Booking_period === timeSlot)
+    );
+    const isAllSlotsReserved_2 = timeSlotsToCheck.every(timeSlot =>
+      filteredData_2 && filteredData_2.some(room => room.data.Booking_period === timeSlot)
+    );
+    const isAllSlotsReserved_3 = timeSlotsToCheck.every(timeSlot =>
+      filteredData_3 && filteredData_3.some(room => room.data.Booking_period === timeSlot)
+    );
+    const isAllSlotsReserved_4 = timeSlotsToCheck.every(timeSlot =>
+      filteredData_4 && filteredData_4.some(room => room.data.Booking_period === timeSlot)
+    );
+    const isAllSlotsReserved_5 = timeSlotsToCheck.every(timeSlot =>
+      filteredData_5 && filteredData_5.some(room => room.data.Booking_period === timeSlot)
+    );
+    const statusAvailableStyle = styles.statusLabel;
+    const statusFullStyle = styles.statusLabelFull;
+    const statusStyleChecker_1 = isAllSlotsReserved_1 ? statusFullStyle : statusAvailableStyle;
+    const statusStyleChecker_2 = isAllSlotsReserved_2 ? statusFullStyle : statusAvailableStyle;
+    const statusStyleChecker_3 = isAllSlotsReserved_3 ? statusFullStyle : statusAvailableStyle;
+    const statusStyleChecker_4 = isAllSlotsReserved_4 ? statusFullStyle : statusAvailableStyle;
+    const statusStyleChecker_5 = isAllSlotsReserved_5 ? statusFullStyle : statusAvailableStyle;
+    const datesBlacklistFunc = (date) => {
+      // Disable past days, Saturdays (isoWeekday 6), and Sundays (isoWeekday 7)
+      return date.isBefore(moment(), 'day') || date.isoWeekday() === 6 || date.isoWeekday() === 7;
+    };
     return (
       <LinearGradient
         colors={["#fe4914", "#ff9f24"]} // Adjust these colors as needed
@@ -104,8 +205,8 @@ export default class ReservationScreen extends Component {
                     dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
                     highlightDateNumberStyle={styles.calendarHighlightDateNumber}
                     highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
-                    disabledDateNameStyle={{ color: "grey" }}
-                    disabledDateNumberStyle={{ color: "grey" }}
+                    disabledDateNameStyle={{ color: "red" }}
+                    disabledDateNumberStyle={{ color: "red" }}
                     calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium' }}
                     iconContainer={{ flex: 0.1 }}
                     onDateSelected={this.handleDateSelected} // Callback for date selection
@@ -113,6 +214,15 @@ export default class ReservationScreen extends Component {
                   <Text style={styles.description}>
                     Selected Date: {selectedDate || "None"}
                   </Text>
+
+                  {/* {roomStatus && (
+                    <View>
+                      <Text>Room Status:</Text>
+                      {roomStatus.map((room, index) => (
+                        <Text key={index}>{room.id}: {room.data.Booking_period}</Text>
+                      ))}
+                    </View>
+                  )} */}
                 </View>
 
 
@@ -136,9 +246,9 @@ export default class ReservationScreen extends Component {
                         <Text style={styles.description}>5th Floor</Text>
                         <View style={[styles.statusContainer, {}]}>
                           <Text style={styles.statusText}>Status:</Text>
-                          <View style={[styles.statusLabel]}>
+                          <View style={statusStyleChecker_1}>
                             <Text style={styles.statusLabelInner}>
-                              Available
+                              {isAllSlotsReserved_1 ? 'Full' : 'Available'}
                             </Text>
                           </View>
                         </View>
@@ -196,8 +306,10 @@ export default class ReservationScreen extends Component {
                         <Text style={styles.description}>5th Floor</Text>
                         <View style={[styles.statusContainer, {}]}>
                           <Text style={styles.statusText}>Status:</Text>
-                          <View style={[styles.statusLabelFull]}>
-                            <Text style={styles.statusLabelInner}>Full</Text>
+                          <View style={statusStyleChecker_3}>
+                            <Text style={styles.statusLabelInner}>
+                              {isAllSlotsReserved_3 ? 'Full' : 'Available'}
+                            </Text>
                           </View>
                         </View>
                       </View>
@@ -224,9 +336,9 @@ export default class ReservationScreen extends Component {
                         <Text style={styles.description}>5th Floor</Text>
                         <View style={[styles.statusContainer, {}]}>
                           <Text style={styles.statusText}>Status:</Text>
-                          <View style={[styles.statusLabel]}>
+                          <View style={statusStyleChecker_4}>
                             <Text style={styles.statusLabelInner}>
-                              Available
+                              {isAllSlotsReserved_4 ? 'Full' : 'Available'}
                             </Text>
                           </View>
                         </View>
@@ -250,12 +362,14 @@ export default class ReservationScreen extends Component {
                         />
                       </View>
                       <View style={[{ alignItems: "flex-start" }]}>
-                        <Text style={styles.textbold}>KM-Room 3</Text>
+                        <Text style={styles.textbold}>KM-Room 5</Text>
                         <Text style={styles.description}>5th Floor</Text>
                         <View style={[styles.statusContainer, {}]}>
                           <Text style={styles.statusText}>Status:</Text>
-                          <View style={[styles.statusLabelFull]}>
-                            <Text style={styles.statusLabelInner}>Full</Text>
+                          <View style={statusStyleChecker_5}>
+                            <Text style={styles.statusLabelInner}>
+                              {isAllSlotsReserved_5 ? 'Full' : 'Available'}
+                            </Text>
                           </View>
                         </View>
                       </View>
@@ -264,7 +378,7 @@ export default class ReservationScreen extends Component {
 
                   <View style={styles.space} />
 
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
                     onPress={() => this.handleBoxPress(6)}
@@ -290,7 +404,7 @@ export default class ReservationScreen extends Component {
                         </View>
                       </View>
                     </View>
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
               </View>
             </ScrollView>
