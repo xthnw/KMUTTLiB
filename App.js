@@ -4,6 +4,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import AppNavigator from './AppNavigator';
 import PropTypes from 'deprecated-react-native-prop-types';
 import { useFonts } from 'expo-font';
+import { AuthProvider } from './AuthContext';
+
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -16,7 +18,9 @@ export default function App() {
   return (
     <View style={styles.container}>
       {fontLoaded ? (
-        <AppNavigator />
+        <AuthProvider>
+          <AppNavigator />
+        </AuthProvider>
       ) : (
         <Text>Loading fonts...</Text>
       )}

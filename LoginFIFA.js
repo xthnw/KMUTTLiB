@@ -6,6 +6,7 @@ import Checkbox from "expo-checkbox";
 import COLORS from './fifa/colors';
 import Button from './fifa/button';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 StatusBar.setHidden(true);
 
 // import font from './react-native.config';
@@ -29,12 +30,16 @@ const LoginFIFA = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { dispatch } = useAuth();
+
+    const [authenticated, setAuthenticated] = useState(true);
+
     const handleLogin = async () => {
         try {
             const apiUrl = 'http://192.168.1.104:8080/api/authen';
             const jsonData = {
-                email: email,
-                password: password,
+                email: 'Jedsada_chai@kmutt.ac.th',
+                password: 'secret123',
             };
 
             const response = await axios.post(apiUrl, jsonData);
@@ -44,7 +49,10 @@ const LoginFIFA = ({ navigation }) => {
                 console.log('Login successful');
                 console.log('User Information:', response.data.data);
 
-                
+                setAuthenticated(true);
+
+                dispatch({ type: 'LOGIN', payload: response });
+                navigation.navigate("MainNavigator")
 
                 // You may want to store the user information in your app's state or context
             } else {
@@ -54,6 +62,7 @@ const LoginFIFA = ({ navigation }) => {
         } catch (error) {
             console.error('Error:', error);
         }
+
     };
 
     return (
