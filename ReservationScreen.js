@@ -181,9 +181,37 @@ export default class ReservationScreen extends Component {
     });
   };
 
-  toggleModalFull = () => {
+  toggleModalFullDismiss = () => {
     this.setState({
       isModalVisibleFull: !this.state.isModalVisibleFull,
+    });
+  };
+
+  toggleModalFull = (buttonId, targetTimeSlot, Room_ID) => {
+    const selectedDate = this.state.selectedDate; // Get the selected date in "DD/MM/YYYY" format
+
+    // Split the date string into day, month, and year
+    const [day, month, year] = selectedDate.split('/').map(Number);
+
+    // Create a new Date object using the year, month (subtract 1 as it's zero-based), and day
+    const date = new Date(year, month - 1, day);
+
+    // Define the options for formatting the date
+    const options = {
+      weekday: 'short', // Displays the abbreviated day of the week
+      day: '2-digit',   // Displays the day of the month with leading zeros
+      month: 'short',   // Displays the abbreviated month name
+      year: 'numeric',  // Displays the full year
+    };
+
+    // Format the date as "Sun 04 Oct 2023"
+    const formattedDateInModal = date.toLocaleDateString('en-US', options);
+
+    this.setState({
+      isModalVisibleFull: !this.state.isModalVisibleFull,
+      modalRoom_ID: Room_ID,
+      modalPeriod: targetTimeSlot,
+      modalFormattedDate: formattedDateInModal,
     });
   };
   handleRequestPress = () => {
@@ -223,28 +251,35 @@ export default class ReservationScreen extends Component {
         ? { ...styles.textDisabled }
         : { ...styles.buttonText };
 
+
+    const targetTimeSlot_1 = "08:30 - 10:20";
+    const targetTimeSlot_2 = "10:30 - 12:20";
+    const targetTimeSlot_3 = "12:30 - 14:20";
+    const targetTimeSlot_4 = "14:30 - 16:20";
+
+
     // Define a mapping of button IDs to corresponding functions
     const buttonFunctions = {
-      1: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      2: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      3: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      4: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      5: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      6: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      7: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      8: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      9: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      10: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      11: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      12: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      13: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      14: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      15: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      16: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      17: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      18: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      19: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
-      20: isSlotReserved ? this.toggleModalFull : this.handleRequestPress,
+      1: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 1) : () => this.handleRequestPress(buttonId),
+      2: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 1) : () => this.handleRequestPress(buttonId),
+      3: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 1) : () => this.handleRequestPress(buttonId),
+      4: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 1) : () => this.handleRequestPress(buttonId),
+      5: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 2) : () => this.handleRequestPress(buttonId),
+      6: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 2) : () => this.handleRequestPress(buttonId),
+      7: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 2) : () => this.handleRequestPress(buttonId),
+      8: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 2) : () => this.handleRequestPress(buttonId),
+      9: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 3) : () => this.handleRequestPress(buttonId),
+      10: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 3) : () => this.handleRequestPress(buttonId),
+      11: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 3) : () => this.handleRequestPress(buttonId),
+      12: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 3) : () => this.handleRequestPress(buttonId),
+      13: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 4) : () => this.handleRequestPress(buttonId),
+      14: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 4) : () => this.handleRequestPress(buttonId),
+      15: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 4) : () => this.handleRequestPress(buttonId),
+      16: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 4) : () => this.handleRequestPress(buttonId),
+      17: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 5) : () => this.handleRequestPress(buttonId),
+      18: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 5) : () => this.handleRequestPress(buttonId),
+      19: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 5) : () => this.handleRequestPress(buttonId),
+      20: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 5) : () => this.handleRequestPress(buttonId),
       // Add more button IDs and functions as needed
     };
 
@@ -338,24 +373,12 @@ export default class ReservationScreen extends Component {
     const isSlotReserved_19 = filteredData_5 && filteredData_5.some(room => room.data.Booking_period.includes(targetTimeSlot_3));
     const isSlotReserved_20 = filteredData_5 && filteredData_5.some(room => room.data.Booking_period.includes(targetTimeSlot_4));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Define a custom dateNumberStyle for selected dates
     const selectedDateNumberStyle = {
       color: "orange", // You can change the color to your preference
       textDecorationLine: "underline", // Add underline for selected dates
     };
+
 
     return (
 
@@ -442,9 +465,6 @@ export default class ReservationScreen extends Component {
             />
             <Text style={styles.selectedDateLable}>
               Selected Date: {selectedDate || "None"}
-            </Text>
-            <Text style={[styles.description, { marginLeft: 8, }]}>
-              Selected Date: {isSlotReserved_1}
             </Text>
           </View>
 
@@ -575,12 +595,13 @@ export default class ReservationScreen extends Component {
         </View>
 
 
+
         <Modal
           isVisible={isModalVisibleFull}
           animationIn="slideInUp"
           animationOut="slideOutDown"
           useNativeDriverForBackdrop={true}
-          onBackdropPress={this.toggleModalFull}
+          onBackdropPress={this.toggleModalFullDismiss}
           style={styles.modalContainerFull}
         >
 
@@ -592,9 +613,10 @@ export default class ReservationScreen extends Component {
                 }]}
                 showsVerticalScrollIndicator={false}
               >
-                <Text style={[styles.modalRoomNolable]}>KM Room 1</Text>
+                <Text style={[styles.modalRoomNolable]}>KM-Room {this.state.modalRoom_ID}</Text>
+
                 <Text style={[styles.modalTimelable]}>
-                  Time : 10:30 - 12:20 | 24 Oct 2023
+                  Time : {this.state.modalPeriod} | {this.state.modalFormattedDate}
                 </Text>
                 <View style={[styles.dividerLine]} />
                 <View style={[{
