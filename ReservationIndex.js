@@ -9,15 +9,28 @@ import {
   Platform,
 } from "react-native";
 import { ScrollView, Image } from "react-native";
-import CalendarStrip from "react-native-calendar-strip";
+import CalendarStrip from "react-native-scrollable-calendar-strip";
 import { LinearGradient } from "expo-linear-gradient";
 import { Iconify } from 'react-native-iconify';
 import styles from './customStyles/ReservationIndexStyles';
 import axios from "axios";
+import moment from "moment/moment";
 
 
 
 const apiUrl = 'http://192.168.1.104:8080/api/room';
+
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
+
+
+let datesWhitelist = [{
+  start: moment(),
+  end: moment().add(5, 'days')
+}];
+const datesBlacklist = date => {
+  return date.isoWeekday() === 6 || date.isoWeekday() === 6; // disable Saturdays and Sundays
+}
 
 
 
@@ -197,17 +210,33 @@ export default class ReservationScreen extends Component {
               <View style={[styles.calendarView, { flex: 0, }]}>
                 <CalendarStrip
                   scrollable={true}
-                  style={styles.calendarGapVerticalSapce}
-                  calendarAnimation={{ type: "sequence", duration: 10 }}
+                  style={{
+                    height: screenHeight * 0.13,
+                    paddingTop: 10,
+                    paddingBottom: 10,
+                    fontFamily: "LeagueSpartan",
+                  }}
+                  calendarAnimation={{ type: "parallel", duration: 300, useNativeDriver: true }}
+                  daySelectionAnimation={{ type: "border", borderWidth: 1, duration: 300 }}
                   dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
                   dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
-                  highlightDateNumberStyle={styles.calendarHighlightDateNumber}
+                  highlightDateNumberStyle={{
+                    color: "black",
+                    textDecorationLine: "underline", // Add underline style
+                    textDecorationColor: "orange", // Color of the underline
+                    fontFamily: 'LeagueSpartanMedium',
+                  }}
+                  // selectedDateNumberStyle ขีดเส้นใต้
                   highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
-                  disabledDateNameStyle={{ color: "red" }}
-                  disabledDateNumberStyle={{ color: "red" }}
+                  disabledDateNameStyle={{ color: "grey", fontFamily: 'LeagueSpartan' }}
+                  disabledDateNumberStyle={{ color: "grey", fontFamily: 'LeagueSpartan' }}
                   calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium' }}
                   iconContainer={{ flex: 0.1 }}
                   onDateSelected={this.handleDateSelected} // Callback for date selection
+                  // datesWhitelist={datesWhitelist}
+                  datesBlacklist={datesBlacklist}
+                  minDate={moment().subtract(1, 'weeks').format('YYYY-MM-DD')}
+                  maxDate={moment().add(1, 'weeks').format('YYYY-MM-DD')}
                 />
                 <Text style={[styles.description, { marginLeft: 8, }]}>
                   Selected Date: {selectedDate || "None"}

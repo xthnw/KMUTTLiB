@@ -13,8 +13,10 @@ import {
   Easing,
   TouchableWithoutFeedback,
   ImageBackground,
+  AppRegistry,
 } from "react-native";
-import CalendarStrip from "react-native-calendar-strip";
+import moment from 'moment';
+import CalendarStrip from "react-native-scrollable-calendar-strip";
 import { Iconify } from 'react-native-iconify';
 import Modal from 'react-native-modal';
 import { LinearGradient } from "expo-linear-gradient";
@@ -32,6 +34,14 @@ const images = [
   require('./picture/kmuttlib2.jpg'),
   require('./picture/kmuttlib3.jpg'),
 ];
+
+let datesWhitelist = [{
+  start: moment(),
+  end: moment().add(5, 'days')
+}];
+const datesBlacklist = date => {
+  return date.isoWeekday() === 6 || date.isoWeekday() === 6; // disable Saturdays and Sundays
+}
 
 
 export default class ReservationScreen extends Component {
@@ -67,6 +77,8 @@ export default class ReservationScreen extends Component {
     }
     this.scrollViewRef = React.createRef(); //for header image background
   }
+
+
 
 
   // Callback function to handle date selection
@@ -218,10 +230,7 @@ export default class ReservationScreen extends Component {
     this.props.navigation.navigate('ReservationRequestScreen');
   };
   handleBoxPress = (boxNumber) => {
-    // Implement your logic here when a box is clicked
-    // alert(`Box ${boxNumber} clicked!`);
-    // Navigate to ReservationDetailsScreen
-    this.props.navigation.navigate("ReservationDetails");
+    // this.props.navigation.navigate("ReservationDetails");
   };
 
   handleButtonClick = (buttonId) => {
@@ -234,6 +243,7 @@ export default class ReservationScreen extends Component {
   handleBackPress = () => {
     this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
   };
+
 
   renderButton = (buttonId, text, isSlotReserved, isDisabled = false) => {
     const { selectedButton } = this.state;
@@ -326,6 +336,8 @@ export default class ReservationScreen extends Component {
       useNativeDriver: true,
     }).start();
   }
+
+
 
 
 
@@ -446,7 +458,8 @@ export default class ReservationScreen extends Component {
                 paddingBottom: 10,
                 fontFamily: "LeagueSpartan",
               }}
-              calendarAnimation={{ type: "sequence", duration: 10 }}
+              calendarAnimation={{ type: "parallel", duration: 300, useNativeDriver: true }}
+              daySelectionAnimation={{ type: "border", borderWidth: 1, duration: 300 }}
               dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
               dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
               highlightDateNumberStyle={{
@@ -457,11 +470,15 @@ export default class ReservationScreen extends Component {
               }}
               // selectedDateNumberStyle ขีดเส้นใต้
               highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
-              disabledDateNameStyle={{ color: "grey" }}
-              disabledDateNumberStyle={{ color: "grey" }}
+              disabledDateNameStyle={{ color: "grey", fontFamily: 'LeagueSpartan' }}
+              disabledDateNumberStyle={{ color: "grey", fontFamily: 'LeagueSpartan' }}
               calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium' }}
               iconContainer={{ flex: 0.1 }}
               onDateSelected={this.handleDateSelected} // Callback for date selection
+              // datesWhitelist={datesWhitelist}
+              datesBlacklist={datesBlacklist}
+              minDate={moment().subtract(1, 'weeks').format('YYYY-MM-DD')}
+              maxDate={moment().add(1, 'weeks').format('YYYY-MM-DD')}
             />
             <Text style={styles.selectedDateLable}>
               Selected Date: {selectedDate || "None"}
