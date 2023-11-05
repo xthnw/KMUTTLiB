@@ -460,25 +460,26 @@ export default class ReservationScreen extends Component {
               }}
               calendarAnimation={{ type: "parallel", duration: 300, useNativeDriver: true }}
               daySelectionAnimation={{ type: "border", borderWidth: 1, duration: 300 }}
-              dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
-              dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan' }}
+              dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
               highlightDateNumberStyle={{
                 color: "black",
                 textDecorationLine: "underline", // Add underline style
                 textDecorationColor: "orange", // Color of the underline
                 fontFamily: 'LeagueSpartanMedium',
+                fontSize: 12
               }}
               // selectedDateNumberStyle ขีดเส้นใต้
-              highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan' }}
-              disabledDateNameStyle={{ color: "grey", fontFamily: 'LeagueSpartan' }}
-              disabledDateNumberStyle={{ color: "grey", fontFamily: 'LeagueSpartan' }}
-              calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium' }}
+              highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              disabledDateNameStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              disabledDateNumberStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
               iconContainer={{ flex: 0.1 }}
               onDateSelected={this.handleDateSelected} // Callback for date selection
               // datesWhitelist={datesWhitelist}
               datesBlacklist={datesBlacklist}
-              minDate={moment().subtract(1, 'weeks').format('YYYY-MM-DD')}
-              maxDate={moment().add(1, 'weeks').format('YYYY-MM-DD')}
+              minDate={moment().subtract(10, 'weeks').format('YYYY-MM-DD')}
+              maxDate={moment().add(10, 'weeks').format('YYYY-MM-DD')}
             />
             <Text style={styles.selectedDateLable}>
               Selected Date: {selectedDate || "None"}
