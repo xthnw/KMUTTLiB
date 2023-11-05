@@ -32,79 +32,79 @@ const Tab = createMaterialBottomTabNavigator();
 function MainNavigator() {
   return (
 
-      <Tab.Navigator
-        initialRouteName="ReservationIndexScreen"
-        shifting={false}
-        sceneAnimationEnabled={true}
-        activeColor="black"
-        inactiveColor="gray"
-        barStyle={{ backgroundColor: 'white' }}
-      >
-        <Tab.Screen
-          name="ReservationIndexScreen"
-          component={ReservationIndexScreen}
-          options={{
+    <Tab.Navigator
+      initialRouteName="ReservationIndexScreen"
+      shifting={false}
+      sceneAnimationEnabled={true}
+      activeColor="black"
+      inactiveColor="gray"
+      barStyle={{ backgroundColor: 'white' }}
+    >
+      <Tab.Screen
+        name="ReservationIndexScreen"
+        component={ReservationIndexScreen}
+        options={{
 
-            tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
-            tabBarIcon: ({ color, focused }) => (
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <View
-                  style={{
-                    backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
-                    borderRadius: 999, // Set a large value for borderRadius to create a circle
-                    padding: 8, // Adjust the padding as needed
-                  }}
-                >
-                  <Iconify icon="uil:home-alt" color={focused ? 'white' : color} size={32} />
-                </View>
+          tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
+          tabBarIcon: ({ color, focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View
+                style={{
+                  backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
+                  borderRadius: 999, // Set a large value for borderRadius to create a circle
+                  padding: 8, // Adjust the padding as needed
+                }}
+              >
+                <Iconify icon="uil:home-alt" color={focused ? 'white' : color} size={32} />
               </View>
-            ),
+            </View>
+          ),
 
-          }}
-        />
-        <Tab.Screen
-          name="ReservationScreen"
-          component={ReservationScreen}
-          options={{
-            tabBarLabel: <Text style={styles.tabBarLabel}>Reserve</Text>,
-            // tabBarBadge: true,
-            tabBarIcon: ({ color, focused }) => (
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <View
-                  style={{
-                    backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
-                    borderRadius: 999, // Set a large value for borderRadius to create a circle
-                    padding: 8, // Adjust the padding as needed
-                  }}
-                >
-                  <Iconify icon="mdi:ticket" color={focused ? 'white' : color} size={32} />
-                </View>
+        }}
+      />
+      <Tab.Screen
+        name="ReservationScreen"
+        component={ReservationScreen}
+        options={{
+          tabBarLabel: <Text style={styles.tabBarLabel}>Reserve</Text>,
+          // tabBarBadge: true,
+          tabBarIcon: ({ color, focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View
+                style={{
+                  backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
+                  borderRadius: 999, // Set a large value for borderRadius to create a circle
+                  padding: 8, // Adjust the padding as needed
+                }}
+              >
+                <Iconify icon="mdi:ticket" color={focused ? 'white' : color} size={32} />
               </View>
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ReservationList"
-          component={ReservationList}
-          options={{
-            // tabBarBadge: '1',
-            tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
-            tabBarIcon: ({ color, focused }) => (
-              <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                <View
-                  style={{
-                    backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
-                    borderRadius: 999, // Set a large value for borderRadius to create a circle
-                    padding: 8, // Adjust the padding as needed
-                  }}
-                >
-                  <Iconify icon="clarity:user-solid" color={focused ? 'white' : color} size={32} />
-                </View>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ReservationList"
+        component={ReservationList}
+        options={{
+          // tabBarBadge: '1',
+          tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
+          tabBarIcon: ({ color, focused }) => (
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              <View
+                style={{
+                  backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
+                  borderRadius: 999, // Set a large value for borderRadius to create a circle
+                  padding: 8, // Adjust the padding as needed
+                }}
+              >
+                <Iconify icon="clarity:user-solid" color={focused ? 'white' : color} size={32} />
               </View>
-            ),
-          }}
-        />
-      </Tab.Navigator>
+            </View>
+          ),
+        }}
+      />
+    </Tab.Navigator>
 
   );
 }
@@ -129,33 +129,33 @@ function AppNavigator() {
   theme.colors.secondaryContainer = "transparent"
 
   return (
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={authenticated ? 'MainNavigator' : 'LoginFIFA'}
-          screenOptions={{
-            headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
-            headerTintColor: 'black', // Set the text color of the header
-            headerShown: false,
-          }}>
-          {authenticated ? (
-            <>
-              <Stack.Screen name="MainNavigator" component={MainNavigator} options={{ title: null, headerLeft: null }} />
-              <Stack.Screen name="ReservationIndex" component={ReservationIndexScreen} options={{ title: null, headerLeft: null }} />
-              <Stack.Screen name="ReservationCheckInScreen" component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} />
-              <Stack.Screen name="ReservationDetailsScreen" component={ReservationDetailsScreen} options={{ title: null, headerLeft: null }} />
-              <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{ title: null, headerLeft: null }} />
-              <Stack.Screen name="Welcome" component={Welcome} options={{ title: null, headerLeft: null }} />
-              <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{ title: null, headerLeft: null }} />
-              <Stack.Screen name="ReservationList" component={ReservationList} options={{ title: null, headerLeft: null }} />
-            </>
-          ) : (
-            // <Stack.Screen name="LoginFIFA">
-            //   {(props) => <LoginFIFA {...props} setAuthenticated={setAuthenticated} />}
-            // </Stack.Screen>
-            <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{ title: null, headerLeft: null }} />
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName={authenticated ? 'ReservationRequestScreen' : 'ReservationRequestScreen'}
+        screenOptions={{
+          headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
+          headerTintColor: 'black', // Set the text color of the header
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Welcome" component={Welcome} options={{ title: null, headerLeft: null }} />
+        {authenticated ? (
+          <>
+            <Stack.Screen name="MainNavigator" component={MainNavigator} options={{ title: null, headerLeft: null }} />
+            <Stack.Screen name="ReservationIndex" component={ReservationIndexScreen} options={{ title: null, headerLeft: null }} />
+            <Stack.Screen name="ReservationCheckInScreen" component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} />
+            <Stack.Screen name="ReservationDetailsScreen" component={ReservationDetailsScreen} options={{ title: null, headerLeft: null }} />
+            <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{ title: null, headerLeft: null }} />
+            <Stack.Screen name="ReservationList" component={ReservationList} options={{ title: null, headerLeft: null }} />
+
+          </>
+        ) : (
+          // <Stack.Screen name="LoginFIFA">
+          //   {(props) => <LoginFIFA {...props} setAuthenticated={setAuthenticated} />}
+          // </Stack.Screen>
+          <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{ title: null, headerLeft: null }} />
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 const styles = StyleSheet.create({
