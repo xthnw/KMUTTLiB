@@ -6,7 +6,7 @@ import Checkbox from "expo-checkbox";
 import COLORS from './fifa/colors';
 import Button from './fifa/button';
 import axios from 'axios';
-import { useAuth } from './AuthContext';
+import { useAuth } from './auth';
 StatusBar.setHidden(true);
 
 // import font from './react-native.config';
@@ -48,10 +48,11 @@ const LoginFIFA = ({ navigation }) => {
                 // Login successful, you can navigate to the next screen or perform further actions
                 console.log('Login successful');
                 console.log('User Information:', response.data.data);
+                const userData = response.data.data;
 
                 setAuthenticated(true);
 
-                dispatch({ type: 'LOGIN', payload: response });
+                dispatch({ type: 'LOGIN', payload: userData });
                 navigation.navigate("MainNavigator")
 
                 // You may want to store the user information in your app's state or context

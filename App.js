@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import AppNavigator from './AppNavigator';
 import PropTypes from 'deprecated-react-native-prop-types';
 import { useFonts } from 'expo-font';
-import { AuthProvider } from './AuthContext';
+import { AuthProvider } from './auth';
 
 
 export default function App() {

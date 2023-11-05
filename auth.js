@@ -1,16 +1,15 @@
+// auth.js
+
 import React, { createContext, useContext, useReducer } from 'react';
 
-// Define the initial authentication state
+const AuthContext = createContext();
+
 const initialState = {
   authenticated: false,
   userData: null,
 };
 
-// Create the authentication context
-const AuthContext = createContext(initialState);
-
-// Create an authentication provider component
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   return (
@@ -19,12 +18,11 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-// Create a custom hook for accessing the authentication context
-export const useAuth = () => {
+
+const useAuth = () => {
   return useContext(AuthContext);
 };
 
-// Reducer function to manage authentication state
 const authReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
@@ -43,3 +41,5 @@ const authReducer = (state, action) => {
       return state;
   }
 };
+
+export { AuthProvider, useAuth };

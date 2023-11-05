@@ -10,6 +10,8 @@ import ReservationCheckInScreen from './ReservationCheckInScreen';
 import ReservationList from './ReservationList';
 import LoginFIFA from './LoginFIFA';
 import Welcome from './Welcome';
+import {AuthProvider, useAuth} from './auth';
+import Login from './Login';
 import LoginScreen from './LoginScreen'; // Import the LoginScreen component
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
@@ -18,7 +20,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useTheme } from 'react-native-paper';
 import { Iconify } from 'react-native-iconify';
 // import { AuthProvider } from './AuthContext';
-import { useAuth } from './AuthContext';
 
 
 
@@ -131,7 +132,7 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={authenticated ? 'ReservationRequestScreen' : 'ReservationRequestScreen'}
+        initialRouteName={authenticated ? 'Login' : 'Login'}
         screenOptions={{
           headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
           headerTintColor: 'black', // Set the text color of the header
@@ -146,13 +147,13 @@ function AppNavigator() {
             <Stack.Screen name="ReservationDetailsScreen" component={ReservationDetailsScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name="ReservationList" component={ReservationList} options={{ title: null, headerLeft: null }} />
-
           </>
         ) : (
           // <Stack.Screen name="LoginFIFA">
           //   {(props) => <LoginFIFA {...props} setAuthenticated={setAuthenticated} />}
           // </Stack.Screen>
           <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{ title: null, headerLeft: null }} />
+          // <Stack.Screen name="Login" component={Login} options={{ title: null, headerLeft: null }} />
         )}
       </Stack.Navigator>
     </NavigationContainer>

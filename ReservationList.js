@@ -8,6 +8,8 @@ import { customText } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconM from 'react-native-vector-icons/MaterialIcons';
 import COLORS from './fifa/colors';
+import { useNavigation } from '@react-navigation/native'; // Import navigation hook if you're using React Navigation
+import { useAuth } from './auth';
 StatusBar.setHidden(false);
 
 
@@ -15,147 +17,101 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 
-export const SIZES = {
-  // global SIZES
-  base: 8,
-  font: 14,
-  radius: 30,
-  padding: 10,
-  padding2: 12,
-  padding3: 16,
+const ReservationList = () => {
+  const navigation = useNavigation(); // Use navigation hook if you're using React Navigation
 
-  // font sizes
-  largeTitle: 50,
-  h1: 30,
-  h2: 20,
-  h3: 18,
-  h4: 16,
-  body1: 30,
-  body2: 20,
-  body3: 18,
-  body4: 14,
-  body5: 12,
+  // useEffect(() => {
+  //   // ComponentDidMount logic can go here
+  // }, []);
 
-  // // app dimensions
-  // width,
-  // height,
-}
-export const FONTS = {
-  largeTitle: {
-    fontFamily: 'black',
-    fontSize: SIZES.largeTitle,
-    lineHeight: 55,
-  },
-  h1: { fontSize: SIZES.h1, lineHeight: 36 },
-  h2: { fontSize: SIZES.h2, lineHeight: 30 },
-  h3: { fontSize: SIZES.h3, lineHeight: 22 },
-  h4: { fontSize: SIZES.h4, lineHeight: 20 },
-  body1: { fontSize: SIZES.body1, lineHeight: 36 },
-  body2: { fontSize: SIZES.body2, lineHeight: 30 },
-  body3: { fontSize: SIZES.body3, lineHeight: 22 },
-  body4: { fontSize: SIZES.body4, lineHeight: 20 },
-}
-
-
-
-export default class ReservationList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  componentDidMount() {
-  }
-
-  navigateToNextScreen = () => {
-    this.props.navigation.navigate('ReservationCheckInScreen');
-  };
-  handleBackPress = () => {
-    this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
+  const handleBackPress = () => {
+    navigation.navigate("ReservationCheckInScreen"); // Assuming you're using React Navigation and have access to navigation
   };
 
-  render() {
+  const { state } = useAuth();
+  const { authenticated, userData } = state;
 
-    return (
-      <SafeAreaView style={[{
-        // flex: 1 ,
+  return (
+    <SafeAreaView
+      style={{
         height: screenHeight,
         width: screenWidth,
         backgroundColor: COLORS.white,
         paddingVertical: screenHeight * 0.03
-      }]}>
+      }}
+    >
+      <ScrollView
+        contentContainerStyle={styles.scrollViewContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={{
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Text style={styles.formTitle}>My Room</Text>
+        </View>
 
-        <ScrollView
-          contentContainerStyle={styles.scrollViewContainer}
-          showsVerticalScrollIndicator={false}
-        >
+        <View>
+          {authenticated ? (
+            <View>
+              <Text>Welcome, {userData.User_FName} {userData.User_LName}</Text>
+              <Text>Email: {userData.User_Email}</Text>
+              {/* Display more user information as needed */}
+            </View>
+          ) : (
+            <Text>Please log in to access this page.</Text>
+          )}
+        </View>
 
 
-          <View style={[{
-            // flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }]}>
-            <Text style={styles.formTitle}>My Room</Text></View>
-          <View style={[{
-            // flex: 1,
-            marginTop: screenHeight * 0.07,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }]}>
 
-            <TouchableOpacity
-              // style={styles.box}
-              onPress={this.navigateToNextScreen}
-            >
-              <View style={styles.innerBox}>
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={require('./picture/floor1.jpg')}
-                    style={styles.image}
-                    resizeMode="cover"
-                  />
-                </View>
-                <View style={styles.textContent}>
-                  <Text style={styles.textbold}>KM-ROOM 1</Text>
-                  <View style={styles.boxRow}>
 
-                    <View style={styles.label}>
-                      <Text style={styles.Tag}>Location</Text>
-                      <Text style={styles.Tag}>Status</Text>
-                      <Text style={styles.Tag}>Date</Text>
-                      <Text style={styles.Tag}>Time</Text>
+        <View style={{
+          marginTop: screenHeight * 0.07,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <TouchableOpacity
+            onPress={handleBackPress}
+          >
+            <View style={styles.innerBox}>
+              <View style={styles.imageContainer}>
+                <Image
+                  source={require('./picture/floor1.jpg')}
+                  style={styles.image}
+                  resizeMode="cover"
+                />
+              </View>
+              <View style={styles.textContent}>
+                <Text style={styles.textbold}>KM-ROOM 1</Text>
+                <View style={styles.boxRow}>
+                  <View style={styles.label}>
+                    <Text style={styles.Tag}>Location</Text>
+                    <Text style={styles.Tag}>Status</Text>
+                    <Text style={styles.Tag}>Date</Text>
+                    <Text style={styles.Tag}>Time</Text>
+                  </View>
+                  <View style={styles.space} />
+                  <View style={styles.label}>
+                    <Text style={styles.text}>5th floor</Text>
+                    <View style={[styles.status]}>
+                      <Text style={styles.statusInner}>Available</Text>
                     </View>
-                    <View style={styles.space} />
-
-                    <View style={styles.label}>
-                      <Text style={styles.text}>5th floor</Text>
-                      <View style={[styles.status]}>
-                        <Text style={styles.statusInner}>Available</Text>
-                      </View>
-                      <Text style={styles.text}><Icon name="calendar" size={15} color={COLORS.primary} />16 Oct, 2023</Text>
-                      <Text style={[styles.text, { flex: 1 }]}>15.00 - 17.00</Text>
-                    </View>
-
+                    <Text style={styles.text}><Icon name="calendar" size={15} color={COLORS.primary} />16 Oct, 2023</Text>
+                    <Text style={[styles.text, { flex: 1 }]}>15.00 - 17.00</Text>
                   </View>
                 </View>
               </View>
-            </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+          <View style={styles.space} />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-            <View style={styles.space} />
-
-
-          </View>
-
-        </ScrollView>
-
-      </SafeAreaView>
-
-
-    );
-  }
-
-}
+export default ReservationList;
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
