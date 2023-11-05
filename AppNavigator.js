@@ -11,7 +11,6 @@ import ReservationList from './ReservationList';
 import LoginFIFA from './LoginFIFA';
 import Welcome from './Welcome';
 import {AuthProvider, useAuth} from './auth';
-import Login from './Login';
 import LoginScreen from './LoginScreen'; // Import the LoginScreen component
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';

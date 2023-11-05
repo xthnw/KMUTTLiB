@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView, StatusBar, Animated, TextInput, Modal, UIManager, findNodeHandle } from 'react-native';
 import { ScrollView, Image } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
@@ -10,6 +10,10 @@ import IconM from 'react-native-vector-icons/MaterialIcons';
 import COLORS from './fifa/colors';
 import { useNavigation } from '@react-navigation/native'; // Import navigation hook if you're using React Navigation
 import { useAuth } from './auth';
+import axios from 'axios';
+
+
+
 StatusBar.setHidden(false);
 
 
@@ -18,18 +22,56 @@ const screenHeight = Dimensions.get('window').height;
 
 
 const ReservationList = () => {
-  const navigation = useNavigation(); // Use navigation hook if you're using React Navigation
 
-  // useEffect(() => {
-  //   // ComponentDidMount logic can go here
-  // }, []);
+  const navigation = useNavigation(); // Use navigation hook if you're using React Navigation
+  const { state } = useAuth();
+  const { authenticated, userData } = state;
+  const [bookings, setBookings] = useState([]);
+  const [responseData, setResponseData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiUrl = 'http://192.168.1.104:8080/api/list';
+        const jsonData = {
+          email: userData.User_Email,
+        };
+        const response = await axios.post(apiUrl, jsonData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.data.data.booking) {
+          setResponseData(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log('Response Data of now:', responseData);
+  }, [responseData]);
+
+
 
   const handleBackPress = () => {
     navigation.navigate("ReservationCheckInScreen"); // Assuming you're using React Navigation and have access to navigation
   };
 
-  const { state } = useAuth();
-  const { authenticated, userData } = state;
+  console.log('booking.Room_ID:', responseData);
+
+  const roomLabels = {
+    'KM1': 'KM-Room 1',
+    'KM2': 'KM-Room 2',
+    'KM3': 'KM-Room 3',
+    'KM4': 'KM-Room 4',
+    'KM5': 'KM-Room 5',
+  };
 
   return (
     <SafeAreaView
@@ -40,6 +82,7 @@ const ReservationList = () => {
         paddingVertical: screenHeight * 0.03
       }}
     >
+
       <ScrollView
         contentContainerStyle={styles.scrollViewContainer}
         showsVerticalScrollIndicator={false}
@@ -63,49 +106,54 @@ const ReservationList = () => {
           )}
         </View>
 
-
-
-
-        <View style={{
-          marginTop: screenHeight * 0.07,
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <TouchableOpacity
-            onPress={handleBackPress}
-          >
-            <View style={styles.innerBox}>
-              <View style={styles.imageContainer}>
-                <Image
-                  source={require('./picture/floor1.jpg')}
-                  style={styles.image}
-                  resizeMode="cover"
-                />
-              </View>
-              <View style={styles.textContent}>
-                <Text style={styles.textbold}>KM-ROOM 1</Text>
-                <View style={styles.boxRow}>
-                  <View style={styles.label}>
-                    <Text style={styles.Tag}>Location</Text>
-                    <Text style={styles.Tag}>Status</Text>
-                    <Text style={styles.Tag}>Date</Text>
-                    <Text style={styles.Tag}>Time</Text>
+        {responseData?.data?.booking.map((booking, index) => (
+          <View key={index}>
+            <View style={{
+              marginTop: screenHeight * 0.07,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <TouchableOpacity
+                onPress={handleBackPress}
+              >
+                <View style={styles.innerBox}>
+                  <View style={styles.imageContainer}>
+                    <Image
+                      source={require('./picture/floor1.jpg')}
+                      style={styles.image}
+                      resizeMode="cover"
+                    />
                   </View>
-                  <View style={styles.space} />
-                  <View style={styles.label}>
-                    <Text style={styles.text}>5th floor</Text>
-                    <View style={[styles.status]}>
-                      <Text style={styles.statusInner}>Available</Text>
+
+                  <View style={styles.textContent}>
+                    <Text style={styles.textbold}>{roomLabels[booking.data.Room_ID] || 'Unknown Room'}</Text>
+                    <View style={styles.boxRow}>
+                      <View style={styles.label}>
+                        <Text style={styles.Tag}>Location</Text>
+                        <Text style={styles.Tag}>Status</Text>
+                        <Text style={styles.Tag}>Date</Text>
+                        <Text style={styles.Tag}>Time</Text>
+                      </View>
+                      <View style={styles.space} />
+                      <View style={styles.label}>
+                        <Text style={styles.text}>5th floor</Text>
+                        <View style={[styles.status]}>
+                          <Text style={styles.statusInner}>{booking.data.Booking_Status}</Text>
+                        </View>
+                        <Text style={styles.text}><Icon name="calendar" size={15} color={COLORS.primary} /> {booking.data.Booking_date}</Text>
+                        <Text style={styles.text}>{booking.data.Booking_period}</Text>
+                      </View>
                     </View>
-                    <Text style={styles.text}><Icon name="calendar" size={15} color={COLORS.primary} />16 Oct, 2023</Text>
-                    <Text style={[styles.text, { flex: 1 }]}>15.00 - 17.00</Text>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-          <View style={styles.space} />
-        </View>
+          </View>
+        ))}
+
+        <View style={styles.space} />
+
+
       </ScrollView>
     </SafeAreaView>
   );
@@ -157,14 +205,10 @@ const styles = StyleSheet.create({
   space: {
   },
 
-  boxColumn: {
-    flexDirection: 'column', // Arrange boxes vertical
-    justifyContent: 'space-between', // Add space between boxes
-    marginBottom: 10, // Add vertical spacing between rows
-  },
   boxRow: {
     flexDirection: 'row', // Arrange boxes vertical
-    marginEnd: 10,
+    justifyContent: 'space-between',
+    marginEnd: 20,
     // borderWidth: 5,
     borderColor: COLORS.primary,
     // width: screenWidth * 0.5,
@@ -200,6 +244,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0,
     shadowRadius: 8,
+    padding: '1%',
   },
   icon: {
     color: COLORS.black,
@@ -207,16 +252,16 @@ const styles = StyleSheet.create({
   Tag: {
     // Opacity: -5,
     color: 'grey',
-    padding: '1%',
     fontSize: 12,
-    fontWeight: 'bold',
+    fontFamily: 'LeagueSpartanMedium',
+    padding: '1%',
   },
   text: {
     // Opacity: -5,
     color: COLORS.black,
-    padding: '1%',
     fontSize: 12,
-    fontWeight: 'semibold',
+    fontFamily: 'LeagueSpartan',
+    padding: '1%',
   },
   image: {
     flex: 1,
@@ -234,15 +279,20 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   status: {
-    backgroundColor: 'green', // Green background color
-    borderRadius: 15, // Adjust the border radius as needed
+    backgroundColor: '#ffecd8', // Green background color
+    borderRadius: 10, // Adjust the border radius as needed
     alignItems: 'center',
     fontSize: 12,
+    fontFamily: 'LeagueSpartan',
+    padding: '1%',
   },
   statusInner: {
-    color: 'white',
+    color: '#ff8800',
     fontSize: 12,
-    padding: '1%',
+    paddingVertical: '1%',
+    paddingHorizontal: '3%',
+    textAlign: 'center',
+    fontFamily: 'LeagueSpartan'
   },
   scrollViewContainer: {
     flexGrow: 1,

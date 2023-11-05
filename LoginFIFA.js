@@ -56,6 +56,26 @@ const LoginFIFA = ({ navigation }) => {
                 navigation.navigate("MainNavigator")
 
                 // You may want to store the user information in your app's state or context
+
+                try {
+                    const apiUrl = 'http://192.168.1.104:8080/api/list'; // Replace with the correct API endpoint
+                    const jsonData = {
+                      email: userData.User_Email,
+                    };
+            
+                    const responseLIST = await axios.post(apiUrl, jsonData, {
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                    });
+            
+                    if (responseLIST.data && responseLIST.data.length > 0) {
+                      console.log(responseLIST.data);
+                    }
+                  } catch (error) {
+                    console.error('Error:', error);
+                  }
+
             } else {
                 // Login failed, handle the error
                 console.error('Login failed');
