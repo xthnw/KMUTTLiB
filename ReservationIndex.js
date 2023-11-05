@@ -84,7 +84,7 @@ export default class ReservationScreen extends Component {
       this.setState({ roomStatus: response.data.bookings });
 
       // Handle the response data
-      console.log('Room Status for 05/11/2023:', response.data.bookings);
+      console.log('Room Status for ' + formattedDate + ':', response.data.bookings);
     } catch (error) {
       console.error('Error:', error);
     }
