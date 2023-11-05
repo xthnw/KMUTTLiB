@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: screenWidth * 0.2, // Set the desired width
     height: screenHeight * 0.03,
-    marginBottom: screenHeight * 0.02,
+    marginBottom: screenHeight * 0.01,
     justifyContent: "center",
     // Shadow properties for iOS
     shadowColor: 'black',
@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#5f5f5f',
     width: screenWidth * 0.2, // Set the desired width
     height: screenHeight * 0.03,
-    marginBottom: screenHeight * 0.02,
+    marginBottom: screenHeight * 0.01,
     justifyContent: "center",
     // Shadow properties for iOS
     shadowColor: 'black',
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     alignItems: "flex-end",
-    marginVertical: screenHeight * 0.02,
+    marginVertical: screenHeight * 0.01,
   },
   textContent: {
     alignItems: "flex-start", // Align text to the left

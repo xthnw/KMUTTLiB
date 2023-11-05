@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     subRoundedWhiteCoverContainer: {
         flex: 1,
         paddingHorizontal: 4,
+        paddingTop: 12,
     },
     calendarView: {
     },

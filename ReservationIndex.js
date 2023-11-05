@@ -209,7 +209,7 @@ export default class ReservationScreen extends Component {
                   iconContainer={{ flex: 0.1 }}
                   onDateSelected={this.handleDateSelected} // Callback for date selection
                 />
-                <Text style={styles.description}>
+                <Text style={[styles.description, { marginLeft: 8, }]}>
                   Selected Date: {selectedDate || "None"}
                 </Text>
 
