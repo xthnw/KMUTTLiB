@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState } from 'react';
 import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, Dimensions, SafeAreaView, StatusBar, Animated, TextInput, Modal, UIManager, findNodeHandle } from 'react-native';
 import { ScrollView, Image } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
@@ -8,158 +8,121 @@ import { customText } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconM from 'react-native-vector-icons/MaterialIcons';
 import COLORS from './fifa/colors';
-import { useNavigation } from '@react-navigation/native'; // Import navigation hook if you're using React Navigation
-import { useAuth } from './auth';
-import axios from 'axios';
-
-
-
 StatusBar.setHidden(false);
 
-
+const apiUrl = 'http://192.168.220.43:8080/api/list';
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 
-const ReservationList = () => {
-
-  const navigation = useNavigation(); // Use navigation hook if you're using React Navigation
-  const { state } = useAuth();
-  const { authenticated, userData } = state;
-  const [bookings, setBookings] = useState([]);
-  const [responseData, setResponseData] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiUrl = 'http://192.168.1.104:8080/api/list';
-        const jsonData = {
-          email: userData.User_Email,
-        };
-        const response = await axios.post(apiUrl, jsonData, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (response.data.data.booking) {
-          setResponseData(response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+export default class ReservationList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
     };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    console.log('Response Data of now:', responseData);
-  }, [responseData]);
+  }
 
 
 
-  const handleBackPress = () => {
-    navigation.navigate("ReservationCheckInScreen"); // Assuming you're using React Navigation and have access to navigation
+  navigateToNextScreen = () => {
+    this.props.navigation.navigate('ReservationCheckInScreen');
+  };
+  handleBackPress = () => {
+    this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
   };
 
-  console.log('booking.Room_ID:', responseData);
+  render() {
 
-  const roomLabels = {
-    'KM1': 'KM-Room 1',
-    'KM2': 'KM-Room 2',
-    'KM3': 'KM-Room 3',
-    'KM4': 'KM-Room 4',
-    'KM5': 'KM-Room 5',
-  };
-
-  return (
-    <SafeAreaView
-      style={{
+    return (
+      <SafeAreaView style={[{
+        // flex: 1 ,
         height: screenHeight,
         width: screenWidth,
         backgroundColor: COLORS.white,
         paddingVertical: screenHeight * 0.03
-      }}
-    >
+      }]}>
 
-      <ScrollView
-        contentContainerStyle={styles.scrollViewContainer}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <Text style={styles.formTitle}>My Room</Text>
-        </View>
+        <ScrollView
+          contentContainerStyle={styles.scrollViewContainer}
+          showsVerticalScrollIndicator={false}
+        >
 
-        <View>
-          {authenticated ? (
-            <View>
-              <Text>Welcome, {userData.User_FName} {userData.User_LName}</Text>
-              <Text>Email: {userData.User_Email}</Text>
-              {/* Display more user information as needed */}
-            </View>
-          ) : (
-            <Text>Please log in to access this page.</Text>
-          )}
-        </View>
 
-        {responseData?.data?.booking.map((booking, index) => (
-          <View key={index}>
-            <View style={{
-              marginTop: screenHeight * 0.07,
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
-              <TouchableOpacity
-                onPress={handleBackPress}
-              >
-                <View style={styles.innerBox}>
-                  <View style={styles.imageContainer}>
-                    <Image
-                      source={require('./picture/floor1.jpg')}
-                      style={styles.image}
-                      resizeMode="cover"
-                    />
-                  </View>
+          <View style={[{
+            // flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }]}>
+            <Text style={styles.formTitle}>My Room</Text></View>
+          <View style={[{
+            // flex: 1,
+            marginTop: screenHeight * 0.07,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }]}>
 
-                  <View style={styles.textContent}>
-                    <Text style={styles.textbold}>{roomLabels[booking.data.Room_ID] || 'Unknown Room'}</Text>
-                    <View style={styles.boxRow}>
-                      <View style={styles.label}>
-                        <Text style={styles.Tag}>Location</Text>
-                        <Text style={styles.Tag}>Status</Text>
-                        <Text style={styles.Tag}>Date</Text>
-                        <Text style={styles.Tag}>Time</Text>
-                      </View>
+            <TouchableOpacity
+              // style={styles.box}
+              onPress={this.navigateToNextScreen}
+            >
+              <View style={styles.innerBox}>
+                <View style={styles.imageContainer}>
+                  <Image
+                    source={require('./picture/floor1.jpg')}
+                    style={styles.image}
+                    resizeMode="cover"
+                  />
+                </View>
+                <View style={styles.textContent}>
+                  <Text style={styles.textbold}>KM-ROOM 1</Text>
+                  <View style={styles.boxRow}>
+
+                    <View style={styles.label}>
+                      <Text style={styles.Tag}>Location</Text>
+                      <Text style={styles.Tag}>Status</Text>
+                      <Text style={styles.Tag}>Date</Text>
+                      <Text style={styles.Tag}>Time</Text>
                       <View style={styles.space} />
-                      <View style={styles.label}>
-                        <Text style={styles.text}>5th floor</Text>
-                        <View style={[styles.status]}>
-                          <Text style={styles.statusInner}>{booking.data.Booking_Status}</Text>
-                        </View>
-                        <Text style={styles.text}><Icon name="calendar" size={15} color={COLORS.primary} /> {booking.data.Booking_date}</Text>
-                        <Text style={styles.text}>{booking.data.Booking_period}</Text>
-                      </View>
+                      <TouchableOpacity style={styles.deleteBooking} >
+                      {/* onPress={this.handleDeleteBooking} */}
+                        <Text style={styles.statusDelete}>Cancel</Text>
+                        
+                      </TouchableOpacity>
                     </View>
+                    <View style={styles.space} />
+
+                    <View style={styles.label}>
+                      <Text style={styles.text}>5th floor</Text>
+                      <View style={[styles.status]}>
+                        <Text style={styles.statusInner}>Available</Text>
+                      </View>
+                      <Text style={styles.text}><Icon name="calendar" size={15} color={COLORS.primary} />16 Oct, 2023</Text>
+                      <Text style={[styles.text, { flex: 1 }]}>15.00 - 17.00</Text>
+                      <View style={styles.space} />
+                      <TouchableOpacity style={[styles.statusDetail]} onPress={this.navigateToNextScreen}>
+                        <Text style={styles.statusInner}>Detail</Text>
+                      </TouchableOpacity>
+                    </View>
+
                   </View>
                 </View>
-              </TouchableOpacity>
-            </View>
+              </View>
+            </TouchableOpacity>
+
+            <View style={styles.space} />
+
+
           </View>
-        ))}
 
-        <View style={styles.space} />
+        </ScrollView>
+
+      </SafeAreaView>
 
 
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+    );
+  }
 
-export default ReservationList;
+}
 
 const styles = StyleSheet.create({
   scrollViewContainer: {
@@ -202,13 +165,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 2,
   },
-  space: {
-  },
 
+
+  boxColumn: {
+    flexDirection: 'column', // Arrange boxes vertical
+    justifyContent: 'space-between', // Add space between boxes
+    marginBottom: 10, // Add vertical spacing between rows
+  },
   boxRow: {
     flexDirection: 'row', // Arrange boxes vertical
-    justifyContent: 'space-between',
-    marginEnd: 20,
+    marginEnd: 10,
     // borderWidth: 5,
     borderColor: COLORS.primary,
     // width: screenWidth * 0.5,
@@ -244,7 +210,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0,
     shadowRadius: 8,
-    padding: '1%',
   },
   icon: {
     color: COLORS.black,
@@ -252,16 +217,16 @@ const styles = StyleSheet.create({
   Tag: {
     // Opacity: -5,
     color: 'grey',
-    fontSize: 12,
-    fontFamily: 'LeagueSpartanMedium',
     padding: '1%',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
   text: {
     // Opacity: -5,
     color: COLORS.black,
-    fontSize: 12,
-    fontFamily: 'LeagueSpartan',
     padding: '1%',
+    fontSize: 12,
+    fontWeight: 'semibold',
   },
   image: {
     flex: 1,
@@ -279,20 +244,32 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   status: {
-    backgroundColor: '#ffecd8', // Green background color
-    borderRadius: 10, // Adjust the border radius as needed
+    backgroundColor: 'green', // Green background color
+    borderRadius: 15, // Adjust the border radius as needed
     alignItems: 'center',
     fontSize: 12,
-    fontFamily: 'LeagueSpartan',
-    padding: '1%',
   },
-  statusInner: {
-    color: '#ff8800',
+  deleteBooking: {
+    borderColor:"red",
+    borderWidth: 1, // Green background color
+    borderRadius: 15, // Adjust the border radius as needed
+    alignItems: 'center',
     fontSize: 12,
-    paddingVertical: '1%',
-    paddingHorizontal: '3%',
-    textAlign: 'center',
-    fontFamily: 'LeagueSpartan'
+  },
+  statusDetail: {
+    backgroundColor: COLORS.primary, // Green background color
+    borderRadius: 15, // Adjust the border radius as needed
+    alignItems: 'center',
+    fontSize: 12,
+  },
+  space: {
+  width:screenWidth*0.1,
+  height:screenHeight*0.01
+  },
+    statusInner: {
+    color: 'white',
+    fontSize: 12,
+    padding: '1%',
   },
   scrollViewContainer: {
     flexGrow: 1,
