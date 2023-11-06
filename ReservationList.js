@@ -3,7 +3,7 @@ import {
   ImageBackground, View, Text, StyleSheet,
   TouchableOpacity, TouchableWithoutFeedback,
   Dimensions, SafeAreaView, StatusBar, Animated, TextInput,
-  UIManager, findNodeHandle
+  UIManager, findNodeHandle, RefreshControl,
 } from 'react-native';
 import { ScrollView, Image } from 'react-native';
 import Modal from 'react-native-modal';
@@ -32,6 +32,9 @@ const ReservationList = () => {
   const [bookings, setBookings] = useState([]);
   const [responseData, setResponseData] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
+
 
 
   useEffect(() => {
@@ -69,12 +72,67 @@ const ReservationList = () => {
     setModalVisible(!isModalVisible);
   };
 
-  const handleDeleteBooking = () => {
+  const handleDeleteBooking = async () => {
+    const apiUrl = 'http://192.168.1.104:8080/api/delete';
 
-    toggleModal();
+    // Define the JSON data for the booking's ID
+    const jsonData = {
+      id: selectedBookingId,
+    };
+
+    // Send a DELETE request with JSON data in the request body
+    axios({
+      method: 'delete',
+      url: apiUrl,
+      data: jsonData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        console.log('Booking deleted:', response.data);
+        // After successful deletion, you can handle refreshing the data or UI here
+        setModalVisible(false);
+        // Now, re-fetch the updated data to refresh the UI
+        handleRefresh();
+      })
+      .catch(error => {
+        console.error('Error deleting booking:', error);
+        // Handle the error or show a message to the user
+      });
+    // toggleModal();
+  };
+  const handleSelectBooking = (bookingId) => {
+    setSelectedBookingId(bookingId);
+    setModalVisible(true);
   };
 
-  console.log('booking.Room_ID:', responseData);
+  const handleRefresh = async () => {
+    setRefreshing(true);
+
+    // Call your API fetching logic here, for example:
+    try {
+      const apiUrl = 'http://192.168.1.104:8080/api/list';
+      const jsonData = {
+        email: userData.User_Email,
+      };
+      const response = await axios.post(apiUrl, jsonData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.data.data.booking) {
+        setResponseData(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+
+    setRefreshing(false);
+  };
+
+  // console.log('booking.Room_ID:', responseData);
 
   const roomLabels = {
     'KM1': 'KM-Room 1',
@@ -93,7 +151,13 @@ const ReservationList = () => {
         backgroundColor: COLORS.white,
       }}
     >
-      <ScrollView contentContainerStyle={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer} showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={handleRefresh}
+          />
+        }>
         <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
           <Text style={styles.formTitle}>My Room</Text>
         </View>
@@ -111,7 +175,7 @@ const ReservationList = () => {
         </View>
         {responseData?.data?.booking.map((booking, index) => (
           <View key={index} style={[{ flex: 1 }]}>
-            <View style={{ marginTop: screenHeight * 0.02, justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+            <View style={{ marginBottom: screenHeight * 0.02, justifyContent: 'center', alignItems: 'center', flex: 1 }}>
               <TouchableWithoutFeedback onPress={navigateToNextScreen}>
                 <View style={styles.innerBox}>
                   <View style={styles.imageContainer}>
@@ -126,9 +190,10 @@ const ReservationList = () => {
                         <Text style={styles.Tag}>Date</Text>
                         <Text style={styles.Tag}>Time</Text>
                         <View style={styles.space} />
-                        <TouchableOpacity style={styles.deleteBooking} onPress={toggleModal}>
+                        <TouchableOpacity style={styles.deleteBooking} onPress={() => handleSelectBooking(booking.id)}>
                           <Text style={styles.statusDelete}>Cancel Reservation</Text>
                         </TouchableOpacity>
+                        <Text style={styles.Tag}>ID</Text>
                       </View>
                       <View style={styles.space} />
                       <View style={styles.label}>
@@ -144,6 +209,7 @@ const ReservationList = () => {
                         <TouchableOpacity style={styles.statusDetail} onPress={navigateToNextScreen}>
                           <Text style={styles.statusInner}>Detail</Text>
                         </TouchableOpacity>
+                        <Text style={styles.Tag}>{booking.id}</Text>
                       </View>
                     </View>
                   </View>
