@@ -7,6 +7,7 @@ import {
   Dimensions,
   StatusBar,
   Platform,
+  RefreshControl,
 } from "react-native";
 import { ScrollView, Image } from "react-native";
 import CalendarStrip from "react-native-scrollable-calendar-strip";
@@ -35,6 +36,7 @@ const datesBlacklist = date => {
 
 
 
+
 StatusBar.setHidden(false);
 
 export default class ReservationScreen extends Component {
@@ -43,6 +45,8 @@ export default class ReservationScreen extends Component {
     this.state = {
       selectedDate: null, // Initialize with the current date or the default selected date
       roomStatus: null, // Initialize as null
+
+      refreshing: false,
     };
   }
   // Function to navigate to the next screen with selected date
@@ -58,6 +62,37 @@ export default class ReservationScreen extends Component {
     // alert(`Box ${boxNumber} clicked!`);
     // Navigate to ReservationDetailsScreen
     this.props.navigation.navigate("ReservationScreen");
+  };
+  handleRefresh = async () => {
+    this.setState({ refreshing: true });
+
+    const { selectedDate } = this.state; // Access selectedDate from the state
+
+    // Make sure selectedDate is defined and not null
+    if (selectedDate) {
+      // Continue with the rest of your code for fetching data using formattedDate
+      try {
+        const jsonData = {
+          Booking_date: selectedDate, // Update key without quotes
+        };
+
+        const response = await axios.post(apiUrl, jsonData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        // Set the roomStatus in the component's state
+        this.setState({ roomStatus: response.data.bookings });
+
+        // Handle the response data
+        console.log('Room Status for ' + selectedDate + ':', response.data.bookings);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    this.setState({ refreshing: false });
   };
   // Callback function to handle date selection
   handleDateSelected = async (date) => {
@@ -98,6 +133,8 @@ export default class ReservationScreen extends Component {
       StatusBar.setBarStyle('dark-content');
     });
 
+    // this.handleRefresh();
+
     // Get the current date and format it
     const currentDate = new Date();
     const day = currentDate.getDate().toString().padStart(2, "0");
@@ -124,6 +161,8 @@ export default class ReservationScreen extends Component {
     } catch (error) {
       console.error('Error:', error);
     }
+
+
 
 
 
@@ -256,7 +295,11 @@ export default class ReservationScreen extends Component {
               <View style={styles.spaceOutsideRoomBox}>
                 <ScrollView
                   contentContainerStyle={[{ flexGrow: 1 }]}
-                  showsVerticalScrollIndicator={false}>
+                  showsVerticalScrollIndicator={false}
+                  refreshControl={
+                    <RefreshControl refreshing={this.state.refreshing} onRefresh={this.handleRefresh} />
+                  }
+                >
                   {/* Create two boxes per row */}
                   <View style={styles.boxRow}>
                     <TouchableOpacity

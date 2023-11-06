@@ -169,8 +169,7 @@ const ReservationList = () => {
     <SafeAreaView
       style={{
         flex: 1,
-        height: screenHeight,
-        width: screenWidth,
+        paddingHorizontal: 10, paddingVertical: 10,
         backgroundColor: COLORS.white,
       }}
     >
@@ -181,64 +180,60 @@ const ReservationList = () => {
             onRefresh={handleRefresh}
           />
         }>
-        <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Text style={styles.formTitle}>My Room</Text>
         </View>
 
-        <View style={[{ flex: 1 }]}>
-          {authenticated ? (
-            <View style={[{ alignItems: 'center' }]}>
-              <Text>Welcome, {userData.User_FName} {userData.User_LName}</Text>
-              <Text>Email: {userData.User_Email}</Text>
-              {/* Display more user information as needed */}
-            </View>
-          ) : (
-            <Text>Please log in to access this page.</Text>
-          )}
-        </View>
-        {responseData?.data?.booking.map((booking, index) => (
-          <View key={index} style={[{ flex: 1 }]}>
-            <View style={{ marginBottom: screenHeight * 0.02, justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-              <TouchableWithoutFeedback onPress={navigateToNextScreen}>
-                <View style={styles.innerBox}>
-                  <View style={styles.imageContainer}>
-                    <Image source={require('./picture/floor1.jpg')} style={styles.image} resizeMode="cover" />
-                  </View>
-                  <View style={styles.textContent}>
-                    <Text style={styles.textbold}>{roomLabels[booking.data.Room_ID] || 'Unknown Room'}</Text>
-                    <View style={styles.boxRow}>
-                      <View style={styles.label}>
-                        <Text style={styles.Tag}>Location</Text>
-                        <Text style={styles.Tag}>Status</Text>
-                        <Text style={styles.Tag}>Date</Text>
-                        <Text style={styles.Tag}>Time</Text>
-                        <View style={styles.space} />
-                        <TouchableOpacity style={styles.deleteBooking} onPress={() => handleSelectBooking(booking.id)}>
-                          <Text style={styles.statusDelete}>Cancel Reservation</Text>
-                        </TouchableOpacity>
-                      </View>
-                      <View style={styles.space} />
-                      <View style={styles.label}>
-                        <Text style={styles.text}>5th floor</Text>
-                        <View style={styles.status}>
-                          <Text style={styles.statusInner}>{booking.data.Booking_Status}</Text>
+
+        {responseData?.data?.booking.length === 0 ? (
+          <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+            <Text style={styles.text}>Not found reservation, ไปจองซะนะไอน้อง</Text>
+          </View>
+        ) : (
+          responseData?.data?.booking.map((booking, index) => (
+            <View key={index} style={[{ flex: 1 }]}>
+              <View style={{ marginBottom: screenHeight * 0.02, justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                <TouchableWithoutFeedback onPress={navigateToNextScreen}>
+                  <View style={styles.innerBox}>
+                    <View style={styles.imageContainer}>
+                      <Image source={require('./picture/floor1.jpg')} style={styles.image} resizeMode="cover" />
+                    </View>
+                    <View style={styles.textContent}>
+                      <Text style={styles.textbold}>{roomLabels[booking.data.Room_ID] || 'Unknown Room'}</Text>
+                      <View style={styles.boxRow}>
+                        <View style={styles.label}>
+                          <Text style={styles.Tag}>Location</Text>
+                          <Text style={styles.Tag}>Status</Text>
+                          <Text style={styles.Tag}>Date</Text>
+                          <Text style={styles.Tag}>Time</Text>
+                          <View style={styles.space} />
+                          <TouchableOpacity style={styles.deleteBooking} onPress={() => handleSelectBooking(booking.id)}>
+                            <Text style={styles.statusDelete}>Cancel Reservation</Text>
+                          </TouchableOpacity>
                         </View>
-                        <Text style={styles.text}>
-                          <Icon name="calendar" size={15} color={COLORS.primary} /> {formatDate(booking.data.Booking_date)}
-                        </Text>
-                        <Text style={[styles.text, { flex: 1 }]}>{booking.data.Booking_period}</Text>
                         <View style={styles.space} />
-                        <TouchableOpacity style={styles.statusDetail} onPress={navigateToNextScreen}>
-                          <Text style={styles.statusInner}>Detail</Text>
-                        </TouchableOpacity>
+                        <View style={styles.label}>
+                          <Text style={styles.text}>5th floor</Text>
+                          <View style={styles.status}>
+                            <Text style={styles.statusInner}>{booking.data.Booking_Status}</Text>
+                          </View>
+                          <Text style={styles.text}>
+                            <Icon name="calendar" size={15} color={COLORS.primary} /> {formatDate(booking.data.Booking_date)}
+                          </Text>
+                          <Text style={[styles.text, { flex: 1 }]}>{booking.data.Booking_period}</Text>
+                          <View style={styles.space} />
+                          <TouchableOpacity style={styles.statusDetail} onPress={navigateToNextScreen}>
+                            <Text style={styles.statusInner}>Detail</Text>
+                          </TouchableOpacity>
+                        </View>
                       </View>
                     </View>
                   </View>
-                </View>
-              </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>
+              </View>
             </View>
-          </View>
-        ))}
+          ))
+        )}
         <View style={styles.space} />
         <Modal
           animationType="slide"
@@ -364,6 +359,7 @@ const styles = StyleSheet.create({
 
 
   scrollViewContainer: {
+    flex: 1,
     flexGrow: 1,
     paddingVertical: 10,
     paddingHorizontal: 10,
