@@ -29,7 +29,6 @@ const ReservationList = () => {
   const navigation = useNavigation(); // Use navigation hook if you're using React Navigation
   const { state } = useAuth();
   const { authenticated, userData } = state;
-  const [bookings, setBookings] = useState([]);
   const [responseData, setResponseData] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -65,12 +64,6 @@ const ReservationList = () => {
     console.log('Response Data of now:', responseData);
   }, [responseData]);
 
-  const navigateToNextScreen = () => {
-    navigation.navigate('ReservationCheckInScreen');
-  };
-  const toggleModal = () => {
-    setModalVisible(!isModalVisible);
-  };
 
   const handleDeleteBooking = async () => {
     const apiUrl = 'http://192.168.1.104:8080/api/delete';
@@ -132,7 +125,33 @@ const ReservationList = () => {
     setRefreshing(false);
   };
 
-  // console.log('booking.Room_ID:', responseData);
+  const formatDate = (dateString) => {
+    // Split the date string into day, month, and year
+    const [day, month, year] = dateString.split('/').map(Number);
+
+    // Create a new Date object using the year, month (subtract 1 as it's zero-based), and day
+    const date = new Date(year, month - 1, day);
+
+    // Define the options for formatting the date
+    const options = {
+      weekday: 'short', // Displays the abbreviated day of the week
+      day: '2-digit',   // Displays the day of the month with leading zeros
+      month: 'short',   // Displays the abbreviated month name
+      year: 'numeric',  // Displays the full year
+    };
+
+    // Format the date as "Sun 05 Nov 2023"
+    return date.toLocaleDateString('en-US', options);
+  };
+
+
+  const navigateToNextScreen = () => {
+    navigation.navigate('ReservationCheckInScreen');
+  };
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
+
 
   const roomLabels = {
     'KM1': 'KM-Room 1',
@@ -141,6 +160,10 @@ const ReservationList = () => {
     'KM4': 'KM-Room 4',
     'KM5': 'KM-Room 5',
   };
+
+
+
+  // console.log('booking.Room_ID:', responseData.data.booking);
 
   return (
     <SafeAreaView
@@ -193,7 +216,6 @@ const ReservationList = () => {
                         <TouchableOpacity style={styles.deleteBooking} onPress={() => handleSelectBooking(booking.id)}>
                           <Text style={styles.statusDelete}>Cancel Reservation</Text>
                         </TouchableOpacity>
-                        <Text style={styles.Tag}>ID</Text>
                       </View>
                       <View style={styles.space} />
                       <View style={styles.label}>
@@ -202,14 +224,13 @@ const ReservationList = () => {
                           <Text style={styles.statusInner}>{booking.data.Booking_Status}</Text>
                         </View>
                         <Text style={styles.text}>
-                          <Icon name="calendar" size={15} color={COLORS.primary} />{booking.data.Booking_date}
+                          <Icon name="calendar" size={15} color={COLORS.primary} /> {formatDate(booking.data.Booking_date)}
                         </Text>
                         <Text style={[styles.text, { flex: 1 }]}>{booking.data.Booking_period}</Text>
                         <View style={styles.space} />
                         <TouchableOpacity style={styles.statusDetail} onPress={navigateToNextScreen}>
                           <Text style={styles.statusInner}>Detail</Text>
                         </TouchableOpacity>
-                        <Text style={styles.Tag}>{booking.id}</Text>
                       </View>
                     </View>
                   </View>
@@ -338,30 +359,6 @@ const styles = StyleSheet.create({
     fontFamily: "LeagueSpartanSemiBold",
     textAlign: "center",
   },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
