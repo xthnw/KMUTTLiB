@@ -30,7 +30,7 @@ let datesWhitelist = [{
   end: moment().add(5, 'days')
 }];
 const datesBlacklist = date => {
-  return date.isoWeekday() === 6 || date.isoWeekday() === 6; // disable Saturdays and Sundays
+  return date.isoWeekday() === 6 || date.isoWeekday() === 7; // disable Saturdays and Sundays
 }
 
 
@@ -250,7 +250,7 @@ export default class ReservationScreen extends Component {
                 <CalendarStrip
                   scrollable={true}
                   style={{
-                    height: screenHeight * 0.13,
+                    height: screenHeight * 0.1,
                     paddingTop: 10,
                     paddingBottom: 10,
                     fontFamily: "LeagueSpartan",
@@ -275,8 +275,8 @@ export default class ReservationScreen extends Component {
                   onDateSelected={this.handleDateSelected} // Callback for date selection
                   // datesWhitelist={datesWhitelist}
                   datesBlacklist={datesBlacklist}
-                  minDate={moment().subtract(10, 'weeks').format('YYYY-MM-DD')}
-                  maxDate={moment().add(10, 'weeks').format('YYYY-MM-DD')}
+                  minDate={moment().subtract(2, 'weeks').format('YYYY-MM-DD')}
+                  maxDate={moment().add(2, 'weeks').format('YYYY-MM-DD')}
                 />
                 <Text style={[styles.description, { marginLeft: 8, }]}>
                   Selected Date: {selectedDate || "None"}

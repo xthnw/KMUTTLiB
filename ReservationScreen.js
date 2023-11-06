@@ -14,6 +14,7 @@ import {
   TouchableWithoutFeedback,
   ImageBackground,
   AppRegistry,
+  RefreshControl,
 } from "react-native";
 import moment from 'moment';
 import CalendarStrip from "react-native-scrollable-calendar-strip";
@@ -40,7 +41,7 @@ let datesWhitelist = [{
   end: moment().add(5, 'days')
 }];
 const datesBlacklist = date => {
-  return date.isoWeekday() === 6 || date.isoWeekday() === 6; // disable Saturdays and Sundays
+  return date.isoWeekday() === 6 || date.isoWeekday() === 7; // disable Saturdays and Sundays
 }
 
 
@@ -67,6 +68,9 @@ export default class ReservationScreen extends Component {
 
       roomStatus: null, // Initialize as null
 
+      refreshing: false,
+
+
 
 
     };
@@ -77,6 +81,39 @@ export default class ReservationScreen extends Component {
     }
     this.scrollViewRef = React.createRef(); //for header image background
   }
+
+
+  handleRefresh = async () => {
+    this.setState({ refreshing: true });
+
+    const { selectedDate } = this.state; // Access selectedDate from the state
+
+    // Make sure selectedDate is defined and not null
+    if (selectedDate) {
+      // Continue with the rest of your code for fetching data using formattedDate
+      try {
+        const jsonData = {
+          Booking_date: selectedDate, // Update key without quotes
+        };
+
+        const response = await axios.post(apiUrl, jsonData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        // Set the roomStatus in the component's state
+        this.setState({ roomStatus: response.data.bookings });
+
+        // Handle the response data
+        console.log('Room Status for ' + selectedDate + ':', response.data.bookings);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    this.setState({ refreshing: false });
+  };
 
 
 
@@ -453,7 +490,7 @@ export default class ReservationScreen extends Component {
             <CalendarStrip
               scrollable={true}
               style={{
-                height: screenHeight * 0.13,
+                height: screenHeight * 0.1,
                 paddingTop: 10,
                 paddingBottom: 10,
                 fontFamily: "LeagueSpartan",
@@ -478,8 +515,8 @@ export default class ReservationScreen extends Component {
               onDateSelected={this.handleDateSelected} // Callback for date selection
               // datesWhitelist={datesWhitelist}
               datesBlacklist={datesBlacklist}
-              minDate={moment().subtract(10, 'weeks').format('YYYY-MM-DD')}
-              maxDate={moment().add(10, 'weeks').format('YYYY-MM-DD')}
+              minDate={moment().subtract(2, 'weeks').format('YYYY-MM-DD')}
+              maxDate={moment().add(2, 'weeks').format('YYYY-MM-DD')}
             />
             <Text style={styles.selectedDateLable}>
               Selected Date: {selectedDate || "None"}
@@ -498,6 +535,9 @@ export default class ReservationScreen extends Component {
             <ScrollView
               contentContainerStyle={styles.scrollViewContainer}
               showsVerticalScrollIndicator={false}
+              refreshControl={
+                <RefreshControl refreshing={this.state.refreshing} onRefresh={this.handleRefresh} />
+              }
             >
               <View style={styles.contentContainer}>
                 {/* Create two boxes per row */}
