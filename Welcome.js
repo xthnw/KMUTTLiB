@@ -34,26 +34,26 @@ const Welcome = ({ navigation }) => {
 
                     <View style={[{ padding: 24, marginTop: 24, }]}>
                         <Image
-                            source={require("./picture/LogoApp.png")}
+                            source={require("./picture/kujong.png")}
                             style={{
-                                height: 138,
-                                width: 244,
+                                height: 128,
+                                width: 128,
                             }}
                         />
                         <Text style={{
                             paddingTop: 10,
                             fontSize: 30,
-                            fontWeight: 600,
+                            fontFamily: 'LeagueSpartanSemiBold',
                             color: COLORS.black
                         }}>Welcome to</Text>
                         <Text style={{
                             fontSize: 27,
-                            fontWeight: 600,
+                            fontFamily: 'LeagueSpartanSemiBold',
                             color: COLORS.black
                         }}>KMUTT LiB</Text>
 
                     </View>
-                    <View style={[{ alignItems: 'center', }]}>
+                    <View style={[{ alignItems: 'center', flex: 1 }]}>
                         <Image
                             source={require("./picture/iconWelcome.png")}
                             style={{
@@ -62,14 +62,16 @@ const Welcome = ({ navigation }) => {
                             }}
                         />
                     </View>
-                    <View style={[{ alignItems: 'center', }]}>
+                    <View style={[{ alignItems: 'center', flex: 1, }]}>
                         <Button
                             title="Sign in with Email"
+
                             onPress={() => navigation.navigate("LoginFIFA")}
                             style={{
                                 borderColor: COLORS.primary,
                                 width: "90%",
                                 color: COLORS.black,
+                                fontFamily: 'LeagueSpartanMedium'
                             }}
                         />
                         <Button

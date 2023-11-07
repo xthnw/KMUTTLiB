@@ -179,10 +179,20 @@ export default class ReservationScreen extends Component {
     this.blurListener();
   }
 
+  imageMap = {
+    'image1012.png': require('./picture/image1012.png'),
+    'image1022.png': require('./picture/image1022.png'),
+    'image1023.png': require('./picture/image1023.png'),
+    'image1034.png': require('./picture/image1034.png'),
+    'image1051.png': require('./picture/image1051.png'),
+    // Add more mappings for other images
+  };
+
 
   render() {
     const { route } = this.props;
     const { userData } = route.params;
+    const profilePicture = userData?.Profile_Picture || 'profile.png';
     const { selectedDate, roomStatus, } = this.state;
     const roomToCheck = 'KM3'; // Replace with the desired room ID
     const timeSlotsToCheck = ['08:30 - 10:20', '10:30 - 12:20', '12:30 - 14:20', '14:30 - 16:20'];
@@ -237,7 +247,7 @@ export default class ReservationScreen extends Component {
           <View style={styles.topProfileContainer}>
             <View style={styles.circleViewProfile}>
               <Image
-                source={require("./picture/profile.png")}
+                source={this.imageMap[profilePicture]}
                 style={{ width: "100%", height: "100%", borderRadius: 50 }}
               />
             </View>
