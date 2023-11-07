@@ -267,8 +267,6 @@ export default class ReservationScreen extends Component {
                   style={{
                     height: screenHeight * 0.1,
                     paddingTop: 10,
-                    paddingBottom: 10,
-                    fontFamily: "LeagueSpartan",
                   }}
                   calendarAnimation={{ type: "parallel", duration: 300, useNativeDriver: true }}
                   daySelectionAnimation={{ type: "border", borderWidth: 1, duration: 300 }}
@@ -293,18 +291,6 @@ export default class ReservationScreen extends Component {
                   minDate={moment().subtract(2, 'weeks').format('YYYY-MM-DD')}
                   maxDate={moment().add(2, 'weeks').format('YYYY-MM-DD')}
                 />
-                <Text style={[styles.description, { marginLeft: 8, }]}>
-                  Selected Date: {selectedDate || "None"}
-                </Text>
-
-                {/* {roomStatus && (
-                    <View>
-                      <Text>Room Status:</Text>
-                      {roomStatus.map((room, index) => (
-                        <Text key={index}>{room.id}: {room.data.Booking_period}</Text>
-                      ))}
-                    </View>
-                  )} */}
               </View>
 
               <View style={styles.spaceOutsideRoomBox}>

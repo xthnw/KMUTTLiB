@@ -486,14 +486,12 @@ export default class ReservationScreen extends Component {
           ]}
         >
 
-          <View style={[{ flex: 0, marginTop: 12 }]}>
+          <View style={[{ flex: 0, paddingTop: 12, }]}>
             <CalendarStrip
               scrollable={true}
               style={{
                 height: screenHeight * 0.1,
                 paddingTop: 10,
-                paddingBottom: 10,
-                fontFamily: "LeagueSpartan",
               }}
               calendarAnimation={{ type: "parallel", duration: 300, useNativeDriver: true }}
               daySelectionAnimation={{ type: "border", borderWidth: 1, duration: 300 }}
@@ -518,9 +516,6 @@ export default class ReservationScreen extends Component {
               minDate={moment().subtract(2, 'weeks').format('YYYY-MM-DD')}
               maxDate={moment().add(2, 'weeks').format('YYYY-MM-DD')}
             />
-            <Text style={styles.selectedDateLable}>
-              Selected Date: {selectedDate || "None"}
-            </Text>
           </View>
 
           <View style={[{
