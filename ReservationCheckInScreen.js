@@ -30,12 +30,14 @@ export default class ReservationCheckInScreen extends Component {
       // Get the user's current location
       const location = await getCurrentPositionAsync({});
       this.setState({ userLocation: location.coords });
+      this.checkDistance(location.coords);
     }
   }
   constructor(props) {
     super(props);
     this.state = {
       userLocation: null,
+      isWithin30Meters: false,
       isModalVisible: false,
       isModalCompleteVisible: false,
     };
@@ -71,10 +73,81 @@ export default class ReservationCheckInScreen extends Component {
     this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
   };
 
+  
+
+
+
+
+
+
+
+
+
+  checkDistance(userLocation) {
+    if (!userLocation) return;
+
+    const libraryLocation = {
+      latitude: 13.661650769703941, // Replace with the actual library latitude
+      longitude: 100.50526513962733, // Replace with the actual library longitude
+    };
+
+    // Haversine formula to calculate distance
+    const rad = (x) => (x * Math.PI) / 180;
+    const earthRadius = 6371; // Earth's radius in kilometers
+
+    const dLat = rad(libraryLocation.latitude - userLocation.latitude);
+    const dLong = rad(libraryLocation.longitude - userLocation.longitude);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(rad(userLocation.latitude)) *
+      Math.cos(rad(libraryLocation.latitude)) *
+      Math.sin(dLong / 2) *
+      Math.sin(dLong / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = earthRadius * c * 1000; // Distance in meters
+
+    const within30Meters = distance <= 30;
+    this.setState({ isWithin30Meters: within30Meters });
+  }
+
+
+
+  formatDate = (dateString) => {
+    // Split the date string into day, month, and year
+    const [day, month, year] = dateString.split('/').map(Number);
+
+    // Create a new Date object using the year, month (subtract 1 as it's zero-based), and day
+    const date = new Date(year, month - 1, day);
+
+    // Define the options for formatting the date
+    const options = {
+      weekday: 'short', // Displays the abbreviated day of the week
+      day: '2-digit',   // Displays the day of the month with leading zeros
+      month: 'short',   // Displays the abbreviated month name
+      year: 'numeric',  // Displays the full year
+    };
+
+    // Format the date as "Sun 05 Nov 2023"
+    return date.toLocaleDateString('en-US', options);
+  };
+
+
+
+  
+
+
+
+
+
   render() {
-    const { userLocation } = this.state;
+    const { route } = this.props;
+    const { booking } = route.params;
+    const { userLocation, isWithin30Meters } = this.state;
     const { isModalVisible } = this.state;
     const { isModalCompleteVisible } = this.state;
+    console.log('bookingIDD', booking);
     return (
       <SafeAreaView
         style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}
@@ -125,7 +198,7 @@ export default class ReservationCheckInScreen extends Component {
                 Date/Time
               </Text>
               <Text style={[styles.datetimeDetailLable]}>
-                24 SUNDAY 12:30 - 14:20
+                {this.formatDate(booking.data.Booking_date)} | {booking.data.Booking_period}
               </Text>
 
               <View
@@ -165,11 +238,27 @@ export default class ReservationCheckInScreen extends Component {
                     </Marker>
                   )}
                 </MapView>
+                {isWithin30Meters ? (
+                  <TouchableOpacity
+                    onPress={this.toggleModal}
+                    style={{ alignItems: 'center', marginBottom: 8 }}
+                  >
+                    <View style={[styles.checkInContainer]}>
+                      <Text style={styles.checkInLable}>Check in</Text>
+                    </View>
+                  </TouchableOpacity>
+                ) : (
+                  <View style={{ alignItems: 'center', marginBottom: 8 }}>
+                    <View style={[styles.checkInContainerDisabled]}>
+                      <Text style={[styles.checkInLable]}>Confirming Location...</Text>
+                    </View>
+                  </View>
+                )}
               </View>
               {/* --------- */}
             </View>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={this.toggleModal}
               style={{ alignItems: "center", marginBottom: 8 }}
             >
@@ -178,7 +267,7 @@ export default class ReservationCheckInScreen extends Component {
                   Check in
                 </Text>
               </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <Modal
               animationType="slide"
@@ -251,12 +340,8 @@ export default class ReservationCheckInScreen extends Component {
 
                   <View style={[styles.successfulImageContainer]}>
                     <Image
-                      source={require("./picture/LogoApp.png")}
-                      style={{ width: 105, height: 55 }}
-                    />
-                    <Image
-                      source={require("./picture/check.png")}
-                      style={{ width: 50, height: 50, marginTop: 16 }}
+                      source={require("./picture/check2.png")}
+                      style={{ width: 64, height: 64 }}
                     />
 
                     <Text style={[styles.successfulText]}>

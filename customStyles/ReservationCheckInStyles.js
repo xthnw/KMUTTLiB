@@ -107,6 +107,21 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: "LeagueSpartanSemiBold",
     },
+    checkInContainerDisabled: {
+        backgroundColor: "#D7D7D7",
+        height: screenHeight * 0.06,
+        borderRadius: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        elevation: 8,
+        marginTop: 16,
+        width: screenWidth * 0.9,
+    },
+    checkInLableDisabled: {
+        color: "white",
+        fontSize: 18,
+        fontFamily: "LeagueSpartanSemiBold",
+    },
     dimbackground: {
         flex: 1,
         justifyContent: "center",

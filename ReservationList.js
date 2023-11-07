@@ -145,8 +145,8 @@ const ReservationList = () => {
   };
 
 
-  const navigateToNextScreen = () => {
-    navigation.navigate('ReservationCheckInScreen');
+  const navigateToNextScreen = (booking) => {
+    navigation.navigate('ReservationCheckInScreen', { booking });
   };
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -193,7 +193,7 @@ const ReservationList = () => {
           responseData?.data?.booking.map((booking, index) => (
             <View key={index} style={[{ flex: 1 }]}>
               <View style={{ marginBottom: screenHeight * 0.02, justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-                <TouchableWithoutFeedback onPress={navigateToNextScreen}>
+                <TouchableWithoutFeedback >
                   <View style={styles.innerBox}>
                     <View style={styles.imageContainer}>
                       <Image source={require('./picture/floor1.jpg')} style={styles.image} resizeMode="cover" />
@@ -222,7 +222,7 @@ const ReservationList = () => {
                           </Text>
                           <Text style={[styles.text, { flex: 1 }]}>{booking.data.Booking_period}</Text>
                           <View style={styles.space} />
-                          <TouchableOpacity style={styles.statusDetail} onPress={navigateToNextScreen}>
+                          <TouchableOpacity style={styles.statusDetail} onPress={() => navigateToNextScreen(booking)}>
                             <Text style={styles.statusInner}>Detail</Text>
                           </TouchableOpacity>
                         </View>
