@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
         color: "white",
         fontSize: 18,
         fontFamily: "LeagueSpartanSemiBold",
+        textAlign: 'center',
     },
     checkInContainerDisabled: {
         backgroundColor: "#D7D7D7",
