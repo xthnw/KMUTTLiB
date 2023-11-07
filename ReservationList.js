@@ -195,23 +195,28 @@ const ReservationList = () => {
               <View style={{ marginBottom: screenHeight * 0.02, justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                 <TouchableWithoutFeedback >
                   <View style={styles.innerBox}>
-                    <View style={styles.imageContainer}>
+                    <View style={[{}]}>
                       <Image source={require('./picture/floor1.jpg')} style={styles.image} resizeMode="cover" />
                     </View>
-                    <View style={styles.textContent}>
+                    <View style={[{ marginLeft: 4, }]}>
                       <Text style={styles.textbold}>{roomLabels[booking.data.Room_ID] || 'Unknown Room'}</Text>
                       <View style={styles.boxRow}>
                         <View style={styles.label}>
                           <Text style={styles.Tag}>Location</Text>
-                          <Text style={styles.Tag}>Status</Text>
-                          <Text style={styles.Tag}>Date</Text>
+                          <View style={[{ marginVertical: 2, }]}>
+                            <Text style={styles.Tag}>Status</Text>
+                          </View>
+                          <View style={[{ marginTop: 2, }]}>
+                            <Text style={styles.Tag}>Date</Text>
+                          </View>
+
                           <Text style={styles.Tag}>Time</Text>
-                          <View style={styles.space} />
+                          {/* <View style={styles.space} /> */}
                           <TouchableOpacity style={styles.deleteBooking} onPress={() => handleSelectBooking(booking.id)}>
-                            <Text style={styles.statusDelete}>Cancel Reservation</Text>
+                            <Text style={styles.statusDelete}>Cancel Reserve</Text>
                           </TouchableOpacity>
                         </View>
-                        <View style={styles.space} />
+                        {/* <View style={styles.space} /> */}
                         <View style={styles.label}>
                           <Text style={styles.text}>5th floor</Text>
                           <View style={styles.status}>
@@ -220,8 +225,8 @@ const ReservationList = () => {
                           <Text style={styles.text}>
                             <Icon name="calendar" size={15} color={COLORS.primary} /> {formatDate(booking.data.Booking_date)}
                           </Text>
-                          <Text style={[styles.text, { flex: 1 }]}>{booking.data.Booking_period}</Text>
-                          <View style={styles.space} />
+                          <Text style={[styles.text, {}]}>{booking.data.Booking_period}</Text>
+                          {/* <View style={styles.space} /> */}
                           <TouchableOpacity style={styles.statusDetail} onPress={() => navigateToNextScreen(booking)}>
                             <Text style={styles.statusInner}>Detail</Text>
                           </TouchableOpacity>
@@ -385,8 +390,8 @@ const styles = StyleSheet.create({
   },
   innerBox: {
     flexDirection: 'row',
-    width: screenWidth * 0.85, // Adjust the width as needed
-    // flex: 1,
+    // width: screenWidth * 0.85, // Adjust the width as needed
+    flex: 1,
     justifyContent: 'space-between',
     borderWidth: 1,
     borderColor: COLORS.grey,
@@ -408,31 +413,11 @@ const styles = StyleSheet.create({
   },
   boxRow: {
     flexDirection: 'row', // Arrange boxes vertical
-    marginEnd: 10,
     // borderWidth: 5,
-    borderColor: COLORS.primary,
-    // width: screenWidth * 0.5,
+    // borderColor: COLORS.primary,
+    marginVertical: 5,
   },
 
-  box: {
-    width: screenWidth * 0.8, // Adjust the width as needed
-    height: screenWidth * 0.3,
-    flex: 1,
-    alignItems: 'start',
-    borderWidth: 1,
-    borderColor: COLORS.grey,
-    borderRadius: 15,
-    padding: 10, // ขอบบนรูปกับขอบกล่อง
-    marginVertical: 4, // ความห่างของ0แต่ละกล่องบนล่าง
-    marginHorizontal: 2,
-    flexDirection: 'row',
-    backgroundColor: 'black',
-    elevation: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
   label: {
     flexDirection: 'column',
     alignItems: 'start',
@@ -466,40 +451,43 @@ const styles = StyleSheet.create({
     flex: 1,
     width: screenWidth * 0.3, // Set the desired width
     height: screenHeight * 0.11, // Set the desired height
-    maxHeight: screenHeight * 0.14, // Set the desired height
+    // maxHeight: screenHeight * 0.14, // Set the desired height
     borderRadius: 15,
     alignItems: 'center', // Center the image horizontally/
-    marginEnd: 0,
   },
   textbold: {
-    marginTop: 5,
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'left',
   },
   status: {
     backgroundColor: 'green', // Green background color
-    borderRadius: 15, // Adjust the border radius as needed
+    borderRadius: 5, // Adjust the border radius as needed
     alignItems: 'center',
-    fontSize: 12,
+    justifyContent: 'center',
+    borderWidth: 1, // Add border width
+    borderColor: 'green', // Set the border color to red
   },
   deleteBooking: {
     backgroundColor: 'white',
     borderWidth: 1, // Add border width
     borderColor: '#ff5c5c', // Set the border color to red
-    // padding: 10,
-    borderRadius: 15,
+    // marginBottom: '25%',
+    padding: 2,
+    borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: 10,
   },
   statusDetail: {
     backgroundColor: COLORS.primary, // Green background color
-    borderRadius: 15, // Adjust the border radius as needed
+    borderRadius: 25, // Adjust the border radius as needed
     borderWidth: 1, // Add border width
     borderColor: COLORS.primary, // Set the border color to red
-    // padding: 10,
+    padding: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    fontSize: 12,
   },
   space: {
     // width: screenWidth * 0.1,
@@ -507,13 +495,17 @@ const styles = StyleSheet.create({
   },
   statusInner: {
     color: 'white',
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
     fontSize: 12,
-    padding: '1%',
   },
   statusDelete: {
     color: '#ff5c5c',
+    padding: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
     fontSize: 12,
-    padding: '1%',
   },
   scrollViewContainer: {
     flexGrow: 1,
