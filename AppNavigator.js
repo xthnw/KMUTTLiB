@@ -10,7 +10,7 @@ import ReservationCheckInScreen from './ReservationCheckInScreen';
 import ReservationList from './ReservationList';
 import LoginFIFA from './LoginFIFA';
 import Welcome from './Welcome';
-import {AuthProvider, useAuth} from './auth';
+import { AuthProvider, useAuth } from './auth';
 import LoginScreen from './LoginScreen'; // Import the LoginScreen component
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
@@ -30,6 +30,10 @@ const Tab = createMaterialBottomTabNavigator();
 
 
 function MainNavigator() {
+  const { state } = useAuth();
+
+  // Extract the authenticated state and userData from the context
+  const { authenticated, userData } = state;
   return (
 
     <Tab.Navigator
@@ -43,6 +47,8 @@ function MainNavigator() {
       <Tab.Screen
         name="ReservationIndexScreen"
         component={ReservationIndexScreen}
+        userData={userData}
+        initialParams={{ userData: userData }}
         options={{
 
           tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
@@ -111,9 +117,6 @@ function MainNavigator() {
 
 
 
-
-
-
 function AppNavigator() {
   // Use a state variable to track the user's authentication status
   // const [authenticated, setAuthenticated] = useState(false);
@@ -127,25 +130,28 @@ function AppNavigator() {
 
   const theme = useTheme();
   theme.colors.secondaryContainer = "transparent"
+  console.log('appvaaaaaaaaaaaaaaaaaa');
 
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={authenticated ? 'Login' : 'Login'}
+        initialRouteName={authenticated ? 'MainNavigator' : 'Login'}
         screenOptions={{
           headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
           headerTintColor: 'black', // Set the text color of the header
           headerShown: false,
         }}>
         <Stack.Screen name="Welcome" component={Welcome} options={{ title: null, headerLeft: null }} />
+
         {authenticated ? (
           <>
-            <Stack.Screen name="MainNavigator" component={MainNavigator} options={{ title: null, headerLeft: null }} />
-            <Stack.Screen name="ReservationIndex" component={ReservationIndexScreen} options={{ title: null, headerLeft: null }} />
+            <Stack.Screen name="MainNavigator" component={MainNavigator} options={{ title: null, headerLeft: null }} userData={userData}/>
+            <Stack.Screen name="ReservationIndex" component={ReservationIndexScreen} options={{ title: null, headerLeft: null }} userData={userData} />
             <Stack.Screen name="ReservationCheckInScreen" component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name="ReservationDetailsScreen" component={ReservationDetailsScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name="ReservationList" component={ReservationList} options={{ title: null, headerLeft: null }} />
+
           </>
         ) : (
           // <Stack.Screen name="LoginFIFA">
@@ -156,6 +162,7 @@ function AppNavigator() {
         )}
       </Stack.Navigator>
     </NavigationContainer>
+
   );
 }
 const styles = StyleSheet.create({

@@ -37,6 +37,8 @@ const datesBlacklist = date => {
 
 
 
+
+
 StatusBar.setHidden(false);
 
 export default class ReservationScreen extends Component {
@@ -179,6 +181,8 @@ export default class ReservationScreen extends Component {
 
 
   render() {
+    const { route } = this.props;
+    const { userData } = route.params;
     const { selectedDate, roomStatus, } = this.state;
     const roomToCheck = 'KM3'; // Replace with the desired room ID
     const timeSlotsToCheck = ['08:30 - 10:20', '10:30 - 12:20', '12:30 - 14:20', '14:30 - 16:20'];
@@ -216,6 +220,7 @@ export default class ReservationScreen extends Component {
       // Disable past days, Saturdays (isoWeekday 6), and Sundays (isoWeekday 7)
       return date.isBefore(moment(), 'day') || date.isoWeekday() === 6 || date.isoWeekday() === 7;
     };
+    console.log('indexxxxxxxxxxxxxx', userData);
     return (
       <LinearGradient
         colors={["#fe4914", "#ff9f24"]} // Adjust these colors as needed
@@ -237,7 +242,7 @@ export default class ReservationScreen extends Component {
               />
             </View>
             <Text style={styles.hiUserNameLabel}>
-              Hi, TANATON
+              Hi, {userData.User_FName} {userData.User_LName}
             </Text>
             <Iconify style={[{ marginLeft: 20, marginTop: 20, }]}
               icon="streamline-emojis:ant" size={32} />

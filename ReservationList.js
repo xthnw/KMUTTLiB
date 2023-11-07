@@ -180,7 +180,7 @@ const ReservationList = () => {
             onRefresh={handleRefresh}
           />
         }>
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 12, }}>
           <Text style={styles.formTitle}>My Room</Text>
         </View>
 
