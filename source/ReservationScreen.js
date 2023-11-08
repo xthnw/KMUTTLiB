@@ -29,7 +29,7 @@ export default class ReservationScreen extends Component {
     this.state = {
       selectedDate: null,
       selectedButton: null,
-      roomStatus: null,
+      roomStatus: [],
       refreshing: false,
       isModalVisibleForm: false,
       isModalVisibleFull: false,
@@ -132,11 +132,37 @@ export default class ReservationScreen extends Component {
 
     const formattedDateInModal = date.toLocaleDateString('en-US', options);
 
+    const { roomStatus } = this.state;
+
+
+    const filteredResponse = roomStatus.filter((booking) => {
+      return (
+        booking.data.Booking_date === selectedDate &&
+        booking.data.Booking_period === targetTimeSlot &&
+        booking.data.Room_ID === `KM${Room_ID}`
+      );
+    });
+
+    const userNames = [];
+    for (let i = 1; i <= 6; i++) {
+      const userName = filteredResponse[0].data[`User_${i}`];
+      if (userName) {
+        userNames.push(userName);
+      }
+    }
+
+
     this.setState({
       isModalVisibleFull: !this.state.isModalVisibleFull,
       modalRoom_ID: Room_ID,
       modalPeriod: targetTimeSlot,
       modalFormattedDate: formattedDateInModal,
+      modalUser_1: userNames[0],
+      modalUser_2: userNames[1],
+      modalUser_3: userNames[2],
+      modalUser_4: userNames[3],
+      modalUser_5: userNames[4],
+      modalUser_6: userNames[5],
     });
   };
 
@@ -290,7 +316,7 @@ export default class ReservationScreen extends Component {
   render() {
 
     const { isModalVisibleFull } = this.state;
-    const { roomStatus } = this.state;
+    const { roomStatus, selectedDate } = this.state;
     const targetTimeSlot_1 = "08:30 - 10:20";
     const targetTimeSlot_2 = "10:30 - 12:20";
     const targetTimeSlot_3 = "12:30 - 14:20";
@@ -326,6 +352,29 @@ export default class ReservationScreen extends Component {
     const isSlotReserved_18 = filteredData_5 && filteredData_5.some(room => room.data.Booking_period.includes(targetTimeSlot_2));
     const isSlotReserved_19 = filteredData_5 && filteredData_5.some(room => room.data.Booking_period.includes(targetTimeSlot_3));
     const isSlotReserved_20 = filteredData_5 && filteredData_5.some(room => room.data.Booking_period.includes(targetTimeSlot_4));
+
+
+    const userNames = [
+      this.state.modalUser_1,
+      this.state.modalUser_2,
+      this.state.modalUser_3,
+      this.state.modalUser_4,
+      this.state.modalUser_5,
+      this.state.modalUser_6,
+    ];
+
+    const renderUserNames = () => {
+      return userNames.map((userName) => {
+        if (userName) {
+          return (
+            <Text key={userName} style={styles.modalStudentName}>{userName}</Text>
+          );
+        }
+        return null;
+      });
+    };
+
+
 
     return (
       <View style={[{ marginTop: 0, flex: 1, flexGrow: 1, }]}>
@@ -479,30 +528,20 @@ export default class ReservationScreen extends Component {
             <View style={styles.modalInnerContainer}>
               <ScrollView contentContainerStyle={[{ flexGrow: 1, }]} showsVerticalScrollIndicator={false}>
                 <Text style={styles.modalRoomNolable}>KM-Room {this.state.modalRoom_ID}</Text>
-                <Text style={styles.modalTimelable}>
-                  Time : {this.state.modalPeriod} | {this.state.modalFormattedDate}
-                </Text>
+                <Text style={styles.modalTimelable}>Time : {this.state.modalPeriod} | {this.state.modalFormattedDate}</Text>
                 <View style={styles.dividerLine} />
                 <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                   <View style={[{ flex: 1, }]}>
                     <Text style={styles.reservationBylable}>Reservations by</Text>
                     <View style={[{ flexDirection: "row", marginBottom: 10, }]}>
-                      <View style={[{ marginRight: 10, paddingHorizontal: 4, }]}>
-                        <Iconify icon="fluent-emoji:man-student-medium-light" size={32} />
-                      </View>
+                      <View style={[{ marginRight: 10, paddingHorizontal: 4, }]}><Iconify icon="fluent-emoji:man-student-medium-light" size={32} /></View>
                       <View style={[{ flexDirection: "column", }]}>
                         <Text style={styles.modalStudentLabel}>Students</Text>
-                        <Text style={styles.modalStudentName}>Mr.Teerapong Longpenying</Text>
-                        <Text style={styles.modalStudentName}>Mrs.Susano Uchiha</Text>
-                        <Text style={styles.modalStudentName}>Ms.Singchai Areenaimpact</Text>
-                        <Text style={styles.modalStudentName}>Mr.Thanawan Sutthasena</Text>
-                        <Text style={styles.modalStudentName}>Mr.Tanatorn Yuwaawech</Text>
+                        {renderUserNames()}
                       </View>
                     </View>
                   </View>
-                  <View style={[{ marginLeft: 10, }]}>
-                    <Iconify icon="openmoji:no-entry" color='black' size={48} />
-                  </View>
+                  <View style={[{ marginLeft: 10, }]}><Iconify icon="openmoji:no-entry" color='black' size={48} /></View>
                 </View>
                 <View style={[styles.emptyViewforScrolling]}></View>
               </ScrollView>
