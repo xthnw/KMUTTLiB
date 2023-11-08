@@ -1,31 +1,14 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  StatusBar,
-  Animated,
-  TextInput,
-  ScrollView,
-  Image,
-  Easing,
-  TouchableWithoutFeedback,
-  ImageBackground,
-  AppRegistry,
-  RefreshControl,
-} from "react-native";
-import moment from 'moment';
-import CalendarStrip from "react-native-scrollable-calendar-strip";
+import { View, Text, TouchableOpacity, Dimensions, StatusBar, Animated, ScrollView, Easing, TouchableWithoutFeedback, ImageBackground, RefreshControl, } from "react-native";
 import { Iconify } from 'react-native-iconify';
-import Modal from 'react-native-modal';
+import CalendarStrip from "react-native-scrollable-calendar-strip";
 import { LinearGradient } from "expo-linear-gradient";
 import styles from "./customStyles/ReservationScreenStyles";
 import axios from "axios";
+import moment from 'moment';
+import Modal from 'react-native-modal';
 
 const apiUrl = 'http://192.168.1.104:8080/api/room';
-
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -36,43 +19,25 @@ const images = [
   require('./picture/kmuttlib3.jpg'),
 ];
 
-let datesWhitelist = [{
-  start: moment(),
-  end: moment().add(5, 'days')
-}];
 const datesBlacklist = date => {
-  return date.isoWeekday() === 6 || date.isoWeekday() === 7; // disable Saturdays and Sundays
+  return date.isoWeekday() === 6 || date.isoWeekday() === 7;
 }
-
 
 export default class ReservationScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedDate: null,
-      // selectedDate: this.props.route.params.selectedDate || new Date(),
-      selectedButton: null, // Initially, no button is selected
-
-
-
+      selectedButton: null,
+      roomStatus: null,
+      refreshing: false,
       isModalVisibleForm: false,
       isModalVisibleFull: false,
       isModalVisible: false,
       isDropdownOpen: false,
       selectedOption: "",
       isModalCompleteVisible: false,
-
-
-      activeImageIndex: 0, //for header image background
-
-
-      roomStatus: null, // Initialize as null
-
-      refreshing: false,
-
-
-
-
+      activeImageIndex: 0,
     };
     this.inputBoxRef = React.createRef();
     this.buttonScaleValues = {};
@@ -81,77 +46,6 @@ export default class ReservationScreen extends Component {
     }
     this.scrollViewRef = React.createRef(); //for header image background
   }
-
-
-  handleRefresh = async () => {
-    this.setState({ refreshing: true });
-
-    const { selectedDate } = this.state; // Access selectedDate from the state
-
-    // Make sure selectedDate is defined and not null
-    if (selectedDate) {
-      // Continue with the rest of your code for fetching data using formattedDate
-      try {
-        const jsonData = {
-          Booking_date: selectedDate, // Update key without quotes
-        };
-
-        const response = await axios.post(apiUrl, jsonData, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        // Set the roomStatus in the component's state
-        this.setState({ roomStatus: response.data.bookings });
-
-        // Handle the response data
-        console.log('Room Status for ' + selectedDate + ':', response.data.bookings);
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    }
-
-    this.setState({ refreshing: false });
-  };
-
-
-
-
-  // Callback function to handle date selection
-  handleDateSelected = async (date) => {
-    // Parse the date to ensure it's a Date object
-    const parsedDate = new Date(date);
-    const day = parsedDate.getDate().toString().padStart(2, "0");
-    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
-    const year = parsedDate.getFullYear();
-    const formattedDate = `${day}/${month}/${year}`;
-    this.setState({ selectedDate: formattedDate });
-
-    try {
-      const jsonData = {
-        Booking_date: formattedDate, // Update key without quotes
-      };
-
-      const response = await axios.post(apiUrl, jsonData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      // Set the roomStatus in the component's state
-      this.setState({ roomStatus: response.data.bookings });
-
-      // Handle the response data
-      console.log('Room Status for ' + formattedDate + ':', response.data.bookings);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-
-
-
 
   async componentDidMount() {
     this.focusListener = this.props.navigation.addListener('focus', () => {
@@ -162,8 +56,6 @@ export default class ReservationScreen extends Component {
     });
 
     this.startAutoSlide();
-
-
 
     const currentDate = new Date();
     const day = currentDate.getDate().toString().padStart(2, "0");
@@ -185,21 +77,9 @@ export default class ReservationScreen extends Component {
       });
 
       this.setState({ roomStatus: response.data.bookings });
-
-      console.log('Room Status for current date:', response.data.bookings);
     } catch (error) {
       console.error('Error:', error);
     }
-
-
-
-
-
-
-
-
-
-
   }
 
   componentWillUnmount() {
@@ -211,7 +91,7 @@ export default class ReservationScreen extends Component {
   startAutoSlide = () => {
     this.timer = setInterval(() => {
       this.scrollToNextImage();
-    }, 3000); // Change image every 3 seconds
+    }, 3000);
   };
 
   stopAutoSlide = () => {
@@ -238,13 +118,10 @@ export default class ReservationScreen extends Component {
 
   toggleModalFull = (buttonId, targetTimeSlot, Room_ID) => {
     const selectedDate = this.state.selectedDate; // Get the selected date in "DD/MM/YYYY" format
-
     // Split the date string into day, month, and year
     const [day, month, year] = selectedDate.split('/').map(Number);
-
     // Create a new Date object using the year, month (subtract 1 as it's zero-based), and day
     const date = new Date(year, month - 1, day);
-
     // Define the options for formatting the date
     const options = {
       weekday: 'short', // Displays the abbreviated day of the week
@@ -253,7 +130,6 @@ export default class ReservationScreen extends Component {
       year: 'numeric',  // Displays the full year
     };
 
-    // Format the date as "Sun 04 Oct 2023"
     const formattedDateInModal = date.toLocaleDateString('en-US', options);
 
     this.setState({
@@ -263,24 +139,89 @@ export default class ReservationScreen extends Component {
       modalFormattedDate: formattedDateInModal,
     });
   };
+
+  handleRefresh = async () => {
+    this.setState({ refreshing: true });
+
+    const { selectedDate } = this.state; // Access selectedDate from the state
+    // Make sure selectedDate is defined and not null
+    if (selectedDate) {
+
+      try {
+        const jsonData = {
+          Booking_date: selectedDate,
+        };
+        const response = await axios.post(apiUrl, jsonData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        this.setState({ roomStatus: response.data.bookings });
+
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+
+    this.setState({ refreshing: false });
+  };
+
+  handleDateSelected = async (date) => {
+    const parsedDate = new Date(date);
+    const day = parsedDate.getDate().toString().padStart(2, "0");
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    const year = parsedDate.getFullYear();
+    const formattedDate = `${day}/${month}/${year}`;
+
+    this.setState({ selectedDate: formattedDate });
+
+    try {
+      const jsonData = {
+        Booking_date: formattedDate,
+      };
+
+      const response = await axios.post(apiUrl, jsonData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      this.setState({ roomStatus: response.data.bookings });
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   handleRequestPress = () => {
     this.props.navigation.navigate('ReservationRequestScreen');
-  };
-  handleBoxPress = (boxNumber) => {
-    // this.props.navigation.navigate("ReservationDetails");
   };
 
   handleButtonClick = (buttonId) => {
     this.setState((prevState) => ({
       selectedButton: prevState.selectedButton === buttonId ? null : buttonId,
     }));
-    // Navigate to ReservationRequest page when a button is clicked
     this.props.navigation.navigate("ReservationRequest");
   };
-  handleBackPress = () => {
-    this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
-  };
 
+  handleButtonPressIn(buttonId) {
+    Animated.timing(this.buttonScaleValues[buttonId], {
+      toValue: 0.95,
+      duration: 150,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  }
+
+  handleButtonPressOut(buttonId) {
+    Animated.timing(this.buttonScaleValues[buttonId], {
+      toValue: 1,
+      duration: 150,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start();
+  }
 
   renderButton = (buttonId, text, isSlotReserved, isDisabled = false) => {
     const { selectedButton } = this.state;
@@ -298,12 +239,10 @@ export default class ReservationScreen extends Component {
         ? { ...styles.textDisabled }
         : { ...styles.buttonText };
 
-
     const targetTimeSlot_1 = "08:30 - 10:20";
     const targetTimeSlot_2 = "10:30 - 12:20";
     const targetTimeSlot_3 = "12:30 - 14:20";
     const targetTimeSlot_4 = "14:30 - 16:20";
-
 
     // Define a mapping of button IDs to corresponding functions
     const buttonFunctions = {
@@ -327,10 +266,8 @@ export default class ReservationScreen extends Component {
       18: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 5) : () => this.handleRequestPress(buttonId),
       19: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 5) : () => this.handleRequestPress(buttonId),
       20: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 5) : () => this.handleRequestPress(buttonId),
-      // Add more button IDs and functions as needed
     };
 
-    // Determine the onPress function based on the buttonId
     const onPressFunction = buttonFunctions[buttonId];
 
     return (
@@ -341,13 +278,7 @@ export default class ReservationScreen extends Component {
         style={styles.touchableButton}
         activeOpacity={1}
       >
-        <Animated.View
-          style={[
-            {
-              transform: [{ scale: this.buttonScaleValues[buttonId] }],
-            },
-          ]}
-        >
+        <Animated.View style={[{ transform: [{ scale: this.buttonScaleValues[buttonId] }], },]}>
           <View style={buttonStyle}>
             <Text style={textStyle}>{text}</Text>
           </View>
@@ -356,46 +287,20 @@ export default class ReservationScreen extends Component {
     );
   };
 
-  handleButtonPressIn(buttonId) {
-    Animated.timing(this.buttonScaleValues[buttonId], {
-      toValue: 0.95,
-      duration: 150,
-      easing: Easing.linear,
-      useNativeDriver: true,
-    }).start();
-  }
-
-  handleButtonPressOut(buttonId) {
-    Animated.timing(this.buttonScaleValues[buttonId], {
-      toValue: 1,
-      duration: 150,
-      easing: Easing.linear,
-      useNativeDriver: true,
-    }).start();
-  }
-
-
-
-
-
-
   render() {
 
     const { isModalVisibleFull } = this.state;
-    const { selectedDate } = this.state;
     const { roomStatus } = this.state;
     const targetTimeSlot_1 = "08:30 - 10:20";
     const targetTimeSlot_2 = "10:30 - 12:20";
     const targetTimeSlot_3 = "12:30 - 14:20";
     const targetTimeSlot_4 = "14:30 - 16:20";
 
-
     const filteredData_1 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM1');
     const filteredData_2 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM2');
     const filteredData_3 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM3');
     const filteredData_4 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM4');
     const filteredData_5 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM5');
-
     // Check if all time slots are reserved for the selected room
     const isSlotReserved_1 = filteredData_1 && filteredData_1.some(room => room.data.Booking_period.includes(targetTimeSlot_1));
     const isSlotReserved_2 = filteredData_1 && filteredData_1.some(room => room.data.Booking_period.includes(targetTimeSlot_2));
@@ -422,26 +327,10 @@ export default class ReservationScreen extends Component {
     const isSlotReserved_19 = filteredData_5 && filteredData_5.some(room => room.data.Booking_period.includes(targetTimeSlot_3));
     const isSlotReserved_20 = filteredData_5 && filteredData_5.some(room => room.data.Booking_period.includes(targetTimeSlot_4));
 
-    // Define a custom dateNumberStyle for selected dates
-    const selectedDateNumberStyle = {
-      color: "orange", // You can change the color to your preference
-      textDecorationLine: "underline", // Add underline for selected dates
-    };
-
-
     return (
-
-
       <View style={[{ marginTop: 0, flex: 1, flexGrow: 1, }]}>
-        {Platform.OS === "ios" ? (
-          <StatusBar barStyle="dark-content" />
-        ) : (
-          <StatusBar barStyle="light-content" />
-        )}
-
         <View style={{ flex: 1 }}>
-          <ScrollView
-            ref={this.scrollViewRef}
+          <ScrollView ref={this.scrollViewRef}
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
@@ -452,80 +341,38 @@ export default class ReservationScreen extends Component {
             }}
           >
             {images.map((image, index) => (
-              <ImageBackground
-                key={index}
-                source={image}
-                style={styles.headerImageBackground}>
-                <LinearGradient
-                  colors={['transparent', 'rgba(0,0,0,0.4)']}
-                  style={styles.gradient}
-                >
+              <ImageBackground key={index} source={image} style={styles.headerImageBackground}>
+                <LinearGradient colors={['transparent', 'rgba(0,0,0,0.4)']} style={styles.gradient}>
                 </LinearGradient>
               </ImageBackground>
             ))}
           </ScrollView>
         </View>
-        {/* <arrow-left block */}
-
-
-        <View
-          style={[
-            {
-              flex: 1,
-              backgroundColor: "white",
-              borderTopLeftRadius: 25, // Adjust the top-left corner radius
-              borderTopRightRadius: 25, // Adjust the top-right corner radius
-              overflow: "hidden",
-              position: 'absolute',
-              top: screenHeight / 4, // Adjust the top position to control the overlap
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 0, // Ensure it's on top of the image (set 0 for shadow navbar)
-            },
-          ]}
-        >
-
+        <View style={styles.OverlapToHeaderImagebg}>
           <View style={[{ flex: 0, paddingTop: 12, }]}>
             <CalendarStrip
               scrollable={true}
-              style={{
-                height: screenHeight * 0.1,
-                paddingTop: 10,
-              }}
+              style={{ height: screenHeight * 0.1, paddingTop: 10, }}
               calendarAnimation={{ type: "parallel", duration: 300, useNativeDriver: true }}
               daySelectionAnimation={{ type: "border", borderWidth: 1, duration: 300 }}
               dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
               dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              highlightDateNumberStyle={{
-                color: "black",
-                textDecorationLine: "underline", // Add underline style
-                textDecorationColor: "orange", // Color of the underline
-                fontFamily: 'LeagueSpartanMedium',
-                fontSize: 12
-              }}
-              // selectedDateNumberStyle ขีดเส้นใต้
+              highlightDateNumberStyle={{ color: "black", textDecorationLine: "underline", textDecorationColor: "orange", fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
               highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan', fontSize: 12 }}
               disabledDateNameStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
               disabledDateNumberStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
               calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
               iconContainer={{ flex: 0.1 }}
-              onDateSelected={this.handleDateSelected} // Callback for date selection
-              // datesWhitelist={datesWhitelist}
+              onDateSelected={this.handleDateSelected}
               datesBlacklist={datesBlacklist}
               minDate={moment().subtract(2, 'weeks').format('YYYY-MM-DD')}
               maxDate={moment().add(2, 'weeks').format('YYYY-MM-DD')}
             />
           </View>
-
-          <View style={[{
-            flex: 0,
-            zIndex: 1,
-          }]}>
+          <View style={[{ flex: 0, zIndex: 1, }]}>
             <View style={styles.viewShadowStyles}>
             </View>
           </View>
-
           <View style={styles.spaceOutsideRoomBox}>
             <ScrollView
               contentContainerStyle={styles.scrollViewContainer}
@@ -535,16 +382,13 @@ export default class ReservationScreen extends Component {
               }
             >
               <View style={styles.contentContainer}>
-                {/* Create two boxes per row */}
                 <View style={styles.boxRow}>
                   <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
                   >
                     <View style={styles.textContent}>
                       <Text style={styles.textbold}>KM-Room 1</Text>
-                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
                     </View>
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}></View>
@@ -556,15 +400,9 @@ export default class ReservationScreen extends Component {
                       </View>
                     </View>
                   </TouchableOpacity>
-
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
-                  >
+                  <TouchableOpacity activeOpacity={1} style={styles.box}>
                     <View style={styles.textContent}>
                       <Text style={styles.textbold}>KM-Room 2</Text>
-                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
                     </View>
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}></View>
@@ -576,15 +414,9 @@ export default class ReservationScreen extends Component {
                       </View>
                     </View>
                   </TouchableOpacity>
-
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
-                  >
+                  <TouchableOpacity activeOpacity={1} style={styles.box}>
                     <View style={styles.textContent}>
                       <Text style={styles.textbold}>KM-Room 3</Text>
-                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
                     </View>
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}></View>
@@ -596,15 +428,12 @@ export default class ReservationScreen extends Component {
                       </View>
                     </View>
                   </TouchableOpacity>
-
                   <TouchableOpacity
                     activeOpacity={1}
                     style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
                   >
                     <View style={styles.textContent}>
                       <Text style={styles.textbold}>KM-Room 4</Text>
-                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
                     </View>
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}></View>
@@ -616,14 +445,9 @@ export default class ReservationScreen extends Component {
                       </View>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                    onPress={() => this.handleBoxPress(1)}
-                  >
+                  <TouchableOpacity activeOpacity={1} style={styles.box}>
                     <View style={styles.textContent}>
                       <Text style={styles.textbold}>KM-Room 5</Text>
-                      {/* <Text style={styles.description}>Description of Room 1st goes here</Text> */}
                     </View>
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}></View>
@@ -635,20 +459,14 @@ export default class ReservationScreen extends Component {
                       </View>
                     </View>
                   </TouchableOpacity>
-
-
                 </View>
               </View>
             </ScrollView>
           </View>
         </View>
-
         <View style={[{ flex: 0, backgroundColor: 'black' }]}>
-          <View style={[styles.viewShadowStylesNavbar]}></View>
+          <View style={styles.viewShadowStylesNavbar}></View>
         </View>
-
-
-
         <Modal
           isVisible={isModalVisibleFull}
           animationIn="slideInUp"
@@ -657,53 +475,28 @@ export default class ReservationScreen extends Component {
           onBackdropPress={this.toggleModalFullDismiss}
           style={styles.modalContainerFull}
         >
-
           <View style={styles.modalContentFull}>
-            <View style={[styles.modalInnerContainer]}>
-              <ScrollView
-                contentContainerStyle={[{
-                  flexGrow: 1,
-                }]}
-                showsVerticalScrollIndicator={false}
-              >
-                <Text style={[styles.modalRoomNolable]}>KM-Room {this.state.modalRoom_ID}</Text>
-
-                <Text style={[styles.modalTimelable]}>
+            <View style={styles.modalInnerContainer}>
+              <ScrollView contentContainerStyle={[{ flexGrow: 1, }]} showsVerticalScrollIndicator={false}>
+                <Text style={styles.modalRoomNolable}>KM-Room {this.state.modalRoom_ID}</Text>
+                <Text style={styles.modalTimelable}>
                   Time : {this.state.modalPeriod} | {this.state.modalFormattedDate}
                 </Text>
-                <View style={[styles.dividerLine]} />
-                <View style={[{
-                  flexDirection: 'row', // Arrange children horizontally
-                  alignItems: 'center', // Align children vertically
-                }]}>
-                  < View style={[{ flex: 1, }]} >
-                    {/* styles.leftContent */}
-                    < Text style={[styles.reservationBylable]}>
-                      Reservations by
-                    </Text>
+                <View style={styles.dividerLine} />
+                <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
+                  <View style={[{ flex: 1, }]}>
+                    <Text style={styles.reservationBylable}>Reservations by</Text>
                     <View style={[{ flexDirection: "row", marginBottom: 10, }]}>
                       <View style={[{ marginRight: 10, paddingHorizontal: 4, }]}>
                         <Iconify icon="fluent-emoji:man-student-medium-light" size={32} />
                       </View>
                       <View style={[{ flexDirection: "column", }]}>
-                        <Text style={[styles.modalStudentLabel]}>
-                          Students
-                        </Text>
-                        <Text style={[styles.modalStudentName]}>
-                          Mr.Teerapong Longpenying
-                        </Text>
-                        <Text style={[styles.modalStudentName]}>
-                          Mrs.Susano Uchiha
-                        </Text>
-                        <Text style={[styles.modalStudentName]}>
-                          Ms.Singchai Areenaimpact
-                        </Text>
-                        <Text style={[styles.modalStudentName]}>
-                          Mr.Thanawan Sutthasena
-                        </Text>
-                        <Text style={[styles.modalStudentName]}>
-                          Mr.Tanatorn Yuwaawech
-                        </Text>
+                        <Text style={styles.modalStudentLabel}>Students</Text>
+                        <Text style={styles.modalStudentName}>Mr.Teerapong Longpenying</Text>
+                        <Text style={styles.modalStudentName}>Mrs.Susano Uchiha</Text>
+                        <Text style={styles.modalStudentName}>Ms.Singchai Areenaimpact</Text>
+                        <Text style={styles.modalStudentName}>Mr.Thanawan Sutthasena</Text>
+                        <Text style={styles.modalStudentName}>Mr.Tanatorn Yuwaawech</Text>
                       </View>
                     </View>
                   </View>
@@ -715,9 +508,8 @@ export default class ReservationScreen extends Component {
               </ScrollView>
             </View>
           </View>
-        </Modal >
-      </View >
-
+        </Modal>
+      </View>
     );
   }
 }

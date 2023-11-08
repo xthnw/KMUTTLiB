@@ -38,7 +38,7 @@ const LoginFIFA = ({ navigation }) => {
         try {
             const apiUrl = 'http://192.168.1.104:8080/api/authen';
             const jsonData = {
-                email: 'Jedsada_chai@kmutt.ac.th',
+                email: 'jedsada_chai@kmutt.ac.th',
                 password: 'secret123',
             };
 
