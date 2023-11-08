@@ -135,13 +135,13 @@ const ReservationList = () => {
         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 12, }}>
           <Text style={styles.formTitle}>My Room</Text>
         </View>
-        {responseData === null ? (
+        {responseData === null || responseData?.data?.booking.length === 0 ? (
           authenticated ? (
-            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, }}>
-              <Text style={styles.text}>Not found reservation, let's reserve room!</Text>
+            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+              <Text style={styles.text}>You don't have any reservations, please reserve room!.</Text>
             </View>
           ) : (
-            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
               <Image source={require('../picture/profile.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
               <Text style={styles.text}>Please login first</Text>
             </View>
