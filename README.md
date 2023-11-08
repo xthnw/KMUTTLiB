@@ -1,5 +1,6 @@
-![Logo](https://cdn.discordapp.com/attachments/881006618911858728/1171510399594659880/Asset_2_1.png?ex=655cf114&is=654a7c14&hm=06600ce82f7fe5691db1d6a124af10b820e37c5804280749bd1d003923e2ae80&)
-
+<div align="center">
+<img src="https://cdn.discordapp.com/attachments/881006618911858728/1171510399594659880/Asset_2_1.png?ex=655cf114&is=654a7c14&hm=06600ce82f7fe5691db1d6a124af10b820e37c5804280749bd1d003923e2ae80&" />
+</div>
 
 # KMUTTLiB
 
