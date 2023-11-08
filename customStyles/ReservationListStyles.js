@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions, } from 'react-native';
-import COLORS from '../fifa/colors';
+import COLORS from './colors';
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;

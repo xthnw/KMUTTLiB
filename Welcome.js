@@ -1,8 +1,8 @@
 import { View, Text, Pressable, Image, Dimensions, StatusBar, ScrollView, Platform } from 'react-native'
 import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
-import COLORS from './fifa/colors';
-import Button from './fifa/button';
+import COLORS from './customStyles/colors';
+import Button from './customStyles/button';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 
