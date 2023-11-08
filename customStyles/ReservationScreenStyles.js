@@ -5,7 +5,19 @@ const screenHeight = Dimensions.get("window").height;
 const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
-
+  OverlapToHeaderImagebg: {
+    flex: 1,
+    backgroundColor: "white",
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    overflow: "hidden",
+    position: 'absolute',
+    top: screenHeight / 4,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 0, // Ensure it's on top of the image (set 0 for shadow navbar)
+  },
   selectedDateLable: {
     marginBottom: 12,
     marginLeft: 12,

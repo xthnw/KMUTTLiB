@@ -7,6 +7,27 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
+    staybutton: {
+        flex: 1,
+        padding: 10,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
+        borderColor: 'gray',
+        borderWidth: 1,
+    },
+    yesCancelbutton: {
+        flex: 1,
+        backgroundColor: 'red',
+        padding: 10,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
+        borderWidth: 1,
+        borderColor: 'red',
+    },
     blankBgModalView: {
         flex: 1,
         justifyContent: "center",
