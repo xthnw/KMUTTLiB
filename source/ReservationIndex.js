@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Dimensions, StatusBar, Platform, RefreshC
 import { Iconify } from 'react-native-iconify';
 import CalendarStrip from "react-native-scrollable-calendar-strip";
 import { LinearGradient } from "expo-linear-gradient";
-import styles from './customStyles/ReservationIndexStyles';
+import styles from '../customStyles/ReservationIndexStyles';
 import axios from "axios";
 import moment from "moment/moment";
 
@@ -125,11 +125,11 @@ export default class ReservationScreen extends Component {
   }
 
   imageMap = {
-    'image1012.png': require('./picture/image1012.png'),
-    'image1022.png': require('./picture/image1022.png'),
-    'image1023.png': require('./picture/image1023.png'),
-    'image1034.png': require('./picture/image1034.png'),
-    'image1051.png': require('./picture/image1051.png'),
+    'image1012.png': require('../picture/image1012.png'),
+    'image1022.png': require('../picture/image1022.png'),
+    'image1023.png': require('../picture/image1023.png'),
+    'image1034.png': require('../picture/image1034.png'),
+    'image1051.png': require('../picture/image1051.png'),
   };
 
   render() {
@@ -206,7 +206,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(1)} >
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("./picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
                         </View>
                         <View style={[{ alignItems: "flex-start" }]}>
                           <Text style={styles.textbold}>KM-Room 1</Text>
@@ -224,7 +224,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(2)} >
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("./picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
                         </View>
                         <View style={[{ alignItems: "flex-start" }]}>
                           <Text style={styles.textbold}>KM-Room 2</Text>
@@ -243,7 +243,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(3)} >
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("./picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
                         </View>
                         <View style={[{ alignItems: "flex-start" }]}>
                           <Text style={styles.textbold}>KM-Room 3</Text>
@@ -261,7 +261,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(4)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("./picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
                         </View>
                         <View style={[{ alignItems: "flex-start" }]}>
                           <Text style={styles.textbold}>KM-Room 4</Text>
@@ -280,7 +280,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(5)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("./picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
                         </View>
                         <View style={[{ alignItems: "flex-start" }]}>
                           <Text style={styles.textbold}>KM-Room 5</Text>

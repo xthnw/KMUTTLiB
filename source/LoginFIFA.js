@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
-import COLORS from './customStyles/colors';
-import Button from './customStyles/button';
+import COLORS from '../customStyles/colors';
+import Button from '../customStyles/button';
 import axios from 'axios';
 import { useAuth } from './auth';
 StatusBar.setHidden(true);
@@ -90,7 +90,7 @@ const LoginFIFA = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <View style={[{ padding: 24, alignItems: 'center', marginTop: 24, }]}>
                 <Image
-                    source={require("./picture/LogoApp.png")}
+                    source={require("../picture/LogoApp.png")}
                     style={{
                         height: 138,
                         width: 244,

@@ -17,7 +17,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import IconM from "react-native-vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import styles from './customStyles/ReservationRequestStyles';
+import styles from '../customStyles/ReservationRequestStyles';
 
 export default class ReservationRequestScreen extends Component {
   constructor(props) {
@@ -338,7 +338,7 @@ export default class ReservationRequestScreen extends Component {
                       </TouchableOpacity>
                       <View style={styles.paddingViewforinsideModal}>
                         <Image
-                          source={require("./picture/check.png")}
+                          source={require("../picture/check.png")}
                           style={{ width: 50, height: 50 }}
                         />
                         <Text style={styles.sucessTextStyle}>

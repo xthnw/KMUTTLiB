@@ -1,8 +1,8 @@
 import { View, Text, Pressable, Image, Dimensions, StatusBar, ScrollView, Platform } from 'react-native'
 import React from 'react'
 import { LinearGradient } from "expo-linear-gradient";
-import COLORS from './customStyles/colors';
-import Button from './customStyles/button';
+import COLORS from '../customStyles/colors';
+import Button from '../customStyles/button';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 
@@ -34,7 +34,7 @@ const Welcome = ({ navigation }) => {
 
                     <View style={[{ padding: 24, marginTop: 24, }]}>
                         <Image
-                            source={require("./picture/kujong.png")}
+                            source={require("../picture/kujong.png")}
                             style={{
                                 height: 128,
                                 width: 128,
@@ -55,7 +55,7 @@ const Welcome = ({ navigation }) => {
                     </View>
                     <View style={[{ alignItems: 'center', flex: 1 }]}>
                         <Image
-                            source={require("./picture/iconWelcome.png")}
+                            source={require("../picture/iconWelcome.png")}
                             style={{
                                 height: 371,
                                 width: 354,

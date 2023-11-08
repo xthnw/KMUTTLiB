@@ -5,9 +5,9 @@ import IconM from "react-native-vector-icons/MaterialIcons";
 import MapView, { Marker } from "react-native-maps";
 import { requestForegroundPermissionsAsync, getCurrentPositionAsync, } from "expo-location";
 import { Ionicons } from "@expo/vector-icons";
-import customPinImage from "./picture/pin.png";
+import customPinImage from "../picture/pin.png";
 import { SafeAreaView } from "react-native-safe-area-context";
-import styles from "./customStyles/ReservationCheckInStyles";
+import styles from "../customStyles/ReservationCheckInStyles";
 
 
 export default class ReservationCheckInScreen extends Component {
@@ -182,7 +182,7 @@ export default class ReservationCheckInScreen extends Component {
               </View>
             </TouchableOpacity>
             <View style={[{ alignContent: "center", alignItems: "center" }]}>
-              <Image source={require("./picture/floor1.jpg")} style={[styles.imageStyles]} resizeMode="cover" />
+              <Image source={require("../picture/floor1.jpg")} style={[styles.imageStyles]} resizeMode="cover" />
             </View>
             <View style={[{ padding: 8 }]}>
               <Text style={[styles.OverviewLable]}>Overview</Text>
@@ -297,7 +297,7 @@ export default class ReservationCheckInScreen extends Component {
                     <Ionicons name="close" size={32} color="orange" />
                   </TouchableOpacity>
                   <View style={[styles.successfulImageContainer]}>
-                    <Image source={require("./picture/check2.png")} style={{ width: 64, height: 64 }} />
+                    <Image source={require("../picture/check2.png")} style={{ width: 64, height: 64 }} />
                     <Text style={[styles.successfulText]}>Location Verified</Text>
                   </View>
                 </View>

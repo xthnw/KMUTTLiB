@@ -1,19 +1,16 @@
-import { StatusBar } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import AppNavigator from './AppNavigator';
-import PropTypes from 'deprecated-react-native-prop-types';
 import { useFonts } from 'expo-font';
 import { AuthProvider } from './auth';
 
-
 export default function App() {
   const [fontLoaded] = useFonts({
-    LeagueSpartan: require('./ios/LeagueSpartan-Regular.ttf'),
-    LeagueSpartanMedium: require('./ios/LeagueSpartan-Medium.ttf'),
-    LeagueSpartanSemiBold: require('./ios/LeagueSpartan-SemiBold.ttf'),
-    IBMPlexSansThaiBold: require('./ios/IBMPlexSansThai-Bold.ttf'),
-    IBMPlexSansThaiSemiBold: require('./ios/IBMPlexSansThai-SemiBold.ttf'),
+    LeagueSpartan: require('../ios/LeagueSpartan-Regular.ttf'),
+    LeagueSpartanMedium: require('../ios/LeagueSpartan-Medium.ttf'),
+    LeagueSpartanSemiBold: require('../ios/LeagueSpartan-SemiBold.ttf'),
+    IBMPlexSansThaiBold: require('../ios/IBMPlexSansThai-Bold.ttf'),
+    IBMPlexSansThaiSemiBold: require('../ios/IBMPlexSansThai-SemiBold.ttf'),
   });
   return (
     <View style={styles.container}>

@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Dimensions, StatusBar, Animated, ScrollVi
 import { Iconify } from 'react-native-iconify';
 import CalendarStrip from "react-native-scrollable-calendar-strip";
 import { LinearGradient } from "expo-linear-gradient";
-import styles from "./customStyles/ReservationScreenStyles";
+import styles from "../customStyles/ReservationScreenStyles";
 import axios from "axios";
 import moment from 'moment';
 import Modal from 'react-native-modal';
@@ -14,9 +14,9 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const images = [
-  require('./picture/kmuttlib1.jpg'),
-  require('./picture/kmuttlib2.jpg'),
-  require('./picture/kmuttlib3.jpg'),
+  require('../picture/kmuttlib1.jpg'),
+  require('../picture/kmuttlib2.jpg'),
+  require('../picture/kmuttlib3.jpg'),
 ];
 
 const datesBlacklist = date => {
