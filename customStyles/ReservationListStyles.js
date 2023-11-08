@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
         elevation: 3,
     },
     formTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontSize: 28,
+        fontFamily: 'LeagueSpartanSemiBold',
         color: COLORS.primary,
     },
     detailsText: {
@@ -103,12 +103,12 @@ const styles = StyleSheet.create({
     },
     innerBox: {
         flexDirection: 'row',
-        flex: 1,
+        flex: 0,
         justifyContent: 'space-between',
         borderWidth: 1,
         borderColor: COLORS.grey,
         borderRadius: 15,
-        padding: 12,
+        padding: 8,
         backgroundColor: COLORS.white,
         elevation: 8,
         shadowColor: "#000",
@@ -142,24 +142,25 @@ const styles = StyleSheet.create({
         color: 'grey',
         padding: '1%',
         fontSize: 12,
-        fontWeight: 'bold',
+        fontFamily: 'LeagueSpartanMedium',
+
     },
     text: {
         color: COLORS.black,
         padding: '1%',
         fontSize: 12,
-        fontWeight: 'semibold',
+        fontFamily: 'LeagueSpartan',
     },
     image: {
         flex: 1,
         width: screenWidth * 0.3,
         height: screenHeight * 0.11,
-        borderRadius: 15,
+        borderRadius: 8,
         alignItems: 'center',
     },
     textbold: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontFamily: 'LeagueSpartanSemiBold',
         textAlign: 'left',
     },
     status: {
@@ -198,6 +199,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 12,
+        fontFamily: 'LeagueSpartanMedium',
     },
     statusDelete: {
         color: '#ff5c5c',
@@ -205,6 +207,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         fontSize: 12,
+        fontFamily: 'LeagueSpartanSemiBold',
     },
     scrollViewContainer: {
         flexGrow: 1,

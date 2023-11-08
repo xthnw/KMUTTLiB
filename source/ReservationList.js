@@ -138,7 +138,7 @@ const ReservationList = () => {
           </View>
         ) : (
           responseData?.data?.booking.map((booking, index) => (
-            <View key={index} style={[{ flex: 1 }]}>
+            <View key={index} style={[{ flex: 0.1 }]}>
               <View style={[{ marginBottom: '2%', justifyContent: 'center', alignItems: 'center', flex: 1 }]}>
                 <TouchableWithoutFeedback >
                   <View style={styles.innerBox}>
