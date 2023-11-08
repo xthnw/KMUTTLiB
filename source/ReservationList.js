@@ -15,29 +15,31 @@ const ReservationList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState(null);
+  const User_Email = ['123'];
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiUrl = 'http://192.168.1.104:8080/api/list';
-        const jsonData = {
-          email: userData.User_Email,
-        };
-        const response = await axios.post(apiUrl, jsonData, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+    if (userData) {
+      const fetchData = async () => {
+        try {
+          const apiUrl = 'http://192.168.1.104:8080/api/list';
+          const jsonData = {
+            email: userData.User_Email,
+          };
+          const response = await axios.post(apiUrl, jsonData, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
 
-        if (response.data.data.booking) {
-          setResponseData(response.data);
+          if (response.data.data.booking) {
+            setResponseData(response.data);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
+      };
+      fetchData();
+    }
   }, []);
 
   useEffect(() => {
@@ -75,27 +77,28 @@ const ReservationList = () => {
   };
 
   const handleRefresh = async () => {
-    setRefreshing(true);
 
-    try {
-      const apiUrl = 'http://192.168.1.104:8080/api/list';
-      const jsonData = {
-        email: userData.User_Email,
-      };
-      const response = await axios.post(apiUrl, jsonData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+    if (userData) {
+      setRefreshing(true);
+      try {
+        const apiUrl = 'http://192.168.1.104:8080/api/list';
+        const jsonData = {
+          email: userData.User_Email,
+        };
+        const response = await axios.post(apiUrl, jsonData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-      if (response.data.data.booking) {
-        setResponseData(response.data);
+        if (response.data.data.booking) {
+          setResponseData(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
+      setRefreshing(false);
     }
-
-    setRefreshing(false);
   };
 
   const formatDate = (dateString) => {
@@ -132,10 +135,17 @@ const ReservationList = () => {
         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 12, }}>
           <Text style={styles.formTitle}>My Room</Text>
         </View>
-        {responseData?.data?.booking.length === 0 ? (
-          <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, }}>
-            <Text style={styles.text}>Not found reservation, let's reserve room!</Text>
-          </View>
+        {responseData === null ? (
+          authenticated ? (
+            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+              <Text style={styles.text}>Not found reservation, let's reserve room!</Text>
+            </View>
+          ) : (
+            <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1, }}>
+              <Image source={require('../picture/profile.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
+              <Text style={styles.text}>Please login first</Text>
+            </View>
+          )
         ) : (
           responseData?.data?.booking.map((booking, index) => (
             <View key={index} style={[{ flex: 0.1 }]}>

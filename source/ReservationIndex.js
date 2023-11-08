@@ -172,9 +172,13 @@ export default class ReservationScreen extends Component {
         <View style={styles.container}>
           <View style={styles.topProfileContainer}>
             <View style={styles.circleViewProfile}>
-              <Image source={this.imageMap[profilePicture]} style={{ width: "100%", height: "100%", borderRadius: 50 }} />
+              {userData === null ? (
+                <Image source={require('../picture/profile.png')} style={{ width: "100%", height: "100%", borderRadius: 50 }} />
+              ) : (<Image source={this.imageMap[profilePicture]} style={{ width: "100%", height: "100%", borderRadius: 50 }} />)}
             </View>
-            <Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_LName}</Text>
+            {userData === null ? (
+              <Text style={styles.hiUserNameLabel}>Hi, Guest</Text>
+            ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_LName}</Text>)}
             <Iconify style={[{ marginLeft: 20, marginTop: 20, }]} icon="streamline-emojis:ant" size={32} />
           </View>
           <View style={styles.RoundedWhiteCoverContainer}>

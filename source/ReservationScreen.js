@@ -7,6 +7,7 @@ import styles from "../customStyles/ReservationScreenStyles";
 import axios from "axios";
 import moment from 'moment';
 import Modal from 'react-native-modal';
+import { Col } from "react-native-table-component";
 
 const apiUrl = 'http://192.168.1.104:8080/api/room';
 
@@ -133,8 +134,6 @@ export default class ReservationScreen extends Component {
     const formattedDateInModal = date.toLocaleDateString('en-US', options);
 
     const { roomStatus } = this.state;
-
-
     const filteredResponse = roomStatus.filter((booking) => {
       return (
         booking.data.Booking_date === selectedDate &&
@@ -150,7 +149,6 @@ export default class ReservationScreen extends Component {
         userNames.push(userName);
       }
     }
-
 
     this.setState({
       isModalVisibleFull: !this.state.isModalVisibleFull,
@@ -249,6 +247,7 @@ export default class ReservationScreen extends Component {
     }).start();
   }
 
+
   renderButton = (buttonId, text, isSlotReserved, isDisabled = false) => {
     const { selectedButton } = this.state;
     const isSelected = selectedButton === buttonId;
@@ -270,28 +269,52 @@ export default class ReservationScreen extends Component {
     const targetTimeSlot_3 = "12:30 - 14:20";
     const targetTimeSlot_4 = "14:30 - 16:20";
 
+    const { route } = this.props;
+    const { userData } = route.params;
+
+
     // Define a mapping of button IDs to corresponding functions
     const buttonFunctions = {
-      1: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 1) : () => this.handleRequestPress(buttonId),
-      2: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 1) : () => this.handleRequestPress(buttonId),
-      3: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 1) : () => this.handleRequestPress(buttonId),
-      4: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 1) : () => this.handleRequestPress(buttonId),
-      5: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 2) : () => this.handleRequestPress(buttonId),
-      6: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 2) : () => this.handleRequestPress(buttonId),
-      7: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 2) : () => this.handleRequestPress(buttonId),
-      8: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 2) : () => this.handleRequestPress(buttonId),
-      9: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 3) : () => this.handleRequestPress(buttonId),
-      10: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 3) : () => this.handleRequestPress(buttonId),
-      11: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 3) : () => this.handleRequestPress(buttonId),
-      12: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 3) : () => this.handleRequestPress(buttonId),
-      13: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 4) : () => this.handleRequestPress(buttonId),
-      14: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 4) : () => this.handleRequestPress(buttonId),
-      15: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 4) : () => this.handleRequestPress(buttonId),
-      16: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 4) : () => this.handleRequestPress(buttonId),
-      17: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 5) : () => this.handleRequestPress(buttonId),
-      18: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 5) : () => this.handleRequestPress(buttonId),
-      19: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 5) : () => this.handleRequestPress(buttonId),
-      20: isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 5) : () => this.handleRequestPress(buttonId),
+      1: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 1); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 1) : () => this.props.navigation.navigate('Welcome')),
+      2: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 1); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 1) : () => this.props.navigation.navigate('Welcome')),
+      3: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 1); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 1) : () => this.props.navigation.navigate('Welcome')),
+      4: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 1); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 1) : () => this.props.navigation.navigate('Welcome')),
+      5: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 2); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 2) : () => this.props.navigation.navigate('Welcome')),
+      6: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 2); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 2) : () => this.props.navigation.navigate('Welcome')),
+      7: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 2); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 2) : () => this.props.navigation.navigate('Welcome')),
+      8: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 2); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 2) : () => this.props.navigation.navigate('Welcome')),
+      9: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 3); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 3) : () => this.props.navigation.navigate('Welcome')),
+      10: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 3); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 3) : () => this.props.navigation.navigate('Welcome')),
+      11: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 3); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 3) : () => this.props.navigation.navigate('Welcome')),
+      12: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 3); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 3) : () => this.props.navigation.navigate('Welcome')),
+      13: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 4); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 4) : () => this.props.navigation.navigate('Welcome')),
+      14: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 4); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 4) : () => this.props.navigation.navigate('Welcome')),
+      15: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 4); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 4) : () => this.props.navigation.navigate('Welcome')),
+      16: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 4); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 4) : () => this.props.navigation.navigate('Welcome')),
+      17: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 5); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 5) : () => this.props.navigation.navigate('Welcome')),
+      18: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 5); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 5) : () => this.props.navigation.navigate('Welcome')),
+      19: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 5); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 5) : () => this.props.navigation.navigate('Welcome')),
+      20: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 5); } else { this.handleRequestPress(buttonId); } }) :
+        (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 5) : () => this.props.navigation.navigate('Welcome')),
     };
 
     const onPressFunction = buttonFunctions[buttonId];
@@ -314,7 +337,8 @@ export default class ReservationScreen extends Component {
   };
 
   render() {
-
+    const { route } = this.props;
+    const { authenticated } = route.params;
     const { isModalVisibleFull } = this.state;
     const { roomStatus, selectedDate } = this.state;
     const targetTimeSlot_1 = "08:30 - 10:20";

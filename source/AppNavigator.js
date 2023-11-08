@@ -34,8 +34,9 @@ function MainNavigator() {
       <Tab.Screen
         name="ReservationIndexScreen"
         component={ReservationIndexScreen}
+        authenticated={authenticated}
         userData={userData}
-        initialParams={{ userData: userData }}
+        initialParams={{ userData: userData, authenticated: authenticated }}
         options={{
           tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
           tabBarIcon: ({ color, focused }) => (
@@ -56,6 +57,9 @@ function MainNavigator() {
       <Tab.Screen
         name="ReservationScreen"
         component={ReservationScreen}
+        authenticated={authenticated}
+        userData={userData}
+        initialParams={{ userData: userData, authenticated: authenticated }}
         options={{
           tabBarLabel: <Text style={styles.tabBarLabel}>Reserve</Text>,
           // tabBarBadge: true,
@@ -114,28 +118,34 @@ function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={authenticated ? 'MainNavigator' : 'Login'}
+        // initialRouteName={authenticated ? 'MainNavigator' : 'Welcome'}
+        initialRouteName={'Welcome'}
         screenOptions={{
           headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
           headerTintColor: 'black', // Set the text color of the header
           headerShown: false,
         }}>
-        <Stack.Screen name="Welcome" component={Welcome} options={{ title: null, headerLeft: null }} />
+        <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{ title: null, headerLeft: null }} />
+        <Stack.Screen name="MainNavigator" component={MainNavigator} options={{ title: null, headerLeft: null }} userData={userData} />
+        <Stack.Screen name="ReservationIndex" component={ReservationIndexScreen} options={{ title: null, headerLeft: null }} userData={userData} />
+        <Stack.Screen name="ReservationCheckInScreen" component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} />
+        <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{ title: null, headerLeft: null }} />
+        <Stack.Screen name="ReservationList" component={ReservationList} options={{ title: null, headerLeft: null }} />
 
         {authenticated ? (
           <>
-            <Stack.Screen name="MainNavigator" component={MainNavigator} options={{ title: null, headerLeft: null }} userData={userData}/>
+            {/* <Stack.Screen name="MainNavigator" component={MainNavigator} options={{ title: null, headerLeft: null }} userData={userData} />
             <Stack.Screen name="ReservationIndex" component={ReservationIndexScreen} options={{ title: null, headerLeft: null }} userData={userData} />
             <Stack.Screen name="ReservationCheckInScreen" component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{ title: null, headerLeft: null }} />
-            <Stack.Screen name="ReservationList" component={ReservationList} options={{ title: null, headerLeft: null }} />
+            <Stack.Screen name="ReservationList" component={ReservationList} options={{ title: null, headerLeft: null }} /> */}
 
           </>
         ) : (
           // <Stack.Screen name="LoginFIFA">
           //   {(props) => <LoginFIFA {...props} setAuthenticated={setAuthenticated} />}
           // </Stack.Screen>
-          <Stack.Screen name="LoginFIFA" component={LoginFIFA} options={{ title: null, headerLeft: null }} />
+          <Stack.Screen name="Welcome" component={Welcome} options={{ title: null, headerLeft: null }} />
         )}
       </Stack.Navigator>
     </NavigationContainer>
