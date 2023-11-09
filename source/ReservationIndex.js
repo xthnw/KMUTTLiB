@@ -6,6 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import styles from '../customStyles/ReservationIndexStyles';
 import axios from "axios";
 import moment from "moment/moment";
+import { useAuth } from './auth';
 
 const apiUrl = 'http://192.168.1.104:8080/api/room';
 
@@ -25,6 +26,9 @@ export default class ReservationScreen extends Component {
       refreshing: false,
     };
   }
+  handlelogOut = () => {
+    this.props.navigation.navigate("Welcome");
+  };
   // Function to navigate to the next screen with selected date
   navigateToNextScreen = () => {
     const { selectedDate } = this.state;
@@ -170,6 +174,16 @@ export default class ReservationScreen extends Component {
     return (
       <LinearGradient colors={["#fe4914", "#ff9f24"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={[{ flex: 1 }]}>
         <View style={styles.container}>
+          <View style={styles.logOutContainer}>
+            {userData === null ? (
+              <TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
+                <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14, }}>Login</Text>
+              </TouchableOpacity>
+            ) : (<TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
+              <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14, }}>Logout</Text>
+            </TouchableOpacity>
+            )}
+          </View>
           <View style={styles.topProfileContainer}>
             <View style={styles.circleViewProfile}>
               {userData === null ? (
@@ -178,9 +192,10 @@ export default class ReservationScreen extends Component {
             </View>
             {userData === null ? (
               <Text style={styles.hiUserNameLabel}>Hi, Guest</Text>
-            ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_LName}</Text>)}
+            ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_Lname}</Text>)}
             <Iconify style={[{ marginLeft: 20, marginTop: 20, }]} icon="streamline-emojis:ant" size={32} />
           </View>
+
           <View style={styles.RoundedWhiteCoverContainer}>
             <View style={styles.subRoundedWhiteCoverContainer}>
               <View style={[styles.calendarView, { flex: 0, }]}>

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "LibraryReservationApp",
-    "slug": "LibraryReservationApp",
+    "slug": "libraryreservationapp",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

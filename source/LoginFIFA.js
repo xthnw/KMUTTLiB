@@ -32,15 +32,16 @@ const LoginFIFA = ({ navigation }) => {
 
     const { dispatch } = useAuth();
 
-    const [authenticated, setAuthenticated] = useState(true);
+    const [authenticated, setAuthenticated] = useState(false);
 
     const handleLogin = async () => {
         try {
             const apiUrl = 'http://192.168.1.104:8080/api/authen';
             const jsonData = {
-                email: 'jedsada_chai@kmutt.ac.th',
-                password: 'secret123',
+                email: email,
+                password: password,
             };
+            console.log('email', email)
 
             const response = await axios.post(apiUrl, jsonData);
 
@@ -60,21 +61,21 @@ const LoginFIFA = ({ navigation }) => {
                 try {
                     const apiUrl = 'http://192.168.1.104:8080/api/list'; // Replace with the correct API endpoint
                     const jsonData = {
-                      email: userData.User_Email,
+                        email: userData.User_Email,
                     };
-            
+
                     const responseLIST = await axios.post(apiUrl, jsonData, {
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
                     });
-            
+
                     if (responseLIST.data && responseLIST.data.length > 0) {
-                      console.log(responseLIST.data);
+                        console.log(responseLIST.data);
                     }
-                  } catch (error) {
+                } catch (error) {
                     console.error('Error:', error);
-                  }
+                }
 
             } else {
                 // Login failed, handle the error
@@ -134,7 +135,7 @@ const LoginFIFA = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
-                            placeholder='Enter your email address'
+                            placeholder='Enter your mail@kmutt.ac.th'
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
                             style={{
@@ -217,16 +218,16 @@ const LoginFIFA = ({ navigation }) => {
                     justifyContent: "center",
                     marginVertical: 22
                 }}>
-                    <Text style={{ fontSize: 16, color: COLORS.black }}>Don't have an account ? </Text>
-                    <Pressable
-                        onPress={() => navigation.navigate("Signup")}
-                    >
+                    <Pressable onPress={() => {
+                        setEmail('jedsada_chai@kmutt.ac.th');
+                        setPassword('secret123');
+                    }}>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.primary,
                             fontWeight: "bold",
                             marginLeft: 6
-                        }}>Forgot Password</Text>
+                        }}>Auto set Email & Password</Text>
                     </Pressable>
                 </View>
             </View>

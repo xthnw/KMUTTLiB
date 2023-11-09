@@ -8,12 +8,27 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
-
+    logOutbutton: {
+        flex: 0,
+        padding: 10,
+        borderRadius: 5,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 10,
+        borderColor: 'white',
+        borderWidth: 1,
+    },
+    logOutContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        marginRight: 20,
+        marginTop: 60,
+    },
     topProfileContainer: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "flex-start",
-        marginTop: 60,
         marginBottom: 60,
         marginLeft: 20,
     },

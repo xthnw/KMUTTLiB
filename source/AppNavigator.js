@@ -139,7 +139,7 @@ function AppNavigator() {
             <Stack.Screen name="ReservationCheckInScreen" component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name="ReservationRequestScreen" component={ReservationRequestScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name="ReservationList" component={ReservationList} options={{ title: null, headerLeft: null }} /> */}
-
+          <Stack.Screen name="Welcome" component={Welcome} options={{ title: null, headerLeft: null }} />
           </>
         ) : (
           // <Stack.Screen name="LoginFIFA">

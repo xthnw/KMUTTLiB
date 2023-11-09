@@ -1,8 +1,9 @@
 import { View, Text, Pressable, Image, Dimensions, StatusBar, ScrollView, Platform } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from '../customStyles/colors';
 import Button from '../customStyles/button';
+import { useAuth } from './auth';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 
@@ -11,7 +12,12 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
 
+
 const Welcome = ({ navigation }) => {
+
+    const { dispatch } = useAuth();
+
+    const [authenticated, setAuthenticated] = useState(false);
 
     return (
         <LinearGradient
@@ -76,7 +82,11 @@ const Welcome = ({ navigation }) => {
                         />
                         <Button
                             title="Login with guest"
-                            onPress={() => navigation.navigate("MainNavigator")}
+                            onPress={() => {
+                                setAuthenticated(false);
+                                dispatch({ type: 'LOGOUT', payload: null });
+                                navigation.navigate('MainNavigator');
+                            }}
                             style={{
                                 marginTop: 10,
                                 borderColor: COLORS.grey,
