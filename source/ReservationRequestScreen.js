@@ -1,4 +1,4 @@
-import React, { Component, } from "react";
+import React, { Component, useState, useRef } from "react";
 import {
   View,
   Text,
@@ -6,11 +6,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Easing,
-  Dimensions,
   StatusBar,
   Animated,
   TextInput,
-  Modal,
+  Modal, Pressable
 } from "react-native";
 import { ScrollView, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -18,60 +17,133 @@ import IconM from "react-native-vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../customStyles/ReservationRequestStyles';
+import COLORS from "../customStyles/colors";
+import { value } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
+import { useAuth } from './auth';
+import axios from "axios";
+import { useRoute, useNavigation } from '@react-navigation/native';
+StatusBar.setHidden(true);
+const periodLabels = {
+  '1': '08:30 - 10:20',
+  '2': '10:30 - 12:20',
+  '3': '12:30 - 14:20',
+  '4': '14:30 - 16:20',
+  '5': '08:30 - 10:20',
+  '6': '10:30 - 12:20',
+  '7': '12:30 - 14:20',
+  '8': '14:30 - 16:20',
+  '9': '08:30 - 10:20',
+  '10': '10:30 - 12:20',
+  '11': '12:30 - 14:20',
+  '12': '14:30 - 16:20',
+  '13': '08:30 - 10:20',
+  '14': '10:30 - 12:20',
+  '15': '12:30 - 14:20',
+  '16': '14:30 - 16:20',
+  '17': '08:30 - 10:20',
+  '18': '10:30 - 12:20',
+  '19': '12:30 - 14:20',
+  '20': '14:30 - 16:20',
+};
+const roomLabels = {
+  'KM1': 'ROOM 1',
+  'KM2': 'ROOM 2',
+  'KM3': 'ROOM 3',
+  'KM4': 'ROOM 4',
+  'KM5': 'ROOM 5',
+};
+const ReservationRequestScreen = ({ navigation, }) => {
+  const route = useRoute();
+  const { buttonId, selectedDate, roomId, userData } = route.params;
+  const [selectedOption, setSelectedOption] = useState("");
+  const inputBoxRef = useRef(null);
+  const [CourseCode, setCourseCode] = useState('');
+  const [bookingDescription, setBookingDescription] = useState('');
+  const [bookingDate, setBookingDate] = useState('');
+  const [bookingTime, setBookingTime] = useState('');
+  const [bookingFor, setBookingFor] = useState('');
+  const [roomID, setRoomID] = useState('');
+  const [studentID, setStudentID] = useState('');
+  const [bookingUser0, setBookingUser0] = useState('');
+  const [bookingUser1, setBookingUser1] = useState('');
+  const [bookingUser2, setBookingUser2] = useState('');
+  const [bookingUser3, setBookingUser3] = useState('');
+  const [bookingUser4, setBookingUser4] = useState('');
+  const [bookingUser5, setBookingUser5] = useState('');
+  const [bookingUser6, setBookingUser6] = useState('');
+  const [reservationMessage, setReservationMessage] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalCompleteVisible, setIsModalCompleteVisible] = useState(false);
+  const [isModalErrorVisible, setIsModalErrorVisible] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [buttonScale] = useState(new Animated.Value(1));
+  const dropdownOptions = ["Group consults", "Tutoring", "Learning", "Presentation", "Other"];
+  const dropdownHeight = isDropdownOpen ? dropdownOptions.length * 36 : 0;
 
-export default class ReservationRequestScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      studentID: "", // Student ID input value
-      name: "", // Name input value
 
-      isDropdownOpen: false,
-      selectedOption: "",
+  const timeLabel = periodLabels[buttonId];
+  const roomLabel = roomLabels[roomId];
+  const [day, month, year] = selectedDate.split('/').map(Number);
+  const date = new Date(year, month - 1, day);
+  const options = {
+    weekday: 'short', // Displays the abbreviated day of the week
+    day: '2-digit',   // Displays the day of the month with leading zeros
+    month: 'short',   // Displays the abbreviated month name
+    year: 'numeric',  // Displays the full year
+  };
+  const formattedDate = date.toLocaleDateString('en-US', options);
 
-      isModalVisible: false,
-      isModalCompleteVisible: false,
-    };
-    this.inputBoxRef = React.createRef();
-    this.buttonScale = new Animated.Value(1);
-  }
+
+
+
+
 
   toggleModal = () => {
-    this.setState({ isModalVisible: !this.state.isModalVisible }, () => {
-      // After the modal state is updated, check if it's closed
-      if (!this.state.isModalVisible) {
-        // Call the function you want when the modal is closed
-        this.toggleModalComplete();
-      }
-    });
+    setIsModalVisible(!isModalVisible);
+  };
+
+  toggleModalAccept = () => {
+    setIsModalVisible(!isModalVisible);
+    handleRequest();
   };
 
   toggleModalComplete = () => {
-    this.setState({
-      isModalCompleteVisible: !this.state.isModalCompleteVisible,
-    });
+    setIsModalCompleteVisible(!isModalCompleteVisible);
   };
+  toggleModalCompleteOK = () => {
+    setIsModalCompleteVisible(!isModalCompleteVisible);
+    navigation.navigate('ReservationScreen');
+  };
+
+  toggleModalError = () => {
+    setIsModalErrorVisible(!isModalErrorVisible);
+  };
+  toggleModalErrorOK = () => {
+    setIsModalErrorVisible(!isModalErrorVisible);
+    navigation.navigate('ReservationScreen');
+  };
+
+
   toggleModalClose = () => {
-    this.setState({
-      isModalVisible: !this.state.isModalVisible,
-    });
+    setIsModalVisible(!isModalVisible);
   };
+
   toggleDropdown = () => {
-    this.setState((prevState) => ({
-      isDropdownOpen: !prevState.isDropdownOpen,
-    }));
+    setIsDropdownOpen(!isDropdownOpen);
   };
+
   selectOption = (option) => {
-    this.setState({
-      selectedOption: option,
-      isDropdownOpen: false, // Close the dropdown after selection
-    });
+    setSelectedOption(option);
+    setIsDropdownOpen(false); // Close the dropdown after selection
+
   };
+
   handleBackPress = () => {
-    this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
+    navigation.goBack(); // Assuming you receive the navigation prop from a navigator
   };
+
   handleButtonPressIn = () => {
-    Animated.timing(this.buttonScale, {
+    Animated.timing(buttonScale, {
       toValue: 0.95,
       duration: 150,
       easing: Easing.linear,
@@ -80,279 +152,391 @@ export default class ReservationRequestScreen extends Component {
   };
 
   handleButtonPressOut = () => {
-    Animated.timing(this.buttonScale, {
+    Animated.timing(buttonScale, {
       toValue: 1,
       duration: 150,
       easing: Easing.linear,
       useNativeDriver: true,
     }).start();
   };
+  handleRequest = async () => {
+    try {
+      const apiUrlCreate = 'http://192.168.1.104:8080/api/create';
+      const jsonDataCreate = {
+        Booking_Description: CourseCode,
+        Booking_Status: 'Reserved',
+        Booking_date: bookingDate,
+        Booking_period: bookingTime,
+        Booking_for: bookingFor,
+        Room_ID: roomID,
+        User_Email: userData.User_Email,
+        User_1: bookingUser1,
+        User_2: bookingUser2,
+        User_3: bookingUser3,
+        User_4: bookingUser4,
+        User_5: bookingUser5,
+        User_6: bookingUser6,
+      };
+      const responseCreate = await axios.post(apiUrlCreate, jsonDataCreate, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (responseCreate.data.status === 'success') {
+        console.log('Reservation Success:', responseCreate.data.message);
+        setReservationMessage(responseCreate.data.message);
+        toggleModalComplete();
+      } else if (responseCreate.data.status === 'error') {
+        console.error('Reservation Error:', responseCreate.data.message);
+        setReservationMessage(responseCreate.data.message);
+        toggleModalError();
+        // Handle the error case, show a message, etc.
+      } else {
+        console.error('Unexpected Response:', responseCreate.data);
+        // Handle unexpected responses here
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
-  render() {
-    const { selectedOption, isDropdownOpen } = this.state;
-    const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
-    const dropdownHeight = isDropdownOpen ? options.length * 40 : 0;
-    const handleSubmission = () => {
-      // Handle the submission logic here
-    };
-    const { isModalVisible } = this.state;
-    const { isModalCompleteVisible } = this.state;
-    const buttonScale = this.buttonScale;
 
-    return (
-      <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}>
-        <View>
-          <View style={styles.contentContainer}>
-            <ScrollView
-              contentContainerStyle={styles.scrollViewContainer}
-              showsVerticalScrollIndicator={false}
+
+
+  return (
+    <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}>
+      <View>
+        <View style={styles.contentContainer}>
+          <ScrollView
+            contentContainerStyle={styles.scrollViewContainer}
+            showsVerticalScrollIndicator={false}
+          >
+            <TouchableOpacity
+              onPress={this.handleBackPress}
+              style={styles.backcirclebutton}
             >
-              <TouchableOpacity
-                onPress={this.handleBackPress}
-                style={styles.backcirclebutton}
-              >
-                <View style={styles.subbackcirclebutton}>
-                  <IconM name="keyboard-arrow-left" size={30} color="orange" />
-                </View>
-              </TouchableOpacity>
-              <Text style={styles.formTitle}>Library Request</Text>
-              <Text style={styles.detailsText}>
-                KMUTT-LIB ROOM 1 | Time : 10:30 - 12:20 | 24 Oct 2023
-              </Text>
-
-              <View style={styles.inputRow}>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>
-                    Student ID
-                  </Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Enter Student ID"
-                    onChangeText={(text) => this.setState({ studentID: text })}
-                    value={this.state.studentID}
-                  />
-                </View>
-
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Name</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Enter Name"
-                    onChangeText={(text) => this.setState({ name: text })}
-                    value={this.state.name}
-                  />
-                </View>
+              <View style={styles.subbackcirclebutton}>
+                <IconM name="keyboard-arrow-left" size={30} color="orange" />
               </View>
-              <View style={styles.inputRow}>
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>
-                    Service group
-                  </Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Bachelor"
-                    onChangeText={(text) => this.setState({ Service: text })}
-                    value={this.state.Service}
-                  />
-                </View>
+            </TouchableOpacity>
+            <Text style={styles.formTitle}>Library Request</Text>
+            <Text style={styles.detailsText}>
+              KMUTT-LIB {roomLabel} | Time: {timeLabel} | {formattedDate}
+            </Text>
 
-                <View style={styles.inputContainer}>
-                  <Text style={styles.label}>Department</Text>
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Computer Engineering"
-                    onChangeText={(text) => this.setState({ Department: text })}
-                    value={this.state.Department}
-                  />
-                </View>
-              </View>
-
-              <View style={styles.dropdownOptionView}>
+            <View style={styles.inputRow}>
+              <View style={styles.inputContainer}>
                 <Text style={styles.label}>
-                  Request for
-                </Text>
-                <TouchableOpacity
-                  style={styles.waitforDropdownOptionContainer}
-                  onPress={this.toggleDropdown}
-                >
-                  <Text
-                    style={{ color: "#666666", fontFamily: "LeagueSpartan" }}
-                  >
-                    {selectedOption || "Select an option"}
-                  </Text>
-                  <Icon name="angle-down" size={20} color="orange" />
-                </TouchableOpacity>
-                {isDropdownOpen && (
-                  <View style={[styles.dropdownOptionContainer, { height: dropdownHeight }]}>
-                    {options.map((option, index) => (
-                      <TouchableOpacity
-                        key={index}
-                        style={styles.subDropdownOptionContainer}
-                        onPress={() => this.selectOption(option)}
-                      >
-                        <Text
-                          style={[{ color: "gray", fontFamily: "LeagueSpartan", }]}
-                        >
-                          {option}
-                        </Text>
-                      </TouchableOpacity>
-                    ))}
-                  </View>
-                )}
-
-              </View>
-              <View style={styles.courseCodeView}>
-                <Text style={styles.labelInfrontcourseCodeInput}>
-                  Course code
+                  Student ID
                 </Text>
                 <TextInput
-                  style={styles.studentIdInputboxContainer}
-                  placeholder="Fill course code"
+                  style={styles.input}
+                  placeholder="Enter Student ID"
+                  onChangeText={(text) => setStudentID(text)}
+                  value={studentID}
                 />
               </View>
 
-              <View style={styles.studentIdformPadding}>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Name</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter Name"
+                  onChangeText={(text) => setBookingUser0(text)}
+                  value={bookingUser0}
+                />
+              </View>
+            </View>
+            <View style={styles.inputRow}>
+              <View style={styles.inputContainer}>
                 <Text style={styles.label}>
-                  Please Specify: Username/Student ID
+                  Service group
                 </Text>
-                <View style={styles.studentIdrowInput}>
-                  <Text style={styles.numberInfrontstudentIdrowInput}>
-                    1.
-                  </Text>
-                  <TextInput
-                    style={styles.studentIdInputboxContainer}
-                    placeholder=""
-                  />
-                </View>
-                <View style={styles.studentIdrowInput}>
-                  <Text style={styles.numberInfrontstudentIdrowInput}>
-                    2.
-                  </Text>
-                  <TextInput
-                    style={styles.studentIdInputboxContainer}
-                    placeholder=""
-                  />
-                </View>
-                <View style={styles.studentIdrowInput}>
-                  <Text style={styles.numberInfrontstudentIdrowInput}>
-                    3.
-                  </Text>
-                  <TextInput
-                    style={styles.studentIdInputboxContainer}
-                    placeholder=""
-                  />
-                </View>
-                <View style={styles.studentIdrowInput}>
-                  <Text style={styles.numberInfrontstudentIdrowInput}>
-                    4.
-                  </Text>
-                  <TextInput
-                    style={styles.studentIdInputboxContainer}
-                    placeholder=""
-                  />
-                </View>
-                <View style={styles.studentIdrowInput}>
-                  <Text style={styles.numberInfrontstudentIdrowInput}>
-                    5.
-                  </Text>
-                  <TextInput
-                    style={styles.studentIdInputboxContainer}
-                    placeholder=""
-                  />
-                </View>
-
+                <TextInput
+                  style={styles.input}
+                  placeholder="Bachelor"
+                // onChangeText={(text) => this.setState({ Service: text })}
+                // value={this.state.Service}
+                />
               </View>
 
-              <View style={styles.submitButtonView}>
-                <TouchableWithoutFeedback
-                  onPressIn={this.handleButtonPressIn}
-                  onPressOut={this.handleButtonPressOut}
-                  onPress={this.toggleModal}
-                >
-                  <Animated.View
-                    style={[
-                      styles.submitButtonStyle,
-                      { transform: [{ scale: buttonScale }] },
-                    ]}
-                  >
-                    <Text style={styles.submitTextStyle}>Submit</Text>
-                  </Animated.View>
-                </TouchableWithoutFeedback>
-
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={isModalVisible}
-                >
-                  <View style={styles.blankBgModalView}>
-                    <View style={styles.alertModalcontainer}>
-                      <TouchableOpacity
-                        onPress={this.toggleModalClose}
-                        style={styles.closebuttonView}
-                      >
-                        <Ionicons name="close" size={32} color="orange" />
-                      </TouchableOpacity>
-                      <View style={[{ padding: 16, alignItems: "center" }]}>
-                        <Icon
-                          name="exclamation-triangle"
-                          size={24}
-                          color="red"
-                        />
-                        <Text style={styles.alertheaderText}>
-                          คำเตือน
-                        </Text>
-                        <Text style={styles.alertdetailsText}>
-                          1.
-                          หากมีอุปกรณ์ชำรุดเสียหายจะถือเป็นความรับผิดชอบของผู้ใช้บริการห้อง
-                          KM โปรเจ็คเตอร์ มูลค่า 100,000 บาท
-                        </Text>
-                        <Text style={styles.alertdetailsText}>
-                          2. การขีด/เขียนบนผนังห้อง มูลค่า 9,000 บาท ยกเว้นห้อง
-                          KM5 สามารถเขียนติวได้ (ต้องเป็นปากกาที่สามารถลบออกได้เท่านั้น)
-                        </Text>
-                        <TouchableOpacity
-                          style={styles.acceptbuttonStyle}
-                          onPress={this.toggleModal}
-                        >
-                          <Text style={styles.acceptTextStyle}>
-                            Accept
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-                    </View>
-                  </View>
-                </Modal>
-
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={isModalCompleteVisible}
-                >
-                  <View style={styles.blankBgModalView}>
-                    <View style={styles.sucessModalcontainer}>
-                      <TouchableOpacity
-                        onPress={this.toggleModalComplete}
-                        style={styles.closebuttonView}
-                      >
-                        <Ionicons name="close" size={32} color="orange" />
-                      </TouchableOpacity>
-                      <View style={styles.paddingViewforinsideModal}>
-                        <Image
-                          source={require("../picture/check.png")}
-                          style={{ width: 50, height: 50 }}
-                        />
-                        <Text style={styles.sucessTextStyle}>
-                          Reserve Room Successfully!
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                </Modal>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Department</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Computer Engineering"
+                // onChangeText={(text) => this.setState({ Department: text })}
+                // value={this.state.Department}
+                />
               </View>
-            </ScrollView>
-          </View>
+            </View>
+
+            <View style={styles.dropdownOptionView}>
+              <Text style={styles.label}>
+                Request for
+              </Text>
+              <TouchableOpacity
+                style={styles.waitforDropdownOptionContainer}
+                onPress={this.toggleDropdown}
+              >
+                <Text
+                  style={{ color: "#666666", fontFamily: "LeagueSpartan" }}
+                >
+                  {selectedOption || "Select an option"}
+                </Text>
+                <Icon name="angle-down" size={20} color="orange" />
+
+              </TouchableOpacity>
+              {isDropdownOpen && (
+                <View style={[styles.dropdownOptionContainer, { height: dropdownHeight }]}>
+                  {dropdownOptions.map((option, index) => (
+                    <TouchableOpacity
+                      key={index}
+                      style={styles.subDropdownOptionContainer}
+                      onPress={() => {
+                        selectOption(option);
+                        setBookingFor(option);
+                      }}
+                      value={bookingFor}
+                    >
+                      <Text
+                        style={[{ color: "gray", fontFamily: "LeagueSpartan", }]}
+                      >
+                        {option}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
+
+            </View>
+            <View style={styles.courseCodeView}>
+              <Text style={styles.labelInfrontcourseCodeInput}>
+                Course code
+              </Text>
+              <TextInput
+                style={styles.studentIdInputboxContainer}
+                placeholder="Fill course code"
+                onChangeText={(text) => setCourseCode(text)}
+
+                value={CourseCode}
+              />
+            </View>
+
+            <View style={styles.studentIdformPadding}>
+              <Text style={styles.label}>
+                Please Specify: Username/Student ID
+              </Text>
+              <View style={styles.studentIdrowInput}>
+                <Text style={styles.numberInfrontstudentIdrowInput}>
+                  1.
+                </Text>
+                <TextInput
+                  style={styles.studentIdInputboxContainer}
+                  placeholder=""
+                  onChangeText={(text) => setBookingUser1(text)}
+                  value={bookingUser1}
+                />
+              </View>
+              <View style={styles.studentIdrowInput}>
+                <Text style={styles.numberInfrontstudentIdrowInput}>
+                  2.
+                </Text>
+                <TextInput
+                  style={styles.studentIdInputboxContainer}
+                  placeholder=""
+                  onChangeText={(text) => setBookingUser2(text)}
+                  value={bookingUser2}
+                />
+              </View>
+              <View style={styles.studentIdrowInput}>
+                <Text style={styles.numberInfrontstudentIdrowInput}>
+                  3.
+                </Text>
+                <TextInput
+                  style={styles.studentIdInputboxContainer}
+                  placeholder=""
+                  onChangeText={(text) => setBookingUser3(text)}
+                  value={bookingUser3}
+                />
+              </View>
+              <View style={styles.studentIdrowInput}>
+                <Text style={styles.numberInfrontstudentIdrowInput}>
+                  4.
+                </Text>
+                <TextInput
+                  style={styles.studentIdInputboxContainer}
+                  placeholder=""
+                  onChangeText={(text) => setBookingUser4(text)}
+                  value={bookingUser4}
+                />
+              </View>
+              <View style={styles.studentIdrowInput}>
+                <Text style={styles.numberInfrontstudentIdrowInput}>
+                  5.
+                </Text>
+                <TextInput
+                  style={styles.studentIdInputboxContainer}
+                  placeholder=""
+                  onChangeText={(text) => setBookingUser5(text)}
+                  value={bookingUser5}
+                />
+              </View>
+              <View style={styles.studentIdrowInput}>
+                <Text style={styles.numberInfrontstudentIdrowInput}>
+                  6.
+                </Text>
+                <TextInput
+                  style={styles.studentIdInputboxContainer}
+                  placeholder=""
+                  onChangeText={(text) => setBookingUser6(text)}
+                  value={bookingUser6}
+                />
+              </View>
+
+            </View>
+
+            <Pressable
+              onPress={() => {
+                setBookingDate(selectedDate);
+                setBookingTime(timeLabel);
+                setRoomID(roomId);
+                setStudentID(userData.University_ID);
+                setBookingUser0(`${userData.User_FName} ${userData.User_Lname}`);
+                setBookingUser1(userData.University_ID);
+                setBookingUser2('64060501023');
+                setBookingUser3('64060501024');
+                setBookingUser4('64060501025');
+                setBookingUser5('64060501026');
+                setBookingUser6('64060501027');
+                setCourseCode('CPE555');
+              }}
+            >
+              <Text style={{
+                fontSize: 16,
+                color: COLORS.primary,
+                fontWeight: "bold",
+                marginLeft: 6
+              }}>Auto set Forms</Text>
+            </Pressable>
+
+
+            <View style={styles.submitButtonView}>
+              <TouchableWithoutFeedback
+                onPressIn={handleButtonPressIn}
+                onPressOut={handleButtonPressOut}
+                onPress={toggleModal}
+              >
+                <Animated.View
+                  style={[
+                    styles.submitButtonStyle,
+                    { transform: [{ scale: buttonScale }] },
+                  ]}
+                >
+                  <Text style={styles.submitTextStyle}>Submit</Text>
+                </Animated.View>
+              </TouchableWithoutFeedback>
+
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isModalVisible}
+              >
+                <View style={styles.blankBgModalView}>
+                  <View style={styles.alertModalcontainer}>
+                    <TouchableOpacity
+                      onPress={toggleModalClose}
+                      style={styles.closebuttonView}
+                    >
+                      <Ionicons name="close" size={32} color="orange" />
+                    </TouchableOpacity>
+                    <View style={[{ padding: 16, alignItems: "center" }]}>
+                      <Icon
+                        name="exclamation-triangle"
+                        size={24}
+                        color="red"
+                      />
+                      <Text style={styles.alertheaderText}>
+                        คำเตือน
+                      </Text>
+                      <Text style={styles.alertdetailsText}>
+                        1.
+                        หากมีอุปกรณ์ชำรุดเสียหายจะถือเป็นความรับผิดชอบของผู้ใช้บริการห้อง
+                        KM โปรเจ็คเตอร์ มูลค่า 100,000 บาท
+                      </Text>
+                      <Text style={styles.alertdetailsText}>
+                        2. การขีด/เขียนบนผนังห้อง มูลค่า 9,000 บาท ยกเว้นห้อง
+                        KM5 สามารถเขียนติวได้ (ต้องเป็นปากกาที่สามารถลบออกได้เท่านั้น)
+                      </Text>
+                      <TouchableOpacity
+                        style={styles.acceptbuttonStyle}
+                        onPress={toggleModalAccept}
+                      >
+                        <Text style={styles.acceptTextStyle}>
+                          Accept
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
+
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isModalCompleteVisible}
+              >
+                <View style={styles.blankBgModalView}>
+                  <View style={styles.sucessModalcontainer}>
+                    <TouchableOpacity
+                      onPress={toggleModalCompleteOK}
+                      style={styles.closebuttonView}
+                    >
+                      <Ionicons name="close" size={32} color="orange" />
+                    </TouchableOpacity>
+                    <View style={styles.paddingViewforinsideModal}>
+                      <Image
+                        source={require("../picture/check2.png")}
+                        style={{ width: 50, height: 50 }}
+                      />
+                      <Text style={styles.sucessTextStyle}>
+                        Reserve Room Successfully!
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
+
+              <Modal
+                animationType="slide"
+                transparent={true}
+                visible={isModalErrorVisible}
+              >
+                <View style={styles.blankBgModalView}>
+                  <View style={styles.sucessModalcontainer}>
+                    <TouchableOpacity
+                      onPress={toggleModalErrorOK}
+                      style={styles.closebuttonView}
+                    >
+                      <Ionicons name="close" size={32} color="orange" />
+                    </TouchableOpacity>
+                    <View style={styles.paddingViewforinsideModal}>
+                      <Image
+                        source={require("../picture/check2.png")}
+                        style={{ width: 50, height: 50 }}
+                      />
+                      <Text style={styles.sucessTextStyle}>
+                        {reservationMessage}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
+            </View>
+          </ScrollView>
         </View>
-      </SafeAreaView>
-    );
-  }
-}
+      </View>
+    </SafeAreaView>
+  );
+
+}; export default ReservationRequestScreen;
