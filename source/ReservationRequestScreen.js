@@ -1,4 +1,4 @@
-import React, { Component, } from "react";
+import React, { Component,useState,useRef } from "react";
 import {
   View,
   Text,
@@ -6,11 +6,10 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Easing,
-  Dimensions,
   StatusBar,
   Animated,
   TextInput,
-  Modal,
+  Modal,Pressable
 } from "react-native";
 import { ScrollView, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
@@ -18,60 +17,66 @@ import IconM from "react-native-vector-icons/MaterialIcons";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from '../customStyles/ReservationRequestStyles';
-
-export default class ReservationRequestScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      studentID: "", // Student ID input value
-      name: "", // Name input value
-
-      isDropdownOpen: false,
-      selectedOption: "",
-
-      isModalVisible: false,
-      isModalCompleteVisible: false,
-    };
-    this.inputBoxRef = React.createRef();
-    this.buttonScale = new Animated.Value(1);
-  }
+import COLORS from "../customStyles/colors";
+import { value } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
+import { useAuth } from './auth';
+import axios from "axios";
+StatusBar.setHidden(true);
+const ReservationRequestScreen = ({ navigation }) => {
+  const [selectedOption, setSelectedOption] = useState("");
+  const inputBoxRef = useRef(null);
+  const [bookingDescription, setBookingDescription] = useState('');
+  const [bookingDate, setBookingDate] = useState('');
+  const [bookingTime, setBookingTime] = useState('');
+  const [bookingFor, setBookingFor] = useState('');
+  const [roomID, setRoomID] = useState('');
+  const [studentID, setStudentID] = useState('');
+  const [bookingUser1, setBookingUser1] = useState('');
+  const [bookingUser2, setBookingUser2] = useState('');
+  const [bookingUser3, setBookingUser3] = useState('');
+  const [bookingUser4, setBookingUser4] = useState('');
+  const [bookingUser5, setBookingUser5] = useState('');
+  const [bookingUser6, setBookingUser6] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalCompleteVisible, setIsModalCompleteVisible] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // const [selectedOption, setSelectedOption] = useState(null);
+  const [buttonScale] = useState(new Animated.Value(1));
+  const options = ["Option 1", "Option 2", "Option 3", "Option 4"];
+  const dropdownHeight = isDropdownOpen ? options.length * 40 : 0;
 
   toggleModal = () => {
-    this.setState({ isModalVisible: !this.state.isModalVisible }, () => {
-      // After the modal state is updated, check if it's closed
-      if (!this.state.isModalVisible) {
-        // Call the function you want when the modal is closed
-        this.toggleModalComplete();
-      }
-    });
-  };
+    const newIsModalVisible = !isModalVisible;
+    setIsModalVisible(newIsModalVisible);
+    if (newIsModalVisible) {
+        toggleModalComplete();
+    }
+};
 
   toggleModalComplete = () => {
-    this.setState({
-      isModalCompleteVisible: !this.state.isModalCompleteVisible,
-    });
+    setIsModalCompleteVisible(!isModalCompleteVisible);
   };
+
   toggleModalClose = () => {
-    this.setState({
-      isModalVisible: !this.state.isModalVisible,
-    });
+    setIsModalVisible(!isModalVisible);
   };
+
   toggleDropdown = () => {
-    this.setState((prevState) => ({
-      isDropdownOpen: !prevState.isDropdownOpen,
-    }));
+    setIsDropdownOpen(!isDropdownOpen);
   };
+
   selectOption = (option) => {
-    this.setState({
-      selectedOption: option,
-      isDropdownOpen: false, // Close the dropdown after selection
-    });
+    setSelectedOption(option);
+    setIsDropdownOpen(false); // Close the dropdown after selection
+    
   };
+
   handleBackPress = () => {
-    this.props.navigation.goBack(); // Assuming you receive navigation prop from a navigator
+    navigation.goBack(); // Assuming you receive the navigation prop from a navigator
   };
+
   handleButtonPressIn = () => {
-    Animated.timing(this.buttonScale, {
+    Animated.timing(buttonScale, {
       toValue: 0.95,
       duration: 150,
       easing: Easing.linear,
@@ -80,24 +85,78 @@ export default class ReservationRequestScreen extends Component {
   };
 
   handleButtonPressOut = () => {
-    Animated.timing(this.buttonScale, {
+    Animated.timing(buttonScale, {
       toValue: 1,
       duration: 150,
       easing: Easing.linear,
       useNativeDriver: true,
     }).start();
   };
+  handleRequest = async () => {
+    try {
+        const apiUrlCreate = 'http://192.168.63.43:8080/api/create';
+        const jsonDataCreate = {
+            Booking_Description: bookingDescription,
+            Booking_Status: 'Reserved',
+            Booking_date: bookingDate,
+            Booking_period: bookingTime,
+            Booking_for: bookingFor,
+            // studentID: studentID,
+            Room_ID: roomID,
+            User_Email: 'jedsada_chai@kmutt.ac.th',
+            User_1: bookingUser1,
+            User_2: bookingUser2,
+            User_3: bookingUser3,
+            User_4: bookingUser4,
+            User_5: bookingUser5,
+            User_6: bookingUser6,
+  // "Booking_Description" : "",
+  // "Booking_Status": "Reserved",
+  // "Booking_date": "15/10/2023",
+  // "Booking_period": "8:30 - 10:20",
+  // "Booking_for" : "CPE334", 
+  // "Room_ID" : "KM5",
+  // "User_Email" : "Phongprawi.ratt@kmutt.ac.th",
+  // "User_1" : "nut",
+  // "User_2" : "fifa",
+  // "User_3" : "mesa",
+  // "User_4" : "kla",
+  // "User_5" : "beer",
+  // "User_6" : ""
 
-  render() {
-    const { selectedOption, isDropdownOpen } = this.state;
-    const options = ["KM 1", "KM 2", "KM 3", "KM 4"];
-    const dropdownHeight = isDropdownOpen ? options.length * 40 : 0;
-    const handleSubmission = () => {
-      // Handle the submission logic here
-    };
-    const { isModalVisible } = this.state;
-    const { isModalCompleteVisible } = this.state;
-    const buttonScale = this.buttonScale;
+        };
+
+        const apiUrlList = 'http://192.168.63.43:8080/api/list';
+        const jsonDataList = {
+            email: 'jedsada_chai@kmutt.ac.th', // Replace with actual User_Email
+    
+        };
+
+        // Make the create API request
+        const responseCreate = await axios.post(apiUrlCreate, jsonDataCreate);
+        console.log('Reservation Information:', responseCreate.data);
+
+        // Make the list API request
+        const responseList = await axios.post(apiUrlList, jsonDataList, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (responseList.data) {
+            console.log('List Information:', responseList.data.data.booking);
+          } else {
+            console.log('Empty List or Invalid Response');
+            console.log('List Information:', responseList.status);
+        }
+    } catch (error) {
+      console.error('Error:', error.message);
+      console.error('Error Details:', error.response.data); // Log the detailed error response
+  }
+};
+
+
+
 
     return (
       <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}>
@@ -128,8 +187,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="Enter Student ID"
-                    onChangeText={(text) => this.setState({ studentID: text })}
-                    value={this.state.studentID}
+                    onChangeText={(text) => setStudentID(text)}
+                    value={studentID}
                   />
                 </View>
 
@@ -138,8 +197,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="Enter Name"
-                    onChangeText={(text) => this.setState({ name: text })}
-                    value={this.state.name}
+                    onChangeText={(text) => setBookingUser1(text)}
+                    value={bookingUser1}
                   />
                 </View>
               </View>
@@ -151,8 +210,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="Bachelor"
-                    onChangeText={(text) => this.setState({ Service: text })}
-                    value={this.state.Service}
+                    // onChangeText={(text) => this.setState({ Service: text })}
+                    // value={this.state.Service}
                   />
                 </View>
 
@@ -161,8 +220,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.input}
                     placeholder="Computer Engineering"
-                    onChangeText={(text) => this.setState({ Department: text })}
-                    value={this.state.Department}
+                    // onChangeText={(text) => this.setState({ Department: text })}
+                    // value={this.state.Department}
                   />
                 </View>
               </View>
@@ -181,6 +240,7 @@ export default class ReservationRequestScreen extends Component {
                     {selectedOption || "Select an option"}
                   </Text>
                   <Icon name="angle-down" size={20} color="orange" />
+                  
                 </TouchableOpacity>
                 {isDropdownOpen && (
                   <View style={[styles.dropdownOptionContainer, { height: dropdownHeight }]}>
@@ -188,7 +248,11 @@ export default class ReservationRequestScreen extends Component {
                       <TouchableOpacity
                         key={index}
                         style={styles.subDropdownOptionContainer}
-                        onPress={() => this.selectOption(option)}
+                        onPress={() => {
+                          selectOption(option);
+                          setRoomID(option);
+                        }}
+                        value = {roomID}
                       >
                         <Text
                           style={[{ color: "gray", fontFamily: "LeagueSpartan", }]}
@@ -208,6 +272,9 @@ export default class ReservationRequestScreen extends Component {
                 <TextInput
                   style={styles.studentIdInputboxContainer}
                   placeholder="Fill course code"
+                  onChangeText={(text) => setBookingFor(text)}
+                
+                  value={bookingFor}
                 />
               </View>
 
@@ -222,6 +289,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.studentIdInputboxContainer}
                     placeholder=""
+                    onChangeText={(text) => setBookingUser2(text)}
+                    value={bookingUser2}
                   />
                 </View>
                 <View style={styles.studentIdrowInput}>
@@ -231,6 +300,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.studentIdInputboxContainer}
                     placeholder=""
+                    onChangeText={(text) => setBookingUser3(text)}
+                    value={bookingUser3}
                   />
                 </View>
                 <View style={styles.studentIdrowInput}>
@@ -240,6 +311,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.studentIdInputboxContainer}
                     placeholder=""
+                    onChangeText={(text) => setBookingUser4(text)}
+                    value={bookingUser4}
                   />
                 </View>
                 <View style={styles.studentIdrowInput}>
@@ -249,6 +322,8 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.studentIdInputboxContainer}
                     placeholder=""
+                    onChangeText={(text) => setBookingUser5(text)}
+                    value={bookingUser5}
                   />
                 </View>
                 <View style={styles.studentIdrowInput}>
@@ -258,16 +333,44 @@ export default class ReservationRequestScreen extends Component {
                   <TextInput
                     style={styles.studentIdInputboxContainer}
                     placeholder=""
+                    onChangeText={(text) => setBookingUser6(text)}
+                    value={bookingUser6}
                   />
                 </View>
 
               </View>
 
+              <Pressable
+  onPress={() => {
+    // setEmail('jedsada_chai@kmutt.ac.th');
+    // setPassword('secret123');
+    setBookingDate('11/11/2023');
+    setBookingTime('bookingTime');
+    setRoomID('10');
+    setStudentID('64070501012');
+    setBookingUser1('lee');
+    setBookingUser2('beer');
+    setBookingUser3('mesa');
+    setBookingUser4('nut');
+    setBookingUser5('ff');
+    setBookingUser6('kla');
+    setBookingFor('ส่องสาว'); // Assuming you want to set a different value than 'bookingTime'
+  }}
+>
+  <Text style={{
+    fontSize: 16,
+    color: COLORS.primary,
+    fontWeight: "bold",
+    marginLeft: 6
+  }}>Auto set Email & Password</Text>
+</Pressable>
+
+
               <View style={styles.submitButtonView}>
                 <TouchableWithoutFeedback
-                  onPressIn={this.handleButtonPressIn}
-                  onPressOut={this.handleButtonPressOut}
-                  onPress={this.toggleModal}
+                  onPressIn={handleButtonPressIn}
+                  onPressOut={handleButtonPressOut}
+                  onPress={toggleModal}
                 >
                   <Animated.View
                     style={[
@@ -287,7 +390,7 @@ export default class ReservationRequestScreen extends Component {
                   <View style={styles.blankBgModalView}>
                     <View style={styles.alertModalcontainer}>
                       <TouchableOpacity
-                        onPress={this.toggleModalClose}
+                        onPress={toggleModalClose}
                         style={styles.closebuttonView}
                       >
                         <Ionicons name="close" size={32} color="orange" />
@@ -312,7 +415,8 @@ export default class ReservationRequestScreen extends Component {
                         </Text>
                         <TouchableOpacity
                           style={styles.acceptbuttonStyle}
-                          onPress={this.toggleModal}
+                          onPressIn={handleRequest}
+                          onPressOut={toggleModal}
                         >
                           <Text style={styles.acceptTextStyle}>
                             Accept
@@ -338,7 +442,7 @@ export default class ReservationRequestScreen extends Component {
                       </TouchableOpacity>
                       <View style={styles.paddingViewforinsideModal}>
                         <Image
-                          source={require("../picture/check.png")}
+                          // source={require("./picture/check.png")}
                           style={{ width: 50, height: 50 }}
                         />
                         <Text style={styles.sucessTextStyle}>
@@ -354,5 +458,5 @@ export default class ReservationRequestScreen extends Component {
         </View>
       </SafeAreaView>
     );
-  }
-}
+  
+};export default ReservationRequestScreen;

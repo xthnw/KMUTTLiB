@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
-import COLORS from './fifa/colors';
-import Button from './fifa/button';
+import COLORS from '../customStyles/colors';
+import Button from '../customStyles/button';
+import axios from 'axios';
+import { useAuth } from './auth';
 StatusBar.setHidden(true);
 
 // import font from './react-native.config';
@@ -25,11 +27,71 @@ const LoginFIFA = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const { dispatch } = useAuth();
+
+    const [authenticated, setAuthenticated] = useState(false);
+
+    const handleLogin = async () => {
+        try {
+            const apiUrl = 'http://192.168.1.104:8080/api/authen';
+            const jsonData = {
+                email: email,
+                password: password,
+            };
+            console.log('email', email)
+
+            const response = await axios.post(apiUrl, jsonData);
+
+            if (response.data.status === 'success') {
+                // Login successful, you can navigate to the next screen or perform further actions
+                console.log('Login successful');
+                console.log('User Information:', response.data.data);
+                const userData = response.data.data;
+
+                setAuthenticated(true);
+
+                dispatch({ type: 'LOGIN', payload: userData });
+                navigation.navigate("MainNavigator")
+
+                // You may want to store the user information in your app's state or context
+
+                try {
+                    const apiUrl = 'http://192.168.1.104:8080/api/list'; // Replace with the correct API endpoint
+                    const jsonData = {
+                        email: userData.User_Email,
+                    };
+
+                    const responseLIST = await axios.post(apiUrl, jsonData, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    if (responseLIST.data && responseLIST.data.length > 0) {
+                        console.log(responseLIST.data);
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+
+            } else {
+                // Login failed, handle the error
+                console.error('Login failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+
+    };
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <View style={[{ padding: 24, alignItems: 'center', marginTop: 24, }]}>
                 <Image
-                    source={require("./picture/LogoApp.png")}
+                    source={require("../picture/LogoApp.png")}
                     style={{
                         height: 138,
                         width: 244,
@@ -73,12 +135,14 @@ const LoginFIFA = ({ navigation }) => {
                         paddingLeft: 22
                     }}>
                         <TextInput
-                            placeholder='Enter your email address'
+                            placeholder='Enter your mail@kmutt.ac.th'
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
                             style={{
-                                width: "100%"
+                                width: "100%",
                             }}
+                            value={email}
+                            onChangeText={(text) => setEmail(text)}
                         />
                     </View>
                 </View>
@@ -107,6 +171,8 @@ const LoginFIFA = ({ navigation }) => {
                             style={{
                                 width: "100%"
                             }}
+                            value={password}
+                            onChangeText={(text) => setPassword(text)}
                         />
 
                         <TouchableOpacity
@@ -130,7 +196,8 @@ const LoginFIFA = ({ navigation }) => {
 
                 <Button
                     title="Login with Email"
-                    onPress={() => navigation.navigate("MainNavigator")} // Corrected the navigation here
+                    // onPress={() => navigation.navigate("MainNavigator")} // Corrected the navigation here
+                    onPress={handleLogin}
                     // filled
                     style={{
                         borderColor: COLORS.primary,
@@ -151,16 +218,16 @@ const LoginFIFA = ({ navigation }) => {
                     justifyContent: "center",
                     marginVertical: 22
                 }}>
-                    <Text style={{ fontSize: 16, color: COLORS.black }}>Don't have an account ? </Text>
-                    <Pressable
-                        onPress={() => navigation.navigate("Signup")}
-                    >
+                    <Pressable onPress={() => {
+                        setEmail('jedsada_chai@kmutt.ac.th');
+                        setPassword('secret123');
+                    }}>
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.primary,
                             fontWeight: "bold",
                             marginLeft: 6
-                        }}>Forgot Password</Text>
+                        }}>Auto set Email & Password</Text>
                     </Pressable>
                 </View>
             </View>
