@@ -1,17 +1,17 @@
-import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Dimensions, StatusBar, Animated, ScrollView, Easing, TouchableWithoutFeedback, ImageBackground, RefreshControl, } from "react-native";
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, Dimensions, StatusBar, Animated, ScrollView, Easing, TouchableWithoutFeedback, ImageBackground, RefreshControl, } from 'react-native';
 import { Iconify } from 'react-native-iconify';
-import CalendarStrip from "react-native-scrollable-calendar-strip";
-import { LinearGradient } from "expo-linear-gradient";
-import styles from "../customStyles/ReservationScreenStyles";
-import axios from "axios";
+import CalendarStrip from 'react-native-scrollable-calendar-strip';
+import { LinearGradient } from 'expo-linear-gradient';
+import styles from '../customStyles/ReservationScreenStyles';
+import axios from 'axios';
 import moment from 'moment';
 import Modal from 'react-native-modal';
 
 const apiUrl = 'http://192.168.1.104:8080/api/room';
 
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const images = [
   require('../picture/kmuttlib1.jpg'),
@@ -35,7 +35,7 @@ export default class ReservationScreen extends Component {
       isModalVisibleFull: false,
       isModalVisible: false,
       isDropdownOpen: false,
-      selectedOption: "",
+      selectedOption: '',
       isModalCompleteVisible: false,
       activeImageIndex: 0,
     };
@@ -58,8 +58,8 @@ export default class ReservationScreen extends Component {
     this.startAutoSlide();
 
     const currentDate = new Date();
-    const day = currentDate.getDate().toString().padStart(2, "0");
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
     const year = currentDate.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
     this.setState({ selectedDate: formattedDate });
@@ -116,7 +116,7 @@ export default class ReservationScreen extends Component {
   };
 
   toggleModalFull = (buttonId, targetTimeSlot, Room_ID) => {
-    const selectedDate = this.state.selectedDate; // Get the selected date in "DD/MM/YYYY" format
+    const selectedDate = this.state.selectedDate; // Get the selected date in 'DD/MM/YYYY' format
     // Split the date string into day, month, and year
     const [day, month, year] = selectedDate.split('/').map(Number);
     // Create a new Date object using the year, month (subtract 1 as it's zero-based), and day
@@ -190,8 +190,8 @@ export default class ReservationScreen extends Component {
 
   handleDateSelected = async (date) => {
     const parsedDate = new Date(date);
-    const day = parsedDate.getDate().toString().padStart(2, "0");
-    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = parsedDate.getDate().toString().padStart(2, '0');
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
     const year = parsedDate.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
 
@@ -227,7 +227,7 @@ export default class ReservationScreen extends Component {
     this.setState((prevState) => ({
       selectedButton: prevState.selectedButton === buttonId ? null : buttonId,
     }));
-    this.props.navigation.navigate("ReservationRequest");
+    this.props.navigation.navigate('ReservationRequest');
   };
 
   handleButtonPressIn(buttonId) {
@@ -264,10 +264,10 @@ export default class ReservationScreen extends Component {
         ? { ...styles.textDisabled }
         : { ...styles.buttonText };
 
-    const targetTimeSlot_1 = "08:30 - 10:20";
-    const targetTimeSlot_2 = "10:30 - 12:20";
-    const targetTimeSlot_3 = "12:30 - 14:20";
-    const targetTimeSlot_4 = "14:30 - 16:20";
+    const targetTimeSlot_1 = '08:30 - 10:20';
+    const targetTimeSlot_2 = '10:30 - 12:20';
+    const targetTimeSlot_3 = '12:30 - 14:20';
+    const targetTimeSlot_4 = '14:30 - 16:20';
 
     const { route } = this.props;
     const { userData } = route.params;
@@ -338,10 +338,10 @@ export default class ReservationScreen extends Component {
   render() {
     const { isModalVisibleFull } = this.state;
     const { roomStatus } = this.state;
-    const targetTimeSlot_1 = "08:30 - 10:20";
-    const targetTimeSlot_2 = "10:30 - 12:20";
-    const targetTimeSlot_3 = "12:30 - 14:20";
-    const targetTimeSlot_4 = "14:30 - 16:20";
+    const targetTimeSlot_1 = '08:30 - 10:20';
+    const targetTimeSlot_2 = '10:30 - 12:20';
+    const targetTimeSlot_3 = '12:30 - 14:20';
+    const targetTimeSlot_4 = '14:30 - 16:20';
 
     const filteredData_1 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM1');
     const filteredData_2 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM2');
@@ -419,15 +419,15 @@ export default class ReservationScreen extends Component {
             <CalendarStrip
               scrollable={true}
               style={{ height: screenHeight * 0.1, paddingTop: 10, }}
-              calendarAnimation={{ type: "parallel", duration: 300, useNativeDriver: true }}
-              daySelectionAnimation={{ type: "border", borderWidth: 1, duration: 300 }}
-              dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              highlightDateNumberStyle={{ color: "black", textDecorationLine: "underline", textDecorationColor: "orange", fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
-              highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              disabledDateNameStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              disabledDateNumberStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
+              calendarAnimation={{ type: 'parallel', duration: 300, useNativeDriver: true }}
+              daySelectionAnimation={{ type: 'border', borderWidth: 1, duration: 300 }}
+              dateNumberStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              dateNameStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              highlightDateNumberStyle={{ color: 'black', textDecorationLine: 'underline', textDecorationColor: 'orange', fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
+              highlightDateNameStyle={{ color: 'black', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              disabledDateNameStyle={{ color: 'grey', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              disabledDateNumberStyle={{ color: 'grey', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              calendarHeaderStyle={{ color: 'black', fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
               iconContainer={{ flex: 0.1 }}
               onDateSelected={this.handleDateSelected}
               datesBlacklist={datesBlacklist}
@@ -516,8 +516,8 @@ export default class ReservationScreen extends Component {
         </View>
         <Modal
           isVisible={isModalVisibleFull}
-          animationIn="slideInUp"
-          animationOut="slideOutDown"
+          animationIn='slideInUp'
+          animationOut='slideOutDown'
           useNativeDriverForBackdrop={true}
           onBackdropPress={this.toggleModalFullDismiss}
           style={styles.modalContainerFull}
@@ -531,17 +531,17 @@ export default class ReservationScreen extends Component {
                 <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                   <View style={[{ flex: 1, }]}>
                     <Text style={styles.reservationBylable}>Reservations by</Text>
-                    <View style={[{ flexDirection: "row", marginBottom: 10, }]}>
+                    <View style={[{ flexDirection: 'row', marginBottom: 10, }]}>
                       <View style={[{ marginRight: 10, paddingHorizontal: 4, }]}>
-                        <Iconify icon="fluent-emoji:man-student-medium-light" size={32} />
+                        <Iconify icon='fluent-emoji:man-student-medium-light' size={32} />
                       </View>
-                      <View style={[{ flexDirection: "column", }]}>
+                      <View style={[{ flexDirection: 'column', }]}>
                         <Text style={styles.modalStudentLabel}>Students</Text>
                         {renderUserNames()}
                       </View>
                     </View>
                   </View>
-                  <View style={[{ marginLeft: 10, }]}><Iconify icon="openmoji:no-entry" color='black' size={48} /></View>
+                  <View style={[{ marginLeft: 10, }]}><Iconify icon='openmoji:no-entry' color='black' size={48} /></View>
                 </View>
                 <View style={[styles.emptyViewforScrolling]}></View>
               </ScrollView>

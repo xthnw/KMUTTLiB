@@ -1,8 +1,8 @@
 import { View, Text, Image, TextInput, TouchableOpacity, Pressable, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import React, { useState } from 'react';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-import Checkbox from "expo-checkbox";
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import Checkbox from 'expo-checkbox';
 import COLORS from '../customStyles/colors';
 import Button from '../customStyles/button';
 import axios from 'axios';
@@ -54,7 +54,7 @@ const LoginFIFA = ({ navigation }) => {
                 setAuthenticated(true);
 
                 dispatch({ type: 'LOGIN', payload: userData });
-                navigation.navigate("MainNavigator")
+                navigation.navigate('MainNavigator')
 
                 // You may want to store the user information in your app's state or context
 
@@ -91,7 +91,7 @@ const LoginFIFA = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <View style={[{ padding: 24, alignItems: 'center', marginTop: 24, }]}>
                 <Image
-                    source={require("../picture/LogoApp.png")}
+                    source={require('../picture/LogoApp.png')}
                     style={{
                         height: 138,
                         width: 244,
@@ -103,7 +103,7 @@ const LoginFIFA = ({ navigation }) => {
                 <View style={[{}]}>
                     <Text style={{
                         fontSize: 22,
-                        // fontFamily: "LeagueSpartan",
+                        // fontFamily: 'LeagueSpartan',
                         fontWeight: 'bold',
                         marginVertical: 12,
                         color: COLORS.black
@@ -125,13 +125,13 @@ const LoginFIFA = ({ navigation }) => {
                     }}>Email address</Text>
 
                     <View style={{
-                        width: "100%",
+                        width: '100%',
                         height: 48,
                         borderColor: COLORS.black,
                         borderWidth: 1,
                         borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         paddingLeft: 22
                     }}>
                         <TextInput
@@ -139,7 +139,7 @@ const LoginFIFA = ({ navigation }) => {
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
                             style={{
-                                width: "100%",
+                                width: '100%',
                             }}
                             value={email}
                             onChangeText={(text) => setEmail(text)}
@@ -155,13 +155,13 @@ const LoginFIFA = ({ navigation }) => {
                     }}>Password</Text>
 
                     <View style={{
-                        width: "100%",
+                        width: '100%',
                         height: 48,
                         borderColor: COLORS.black,
                         borderWidth: 1,
                         borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         paddingLeft: 22
                     }}>
                         <TextInput
@@ -169,7 +169,7 @@ const LoginFIFA = ({ navigation }) => {
                             placeholderTextColor={COLORS.black}
                             secureTextEntry={isPasswordShown}
                             style={{
-                                width: "100%"
+                                width: '100%'
                             }}
                             value={password}
                             onChangeText={(text) => setPassword(text)}
@@ -178,15 +178,15 @@ const LoginFIFA = ({ navigation }) => {
                         <TouchableOpacity
                             onPress={() => setIsPasswordShown(!isPasswordShown)}
                             style={{
-                                position: "absolute",
+                                position: 'absolute',
                                 right: 12
                             }}
                         >
                             {
                                 isPasswordShown == true ? (
-                                    <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                                    <Ionicons name='eye-off' size={24} color={COLORS.black} />
                                 ) : (
-                                    <Ionicons name="eye" size={24} color={COLORS.black} />
+                                    <Ionicons name='eye' size={24} color={COLORS.black} />
                                 )
                             }
                         </TouchableOpacity>
@@ -195,8 +195,8 @@ const LoginFIFA = ({ navigation }) => {
 
 
                 <Button
-                    title="Login with Email"
-                    // onPress={() => navigation.navigate("MainNavigator")} // Corrected the navigation here
+                    title='Login with Email'
+                    // onPress={() => navigation.navigate('MainNavigator')} // Corrected the navigation here
                     onPress={handleLogin}
                     // filled
                     style={{
@@ -214,8 +214,8 @@ const LoginFIFA = ({ navigation }) => {
                 </View>
 
                 <View style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
+                    flexDirection: 'row',
+                    justifyContent: 'center',
                     marginVertical: 22
                 }}>
                     <Pressable onPress={() => {
@@ -225,7 +225,7 @@ const LoginFIFA = ({ navigation }) => {
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.primary,
-                            fontWeight: "bold",
+                            fontWeight: 'bold',
                             marginLeft: 6
                         }}>Auto set Email & Password</Text>
                     </Pressable>
