@@ -1,14 +1,13 @@
-import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Modal, ActivityIndicator, RefreshControl, ScrollView, Image } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import IconM from "react-native-vector-icons/MaterialIcons";
-import MapView, { Marker } from "react-native-maps";
-import { requestForegroundPermissionsAsync, getCurrentPositionAsync, } from "expo-location";
-import { Ionicons } from "@expo/vector-icons";
-import customPinImage from "../picture/pin.png";
-import { SafeAreaView } from "react-native-safe-area-context";
-import styles from "../customStyles/ReservationCheckInStyles";
-
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, Modal, ActivityIndicator, RefreshControl, ScrollView, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import IconM from 'react-native-vector-icons/MaterialIcons';
+import MapView, { Marker } from 'react-native-maps';
+import { requestForegroundPermissionsAsync, getCurrentPositionAsync, } from 'expo-location';
+import { Ionicons } from '@expo/vector-icons';
+import customPinImage from '../picture/pin.png';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import styles from '../customStyles/ReservationCheckInStyles';
 
 export default class ReservationCheckInScreen extends Component {
   constructor(props) {
@@ -27,7 +26,7 @@ export default class ReservationCheckInScreen extends Component {
   }
   async requestLocationPermission() {
     const { status } = await requestForegroundPermissionsAsync();
-    if (status === "granted") {
+    if (status === 'granted') {
 
       this.setState({ loading: true });
 
@@ -48,18 +47,18 @@ export default class ReservationCheckInScreen extends Component {
 
   toggleModal = () => {
     this.setState({ isModalVisible: !this.state.isModalVisible }, () => {
-      // After the modal state is updated, check if it's closed
       if (!this.state.isModalVisible) {
-        // Call the function you want when the modal is closed
         this.toggleModalComplete();
       }
     });
   };
+
   toggleModalComplete = () => {
     this.setState({
       isModalCompleteVisible: !this.state.isModalCompleteVisible,
     });
   };
+
   toggleModalClose = () => {
     this.setState({
       isModalVisible: !this.state.isModalVisible,
@@ -67,15 +66,15 @@ export default class ReservationCheckInScreen extends Component {
   };
 
   handleBoxPress = (boxNumber) => {
-    this.props.navigation.navigate("ReservationDetails");
+    this.props.navigation.navigate('ReservationDetails');
   };
+
   handleBackPress = () => {
     this.props.navigation.goBack();
   };
 
   handleRefresh = async () => {
     this.setState({ refreshing: true });
-
     // await this.requestLocationPermission();
     setTimeout(() => {
       this.setState({ refreshing: false });
@@ -97,6 +96,7 @@ export default class ReservationCheckInScreen extends Component {
     const [startTime, endTime] = bookingPeriod.split(' - ');
 
     const [startHour, startMinute] = startTime.split(':').map(Number);
+
     const [endHour, endMinute] = endTime.split(':').map(Number);
 
     const bookingStartTime = new Date(currentTime);
@@ -163,7 +163,7 @@ export default class ReservationCheckInScreen extends Component {
     if (loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator size="large" color="orange" />
+          <ActivityIndicator size='large' color='orange' />
           <Text style={[styles.OverviewLable]}>Loading...</Text>
         </View>
       );
@@ -177,27 +177,27 @@ export default class ReservationCheckInScreen extends Component {
             showsVerticalScrollIndicator={false}
             refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.handleRefresh} />}>
             <TouchableOpacity onPress={this.handleBackPress} style={[styles.backButton]}>
-              <View style={[{ alignItems: "center", justifyContent: "center", },]}>
-                <IconM name="keyboard-arrow-left" size={30} color="orange" />
+              <View style={[{ alignItems: 'center', justifyContent: 'center', },]}>
+                <IconM name='keyboard-arrow-left' size={30} color='orange' />
               </View>
             </TouchableOpacity>
-            <View style={[{ alignContent: "center", alignItems: "center" }]}>
-              <Image source={require("../picture/floor1.jpg")} style={[styles.imageStyles]} resizeMode="cover" />
+            <View style={[{ alignContent: 'center', alignItems: 'center' }]}>
+              <Image source={require('../picture/floor1.jpg')} style={[styles.imageStyles]} resizeMode='cover' />
             </View>
             <View style={[{ padding: 8 }]}>
               <Text style={[styles.OverviewLable]}>Overview</Text>
-              <View style={[{ flexDirection: "row", marginBottom: 10, },]}>
+              <View style={[{ flexDirection: 'row', marginBottom: 10, },]}>
                 <View style={[styles.backgroundclockIcon]}>
-                  <Icon name="clock-o" size={32} color="orange" />
+                  <Icon name='clock-o' size={32} color='orange' />
                 </View>
-                <View style={[{ flexDirection: "column" }]}>
+                <View style={[{ flexDirection: 'column' }]}>
                   <Text style={[styles.timeLabel]}>Time</Text>
                   <Text style={[styles.hoursLable]}>2 hours</Text>
                 </View>
               </View>
               <Text style={[styles.datetimeLable]}>Date/Time</Text>
               <Text style={[styles.datetimeDetailLable]}>{this.formatDate(booking.data.Booking_date)} | {booking.data.Booking_period}</Text>
-              <View style={[{ borderRadius: 25, justifyContent: "center", alignItems: "center", },]}>
+              <View style={[{ borderRadius: 25, justifyContent: 'center', alignItems: 'center', },]}>
                 <MapView style={[styles.MapViewStyles]}
                   initialRegion={
                     userLocation
@@ -215,7 +215,7 @@ export default class ReservationCheckInScreen extends Component {
                       latitude: userLocation.latitude,
                       longitude: userLocation.longitude,
                     }}
-                      title="Your Location">
+                      title='Your Location'>
                       <Image source={customPinImage} style={{ width: 62, height: 92 }} />
                     </Marker>
                   )}
@@ -253,11 +253,11 @@ export default class ReservationCheckInScreen extends Component {
                 }
               </View>
             </View>
-            <Modal animationType="slide" transparent={true} visible={isModalVisible}>
+            <Modal animationType='slide' transparent={true} visible={isModalVisible}>
               <View style={[styles.dimbackground]}>
                 <View style={[styles.modalbackground]}>
                   <TouchableOpacity onPress={this.toggleModalClose} style={[styles.crossClose]}>
-                    <Ionicons name="close" size={32} color="orange" />
+                    <Ionicons name='close' size={32} color='orange' />
                   </TouchableOpacity>
                   <MapView style={[styles.MapViewStyles]}
                     initialRegion={
@@ -276,13 +276,13 @@ export default class ReservationCheckInScreen extends Component {
                         latitude: userLocation.latitude,
                         longitude: userLocation.longitude,
                       }}
-                        title="Your Location"
+                        title='Your Location'
                       >
                         <Image source={customPinImage} style={{ width: 62, height: 92 }} />
                       </Marker>
                     )}
                   </MapView>
-                  <TouchableOpacity onPress={this.toggleModal} style={{ alignItems: "center" }}>
+                  <TouchableOpacity onPress={this.toggleModal} style={{ alignItems: 'center' }}>
                     <View style={[styles.confirmLocationContainer]}>
                       <Text style={[styles.confirmLocationLable]}>Confirm Location</Text>
                     </View>
@@ -290,14 +290,14 @@ export default class ReservationCheckInScreen extends Component {
                 </View>
               </View>
             </Modal>
-            <Modal animationType="slide" transparent={true} visible={isModalCompleteVisible}>
+            <Modal animationType='slide' transparent={true} visible={isModalCompleteVisible}>
               <View style={[styles.emptybackground]}>
                 <View style={[styles.successfulModal]}>
                   <TouchableOpacity onPress={this.toggleModalComplete} style={[styles.crossClose]}>
-                    <Ionicons name="close" size={32} color="orange" />
+                    <Ionicons name='close' size={32} color='orange' />
                   </TouchableOpacity>
                   <View style={[styles.successfulImageContainer]}>
-                    <Image source={require("../picture/check2.png")} style={{ width: 64, height: 64 }} />
+                    <Image source={require('../picture/check2.png')} style={{ width: 64, height: 64 }} />
                     <Text style={[styles.successfulText]}>Location Verified</Text>
                   </View>
                 </View>
