@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Image, Text, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Dimensions, SafeAreaView, RefreshControl, } from 'react-native';
+import { ScrollView, View, Image, Text, TouchableOpacity, TouchableWithoutFeedback, SafeAreaView, RefreshControl, } from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
@@ -15,7 +15,6 @@ const ReservationList = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState(null);
-  const User_Email = ['123'];
 
   useEffect(() => {
     if (userData) {
@@ -129,7 +128,7 @@ const ReservationList = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: "white", }}>
+    <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: 'white', }}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer} showsVerticalScrollIndicator={false}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}>
         <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 12, }}>
@@ -153,7 +152,7 @@ const ReservationList = () => {
                 <TouchableWithoutFeedback >
                   <View style={styles.innerBox}>
                     <View style={[{}]}>
-                      <Image source={require('../picture/floor1.jpg')} style={styles.image} resizeMode="cover" />
+                      <Image source={require('../picture/floor1.jpg')} style={styles.image} resizeMode='cover' />
                     </View>
                     <View style={[{ marginLeft: 4, }]}>
                       <Text style={styles.textbold}>{roomLabels[booking.data.Room_ID] || 'Unknown Room'}</Text>
@@ -177,7 +176,7 @@ const ReservationList = () => {
                             <Text style={styles.statusInner}>{booking.data.Booking_Status}</Text>
                           </View>
                           <Text style={styles.text}>
-                            <Icon name="calendar" size={15} color={'#FF8A00'} /> {formatDate(booking.data.Booking_date)}
+                            <Icon name='calendar' size={15} color={'#FF8A00'} /> {formatDate(booking.data.Booking_date)}
                           </Text>
                           <Text style={[styles.text, {}]}>{booking.data.Booking_period}</Text>
                           <TouchableOpacity style={styles.statusDetail} onPress={() => navigateToNextScreen(booking)}>
@@ -193,7 +192,7 @@ const ReservationList = () => {
           ))
         )}
         <View style={styles.space} />
-        <Modal animationType="slide" transparent={true} visible={isModalVisible}>
+        <Modal animationType='slide' transparent={true} visible={isModalVisible}>
           <View style={styles.blankBgModalView}>
             <View style={styles.alertModalcontainer}>
               <TouchableOpacity onPress={this.toggleModalClose} style={styles.closebuttonView}></TouchableOpacity>
