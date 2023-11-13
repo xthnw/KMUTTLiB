@@ -342,7 +342,7 @@ const ReservationRequestScreen = ({ navigation, }) => {
                 setBookingTime(timeLabel);
                 setRoomID(roomId);
                 setStudentID(userData.University_ID);
-                setBookingUser0(`${userData.User_FName} ${userData.User_Lname}`);
+                setBookingUser0(`${userData.User_FName} ${userData.User_LName}`);
                 setBookingUser1(userData.University_ID);
                 setBookingUser2('64060501023');
                 setBookingUser3('64060501024');

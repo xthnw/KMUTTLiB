@@ -185,7 +185,7 @@ export default class ReservationScreen extends Component {
             </View>
             {userData === null ? (
               <Text style={styles.hiUserNameLabel}>Hi, Guest</Text>
-            ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_Lname}</Text>)}
+            ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_LName}</Text>)}
             <Iconify style={[{ marginLeft: 20, marginTop: 20, }]} icon='streamline-emojis:ant' size={32} />
           </View>
 
