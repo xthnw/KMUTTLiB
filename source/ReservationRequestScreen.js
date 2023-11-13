@@ -1,28 +1,17 @@
-import React, { Component, useState, useRef } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  Easing,
-  StatusBar,
-  Animated,
-  TextInput,
-  Modal, Pressable
-} from "react-native";
-import { ScrollView, Image } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import IconM from "react-native-vector-icons/MaterialIcons";
-import { Ionicons } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Easing, StatusBar, Animated, TextInput, Modal, Pressable } from 'react-native';
+import { ScrollView, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import IconM from 'react-native-vector-icons/MaterialIcons';
+import { Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../customStyles/ReservationRequestStyles';
-import COLORS from "../customStyles/colors";
-import { value } from "deprecated-react-native-prop-types/DeprecatedTextInputPropTypes";
-import { useAuth } from './auth';
-import axios from "axios";
-import { useRoute, useNavigation } from '@react-navigation/native';
+import COLORS from '../customStyles/colors';
+import axios from 'axios';
+import { useRoute } from '@react-navigation/native';
+
 StatusBar.setHidden(true);
+
 const periodLabels = {
   '1': '08:30 - 10:20',
   '2': '10:30 - 12:20',
@@ -45,6 +34,7 @@ const periodLabels = {
   '19': '12:30 - 14:20',
   '20': '14:30 - 16:20',
 };
+
 const roomLabels = {
   'KM1': 'ROOM 1',
   'KM2': 'ROOM 2',
@@ -52,13 +42,12 @@ const roomLabels = {
   'KM4': 'ROOM 4',
   'KM5': 'ROOM 5',
 };
+
 const ReservationRequestScreen = ({ navigation, }) => {
   const route = useRoute();
   const { buttonId, selectedDate, roomId, userData } = route.params;
-  const [selectedOption, setSelectedOption] = useState("");
-  const inputBoxRef = useRef(null);
+  const [selectedOption, setSelectedOption] = useState('');
   const [CourseCode, setCourseCode] = useState('');
-  const [bookingDescription, setBookingDescription] = useState('');
   const [bookingDate, setBookingDate] = useState('');
   const [bookingTime, setBookingTime] = useState('');
   const [bookingFor, setBookingFor] = useState('');
@@ -77,9 +66,8 @@ const ReservationRequestScreen = ({ navigation, }) => {
   const [isModalErrorVisible, setIsModalErrorVisible] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [buttonScale] = useState(new Animated.Value(1));
-  const dropdownOptions = ["Group consults", "Tutoring", "Learning", "Presentation", "Other"];
+  const dropdownOptions = ['Group consults', 'Tutoring', 'Learning', 'Presentation', 'Other'];
   const dropdownHeight = isDropdownOpen ? dropdownOptions.length * 36 : 0;
-
 
   const timeLabel = periodLabels[buttonId];
   const roomLabel = roomLabels[roomId];
@@ -93,11 +81,6 @@ const ReservationRequestScreen = ({ navigation, }) => {
   };
   const formattedDate = date.toLocaleDateString('en-US', options);
 
-
-
-
-
-
   toggleModal = () => {
     setIsModalVisible(!isModalVisible);
   };
@@ -110,6 +93,7 @@ const ReservationRequestScreen = ({ navigation, }) => {
   toggleModalComplete = () => {
     setIsModalCompleteVisible(!isModalCompleteVisible);
   };
+
   toggleModalCompleteOK = () => {
     setIsModalCompleteVisible(!isModalCompleteVisible);
     navigation.navigate('ReservationScreen');
@@ -118,11 +102,11 @@ const ReservationRequestScreen = ({ navigation, }) => {
   toggleModalError = () => {
     setIsModalErrorVisible(!isModalErrorVisible);
   };
+
   toggleModalErrorOK = () => {
     setIsModalErrorVisible(!isModalErrorVisible);
     navigation.navigate('ReservationScreen');
   };
-
 
   toggleModalClose = () => {
     setIsModalVisible(!isModalVisible);
@@ -134,12 +118,11 @@ const ReservationRequestScreen = ({ navigation, }) => {
 
   selectOption = (option) => {
     setSelectedOption(option);
-    setIsDropdownOpen(false); // Close the dropdown after selection
-
+    setIsDropdownOpen(false);
   };
 
   handleBackPress = () => {
-    navigation.goBack(); // Assuming you receive the navigation prop from a navigator
+    navigation.goBack();
   };
 
   handleButtonPressIn = () => {
@@ -159,6 +142,7 @@ const ReservationRequestScreen = ({ navigation, }) => {
       useNativeDriver: true,
     }).start();
   };
+
   handleRequest = async () => {
     try {
       const apiUrlCreate = 'http://192.168.1.104:8080/api/create';
@@ -182,15 +166,18 @@ const ReservationRequestScreen = ({ navigation, }) => {
           'Content-Type': 'application/json',
         },
       });
+
       if (responseCreate.data.status === 'success') {
         console.log('Reservation Success:', responseCreate.data.message);
         setReservationMessage(responseCreate.data.message);
         toggleModalComplete();
+
       } else if (responseCreate.data.status === 'error') {
         console.error('Reservation Error:', responseCreate.data.message);
         setReservationMessage(responseCreate.data.message);
         toggleModalError();
         // Handle the error case, show a message, etc.
+
       } else {
         console.error('Unexpected Response:', responseCreate.data);
         // Handle unexpected responses here
@@ -200,9 +187,6 @@ const ReservationRequestScreen = ({ navigation, }) => {
     }
   };
 
-
-
-
   return (
     <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}>
       <View>
@@ -211,37 +195,28 @@ const ReservationRequestScreen = ({ navigation, }) => {
             contentContainerStyle={styles.scrollViewContainer}
             showsVerticalScrollIndicator={false}
           >
-            <TouchableOpacity
-              onPress={this.handleBackPress}
-              style={styles.backcirclebutton}
-            >
+            <TouchableOpacity onPress={this.handleBackPress} style={styles.backcirclebutton}>
               <View style={styles.subbackcirclebutton}>
-                <IconM name="keyboard-arrow-left" size={30} color="orange" />
+                <IconM name='keyboard-arrow-left' size={30} color='orange' />
               </View>
             </TouchableOpacity>
             <Text style={styles.formTitle}>Library Request</Text>
-            <Text style={styles.detailsText}>
-              KMUTT-LIB {roomLabel} | Time: {timeLabel} | {formattedDate}
-            </Text>
-
+            <Text style={styles.detailsText}>KMUTT-LIB {roomLabel} | Time: {timeLabel} | {formattedDate}</Text>
             <View style={styles.inputRow}>
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>
-                  Student ID
-                </Text>
+                <Text style={styles.label}>Student ID</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Enter Student ID"
+                  placeholder='Enter Student ID'
                   onChangeText={(text) => setStudentID(text)}
                   value={studentID}
                 />
               </View>
-
               <View style={styles.inputContainer}>
                 <Text style={styles.label}>Name</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Enter Name"
+                  placeholder='Enter Name'
                   onChangeText={(text) => setBookingUser0(text)}
                   value={bookingUser0}
                 />
@@ -249,43 +224,31 @@ const ReservationRequestScreen = ({ navigation, }) => {
             </View>
             <View style={styles.inputRow}>
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>
-                  Service group
-                </Text>
+                <Text style={styles.label}>Service group</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Bachelor"
+                  placeholder='Bachelor'
                 // onChangeText={(text) => this.setState({ Service: text })}
                 // value={this.state.Service}
                 />
               </View>
-
               <View style={styles.inputContainer}>
                 <Text style={styles.label}>Department</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder="Computer Engineering"
+                  placeholder='Computer Engineering'
                 // onChangeText={(text) => this.setState({ Department: text })}
                 // value={this.state.Department}
                 />
               </View>
             </View>
-
             <View style={styles.dropdownOptionView}>
-              <Text style={styles.label}>
-                Request for
-              </Text>
-              <TouchableOpacity
-                style={styles.waitforDropdownOptionContainer}
-                onPress={this.toggleDropdown}
-              >
-                <Text
-                  style={{ color: "#666666", fontFamily: "LeagueSpartan" }}
-                >
-                  {selectedOption || "Select an option"}
+              <Text style={styles.label}>Request for</Text>
+              <TouchableOpacity style={styles.waitforDropdownOptionContainer} onPress={this.toggleDropdown}>
+                <Text style={{ color: '#666666', fontFamily: 'LeagueSpartan' }}>
+                  {selectedOption || 'Select an option'}
                 </Text>
-                <Icon name="angle-down" size={20} color="orange" />
-
+                <Icon name='angle-down' size={20} color='orange' />
               </TouchableOpacity>
               {isDropdownOpen && (
                 <View style={[styles.dropdownOptionContainer, { height: dropdownHeight }]}>
@@ -299,104 +262,81 @@ const ReservationRequestScreen = ({ navigation, }) => {
                       }}
                       value={bookingFor}
                     >
-                      <Text
-                        style={[{ color: "gray", fontFamily: "LeagueSpartan", }]}
-                      >
-                        {option}
-                      </Text>
+                      <Text style={[{ color: 'gray', fontFamily: 'LeagueSpartan', }]}>{option}</Text>
                     </TouchableOpacity>
                   ))}
                 </View>
               )}
-
             </View>
             <View style={styles.courseCodeView}>
-              <Text style={styles.labelInfrontcourseCodeInput}>
-                Course code
-              </Text>
+              <Text style={styles.labelInfrontcourseCodeInput}>Course code</Text>
               <TextInput
                 style={styles.studentIdInputboxContainer}
-                placeholder="Fill course code"
+                placeholder='Fill course code'
                 onChangeText={(text) => setCourseCode(text)}
-
                 value={CourseCode}
               />
             </View>
-
             <View style={styles.studentIdformPadding}>
-              <Text style={styles.label}>
-                Please Specify: Username/Student ID
-              </Text>
+              <Text style={styles.label}>Please Specify: Username/Student ID</Text>
               <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>
-                  1.
-                </Text>
+                <Text style={styles.numberInfrontstudentIdrowInput}>1.</Text>
                 <TextInput
                   style={styles.studentIdInputboxContainer}
-                  placeholder=""
+                  placeholder=''
                   onChangeText={(text) => setBookingUser1(text)}
                   value={bookingUser1}
                 />
               </View>
               <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>
-                  2.
-                </Text>
+                <Text style={styles.numberInfrontstudentIdrowInput}>2.</Text>
                 <TextInput
                   style={styles.studentIdInputboxContainer}
-                  placeholder=""
+                  placeholder=''
                   onChangeText={(text) => setBookingUser2(text)}
                   value={bookingUser2}
                 />
               </View>
               <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>
-                  3.
-                </Text>
+                <Text style={styles.numberInfrontstudentIdrowInput}>3.</Text>
                 <TextInput
                   style={styles.studentIdInputboxContainer}
-                  placeholder=""
+                  placeholder=''
                   onChangeText={(text) => setBookingUser3(text)}
                   value={bookingUser3}
                 />
               </View>
               <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>
-                  4.
-                </Text>
+                <Text style={styles.numberInfrontstudentIdrowInput}>4.</Text>
                 <TextInput
                   style={styles.studentIdInputboxContainer}
-                  placeholder=""
+                  placeholder=''
                   onChangeText={(text) => setBookingUser4(text)}
                   value={bookingUser4}
                 />
               </View>
               <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>
-                  5.
-                </Text>
+                <Text style={styles.numberInfrontstudentIdrowInput}>5.</Text>
                 <TextInput
                   style={styles.studentIdInputboxContainer}
-                  placeholder=""
+                  placeholder=''
                   onChangeText={(text) => setBookingUser5(text)}
                   value={bookingUser5}
                 />
               </View>
               <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>
-                  6.
-                </Text>
+                <Text style={styles.numberInfrontstudentIdrowInput}>6.</Text>
                 <TextInput
                   style={styles.studentIdInputboxContainer}
-                  placeholder=""
+                  placeholder=''
                   onChangeText={(text) => setBookingUser6(text)}
                   value={bookingUser6}
                 />
               </View>
-
             </View>
 
             <Pressable
+              style={[{ alignItems: 'center' }]}
               onPress={() => {
                 setBookingDate(selectedDate);
                 setBookingTime(timeLabel);
@@ -415,11 +355,10 @@ const ReservationRequestScreen = ({ navigation, }) => {
               <Text style={{
                 fontSize: 16,
                 color: COLORS.primary,
-                fontWeight: "bold",
+                fontWeight: 'bold',
                 marginLeft: 6
               }}>Auto set Forms</Text>
             </Pressable>
-
 
             <View style={styles.submitButtonView}>
               <TouchableWithoutFeedback
@@ -427,107 +366,56 @@ const ReservationRequestScreen = ({ navigation, }) => {
                 onPressOut={handleButtonPressOut}
                 onPress={toggleModal}
               >
-                <Animated.View
-                  style={[
-                    styles.submitButtonStyle,
-                    { transform: [{ scale: buttonScale }] },
-                  ]}
-                >
+                <Animated.View style={[styles.submitButtonStyle, { transform: [{ scale: buttonScale }] },]}>
                   <Text style={styles.submitTextStyle}>Submit</Text>
                 </Animated.View>
               </TouchableWithoutFeedback>
 
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={isModalVisible}
-              >
+              <Modal animationType='slide' transparent={true} visible={isModalVisible}>
                 <View style={styles.blankBgModalView}>
                   <View style={styles.alertModalcontainer}>
-                    <TouchableOpacity
-                      onPress={toggleModalClose}
-                      style={styles.closebuttonView}
-                    >
-                      <Ionicons name="close" size={32} color="orange" />
+                    <TouchableOpacity onPress={toggleModalClose} style={styles.closebuttonView}>
+                      <Ionicons name='close' size={32} color='orange' />
                     </TouchableOpacity>
-                    <View style={[{ padding: 16, alignItems: "center" }]}>
-                      <Icon
-                        name="exclamation-triangle"
-                        size={24}
-                        color="red"
-                      />
-                      <Text style={styles.alertheaderText}>
-                        คำเตือน
+                    <View style={[{ padding: 16, alignItems: 'center' }]}>
+                      <Icon name='exclamation-triangle' size={24} color='red' />
+                      <Text style={styles.alertheaderText}>คำเตือน</Text>
+                      <Text style={styles.alertdetailsText}>
+                        1. หากมีอุปกรณ์ชำรุดเสียหายจะถือเป็นความรับผิดชอบของผู้ใช้บริการห้อง KM โปรเจ็คเตอร์ มูลค่า 100,000 บาท
                       </Text>
                       <Text style={styles.alertdetailsText}>
-                        1.
-                        หากมีอุปกรณ์ชำรุดเสียหายจะถือเป็นความรับผิดชอบของผู้ใช้บริการห้อง
-                        KM โปรเจ็คเตอร์ มูลค่า 100,000 บาท
+                        2. การขีด/เขียนบนผนังห้อง มูลค่า 9,000 บาท ยกเว้นห้อง KM5 สามารถเขียนติวได้ (ต้องเป็นปากกาที่สามารถลบออกได้เท่านั้น)
                       </Text>
-                      <Text style={styles.alertdetailsText}>
-                        2. การขีด/เขียนบนผนังห้อง มูลค่า 9,000 บาท ยกเว้นห้อง
-                        KM5 สามารถเขียนติวได้ (ต้องเป็นปากกาที่สามารถลบออกได้เท่านั้น)
-                      </Text>
-                      <TouchableOpacity
-                        style={styles.acceptbuttonStyle}
-                        onPress={toggleModalAccept}
-                      >
-                        <Text style={styles.acceptTextStyle}>
-                          Accept
-                        </Text>
+                      <TouchableOpacity style={styles.acceptbuttonStyle} onPress={toggleModalAccept}>
+                        <Text style={styles.acceptTextStyle}>Accept</Text>
                       </TouchableOpacity>
                     </View>
                   </View>
                 </View>
               </Modal>
 
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={isModalCompleteVisible}
-              >
+              <Modal animationType='slide' transparent={true} visible={isModalCompleteVisible}>
                 <View style={styles.blankBgModalView}>
                   <View style={styles.sucessModalcontainer}>
-                    <TouchableOpacity
-                      onPress={toggleModalCompleteOK}
-                      style={styles.closebuttonView}
-                    >
-                      <Ionicons name="close" size={32} color="orange" />
+                    <TouchableOpacity onPress={toggleModalCompleteOK} style={styles.closebuttonView}>
+                      <Ionicons name='close' size={32} color='orange' />
                     </TouchableOpacity>
                     <View style={styles.paddingViewforinsideModal}>
-                      <Image
-                        source={require("../picture/check2.png")}
-                        style={{ width: 50, height: 50 }}
-                      />
-                      <Text style={styles.sucessTextStyle}>
-                        Reserve Room Successfully!
-                      </Text>
+                      <Image source={require('../picture/check2.png')} style={{ width: 50, height: 50 }} />
+                      <Text style={styles.sucessTextStyle}>Reserve Room Successfully!</Text>
                     </View>
                   </View>
                 </View>
               </Modal>
-
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={isModalErrorVisible}
-              >
+              <Modal animationType='slide' transparent={true} visible={isModalErrorVisible}>
                 <View style={styles.blankBgModalView}>
                   <View style={styles.sucessModalcontainer}>
-                    <TouchableOpacity
-                      onPress={toggleModalErrorOK}
-                      style={styles.closebuttonView}
-                    >
-                      <Ionicons name="close" size={32} color="orange" />
+                    <TouchableOpacity onPress={toggleModalErrorOK} style={styles.closebuttonView}>
+                      <Ionicons name='close' size={32} color='orange' />
                     </TouchableOpacity>
                     <View style={styles.paddingViewforinsideModal}>
-                      <Image
-                        source={require("../picture/check2.png")}
-                        style={{ width: 50, height: 50 }}
-                      />
-                      <Text style={styles.sucessTextStyle}>
-                        {reservationMessage}
-                      </Text>
+                      <Image source={require('../picture/check2.png')} style={{ width: 50, height: 50 }} />
+                      <Text style={styles.sucessTextStyle}>{reservationMessage}</Text>
                     </View>
                   </View>
                 </View>
