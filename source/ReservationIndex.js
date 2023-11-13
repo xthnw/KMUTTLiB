@@ -218,7 +218,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(1)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require('../picture/floor1.jpg')} style={styles.imageInBoxContainer} resizeMode='cover' />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
                         <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 1</Text>
@@ -236,7 +236,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(2)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require('../picture/floor1.jpg')} style={styles.imageInBoxContainer} resizeMode='cover' />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
                         <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 2</Text>
@@ -255,7 +255,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(3)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require('../picture/floor1.jpg')} style={styles.imageInBoxContainer} resizeMode='cover' />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
                         <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 3</Text>
@@ -273,7 +273,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(4)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require('../picture/floor1.jpg')} style={styles.imageInBoxContainer} resizeMode='cover' />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
                         <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 4</Text>
@@ -292,7 +292,7 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(5)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require('../picture/floor1.jpg')} style={styles.imageInBoxContainer} resizeMode='cover' />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
                         <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 5</Text>

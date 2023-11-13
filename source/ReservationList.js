@@ -152,7 +152,7 @@ const ReservationList = () => {
                 <TouchableWithoutFeedback >
                   <View style={styles.innerBox}>
                     <View style={[{}]}>
-                      <Image source={require('../picture/floor1.jpg')} style={styles.image} resizeMode='cover' />
+                      <Image source={require('../picture/room1.png')} style={styles.image} resizeMode='cover' />
                     </View>
                     <View style={[{ marginLeft: 4, }]}>
                       <Text style={styles.textbold}>{roomLabels[booking.data.Room_ID] || 'Unknown Room'}</Text>

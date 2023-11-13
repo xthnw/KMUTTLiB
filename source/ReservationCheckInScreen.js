@@ -59,6 +59,13 @@ export default class ReservationCheckInScreen extends Component {
     });
   };
 
+  toggleModalCompleteVerified = () => {
+    this.setState({
+      isModalCompleteVisible: !this.state.isModalCompleteVisible,
+    });
+    this.props.navigation.goBack();
+  };
+
   toggleModalClose = () => {
     this.setState({
       isModalVisible: !this.state.isModalVisible,
@@ -182,7 +189,7 @@ export default class ReservationCheckInScreen extends Component {
               </View>
             </TouchableOpacity>
             <View style={[{ alignContent: 'center', alignItems: 'center' }]}>
-              <Image source={require('../picture/floor1.jpg')} style={[styles.imageStyles]} resizeMode='cover' />
+              <Image source={require('../picture/floor1.png')} style={[styles.imageStyles]} resizeMode='cover' />
             </View>
             <View style={[{ padding: 8 }]}>
               <Text style={[styles.OverviewLable]}>Overview</Text>
@@ -293,10 +300,11 @@ export default class ReservationCheckInScreen extends Component {
             <Modal animationType='slide' transparent={true} visible={isModalCompleteVisible}>
               <View style={[styles.emptybackground]}>
                 <View style={[styles.successfulModal]}>
-                  <TouchableOpacity onPress={this.toggleModalComplete} style={[styles.crossClose]}>
+                  <TouchableOpacity onPress={this.toggleModalCompleteVerified} style={[styles.crossClose]}>
                     <Ionicons name='close' size={32} color='orange' />
                   </TouchableOpacity>
                   <View style={[styles.successfulImageContainer]}>
+                    <Image source={require('../picture/LogoApp.png')} style={{ width: 150.83, height: 85.3, marginBottom: 10, }} />
                     <Image source={require('../picture/check2.png')} style={{ width: 64, height: 64 }} />
                     <Text style={[styles.successfulText]}>Location Verified</Text>
                   </View>
