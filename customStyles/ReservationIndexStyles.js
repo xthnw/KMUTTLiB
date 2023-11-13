@@ -4,8 +4,8 @@ import { PixelRatio } from 'react-native';
 // Get the pixel ratio of the device
 const pixelRatio = PixelRatio.get();
 
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     logOutbutton: {
@@ -19,16 +19,16 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     logOutContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "flex-end",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
         marginRight: 20,
         marginTop: 60,
     },
     topProfileContainer: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "flex-start",
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
         marginBottom: 60,
         marginLeft: 20,
     },
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 30,
-        backgroundColor: "white",
-        shadowColor: "black",
+        backgroundColor: 'white',
+        shadowColor: 'black',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.3,
         shadowRadius: 4,
@@ -46,17 +46,17 @@ const styles = StyleSheet.create({
     hiUserNameLabel: {
         marginLeft: 20,
         fontSize: 18,
-        color: "white",
-        fontFamily: "LeagueSpartan",
+        color: 'white',
+        fontFamily: 'LeagueSpartan',
     },
 
     RoundedWhiteCoverContainer: {
         flex: 1,
         flexGrow: 1,
-        backgroundColor: "white",
+        backgroundColor: 'white',
         borderTopLeftRadius: 25, // Adjust the top-left corner radius
         borderTopRightRadius: 25, // Adjust the top-right corner radius
-        overflow: "hidden",
+        overflow: 'hidden',
     },
 
     subRoundedWhiteCoverContainer: {
@@ -71,16 +71,16 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     calendarHighlightDateNumber: {
-        color: "black",
-        textDecorationLine: "underline", // Add underline style
-        textDecorationColor: "orange", // Color of the underline
+        color: 'black',
+        textDecorationLine: 'underline', // Add underline style
+        textDecorationColor: 'orange', // Color of the underline
         fontFamily: 'LeagueSpartanMedium',
     },
     imageInBoxContainer: {
         width: screenWidth * 0.4, // Set the desired width
         height: screenHeight * 0.15, // Set the desired height
         borderRadius: 15,
-        alignItems: "center", // Center the image horizontally
+        alignItems: 'center', // Center the image horizontally
     },
     emptyViewforNavbarShadow: {
         flex: 0,
@@ -103,94 +103,94 @@ const styles = StyleSheet.create({
 
 
     statusContainer: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
         marginTop: 10, // Adjust the margin value as needed
-        alignSelf: "flex-end", // Align the container to the bottom of the box
+        alignSelf: 'flex-end', // Align the container to the bottom of the box
     },
     statusText: {
-        color: "black", // Color of "Status:"
-        fontFamily: "LeagueSpartan",
+        color: 'black', // Color of 'Status:'
+        fontFamily: 'LeagueSpartan',
     },
     statusLabel: {
-        backgroundColor: "#29b95f", // Green background color
+        backgroundColor: '#29b95f', // Green background color
         borderRadius: 15, // Adjust the border radius as needed
-        marginLeft: 5, // Add spacing between "Status:" and the green label
+        marginLeft: 5, // Add spacing between 'Status:' and the green label
         paddingVertical: 5, // Add vertical padding for better appearance
         paddingHorizontal: 10, // Add horizontal padding for better appearance
-        fontFamily: "LeagueSpartan",
+        fontFamily: 'LeagueSpartan',
     },
     statusLabelFull: {
-        backgroundColor: "#979797", // Green background color
+        backgroundColor: '#979797', // Green background color
         borderRadius: 15, // Adjust the border radius as needed
-        marginLeft: 5, // Add spacing between "Status:" and the green label
+        marginLeft: 5, // Add spacing between 'Status:' and the green label
         paddingVertical: 5, // Add vertical padding for better appearance
         paddingHorizontal: 10, // Add horizontal padding for better appearance
-        fontFamily: "LeagueSpartan",
+        fontFamily: 'LeagueSpartan',
     },
     statusLabelClose: {
-        backgroundColor: "#d10000", // Green background color
+        backgroundColor: '#d10000', // Green background color
         borderRadius: 15, // Adjust the border radius as needed
-        marginLeft: 5, // Add spacing between "Status:" and the green label
+        marginLeft: 5, // Add spacing between 'Status:' and the green label
         paddingVertical: 5, // Add vertical padding for better appearance
         paddingHorizontal: 10, // Add horizontal padding for better appearance
-        fontFamily: "LeagueSpartan",
+        fontFamily: 'LeagueSpartan',
     },
     statusLabelInner: {
-        color: "white", // Text color
-        fontFamily: "LeagueSpartan",
+        color: 'white', // Text color
+        fontFamily: 'LeagueSpartan',
     },
     innerBox: {
         flex: 1,
     },
     space: {},
     boxRow: {
-        flexDirection: "row", // Arrange boxes horizontally
-        justifyContent: "space-between", // Add space between boxes
+        flexDirection: 'row', // Arrange boxes horizontally
+        justifyContent: 'space-between', // Add space between boxes
         marginBottom: 10, // Add vertical spacing between rows
         paddingTop: 12,
         paddingHorizontal: 8,
     },
     box: {
         width: screenWidth * 0.45, // Adjust the width as needed
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
         borderWidth: 1,
-        borderColor: "white",
+        borderColor: 'white',
         borderRadius: 15,
         padding: 8, // ขอบบนรูปกับขอบกล่อง
         marginVertical: 2, // ความห่างของแต่ละกล่องบนล่าง
-        backgroundColor: "white",
+        backgroundColor: 'white',
         elevation: 2,
-        shadowColor: "black",
+        shadowColor: 'black',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.3,
         shadowRadius: 3,
     },
     imageContainer: {
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     textbold: {
         marginTop: 10,
         fontSize: PixelRatio.getFontScale() * 14,
-        textAlign: "left",
-        fontFamily: "LeagueSpartan",
+        textAlign: 'left',
+        fontFamily: 'LeagueSpartan',
     },
     description: {
         marginTop: 5,
         fontSize: PixelRatio.getFontScale() * 12, // Adjust the font size as needed
-        color: "#a1a1a1", // You can adjust the color
-        textAlign: "left",
-        fontFamily: "LeagueSpartan",
+        color: '#a1a1a1', // You can adjust the color
+        textAlign: 'left',
+        fontFamily: 'LeagueSpartan',
     },
     container: {
         flex: 1,
     },
     spaceOutsideRoomBox: {
         flex: 1,
-        backgroundColor: "white",
-        overflow: "hidden",
+        backgroundColor: 'white',
+        overflow: 'hidden',
     },
 });
 

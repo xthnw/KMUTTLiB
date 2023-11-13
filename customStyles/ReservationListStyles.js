@@ -1,10 +1,10 @@
 import { StyleSheet, Dimensions, } from 'react-native';
 import COLORS from './colors';
 
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
-const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
+const height = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     staybutton: {
@@ -30,54 +30,54 @@ const styles = StyleSheet.create({
     },
     blankBgModalView: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "transparent",
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
     },
     alertModalcontainer: {
-        justifyContent: "center",
+        justifyContent: 'center',
         width: height * 0.35,
         maxHeight: height * 0.7,
-        backgroundColor: "white",
+        backgroundColor: 'white',
         borderRadius: 15,
         borderWidth: 2,
-        borderColor: "#e7e7e7",
+        borderColor: '#e7e7e7',
         elevation: 8,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
-        overflow: "hidden",
+        overflow: 'hidden',
         paddingVertical: 12,
     },
     closebuttonView: {
-        position: "absolute",
+        position: 'absolute',
         top: 16,
         right: 16,
         zIndex: 1, // Ensure the icon is displayed above
     },
     alertheaderText: {
         fontSize: 24,
-        fontFamily: "LeagueSpartanSemiBold",
-        color: "black",
+        fontFamily: 'LeagueSpartanSemiBold',
+        color: 'black',
     },
     alertdetailsText: {
         fontSize: 18,
-        fontFamily: "LeagueSpartanSemiBold",
+        fontFamily: 'LeagueSpartanSemiBold',
         marginTop: 16,
         color: 'gray',
     },
     acceptbuttonStyle: {
-        backgroundColor: "orange",
+        backgroundColor: 'orange',
         padding: 12,
         borderRadius: 20,
         marginTop: 16,
     },
     acceptTextStyle: {
-        color: "white",
+        color: 'white',
         fontSize: 18,
-        fontFamily: "LeagueSpartanSemiBold",
-        textAlign: "center",
+        fontFamily: 'LeagueSpartanSemiBold',
+        textAlign: 'center',
     },
     scrollViewContainer: {
         flex: 1,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         padding: 8,
         backgroundColor: COLORS.white,
         elevation: 8,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 2,
