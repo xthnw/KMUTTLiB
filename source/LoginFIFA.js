@@ -93,17 +93,18 @@ const LoginFIFA = ({ navigation }) => {
                 <View style={[{}]}>
                     <Text style={{
                         fontSize: 22,
-                        // fontFamily: 'LeagueSpartan',
                         fontWeight: 'bold',
                         marginVertical: 12,
-                        color: COLORS.black
+                        color: COLORS.black,
+                        fontFamily: 'LeagueSpartan',
                     }}>
                         Hi Welcome Back ! 👋
                     </Text>
 
                     <Text style={{
                         fontSize: 16,
-                        color: COLORS.black
+                        color: COLORS.black,
+                        fontFamily: 'LeagueSpartan',
                     }}>Hello again you have been missed!</Text>
                 </View>
 
@@ -111,7 +112,8 @@ const LoginFIFA = ({ navigation }) => {
                     <Text style={{
                         fontSize: 16,
                         fontWeight: 400,
-                        marginVertical: 8
+                        marginVertical: 8,
+                        fontFamily: 'LeagueSpartan',
                     }}>Email address</Text>
 
                     <View style={{
@@ -122,13 +124,15 @@ const LoginFIFA = ({ navigation }) => {
                         borderRadius: 8,
                         alignItems: 'center',
                         justifyContent: 'center',
-                        paddingLeft: 22
+                        paddingLeft: 22,
+                        fontFamily: 'LeagueSpartan',
                     }}>
                         <TextInput
                             placeholder='Enter your mail@kmutt.ac.th'
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
                             style={{
+                                fontFamily: 'LeagueSpartan',
                                 width: '100%',
                             }}
                             value={email}
@@ -139,9 +143,11 @@ const LoginFIFA = ({ navigation }) => {
 
                 <View style={{ marginBottom: 12 }}>
                     <Text style={{
+                        fontFamily: 'LeagueSpartan',
                         fontSize: 16,
                         fontWeight: 400,
-                        marginVertical: 8
+                        marginVertical: 8,
+                        
                     }}>Password</Text>
 
                     <View style={{
@@ -152,13 +158,15 @@ const LoginFIFA = ({ navigation }) => {
                         borderRadius: 8,
                         alignItems: 'center',
                         justifyContent: 'center',
-                        paddingLeft: 22
+                        paddingLeft: 22,
+                        fontFamily: 'LeagueSpartan',
                     }}>
                         <TextInput
                             placeholder='Enter your password'
                             placeholderTextColor={COLORS.black}
                             secureTextEntry={isPasswordShown}
                             style={{
+                                fontFamily: 'LeagueSpartan',
                                 width: '100%'
                             }}
                             value={password}
@@ -186,10 +194,9 @@ const LoginFIFA = ({ navigation }) => {
 
                 <Button
                     title='Login with Email'
-                    // onPress={() => navigation.navigate('MainNavigator')} // Corrected the navigation here
-                    onPress={handleLogin}
-                    // filled
+                    onPress={handleLogin}// Corrected the navigation here
                     style={{
+                        fontFamily: 'LeagueSpartan',
                         borderColor: COLORS.primary,
                         marginTop: 18,
                         marginBottom: 4,

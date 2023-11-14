@@ -4,14 +4,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import COLORS from '../customStyles/colors';
 import Button from '../customStyles/button';
 import { useAuth } from './auth';
-import SystemNavigationBar from 'react-native-system-navigation-bar';
 
 
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
-
 
 const Welcome = ({ navigation }) => {
 
@@ -36,7 +34,6 @@ const Welcome = ({ navigation }) => {
                     padding: 10,
                     flex: 1
                 }}>
-                    {/* <StatusBar hidden /> */}
 
                     <View style={[{ padding: 24, marginTop: 24, }]}>
                         <Image
@@ -48,12 +45,12 @@ const Welcome = ({ navigation }) => {
                         />
                         <Text style={{
                             paddingTop: 10,
-                            fontSize: 30,
+                            fontSize: 40,
                             fontFamily: 'LeagueSpartanSemiBold',
                             color: COLORS.black
                         }}>Welcome to</Text>
                         <Text style={{
-                            fontSize: 27,
+                            fontSize: 37,
                             fontFamily: 'LeagueSpartanSemiBold',
                             color: COLORS.black
                         }}>KMUTT LiB</Text>
@@ -82,16 +79,17 @@ const Welcome = ({ navigation }) => {
                         />
                         <Button
                             title="Login with guest"
+                            
                             onPress={() => {
                                 setAuthenticated(false);
                                 dispatch({ type: 'LOGOUT', payload: null });
                                 navigation.navigate('MainNavigator');
                             }}
                             style={{
+                                fontFamily: 'LeagueSpartan',
                                 marginTop: 10,
                                 borderColor: COLORS.grey,
                                 backgroundColor: COLORS.grey,
-                                // textColor: 
                                 width: "90%",
                                 color: COLORS.black
                             }}

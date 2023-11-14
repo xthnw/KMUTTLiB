@@ -24,6 +24,7 @@ const Button = (props) => {
 
 const styles = StyleSheet.create({
     button: {
+        fontFamily: 'LeagueSpartan',
         paddingBottom: 16,
         paddingVertical: 10,
         borderColor: COLORS.primary,
