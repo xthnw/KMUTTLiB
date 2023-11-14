@@ -350,6 +350,8 @@ const ReservationRequestScreen = ({ navigation, }) => {
                 setBookingUser5('64060501026');
                 setBookingUser6('64060501027');
                 setCourseCode('CPE555');
+                selectOption('Other');
+                setBookingFor('Other');
               }}
             >
               <Text style={{
@@ -409,13 +411,14 @@ const ReservationRequestScreen = ({ navigation, }) => {
               </Modal>
               <Modal animationType='slide' transparent={true} visible={isModalErrorVisible}>
                 <View style={styles.blankBgModalView}>
-                  <View style={styles.sucessModalcontainer}>
-                    <TouchableOpacity onPress={toggleModalErrorOK} style={styles.closebuttonView}>
-                      <Ionicons name='close' size={32} color='orange' />
-                    </TouchableOpacity>
+                  <View style={styles.errorModalcontainer}>
                     <View style={styles.paddingViewforinsideModal}>
-                      <Image source={require('../picture/check2.png')} style={{ width: 50, height: 50 }} />
-                      <Text style={styles.sucessTextStyle}>{reservationMessage}</Text>
+                      <Text style={styles.errorHeaderStyle}>Room Reserving Error!</Text>
+                      <Text style={styles.errorTextStyle}>The operation couldn't be completed</Text>
+                      <Text style={styles.errorTextStyle}>({reservationMessage})</Text>
+                      <TouchableOpacity onPress={toggleModalErrorOK} style={styles.okButtonContainer}>
+                        <Text style={styles.errorTextOKStyle}>OK</Text>
+                      </TouchableOpacity>
                     </View>
                   </View>
                 </View>
