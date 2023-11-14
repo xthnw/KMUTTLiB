@@ -1,27 +1,17 @@
 import { View, Text, Image, TextInput, TouchableOpacity, Pressable, StyleSheet, Dimensions, StatusBar } from 'react-native';
 import React, { useState } from 'react';
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Ionicons } from "@expo/vector-icons";
-import Checkbox from "expo-checkbox";
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
+import Checkbox from 'expo-checkbox';
 import COLORS from '../customStyles/colors';
 import Button from '../customStyles/button';
 import axios from 'axios';
 import { useAuth } from './auth';
 StatusBar.setHidden(true);
 
-// import font from './react-native.config';
-
-// import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300&display=swap');
-
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
-// async componentDidMount() {
-//     await Font.loadAsync({
-//       'LeagueSpartan': require('./path-to-your-font/LeagueSpartan-Regular.ttf'),
-//     });
-//     this.setState({ fontLoaded: true });
-//   }
 
 const LoginFIFA = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(true);
@@ -36,7 +26,7 @@ const LoginFIFA = ({ navigation }) => {
 
     const handleLogin = async () => {
         try {
-            const apiUrl = 'http://192.168.1.104:8080/api/authen';
+            const apiUrl = 'http://192.168.13.43:8080/api/authen';
             const jsonData = {
                 email: email,
                 password: password,
@@ -54,12 +44,12 @@ const LoginFIFA = ({ navigation }) => {
                 setAuthenticated(true);
 
                 dispatch({ type: 'LOGIN', payload: userData });
-                navigation.navigate("MainNavigator")
+                navigation.navigate('MainNavigator')
 
                 // You may want to store the user information in your app's state or context
 
                 try {
-                    const apiUrl = 'http://192.168.1.104:8080/api/list'; // Replace with the correct API endpoint
+                    const apiUrl = 'http://192.168.13.43:8080/api/list'; // Replace with the correct API endpoint
                     const jsonData = {
                         email: userData.User_Email,
                     };
@@ -91,7 +81,7 @@ const LoginFIFA = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <View style={[{ padding: 24, alignItems: 'center', marginTop: 24, }]}>
                 <Image
-                    source={require("../picture/LogoApp.png")}
+                    source={require('../picture/LogoApp.png')}
                     style={{
                         height: 138,
                         width: 244,
@@ -103,7 +93,7 @@ const LoginFIFA = ({ navigation }) => {
                 <View style={[{}]}>
                     <Text style={{
                         fontSize: 22,
-                        // fontFamily: "LeagueSpartan",
+                        // fontFamily: 'LeagueSpartan',
                         fontWeight: 'bold',
                         marginVertical: 12,
                         color: COLORS.black
@@ -125,13 +115,13 @@ const LoginFIFA = ({ navigation }) => {
                     }}>Email address</Text>
 
                     <View style={{
-                        width: "100%",
+                        width: '100%',
                         height: 48,
                         borderColor: COLORS.black,
                         borderWidth: 1,
                         borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         paddingLeft: 22
                     }}>
                         <TextInput
@@ -139,7 +129,7 @@ const LoginFIFA = ({ navigation }) => {
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
                             style={{
-                                width: "100%",
+                                width: '100%',
                             }}
                             value={email}
                             onChangeText={(text) => setEmail(text)}
@@ -155,13 +145,13 @@ const LoginFIFA = ({ navigation }) => {
                     }}>Password</Text>
 
                     <View style={{
-                        width: "100%",
+                        width: '100%',
                         height: 48,
                         borderColor: COLORS.black,
                         borderWidth: 1,
                         borderRadius: 8,
-                        alignItems: "center",
-                        justifyContent: "center",
+                        alignItems: 'center',
+                        justifyContent: 'center',
                         paddingLeft: 22
                     }}>
                         <TextInput
@@ -169,7 +159,7 @@ const LoginFIFA = ({ navigation }) => {
                             placeholderTextColor={COLORS.black}
                             secureTextEntry={isPasswordShown}
                             style={{
-                                width: "100%"
+                                width: '100%'
                             }}
                             value={password}
                             onChangeText={(text) => setPassword(text)}
@@ -178,15 +168,15 @@ const LoginFIFA = ({ navigation }) => {
                         <TouchableOpacity
                             onPress={() => setIsPasswordShown(!isPasswordShown)}
                             style={{
-                                position: "absolute",
+                                position: 'absolute',
                                 right: 12
                             }}
                         >
                             {
                                 isPasswordShown == true ? (
-                                    <Ionicons name="eye-off" size={24} color={COLORS.black} />
+                                    <Ionicons name='eye-off' size={24} color={COLORS.black} />
                                 ) : (
-                                    <Ionicons name="eye" size={24} color={COLORS.black} />
+                                    <Ionicons name='eye' size={24} color={COLORS.black} />
                                 )
                             }
                         </TouchableOpacity>
@@ -195,8 +185,8 @@ const LoginFIFA = ({ navigation }) => {
 
 
                 <Button
-                    title="Login with Email"
-                    // onPress={() => navigation.navigate("MainNavigator")} // Corrected the navigation here
+                    title='Login with Email'
+                    // onPress={() => navigation.navigate('MainNavigator')} // Corrected the navigation here
                     onPress={handleLogin}
                     // filled
                     style={{
@@ -214,8 +204,8 @@ const LoginFIFA = ({ navigation }) => {
                 </View>
 
                 <View style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
+                    flexDirection: 'row',
+                    justifyContent: 'center',
                     marginVertical: 22
                 }}>
                     <Pressable onPress={() => {
@@ -225,7 +215,7 @@ const LoginFIFA = ({ navigation }) => {
                         <Text style={{
                             fontSize: 16,
                             color: COLORS.primary,
-                            fontWeight: "bold",
+                            fontWeight: 'bold',
                             marginLeft: 6
                         }}>Auto set Email & Password</Text>
                     </Pressable>

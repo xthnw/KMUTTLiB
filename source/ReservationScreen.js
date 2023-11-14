@@ -1,18 +1,17 @@
-import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Dimensions, StatusBar, Animated, ScrollView, Easing, TouchableWithoutFeedback, ImageBackground, RefreshControl, } from "react-native";
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, Dimensions, StatusBar, Animated, ScrollView, Easing, TouchableWithoutFeedback, ImageBackground, RefreshControl, } from 'react-native';
 import { Iconify } from 'react-native-iconify';
-import CalendarStrip from "react-native-scrollable-calendar-strip";
-import { LinearGradient } from "expo-linear-gradient";
-import styles from "../customStyles/ReservationScreenStyles";
-import axios from "axios";
+import CalendarStrip from 'react-native-scrollable-calendar-strip';
+import { LinearGradient } from 'expo-linear-gradient';
+import styles from '../customStyles/ReservationScreenStyles';
+import axios from 'axios';
 import moment from 'moment';
 import Modal from 'react-native-modal';
-import { Col } from "react-native-table-component";
 
-const apiUrl = 'http://192.168.63.43:8080/api/room';
+const apiUrl = 'http://192.168.13.43:8080/api/room';
 
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const images = [
   require('../picture/kmuttlib1.jpg'),
@@ -36,7 +35,7 @@ export default class ReservationScreen extends Component {
       isModalVisibleFull: false,
       isModalVisible: false,
       isDropdownOpen: false,
-      selectedOption: "",
+      selectedOption: '',
       isModalCompleteVisible: false,
       activeImageIndex: 0,
     };
@@ -59,11 +58,10 @@ export default class ReservationScreen extends Component {
     this.startAutoSlide();
 
     const currentDate = new Date();
-    const day = currentDate.getDate().toString().padStart(2, "0");
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
     const year = currentDate.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
-
     this.setState({ selectedDate: formattedDate });
 
     try {
@@ -118,7 +116,7 @@ export default class ReservationScreen extends Component {
   };
 
   toggleModalFull = (buttonId, targetTimeSlot, Room_ID) => {
-    const selectedDate = this.state.selectedDate; // Get the selected date in "DD/MM/YYYY" format
+    const selectedDate = this.state.selectedDate; // Get the selected date in 'DD/MM/YYYY' format
     // Split the date string into day, month, and year
     const [day, month, year] = selectedDate.split('/').map(Number);
     // Create a new Date object using the year, month (subtract 1 as it's zero-based), and day
@@ -167,8 +165,7 @@ export default class ReservationScreen extends Component {
   handleRefresh = async () => {
     this.setState({ refreshing: true });
 
-    const { selectedDate } = this.state; // Access selectedDate from the state
-    // Make sure selectedDate is defined and not null
+    const { selectedDate } = this.state;
     if (selectedDate) {
 
       try {
@@ -193,8 +190,8 @@ export default class ReservationScreen extends Component {
 
   handleDateSelected = async (date) => {
     const parsedDate = new Date(date);
-    const day = parsedDate.getDate().toString().padStart(2, "0");
-    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = parsedDate.getDate().toString().padStart(2, '0');
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
     const year = parsedDate.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
 
@@ -218,15 +215,19 @@ export default class ReservationScreen extends Component {
     }
   };
 
-  handleRequestPress = () => {
-    this.props.navigation.navigate('ReservationRequestScreen');
-  };
+  handleRequestPress(buttonId, roomId) {
+    const { selectedDate } = this.state;
+    const { route } = this.props;
+    const { userData } = route.params;
+    this.setState({ buttonId, selectedDate });
+    this.props.navigation.navigate('ReservationRequestScreen', { buttonId, selectedDate, roomId, userData });
+  }
 
   handleButtonClick = (buttonId) => {
     this.setState((prevState) => ({
       selectedButton: prevState.selectedButton === buttonId ? null : buttonId,
     }));
-    this.props.navigation.navigate("ReservationRequest");
+    this.props.navigation.navigate('ReservationRequest');
   };
 
   handleButtonPressIn(buttonId) {
@@ -247,7 +248,6 @@ export default class ReservationScreen extends Component {
     }).start();
   }
 
-
   renderButton = (buttonId, text, isSlotReserved, isDisabled = false) => {
     const { selectedButton } = this.state;
     const isSelected = selectedButton === buttonId;
@@ -264,56 +264,55 @@ export default class ReservationScreen extends Component {
         ? { ...styles.textDisabled }
         : { ...styles.buttonText };
 
-    const targetTimeSlot_1 = "08:30 - 10:20";
-    const targetTimeSlot_2 = "10:30 - 12:20";
-    const targetTimeSlot_3 = "12:30 - 14:20";
-    const targetTimeSlot_4 = "14:30 - 16:20";
+    const targetTimeSlot_1 = '08:30 - 10:20';
+    const targetTimeSlot_2 = '10:30 - 12:20';
+    const targetTimeSlot_3 = '12:30 - 14:20';
+    const targetTimeSlot_4 = '14:30 - 16:20';
 
     const { route } = this.props;
     const { userData } = route.params;
 
-
     // Define a mapping of button IDs to corresponding functions
     const buttonFunctions = {
-      1: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 1); } else { this.handleRequestPress(buttonId); } }) :
+      1: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 1); } else { this.handleRequestPress(buttonId, 'KM1'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 1) : () => this.props.navigation.navigate('Welcome')),
-      2: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 1); } else { this.handleRequestPress(buttonId); } }) :
+      2: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 1); } else { this.handleRequestPress(buttonId, 'KM1'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 1) : () => this.props.navigation.navigate('Welcome')),
-      3: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 1); } else { this.handleRequestPress(buttonId); } }) :
+      3: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 1); } else { this.handleRequestPress(buttonId, 'KM1'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 1) : () => this.props.navigation.navigate('Welcome')),
-      4: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 1); } else { this.handleRequestPress(buttonId); } }) :
+      4: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 1); } else { this.handleRequestPress(buttonId, 'KM1'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 1) : () => this.props.navigation.navigate('Welcome')),
-      5: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 2); } else { this.handleRequestPress(buttonId); } }) :
+      5: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 2); } else { this.handleRequestPress(buttonId, 'KM2'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 2) : () => this.props.navigation.navigate('Welcome')),
-      6: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 2); } else { this.handleRequestPress(buttonId); } }) :
+      6: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 2); } else { this.handleRequestPress(buttonId, 'KM2'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 2) : () => this.props.navigation.navigate('Welcome')),
-      7: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 2); } else { this.handleRequestPress(buttonId); } }) :
+      7: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 2); } else { this.handleRequestPress(buttonId, 'KM2'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 2) : () => this.props.navigation.navigate('Welcome')),
-      8: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 2); } else { this.handleRequestPress(buttonId); } }) :
+      8: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 2); } else { this.handleRequestPress(buttonId, 'KM2'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 2) : () => this.props.navigation.navigate('Welcome')),
-      9: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 3); } else { this.handleRequestPress(buttonId); } }) :
+      9: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 3); } else { this.handleRequestPress(buttonId, 'KM3'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 3) : () => this.props.navigation.navigate('Welcome')),
-      10: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 3); } else { this.handleRequestPress(buttonId); } }) :
+      10: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 3); } else { this.handleRequestPress(buttonId, 'KM3'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 3) : () => this.props.navigation.navigate('Welcome')),
-      11: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 3); } else { this.handleRequestPress(buttonId); } }) :
+      11: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 3); } else { this.handleRequestPress(buttonId, 'KM3'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 3) : () => this.props.navigation.navigate('Welcome')),
-      12: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 3); } else { this.handleRequestPress(buttonId); } }) :
+      12: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 3); } else { this.handleRequestPress(buttonId, 'KM3'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 3) : () => this.props.navigation.navigate('Welcome')),
-      13: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 4); } else { this.handleRequestPress(buttonId); } }) :
+      13: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 4); } else { this.handleRequestPress(buttonId, 'KM4'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 4) : () => this.props.navigation.navigate('Welcome')),
-      14: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 4); } else { this.handleRequestPress(buttonId); } }) :
+      14: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 4); } else { this.handleRequestPress(buttonId, 'KM4'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 4) : () => this.props.navigation.navigate('Welcome')),
-      15: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 4); } else { this.handleRequestPress(buttonId); } }) :
+      15: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 4); } else { this.handleRequestPress(buttonId, 'KM4'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 4) : () => this.props.navigation.navigate('Welcome')),
-      16: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 4); } else { this.handleRequestPress(buttonId); } }) :
+      16: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 4); } else { this.handleRequestPress(buttonId, 'KM4'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 4) : () => this.props.navigation.navigate('Welcome')),
-      17: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 5); } else { this.handleRequestPress(buttonId); } }) :
+      17: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 5); } else { this.handleRequestPress(buttonId, 'KM5'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 5) : () => this.props.navigation.navigate('Welcome')),
-      18: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 5); } else { this.handleRequestPress(buttonId); } }) :
+      18: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 5); } else { this.handleRequestPress(buttonId, 'KM5'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 5) : () => this.props.navigation.navigate('Welcome')),
-      19: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 5); } else { this.handleRequestPress(buttonId); } }) :
+      19: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 5); } else { this.handleRequestPress(buttonId, 'KM5'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 5) : () => this.props.navigation.navigate('Welcome')),
-      20: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 5); } else { this.handleRequestPress(buttonId); } }) :
+      20: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 5); } else { this.handleRequestPress(buttonId, 'KM5'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 5) : () => this.props.navigation.navigate('Welcome')),
     };
 
@@ -337,14 +336,12 @@ export default class ReservationScreen extends Component {
   };
 
   render() {
-    const { route } = this.props;
-    const { authenticated } = route.params;
     const { isModalVisibleFull } = this.state;
-    const { roomStatus, selectedDate } = this.state;
-    const targetTimeSlot_1 = "08:30 - 10:20";
-    const targetTimeSlot_2 = "10:30 - 12:20";
-    const targetTimeSlot_3 = "12:30 - 14:20";
-    const targetTimeSlot_4 = "14:30 - 16:20";
+    const { roomStatus } = this.state;
+    const targetTimeSlot_1 = '08:30 - 10:20';
+    const targetTimeSlot_2 = '10:30 - 12:20';
+    const targetTimeSlot_3 = '12:30 - 14:20';
+    const targetTimeSlot_4 = '14:30 - 16:20';
 
     const filteredData_1 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM1');
     const filteredData_2 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM2');
@@ -377,7 +374,6 @@ export default class ReservationScreen extends Component {
     const isSlotReserved_19 = filteredData_5 && filteredData_5.some(room => room.data.Booking_period.includes(targetTimeSlot_3));
     const isSlotReserved_20 = filteredData_5 && filteredData_5.some(room => room.data.Booking_period.includes(targetTimeSlot_4));
 
-
     const userNames = [
       this.state.modalUser_1,
       this.state.modalUser_2,
@@ -398,8 +394,6 @@ export default class ReservationScreen extends Component {
       });
     };
 
-
-
     return (
       <View style={[{ marginTop: 0, flex: 1, flexGrow: 1, }]}>
         <View style={{ flex: 1 }}>
@@ -415,8 +409,7 @@ export default class ReservationScreen extends Component {
           >
             {images.map((image, index) => (
               <ImageBackground key={index} source={image} style={styles.headerImageBackground}>
-                <LinearGradient colors={['transparent', 'rgba(0,0,0,0.4)']} style={styles.gradient}>
-                </LinearGradient>
+                <LinearGradient colors={['transparent', 'rgba(0,0,0,0.4)']} style={styles.gradient}></LinearGradient>
               </ImageBackground>
             ))}
           </ScrollView>
@@ -426,15 +419,15 @@ export default class ReservationScreen extends Component {
             <CalendarStrip
               scrollable={true}
               style={{ height: screenHeight * 0.1, paddingTop: 10, }}
-              calendarAnimation={{ type: "parallel", duration: 300, useNativeDriver: true }}
-              daySelectionAnimation={{ type: "border", borderWidth: 1, duration: 300 }}
-              dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              highlightDateNumberStyle={{ color: "black", textDecorationLine: "underline", textDecorationColor: "orange", fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
-              highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              disabledDateNameStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              disabledDateNumberStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-              calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
+              calendarAnimation={{ type: 'parallel', duration: 300, useNativeDriver: true }}
+              daySelectionAnimation={{ type: 'border', borderWidth: 1, duration: 300 }}
+              dateNumberStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              dateNameStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              highlightDateNumberStyle={{ color: 'black', textDecorationLine: 'underline', textDecorationColor: 'orange', fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
+              highlightDateNameStyle={{ color: 'black', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              disabledDateNameStyle={{ color: 'grey', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              disabledDateNumberStyle={{ color: 'grey', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+              calendarHeaderStyle={{ color: 'black', fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
               iconContainer={{ flex: 0.1 }}
               onDateSelected={this.handleDateSelected}
               datesBlacklist={datesBlacklist}
@@ -443,92 +436,73 @@ export default class ReservationScreen extends Component {
             />
           </View>
           <View style={[{ flex: 0, zIndex: 1, }]}>
-            <View style={styles.viewShadowStyles}>
-            </View>
+            <View style={styles.viewShadowStyles}></View>
           </View>
           <View style={styles.spaceOutsideRoomBox}>
             <ScrollView
               contentContainerStyle={styles.scrollViewContainer}
               showsVerticalScrollIndicator={false}
-              refreshControl={
-                <RefreshControl refreshing={this.state.refreshing} onRefresh={this.handleRefresh} />
-              }
+              refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.handleRefresh} />}
             >
               <View style={styles.contentContainer}>
                 <View style={styles.boxRow}>
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                  >
-                    <View style={styles.textContent}>
-                      <Text style={styles.textbold}>KM-Room 1</Text>
-                    </View>
+                  <TouchableOpacity activeOpacity={1} style={styles.box}>
+                    <View style={styles.textContent}><Text style={styles.textbold}>KM-Room 1</Text></View>
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}></View>
                       <View style={styles.ButtonRowcontainer}>
-                        {this.renderButton(1, "08:30 - 10:20", isSlotReserved_1, isSlotReserved_1)}
-                        {this.renderButton(2, "10:30 - 12:20", isSlotReserved_2, isSlotReserved_2)}
-                        {this.renderButton(3, "12:30 - 14:20", isSlotReserved_3, isSlotReserved_3)}
-                        {this.renderButton(4, "14:30 - 16:20", isSlotReserved_4, isSlotReserved_4)}
+                        {this.renderButton(1, targetTimeSlot_1, isSlotReserved_1, isSlotReserved_1)}
+                        {this.renderButton(2, targetTimeSlot_2, isSlotReserved_2, isSlotReserved_2)}
+                        {this.renderButton(3, targetTimeSlot_3, isSlotReserved_3, isSlotReserved_3)}
+                        {this.renderButton(4, targetTimeSlot_4, isSlotReserved_4, isSlotReserved_4)}
                       </View>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity activeOpacity={1} style={styles.box}>
-                    <View style={styles.textContent}>
-                      <Text style={styles.textbold}>KM-Room 2</Text>
-                    </View>
+                    <View style={styles.textContent}><Text style={styles.textbold}>KM-Room 2</Text></View>
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}></View>
                       <View style={styles.ButtonRowcontainer}>
-                        {this.renderButton(5, "08:30 - 10:20", isSlotReserved_5, isSlotReserved_5)}
-                        {this.renderButton(6, "10:30 - 12:20", isSlotReserved_6, isSlotReserved_6)}
-                        {this.renderButton(7, "12:30 - 14:20", isSlotReserved_7, isSlotReserved_7)}
-                        {this.renderButton(8, "14:30 - 16:20", isSlotReserved_8, isSlotReserved_8)}
+                        {this.renderButton(5, targetTimeSlot_1, isSlotReserved_5, isSlotReserved_5)}
+                        {this.renderButton(6, targetTimeSlot_2, isSlotReserved_6, isSlotReserved_6)}
+                        {this.renderButton(7, targetTimeSlot_3, isSlotReserved_7, isSlotReserved_7)}
+                        {this.renderButton(8, targetTimeSlot_4, isSlotReserved_8, isSlotReserved_8)}
                       </View>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity activeOpacity={1} style={styles.box}>
-                    <View style={styles.textContent}>
-                      <Text style={styles.textbold}>KM-Room 3</Text>
-                    </View>
+                    <View style={styles.textContent}><Text style={styles.textbold}>KM-Room 3</Text></View>
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}></View>
                       <View style={styles.ButtonRowcontainer}>
-                        {this.renderButton(9, "08:30 - 10:20", isSlotReserved_9, isSlotReserved_9)}
-                        {this.renderButton(10, "10:30 - 12:20", isSlotReserved_10, isSlotReserved_10)}
-                        {this.renderButton(11, "12:30 - 14:20", isSlotReserved_11, isSlotReserved_11)}
-                        {this.renderButton(12, "14:30 - 16:20", isSlotReserved_12, isSlotReserved_12)}
-                      </View>
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    activeOpacity={1}
-                    style={styles.box}
-                  >
-                    <View style={styles.textContent}>
-                      <Text style={styles.textbold}>KM-Room 4</Text>
-                    </View>
-                    <View style={styles.innerBox}>
-                      <View style={styles.imageContainer}></View>
-                      <View style={styles.ButtonRowcontainer}>
-                        {this.renderButton(13, "08:30 - 10:20", isSlotReserved_13, isSlotReserved_13)}
-                        {this.renderButton(14, "10:30 - 12:20", isSlotReserved_14, isSlotReserved_14)}
-                        {this.renderButton(15, "12:30 - 14:20", isSlotReserved_15, isSlotReserved_15)}
-                        {this.renderButton(16, "14:30 - 16:20", isSlotReserved_16, isSlotReserved_16)}
+                        {this.renderButton(9, targetTimeSlot_1, isSlotReserved_9, isSlotReserved_9)}
+                        {this.renderButton(10, targetTimeSlot_2, isSlotReserved_10, isSlotReserved_10)}
+                        {this.renderButton(11, targetTimeSlot_3, isSlotReserved_11, isSlotReserved_11)}
+                        {this.renderButton(12, targetTimeSlot_4, isSlotReserved_12, isSlotReserved_12)}
                       </View>
                     </View>
                   </TouchableOpacity>
                   <TouchableOpacity activeOpacity={1} style={styles.box}>
-                    <View style={styles.textContent}>
-                      <Text style={styles.textbold}>KM-Room 5</Text>
-                    </View>
+                    <View style={styles.textContent}><Text style={styles.textbold}>KM-Room 4</Text></View>
                     <View style={styles.innerBox}>
                       <View style={styles.imageContainer}></View>
                       <View style={styles.ButtonRowcontainer}>
-                        {this.renderButton(17, "08:30 - 10:20", isSlotReserved_17, isSlotReserved_17)}
-                        {this.renderButton(18, "10:30 - 12:20", isSlotReserved_18, isSlotReserved_18)}
-                        {this.renderButton(19, "12:30 - 14:20", isSlotReserved_19, isSlotReserved_19)}
-                        {this.renderButton(20, "14:30 - 16:20", isSlotReserved_20, isSlotReserved_20)}
+                        {this.renderButton(13, targetTimeSlot_1, isSlotReserved_13, isSlotReserved_13)}
+                        {this.renderButton(14, targetTimeSlot_2, isSlotReserved_14, isSlotReserved_14)}
+                        {this.renderButton(15, targetTimeSlot_3, isSlotReserved_15, isSlotReserved_15)}
+                        {this.renderButton(16, targetTimeSlot_4, isSlotReserved_16, isSlotReserved_16)}
+                      </View>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity activeOpacity={1} style={styles.box}>
+                    <View style={styles.textContent}><Text style={styles.textbold}>KM-Room 5</Text></View>
+                    <View style={styles.innerBox}>
+                      <View style={styles.imageContainer}></View>
+                      <View style={styles.ButtonRowcontainer}>
+                        {this.renderButton(17, targetTimeSlot_1, isSlotReserved_17, isSlotReserved_17)}
+                        {this.renderButton(18, targetTimeSlot_2, isSlotReserved_18, isSlotReserved_18)}
+                        {this.renderButton(19, targetTimeSlot_3, isSlotReserved_19, isSlotReserved_19)}
+                        {this.renderButton(20, targetTimeSlot_4, isSlotReserved_20, isSlotReserved_20)}
                       </View>
                     </View>
                   </TouchableOpacity>
@@ -542,8 +516,8 @@ export default class ReservationScreen extends Component {
         </View>
         <Modal
           isVisible={isModalVisibleFull}
-          animationIn="slideInUp"
-          animationOut="slideOutDown"
+          animationIn='slideInUp'
+          animationOut='slideOutDown'
           useNativeDriverForBackdrop={true}
           onBackdropPress={this.toggleModalFullDismiss}
           style={styles.modalContainerFull}
@@ -557,15 +531,17 @@ export default class ReservationScreen extends Component {
                 <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
                   <View style={[{ flex: 1, }]}>
                     <Text style={styles.reservationBylable}>Reservations by</Text>
-                    <View style={[{ flexDirection: "row", marginBottom: 10, }]}>
-                      <View style={[{ marginRight: 10, paddingHorizontal: 4, }]}><Iconify icon="fluent-emoji:man-student-medium-light" size={32} /></View>
-                      <View style={[{ flexDirection: "column", }]}>
+                    <View style={[{ flexDirection: 'row', marginBottom: 10, }]}>
+                      <View style={[{ marginRight: 10, paddingHorizontal: 4, }]}>
+                        <Iconify icon='fluent-emoji:man-student-medium-light' size={32} />
+                      </View>
+                      <View style={[{ flexDirection: 'column', }]}>
                         <Text style={styles.modalStudentLabel}>Students</Text>
                         {renderUserNames()}
                       </View>
                     </View>
                   </View>
-                  <View style={[{ marginLeft: 10, }]}><Iconify icon="openmoji:no-entry" color='black' size={48} /></View>
+                  <View style={[{ marginLeft: 10, }]}><Iconify icon='openmoji:no-entry' color='black' size={48} /></View>
                 </View>
                 <View style={[styles.emptyViewforScrolling]}></View>
               </ScrollView>

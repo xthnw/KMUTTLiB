@@ -94,7 +94,7 @@ const ReservationRequestScreen = ({ navigation }) => {
   };
   handleRequest = async () => {
     try {
-        const apiUrlCreate = 'http://192.168.63.43:8080/api/create';
+        const apiUrlCreate = 'http://192.168.13.43:8080/api/create';
         const jsonDataCreate = {
             Booking_Description: bookingDescription,
             Booking_Status: 'Reserved',

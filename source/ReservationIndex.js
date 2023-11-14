@@ -1,61 +1,54 @@
-import React, { Component } from "react";
-import { View, Text, TouchableOpacity, Dimensions, StatusBar, Platform, RefreshControl, ScrollView, Image } from "react-native";
+import React, { Component } from 'react';
+import { View, Text, TouchableOpacity, Dimensions, StatusBar, RefreshControl, ScrollView, Image } from 'react-native';
 import { Iconify } from 'react-native-iconify';
-import CalendarStrip from "react-native-scrollable-calendar-strip";
-import { LinearGradient } from "expo-linear-gradient";
+import CalendarStrip from 'react-native-scrollable-calendar-strip';
+import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../customStyles/ReservationIndexStyles';
-import axios from "axios";
-import moment from "moment/moment";
-import { useAuth } from './auth';
+import axios from 'axios';
+import moment from 'moment/moment';
 
-const apiUrl = 'http://192.168.1.104:8080/api/room';
+const apiUrl = 'http://192.168.13.43:8080/api/room';
 
-const screenWidth = Dimensions.get("window").width;
-const screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const datesBlacklist = date => {
-  return date.isoWeekday() === 6 || date.isoWeekday() === 7; // disable Saturdays and Sundays
+  return date.isoWeekday() === 6 || date.isoWeekday() === 7;
 }
 
 export default class ReservationScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDate: null, // Initialize with the current date or the default selected date
-      roomStatus: null, // Initialize as null
+      selectedDate: null,
+      roomStatus: null,
       refreshing: false,
     };
   }
   handlelogOut = () => {
-    this.props.navigation.navigate("Welcome");
+    this.props.navigation.navigate('Welcome');
   };
-  // Function to navigate to the next screen with selected date
-  navigateToNextScreen = () => {
-    const { selectedDate } = this.state;
-    const dateString = selectedDate.toISOString();
-    this.props.navigation.navigate("ReservationScreen", {
-      selectedDate: dateString,
-    });
-  };
+
   handleBoxPress = (boxNumber) => {
-    this.props.navigation.navigate("ReservationScreen");
+    this.props.navigation.navigate('ReservationScreen');
   };
+
   handleRefresh = async () => {
     this.setState({ refreshing: true });
     const { selectedDate } = this.state; // Access selectedDate from the state
-    // Make sure selectedDate is defined and not null
+
     if (selectedDate) {
-      // Continue with the rest of your code for fetching data using formattedDate
+
       try {
         const jsonData = {
-          Booking_date: selectedDate, // Update key without quotes
+          Booking_date: selectedDate,
         };
         const response = await axios.post(apiUrl, jsonData, {
           headers: {
             'Content-Type': 'application/json',
           },
         });
-        // Set the roomStatus in the component's state
+
         this.setState({ roomStatus: response.data.bookings });
       } catch (error) {
         console.error('Error:', error);
@@ -63,12 +56,12 @@ export default class ReservationScreen extends Component {
     }
     this.setState({ refreshing: false });
   };
-  // Callback function to handle date selection
+
   handleDateSelected = async (date) => {
     // Parse the date to ensure it's a Date object
     const parsedDate = new Date(date);
-    const day = parsedDate.getDate().toString().padStart(2, "0");
-    const month = (parsedDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = parsedDate.getDate().toString().padStart(2, '0');
+    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
     const year = parsedDate.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
     this.setState({ selectedDate: formattedDate });
@@ -84,12 +77,12 @@ export default class ReservationScreen extends Component {
       });
       // Set the roomStatus in the component's state
       this.setState({ roomStatus: response.data.bookings });
-      // Handle the response data
       console.log('Room Status for ' + formattedDate + ':', response.data.bookings);
     } catch (error) {
       console.error('Error:', error);
     }
   };
+
   async componentDidMount() {
     this.focusListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setBarStyle('light-content');
@@ -98,10 +91,10 @@ export default class ReservationScreen extends Component {
     this.blurListener = this.props.navigation.addListener('blur', () => {
       StatusBar.setBarStyle('dark-content');
     });
-    // Get the current date and format it
+
     const currentDate = new Date();
-    const day = currentDate.getDate().toString().padStart(2, "0");
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
     const year = currentDate.getFullYear();
     const formattedDate = `${day}/${month}/${year}`;
 
@@ -172,7 +165,7 @@ export default class ReservationScreen extends Component {
     const statusStyleChecker_4 = isAllSlotsReserved_4 ? statusFullStyle : statusAvailableStyle;
     const statusStyleChecker_5 = isAllSlotsReserved_5 ? statusFullStyle : statusAvailableStyle;
     return (
-      <LinearGradient colors={["#fe4914", "#ff9f24"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={[{ flex: 1 }]}>
+      <LinearGradient colors={['#fe4914', '#ff9f24']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={[{ flex: 1 }]}>
         <View style={styles.container}>
           <View style={styles.logOutContainer}>
             {userData === null ? (
@@ -187,13 +180,13 @@ export default class ReservationScreen extends Component {
           <View style={styles.topProfileContainer}>
             <View style={styles.circleViewProfile}>
               {userData === null ? (
-                <Image source={require('../picture/profile.png')} style={{ width: "100%", height: "100%", borderRadius: 50 }} />
-              ) : (<Image source={this.imageMap[profilePicture]} style={{ width: "100%", height: "100%", borderRadius: 50 }} />)}
+                <Image source={require('../picture/profile.png')} style={{ width: '100%', height: '100%', borderRadius: 50 }} />
+              ) : (<Image source={this.imageMap[profilePicture]} style={{ width: '100%', height: '100%', borderRadius: 50 }} />)}
             </View>
             {userData === null ? (
               <Text style={styles.hiUserNameLabel}>Hi, Guest</Text>
-            ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_Lname}</Text>)}
-            <Iconify style={[{ marginLeft: 20, marginTop: 20, }]} icon="streamline-emojis:ant" size={32} />
+            ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_LName}</Text>)}
+            <Iconify style={[{ marginLeft: 20, marginTop: 20, }]} icon='streamline-emojis:ant' size={32} />
           </View>
 
           <View style={styles.RoundedWhiteCoverContainer}>
@@ -202,15 +195,15 @@ export default class ReservationScreen extends Component {
                 <CalendarStrip
                   scrollable={true}
                   style={{ height: screenHeight * 0.1, paddingTop: 10, }}
-                  calendarAnimation={{ type: "parallel", duration: 300, useNativeDriver: true }}
-                  daySelectionAnimation={{ type: "border", borderWidth: 1, duration: 300 }}
-                  dateNumberStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-                  dateNameStyle={{ color: "gray", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-                  highlightDateNumberStyle={{ color: "black", textDecorationLine: "underline", textDecorationColor: "orange", fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
-                  highlightDateNameStyle={{ color: "black", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-                  disabledDateNameStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-                  disabledDateNumberStyle={{ color: "grey", fontFamily: 'LeagueSpartan', fontSize: 12 }}
-                  calendarHeaderStyle={{ color: "black", fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
+                  calendarAnimation={{ type: 'parallel', duration: 300, useNativeDriver: true }}
+                  daySelectionAnimation={{ type: 'border', borderWidth: 1, duration: 300 }}
+                  dateNumberStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+                  dateNameStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+                  highlightDateNumberStyle={{ color: 'black', textDecorationLine: 'underline', textDecorationColor: 'orange', fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
+                  highlightDateNameStyle={{ color: 'black', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+                  disabledDateNameStyle={{ color: 'grey', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+                  disabledDateNumberStyle={{ color: 'grey', fontFamily: 'LeagueSpartan', fontSize: 12 }}
+                  calendarHeaderStyle={{ color: 'black', fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
                   iconContainer={{ flex: 0.1 }}
                   onDateSelected={this.handleDateSelected}
                   datesBlacklist={datesBlacklist}
@@ -222,12 +215,12 @@ export default class ReservationScreen extends Component {
                 <ScrollView contentContainerStyle={[{ flexGrow: 1 }]} showsVerticalScrollIndicator={false}
                   refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.handleRefresh} />}>
                   <View style={styles.boxRow}>
-                    <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(1)} >
+                    <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(1)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
-                        <View style={[{ alignItems: "flex-start" }]}>
+                        <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 1</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -240,12 +233,12 @@ export default class ReservationScreen extends Component {
                       </View>
                     </TouchableOpacity>
                     <View style={styles.space} />
-                    <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(2)} >
+                    <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(2)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
-                        <View style={[{ alignItems: "flex-start" }]}>
+                        <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 2</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -259,12 +252,12 @@ export default class ReservationScreen extends Component {
                     </TouchableOpacity>
                   </View>
                   <View style={styles.boxRow}>
-                    <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(3)} >
+                    <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(3)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
-                        <View style={[{ alignItems: "flex-start" }]}>
+                        <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 3</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -280,9 +273,9 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(4)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
-                        <View style={[{ alignItems: "flex-start" }]}>
+                        <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 4</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -299,9 +292,9 @@ export default class ReservationScreen extends Component {
                     <TouchableOpacity activeOpacity={1} style={styles.box} onPress={() => this.handleBoxPress(5)}>
                       <View style={styles.innerBox}>
                         <View style={styles.imageContainer}>
-                          <Image source={require("../picture/floor1.jpg")} style={styles.imageInBoxContainer} resizeMode="cover" />
+                          <Image source={require('../picture/floor1.png')} style={styles.imageInBoxContainer} resizeMode='cover' />
                         </View>
-                        <View style={[{ alignItems: "flex-start" }]}>
+                        <View style={[{ alignItems: 'flex-start' }]}>
                           <Text style={styles.textbold}>KM-Room 5</Text>
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
@@ -320,11 +313,10 @@ export default class ReservationScreen extends Component {
             </View>
           </View>
           <View style={styles.emptyViewforNavbarShadow}>
-            <View style={styles.subemptyViewforNavbarShadow}>
-            </View>
+            <View style={styles.subemptyViewforNavbarShadow}></View>
           </View>
         </View>
-      </LinearGradient >
+      </LinearGradient>
     );
   }
 }
