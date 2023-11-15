@@ -9,6 +9,7 @@ import styles from '../customStyles/ReservationRequestStyles';
 import COLORS from '../customStyles/colors';
 import axios from 'axios';
 import { useRoute } from '@react-navigation/native';
+import { createApiUrl } from '../constants/apiConfig';
 
 StatusBar.setHidden(true);
 
@@ -145,7 +146,6 @@ const ReservationRequestScreen = ({ navigation }) => {
 
   handleRequest = async () => {
     try {
-      const apiUrlCreate = 'http://192.168.1.104:8080/api/create';
       const jsonDataCreate = {
         Booking_Description: CourseCode,
         Booking_Status: 'Reserved',
@@ -161,7 +161,7 @@ const ReservationRequestScreen = ({ navigation }) => {
         User_5: bookingUser5,
         User_6: bookingUser6,
       };
-      const responseCreate = await axios.post(apiUrlCreate, jsonDataCreate, {
+      const responseCreate = await axios.post(createApiUrl, jsonDataCreate, {
         headers: {
           'Content-Type': 'application/json',
         },

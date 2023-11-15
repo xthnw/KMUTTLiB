@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useAuth } from './auth';
 import axios from 'axios';
 import styles from '../customStyles/ReservationListStyles';
+import { listApiUrl, deleteApiUrl } from '../constants/apiConfig';
 
 const ReservationList = () => {
   const navigation = useNavigation();
@@ -20,11 +21,10 @@ const ReservationList = () => {
     if (userData) {
       const fetchData = async () => {
         try {
-          const apiUrl = 'http://192.168.1.104:8080/api/list';
           const jsonData = {
             email: userData.User_Email,
           };
-          const response = await axios.post(apiUrl, jsonData, {
+          const response = await axios.post(listApiUrl, jsonData, {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -47,15 +47,13 @@ const ReservationList = () => {
 
 
   const handleDeleteBooking = async () => {
-    const apiUrl = 'http://192.168.1.104:8080/api/delete';
-
     const jsonData = {
       id: selectedBookingId,
     };
 
     axios({
       method: 'delete',
-      url: apiUrl,
+      url: deleteApiUrl,
       data: jsonData,
       headers: {
         'Content-Type': 'application/json',
@@ -80,11 +78,10 @@ const ReservationList = () => {
     if (userData) {
       setRefreshing(true);
       try {
-        const apiUrl = 'http://192.168.1.104:8080/api/list';
         const jsonData = {
           email: userData.User_Email,
         };
-        const response = await axios.post(apiUrl, jsonData, {
+        const response = await axios.post(listApiUrl, jsonData, {
           headers: {
             'Content-Type': 'application/json',
           },

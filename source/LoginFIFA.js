@@ -7,6 +7,8 @@ import COLORS from '../customStyles/colors';
 import Button from '../customStyles/button';
 import axios from 'axios';
 import { useAuth } from './auth';
+import { listApiUrl, authenApiUrl } from '../constants/apiConfig';
+
 StatusBar.setHidden(true);
 
 // import font from './react-native.config';
@@ -36,14 +38,13 @@ const LoginFIFA = ({ navigation }) => {
 
     const handleLogin = async () => {
         try {
-            const apiUrl = 'http://192.168.1.104:8080/api/authen';
             const jsonData = {
                 email: email,
                 password: password,
             };
             console.log('email', email)
 
-            const response = await axios.post(apiUrl, jsonData);
+            const response = await axios.post(authenApiUrl, jsonData);
 
             if (response.data.status === 'success') {
                 // Login successful, you can navigate to the next screen or perform further actions
@@ -59,12 +60,11 @@ const LoginFIFA = ({ navigation }) => {
                 // You may want to store the user information in your app's state or context
 
                 try {
-                    const apiUrl = 'http://192.168.1.104:8080/api/list'; // Replace with the correct API endpoint
                     const jsonData = {
                         email: userData.User_Email,
                     };
 
-                    const responseLIST = await axios.post(apiUrl, jsonData, {
+                    const responseLIST = await axios.post(listApiUrl, jsonData, {
                         headers: {
                             'Content-Type': 'application/json',
                         },

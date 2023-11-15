@@ -6,8 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../customStyles/ReservationIndexStyles';
 import axios from 'axios';
 import moment from 'moment/moment';
-
-const apiUrl = 'http://192.168.1.104:8080/api/room';
+import { roomApiUrl } from '../constants/apiConfig';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -43,7 +42,7 @@ export default class ReservationScreen extends Component {
         const jsonData = {
           Booking_date: selectedDate,
         };
-        const response = await axios.post(apiUrl, jsonData, {
+        const response = await axios.post(roomApiUrl, jsonData, {
           headers: {
             'Content-Type': 'application/json',
           },
@@ -70,7 +69,7 @@ export default class ReservationScreen extends Component {
         Booking_date: formattedDate, // Update key without quotes
       };
 
-      const response = await axios.post(apiUrl, jsonData, {
+      const response = await axios.post(roomApiUrl, jsonData, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -104,7 +103,7 @@ export default class ReservationScreen extends Component {
         Booking_date: formattedDate,
       };
 
-      const response = await axios.post(apiUrl, jsonData, {
+      const response = await axios.post(roomApiUrl, jsonData, {
         headers: {
           'Content-Type': 'application/json',
         },
