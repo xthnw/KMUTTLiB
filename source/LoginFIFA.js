@@ -1,40 +1,22 @@
-import { View, Text, Image, TextInput, TouchableOpacity, Pressable, StyleSheet, Dimensions, StatusBar } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, Pressable, StatusBar } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import Checkbox from 'expo-checkbox';
+import styles from '../customStyles/ReservationLoginStyles';
 import COLORS from '../customStyles/colors';
-import Button from '../customStyles/button';
 import axios from 'axios';
 import { useAuth } from './auth';
 import { listApiUrl, authenApiUrl } from '../constants/apiConfig';
 
 StatusBar.setHidden(true);
 
-// import font from './react-native.config';
-
-// import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300&display=swap');
-
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
-const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
-// async componentDidMount() {
-//     await Font.loadAsync({
-//       'LeagueSpartan': require('./path-to-your-font/LeagueSpartan-Regular.ttf'),
-//     });
-//     this.setState({ fontLoaded: true });
-//   }
-
 const LoginFIFA = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(true);
-    const [isChecked, setIsChecked] = useState(false);
-
+    const [authenticated, setAuthenticated] = useState(false);
+    const [loginFailed, setLoginFailed] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const { dispatch } = useAuth();
-
-    const [authenticated, setAuthenticated] = useState(false);
 
     const handleLogin = async () => {
         try {
@@ -47,17 +29,11 @@ const LoginFIFA = ({ navigation }) => {
             const response = await axios.post(authenApiUrl, jsonData);
 
             if (response.data.status === 'success') {
-                // Login successful, you can navigate to the next screen or perform further actions
-                console.log('Login successful');
-                console.log('User Information:', response.data.data);
                 const userData = response.data.data;
-
                 setAuthenticated(true);
-
+                setLoginFailed(false); // Reset loginFailed state
                 dispatch({ type: 'LOGIN', payload: userData });
-                navigation.navigate('MainNavigator')
-
-                // You may want to store the user information in your app's state or context
+                navigation.navigate('MainNavigator');
 
                 try {
                     const jsonData = {
@@ -74,114 +50,55 @@ const LoginFIFA = ({ navigation }) => {
                         console.log(responseLIST.data);
                     }
                 } catch (error) {
-                    console.error('Error:', error);
+                    // console.error('Error:', error);
+                    console.log('Login status:', response.data.status);
                 }
 
             } else {
-                // Login failed, handle the error
-                console.error('Login failed');
+                // console.error('Login failed');
+                // setLoginFailed(!loginFailed); // Set loginFailed state to true
+                // console.log('Login status:', response.data.status);
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Login failed');
+            setLoginFailed(!loginFailed); // Set loginFailed state to true
         }
-
     };
-
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
+        <SafeAreaView style={[{ flex: 1, backgroundColor: COLORS.white }]}>
             <View style={[{ padding: 24, alignItems: 'center', marginTop: 24 }]}>
-                <Image
-                    source={require('../picture/LogoApp.png')}
-                    style={{
-                        height: 138,
-                        width: 244,
-                    }}
-                />
+                <Image source={require('../picture/LogoApp.png')} style={[{ height: 138, width: 244 }]} />
             </View>
-
-            <View style={{ padding: 24 }}>
-                <View style={[{}]}>
-                    <Text style={{
-                        fontSize: 22,
-                        // fontFamily: 'LeagueSpartan',
-                        fontWeight: 'bold',
-                        marginVertical: 12,
-                        color: COLORS.black
-                    }}>
-                        Hi Welcome Back ! 👋
-                    </Text>
-
-                    <Text style={{
-                        fontSize: 16,
-                        color: COLORS.black
-                    }}>Hello again you have been missed!</Text>
-                </View>
-
-                <View style={{ marginBottom: 12 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: 400,
-                        marginVertical: 8
-                    }}>Email address</Text>
-
-                    <View style={{
-                        width: '100%',
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingLeft: 22
-                    }}>
+            <View style={[{ padding: 24 }]}>
+                <Text style={styles.title}>Hi Welcome Back ! 👋</Text>
+                <Text style={styles.subtitle}>Hello again you have been missed!</Text>
+                <View style={[{ marginBottom: 12 }]}>
+                    <Text style={styles.title}>Email address</Text>
+                    <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your mail@kmutt.ac.th'
                             placeholderTextColor={COLORS.black}
                             keyboardType='email-address'
-                            style={{
-                                width: '100%',
-                            }}
+                            style={[{ fontFamily: 'LeagueSpartan', width: '100%' }]}
                             value={email}
                             onChangeText={(text) => setEmail(text)}
                         />
                     </View>
                 </View>
-
-                <View style={{ marginBottom: 12 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: 400,
-                        marginVertical: 8
-                    }}>Password</Text>
-
-                    <View style={{
-                        width: '100%',
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingLeft: 22
-                    }}>
+                <View style={[{ marginBottom: 12 }]}>
+                    <Text style={styles.title}>Password</Text>
+                    <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your password'
                             placeholderTextColor={COLORS.black}
                             secureTextEntry={isPasswordShown}
-                            style={{
-                                width: '100%'
-                            }}
+                            style={[{ fontFamily: 'LeagueSpartan', width: '100%' }]}
                             value={password}
                             onChangeText={(text) => setPassword(text)}
                         />
-
                         <TouchableOpacity
                             onPress={() => setIsPasswordShown(!isPasswordShown)}
-                            style={{
-                                position: 'absolute',
-                                right: 12
-                            }}
-                        >
+                            style={[{ position: 'absolute', right: 12 }]}>
                             {
                                 isPasswordShown == true ? (
                                     <Ionicons name='eye-off' size={24} color={COLORS.black} />
@@ -192,42 +109,20 @@ const LoginFIFA = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
-
-
-                <Button
-                    title='Login with Email'
-                    // onPress={() => navigation.navigate('MainNavigator')} // Corrected the navigation here
-                    onPress={handleLogin}
-                    // filled
-                    style={{
-                        borderColor: COLORS.primary,
-                        marginTop: 18,
-                        marginBottom: 4,
-                    }}
-                />
-
-                <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center'
-                }}>
-
-                </View>
-
-                <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    marginVertical: 22
-                }}>
+                <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                    <Text style={[{ fontFamily: 'LeagueSpartan', fontSize: 18, color: COLORS.white }]}>Login with Email</Text>
+                </TouchableOpacity>
+                <View style={[{ flexDirection: 'row', justifyContent: 'center', marginVertical: 20 }]}>
                     <Pressable onPress={() => {
                         setEmail('jedsada_chai@kmutt.ac.th');
                         setPassword('secret123');
                     }}>
-                        <Text style={{
+                        <Text style={[{
                             fontSize: 16,
                             color: COLORS.primary,
                             fontWeight: 'bold',
                             marginLeft: 6
-                        }}>Auto set Email & Password</Text>
+                        }]}>Auto set Email & Password</Text>
                     </Pressable>
                 </View>
             </View>

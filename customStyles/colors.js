@@ -3,7 +3,8 @@ const COLORS = {
     white: '#FFFFFF',
     black: '#222222',
     secondary: '#FF8A00',
-    grey: '#CCCCCC'
+    grey: '#CCCCCC',
+    error:'#C12'
 }
 
 export default COLORS; 
