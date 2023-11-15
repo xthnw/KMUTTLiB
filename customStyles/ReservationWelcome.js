@@ -14,8 +14,23 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 12,
     alignItems: 'center',
-    justifyContent: 'center'
+    width:screenWidth*0.8,
+   
 },
+    buttonGust:{     
+    fontFamily: 'LeagueSpartan',
+    width:screenWidth*0.8,
+    alignItems: 'center',
+    marginTop: 10,
+    borderColor: COLORS.grey,
+    borderWidth: 2,
+    borderRadius: 12,
+    backgroundColor: COLORS.grey,
+    paddingBottom: 16,
+    paddingVertical: 10,
+    color: COLORS.black
+    },
+
     contentContainer: {
       backgroundColor: '#fbfbfb',
       borderRadius: 10,
