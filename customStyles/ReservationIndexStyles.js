@@ -115,6 +115,8 @@ const styles = StyleSheet.create({
     },
     statusLabel: {
         backgroundColor: COLORS.green, // Green background color
+        borderColor: 'green',
+        borderWidth: 1,
         borderRadius: 15, // Adjust the border radius as needed
         marginLeft: 5, // Add spacing between 'Status:' and the green label
         paddingVertical: 5, // Add vertical padding for better appearance
