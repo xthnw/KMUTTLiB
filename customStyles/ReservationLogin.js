@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
       marginVertical: 8,
       fontFamily: 'LeagueSpartan',
     },
-    Input: {
+    box: {
       width: '100%',
       height: 48,
       borderColor: COLORS.black,
@@ -52,18 +52,21 @@ const styles = StyleSheet.create({
       paddingLeft: 22,
       fontFamily: 'LeagueSpartan',
     },
-    error: {
-      width: '100%',
-      height: 48,
+    toggledBox: {
       borderColor: COLORS.error,
-      borderWidth: 1,
-      borderRadius: 8,
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingLeft: 22,
-      fontFamily: 'LeagueSpartan',
+   
     },
     
+  // box: {
+  //   width: 200,
+  //   height: 100,
+  //   backgroundColor: 'green',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  // },
+  // toggledBox: {
+  //   backgroundColor: 'red',
+  // },
   });
 
   export default styles;
