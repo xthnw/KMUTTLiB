@@ -2,7 +2,7 @@ import { View, Text, Image, TextInput, TouchableOpacity, Pressable, StyleSheet, 
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import Checkbox from 'expo-checkbox';
+import styles from '../customStyles/ReservationLogin';
 import COLORS from '../customStyles/colors';
 import Button from '../customStyles/button';
 import axios from 'axios';
@@ -16,13 +16,11 @@ const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
 const LoginFIFA = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [isChecked, setIsChecked] = useState(false);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const { dispatch } = useAuth();
-
     const [authenticated, setAuthenticated] = useState(false);
+    const [loginFailed, setLoginFailed] = useState(false); // New state variable for login status
 
     const handleLogin = async () => {
         try {
@@ -40,14 +38,11 @@ const LoginFIFA = ({ navigation }) => {
                 console.log('Login successful');
                 console.log('User Information:', response.data.data);
                 const userData = response.data.data;
-
                 setAuthenticated(true);
-
+                setLoginFailed("input"); // Reset loginFailed state
                 dispatch({ type: 'LOGIN', payload: userData });
-                navigation.navigate('MainNavigator')
-
+                navigation.navigate('MainNavigator');
                 // You may want to store the user information in your app's state or context
-
                 try {
                     const apiUrl = 'http://192.168.13.43:8080/api/list'; // Replace with the correct API endpoint
                     const jsonData = {
@@ -60,23 +55,26 @@ const LoginFIFA = ({ navigation }) => {
                         },
                     });
 
-                    if (responseLIST.data && responseLIST.data.length > 0) {
-                        console.log(responseLIST.data);
-                    }
+                        if (responseLIST.data && responseLIST.data.length > 0)
+                        {
+                            console.log(responseLIST.data);
+                        }
                 } catch (error) {
                     console.error('Error:', error);
+                    console.log('Login status:', response.data.status);
                 }
 
             } else {
-                // Login failed, handle the error
+                // Login failed
                 console.error('Login failed');
+                setLoginFailed("error"); // Set loginFailed state to true
+                console.log('Login status:', response.data.status);
+
             }
         } catch (error) {
             console.error('Error:', error);
         }
-
     };
-
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
             <View style={[{ padding: 24, alignItems: 'center', marginTop: 24, }]}>
@@ -87,46 +85,25 @@ const LoginFIFA = ({ navigation }) => {
                         width: 244,
                     }}
                 />
+
             </View>
 
             <View style={{ padding: 24, }}>
-                <View style={[{}]}>
-                    <Text style={{
-                        fontSize: 22,
-                        fontWeight: 'bold',
-                        marginVertical: 12,
-                        color: COLORS.black,
-                        fontFamily: 'LeagueSpartan',
-                    }}>
+                <View >
+                    <Text style={styles.title}>
                         Hi Welcome Back ! 👋
                     </Text>
 
-                    <Text style={{
-                        fontSize: 16,
-                        color: COLORS.black,
-                        fontFamily: 'LeagueSpartan',
-                    }}>Hello again you have been missed!</Text>
+                    <Text style={styles.subtitle}>
+                        Hello again you have been missed!
+                    </Text>
                 </View>
 
                 <View style={{ marginBottom: 12 }}>
-                    <Text style={{
-                        fontSize: 16,
-                        fontWeight: 400,
-                        marginVertical: 8,
-                        fontFamily: 'LeagueSpartan',
-                    }}>Email address</Text>
-
-                    <View style={{
-                        width: '100%',
-                        height: 48,
-                        borderColor: COLORS.black,
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingLeft: 22,
-                        fontFamily: 'LeagueSpartan',
-                    }}>
+                    <Text style={styles.title}>
+                        Email address
+                    </Text>
+                    <View style={styles.Input}>
                         <TextInput
                             placeholder='Enter your mail@kmutt.ac.th'
                             placeholderTextColor={COLORS.black}
@@ -147,13 +124,12 @@ const LoginFIFA = ({ navigation }) => {
                         fontSize: 16,
                         fontWeight: 400,
                         marginVertical: 8,
-                        
                     }}>Password</Text>
 
                     <View style={{
                         width: '100%',
                         height: 48,
-                        borderColor: COLORS.black,
+                        borderColor: loginFailed ? COLORS.error : COLORS.black, // Set border color based on login status
                         borderWidth: 1,
                         borderRadius: 8,
                         alignItems: 'center',

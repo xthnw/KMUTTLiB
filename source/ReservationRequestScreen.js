@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Easing, StatusBar, Animated, TextInput, Modal, Pressable } from 'react-native';
+import { View, Text, TouchableOpacity, TouchableWithoutFeedback, Easing, StatusBar,
+   Animated, TextInput, Modal, Pressable } from 'react-native';
 import { ScrollView, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconM from 'react-native-vector-icons/MaterialIcons';
