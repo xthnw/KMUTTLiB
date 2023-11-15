@@ -187,6 +187,50 @@ const ReservationRequestScreen = ({ navigation }) => {
     }
   };
 
+  const setBookingUser = (index, text) => {
+    switch (index) {
+      case 1:
+        setBookingUser1(text);
+        break;
+      case 2:
+        setBookingUser2(text);
+        break;
+      case 3:
+        setBookingUser3(text);
+        break;
+      case 4:
+        setBookingUser4(text);
+        break;
+      case 5:
+        setBookingUser5(text);
+        break;
+      case 6:
+        setBookingUser6(text);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const getBookingUser = (index) => {
+    switch (index) {
+      case 1:
+        return bookingUser1;
+      case 2:
+        return bookingUser2;
+      case 3:
+        return bookingUser3;
+      case 4:
+        return bookingUser4;
+      case 5:
+        return bookingUser5;
+      case 6:
+        return bookingUser6;
+      default:
+        return '';
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}>
       <View>
@@ -279,61 +323,19 @@ const ReservationRequestScreen = ({ navigation }) => {
             </View>
             <View style={styles.studentIdformPadding}>
               <Text style={styles.label}>Please Specify: Username/Student ID</Text>
-              <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>1.</Text>
-                <TextInput
-                  style={styles.studentIdInputboxContainer}
-                  placeholder=''
-                  onChangeText={(text) => setBookingUser1(text)}
-                  value={bookingUser1}
-                />
-              </View>
-              <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>2.</Text>
-                <TextInput
-                  style={styles.studentIdInputboxContainer}
-                  placeholder=''
-                  onChangeText={(text) => setBookingUser2(text)}
-                  value={bookingUser2}
-                />
-              </View>
-              <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>3.</Text>
-                <TextInput
-                  style={styles.studentIdInputboxContainer}
-                  placeholder=''
-                  onChangeText={(text) => setBookingUser3(text)}
-                  value={bookingUser3}
-                />
-              </View>
-              <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>4.</Text>
-                <TextInput
-                  style={styles.studentIdInputboxContainer}
-                  placeholder=''
-                  onChangeText={(text) => setBookingUser4(text)}
-                  value={bookingUser4}
-                />
-              </View>
-              <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>5.</Text>
-                <TextInput
-                  style={styles.studentIdInputboxContainer}
-                  placeholder=''
-                  onChangeText={(text) => setBookingUser5(text)}
-                  value={bookingUser5}
-                />
-              </View>
-              <View style={styles.studentIdrowInput}>
-                <Text style={styles.numberInfrontstudentIdrowInput}>6.</Text>
-                <TextInput
-                  style={styles.studentIdInputboxContainer}
-                  placeholder=''
-                  onChangeText={(text) => setBookingUser6(text)}
-                  value={bookingUser6}
-                />
-              </View>
+              {[1, 2, 3, 4, 5, 6].map((index) => (
+                <View key={index} style={styles.studentIdrowInput}>
+                  <Text style={styles.numberInfrontstudentIdrowInput}>{index}.</Text>
+                  <TextInput
+                    style={styles.studentIdInputboxContainer}
+                    placeholder=''
+                    onChangeText={(text) => setBookingUser(index, text)}
+                    value={getBookingUser(index)}
+                  />
+                </View>
+              ))}
             </View>
+
 
             <Pressable
               style={[{ alignItems: 'center' }]}

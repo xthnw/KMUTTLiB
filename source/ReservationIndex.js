@@ -32,6 +32,10 @@ export default class ReservationScreen extends Component {
     this.props.navigation.navigate('ReservationScreen');
   };
 
+
+
+
+
   handleRefresh = async () => {
     this.setState({ refreshing: true });
     const { selectedDate } = this.state; // Access selectedDate from the state
@@ -57,63 +61,51 @@ export default class ReservationScreen extends Component {
   };
 
   handleDateSelected = async (date) => {
-    // Parse the date to ensure it's a Date object
-    const parsedDate = new Date(date);
-    const day = parsedDate.getDate().toString().padStart(2, '0');
-    const month = (parsedDate.getMonth() + 1).toString().padStart(2, '0');
-    const year = parsedDate.getFullYear();
-    const formattedDate = `${day}/${month}/${year}`;
-    this.setState({ selectedDate: formattedDate });
-    try {
-      const jsonData = {
-        Booking_date: formattedDate, // Update key without quotes
-      };
+    this.fetchRoomStatus(new Date(date));
+  };
 
+
+
+  componentDidMount = () => {
+    this.setListeners();
+    this.fetchRoomStatus();
+  };
+  setListeners = () => {
+    this.focusListener = this.props.navigation.addListener('focus', () => {
+      StatusBar.setBarStyle('light-content');
+      StatusBar.setHidden(false);
+    });
+
+    this.blurListener = this.props.navigation.addListener('blur', () => {
+      StatusBar.setBarStyle('dark-content');
+    });
+  };
+  fetchRoomStatus = async (date = new Date()) => {
+    const formattedDate = this.formatDate(date);
+
+    try {
+      const jsonData = { Booking_date: formattedDate };
       const response = await axios.post(roomApiUrl, jsonData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
-      // Set the roomStatus in the component's state
-      this.setState({ roomStatus: response.data.bookings });
-      console.log('Room Status for ' + formattedDate + ':', response.data.bookings);
+
+      this.setState({ selectedDate: formattedDate, roomStatus: response.data.bookings });
+      console.log(`Room Status for ${formattedDate}:`, response.data.bookings);
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
-  componentDidMount = async () => {
-    this.focusListener = this.props.navigation.addListener('focus', () => {
-      StatusBar.setBarStyle('light-content');
-      StatusBar.setHidden(false);
-    });
-    this.blurListener = this.props.navigation.addListener('blur', () => {
-      StatusBar.setBarStyle('dark-content');
-    });
+  handleDateSelected = async (date) => {
+    this.fetchRoomStatus(new Date(date));
+  };
 
-    const currentDate = new Date();
-    const day = currentDate.getDate().toString().padStart(2, '0');
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-    const year = currentDate.getFullYear();
-    const formattedDate = `${day}/${month}/${year}`;
-
-    this.setState({ selectedDate: formattedDate });
-    try {
-      const jsonData = {
-        Booking_date: formattedDate,
-      };
-
-      const response = await axios.post(roomApiUrl, jsonData, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      this.setState({ roomStatus: response.data.bookings });
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
+  formatDate = (date) => {
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
 
   componentWillUnmount = () => {
     this.focusListener();
@@ -128,11 +120,11 @@ export default class ReservationScreen extends Component {
     'image1051.png': require('../picture/image1051.png'),
   };
 
-  render() {
+  render = () => {
     const { route } = this.props;
+    const { roomStatus } = this.state;
     const { userData } = route.params;
     const profilePicture = userData?.Profile_Picture || 'profile.png';
-    const { roomStatus } = this.state;
     const timeSlotsToCheck = ['08:30 - 10:20', '10:30 - 12:20', '12:30 - 14:20', '14:30 - 16:20'];
 
     const filteredData_1 = roomStatus && roomStatus.filter(room => room.data.Room_ID === 'KM1');
