@@ -1,9 +1,9 @@
-import { View, Text, Pressable, Image, Dimensions, StatusBar, ScrollView, Platform } from 'react-native'
+import { View, Text, Pressable, Image, Dimensions, TouchableOpacity, ScrollView, Button } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from '../customStyles/colors';
-import Button from '../customStyles/button';
 import { useAuth } from './auth';
+import styles from '../customStyles/ReservationWelcome';
 
 
 
@@ -66,34 +66,33 @@ const Welcome = ({ navigation }) => {
                         />
                     </View>
                     <View style={[{ alignItems: 'center', flex: 1, }]}>
-                        <Button
-                            title="Sign in with Email"
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => navigation.navigate("LoginFIFA")}>
 
-                            onPress={() => navigation.navigate("LoginFIFA")}
-                            style={{
-                                borderColor: COLORS.primary,
-                                width: "90%",
-                                color: COLORS.black,
-                                fontFamily: 'LeagueSpartanMedium'
-                            }}
-                        />
-                        <Button
-                            title="Login with guest"
+                        <Text style={{ 
+                               fontFamily: 'LeagueSpartan',
+                               fontSize: 18,
+                               color:COLORS.white 
+                        }}>Login with Email</Text>
+                    </TouchableOpacity>
                             
-                            onPress={() => {
-                                setAuthenticated(false);
-                                dispatch({ type: 'LOGOUT', payload: null });
-                                navigation.navigate('MainNavigator');
-                            }}
-                            style={{
-                                fontFamily: 'LeagueSpartan',
-                                marginTop: 10,
-                                borderColor: COLORS.grey,
-                                backgroundColor: COLORS.grey,
-                                width: "90%",
-                                color: COLORS.black
-                            }}
-                        />
+                
+                    <TouchableOpacity
+                    style={styles.buttonGust}
+                    onPress={() => {
+                        setAuthenticated(false);
+                        dispatch({ type: 'LOGOUT', payload: null });
+                        navigation.navigate('MainNavigator');
+                    }}>
+
+                    <Text style={{
+                           fontFamily: 'LeagueSpartan',
+                           fontSize: 18,
+                           color:COLORS.white 
+
+                    }}>Login with guest</Text>
+                </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>
