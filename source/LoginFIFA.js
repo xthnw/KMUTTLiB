@@ -6,6 +6,7 @@ import styles from '../customStyles/ReservationLogin';
 import COLORS from '../customStyles/colors';
 import axios from 'axios';
 import { useAuth } from './auth';
+
 StatusBar.setHidden(true);
 
 const screenWidth = Dimensions.get('window').width;
@@ -21,29 +22,7 @@ const LoginFIFA = ({ navigation }) => {
     const { dispatch } = useAuth();
     const [authenticated, setAuthenticated] = useState(false);
     const [loginFailed, setLoginFailed] = useState(false); // New state variable for login status
-    const HomeScreen = () => {
-        const theme = useTheme();
-        const [isDarkMode, setIsDarkMode] = useState(useColorScheme() === 'dark');
-      
-        const toggleDarkMode = () => {
-          setIsDarkMode((prevMode) => !prevMode);
-        };
-      
-        const getTheme = () => {
-          return isDarkMode ? DarkTheme : DefaultTheme;
-        };
-      
-        return (
-          <PaperProvider theme={getTheme()}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.colors.background }}>
-              <Text style={{ color: theme.colors.text }}>Welcome to Dark Mode!</Text>
-              <TouchableOpacity onPress={toggleDarkMode} style={{ marginTop: 20 }}>
-                <Text style={{ color: theme.colors.primary }}>Toggle Dark Mode</Text>
-              </TouchableOpacity>
-            </View>
-          </PaperProvider>
-        );
-      };
+
     const handleLogin = async () => {
         try {
             const apiUrl = 'http://192.168.13.43:8080/api/authen';
