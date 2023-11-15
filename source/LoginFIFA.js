@@ -23,6 +23,11 @@ const LoginFIFA = ({ navigation }) => {
     const [authenticated, setAuthenticated] = useState(false);
     const [loginFailed, setLoginFailed] = useState(false); // New state variable for login status
 
+    const [isToggled, setToggled] = useState(false);
+    const handleToggle = () => {
+        setToggled(!isToggled);
+      };
+      
     const handleLogin = async () => {
         try {
             const apiUrl = 'http://192.168.13.43:8080/api/authen';
@@ -40,7 +45,7 @@ const LoginFIFA = ({ navigation }) => {
                 console.log('User Information:', response.data.data);
                 const userData = response.data.data;
                 setAuthenticated(true);
-                setLoginFailed("input"); // Reset loginFailed state
+                setLoginFailed(false); // Reset loginFailed state
                 dispatch({ type: 'LOGIN', payload: userData });
                 navigation.navigate('MainNavigator');
                 // You may want to store the user information in your app's state or context
@@ -61,19 +66,20 @@ const LoginFIFA = ({ navigation }) => {
                             console.log(responseLIST.data);
                         }
                 } catch (error) {
-                    console.error('Error:', error);
+                    // console.error('Error:', error);
                     console.log('Login status:', response.data.status);
                 }
 
             } else {
                 // Login failed
-                console.error('Login failed');
-                setLoginFailed("error"); // Set loginFailed state to true
-                console.log('Login status:', response.data.status);
-
+                // console.error('Login failed');
+                // setLoginFailed(!loginFailed); // Set loginFailed state to true
+                // console.log('Login status:', response.data.status);
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Login failed');
+            setLoginFailed(!loginFailed); // Set loginFailed state to true
+            
         }
     };
     return (
@@ -104,7 +110,7 @@ const LoginFIFA = ({ navigation }) => {
                     <Text style={styles.title}>
                         Email address
                     </Text>
-                    <View style={styles.Input}>
+                    <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your mail@kmutt.ac.th'
                             placeholderTextColor={COLORS.black}
@@ -127,17 +133,7 @@ const LoginFIFA = ({ navigation }) => {
                         marginVertical: 8,
                     }}>Password</Text>
 
-                    <View style={{
-                        width: '100%',
-                        height: 48,
-                        borderColor: loginFailed ? COLORS.error : COLORS.black, // Set border color based on login status
-                        borderWidth: 1,
-                        borderRadius: 8,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        paddingLeft: 22,
-                        fontFamily: 'LeagueSpartan',
-                    }}>
+                <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your password'
                             placeholderTextColor={COLORS.black}
