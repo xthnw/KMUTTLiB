@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Modal, ActivityIndicator, RefreshControl,
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IconM from 'react-native-vector-icons/MaterialIcons';
 import MapView, { Marker } from 'react-native-maps';
-import { requestForegroundPermissionsAsync, getCurrentPositionAsync, } from 'expo-location';
+import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import customPinImage from '../picture/pin.png';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -21,10 +21,10 @@ export default class ReservationCheckInScreen extends Component {
       refreshing: false,
     };
   }
-  componentDidMount() {
+  componentDidMount = () => {
     this.requestLocationPermission();
   }
-  async requestLocationPermission() {
+  requestLocationPermission = async () => {
     const { status } = await requestForegroundPermissionsAsync();
     if (status === 'granted') {
 
@@ -117,7 +117,7 @@ export default class ReservationCheckInScreen extends Component {
     return timeDifference >= -15 && timeDifference <= 15;
   };
 
-  checkDistance(userLocation) {
+  checkDistance = (userLocation) => {
     if (!userLocation) return;
 
     const libraryLocation = {
@@ -159,7 +159,7 @@ export default class ReservationCheckInScreen extends Component {
     return date.toLocaleDateString('en-US', options);
   };
 
-  render() {
+  render = () => {
     const { route } = this.props;
     const { booking } = route.params;
     const bookingDate = booking.data.Booking_date;
@@ -184,7 +184,7 @@ export default class ReservationCheckInScreen extends Component {
             showsVerticalScrollIndicator={false}
             refreshControl={<RefreshControl refreshing={this.state.refreshing} onRefresh={this.handleRefresh} />}>
             <TouchableOpacity onPress={this.handleBackPress} style={[styles.backButton]}>
-              <View style={[{ alignItems: 'center', justifyContent: 'center', },]}>
+              <View style={[{ alignItems: 'center', justifyContent: 'center' }]}>
                 <IconM name='keyboard-arrow-left' size={30} color='orange' />
               </View>
             </TouchableOpacity>
@@ -193,7 +193,7 @@ export default class ReservationCheckInScreen extends Component {
             </View>
             <View style={[{ padding: 8 }]}>
               <Text style={[styles.OverviewLable]}>Overview</Text>
-              <View style={[{ flexDirection: 'row', marginBottom: 10, },]}>
+              <View style={[{ flexDirection: 'row', marginBottom: 10 }]}>
                 <View style={[styles.backgroundclockIcon]}>
                   <Icon name='clock-o' size={32} color='orange' />
                 </View>
@@ -204,7 +204,7 @@ export default class ReservationCheckInScreen extends Component {
               </View>
               <Text style={[styles.datetimeLable]}>Date/Time</Text>
               <Text style={[styles.datetimeDetailLable]}>{this.formatDate(booking.data.Booking_date)} | {booking.data.Booking_period}</Text>
-              <View style={[{ borderRadius: 25, justifyContent: 'center', alignItems: 'center', },]}>
+              <View style={[{ borderRadius: 25, justifyContent: 'center', alignItems: 'center' }]}>
                 <MapView style={[styles.MapViewStyles]}
                   initialRegion={
                     userLocation
@@ -250,7 +250,7 @@ export default class ReservationCheckInScreen extends Component {
                     </View>
                   )
                 ) : (
-                  <View style={{ alignItems: 'center', marginBottom: 8, }}>
+                  <View style={{ alignItems: 'center', marginBottom: 8 }}>
                     <View style={[styles.checkInContainerDisabled]}>
                       <Text style={[styles.checkInLable]}>Unable to access location (GPS),</Text>
                       <Text style={[styles.checkInLable]}>please grant access permission.</Text>
@@ -304,7 +304,7 @@ export default class ReservationCheckInScreen extends Component {
                     <Ionicons name='close' size={32} color='orange' />
                   </TouchableOpacity>
                   <View style={[styles.successfulImageContainer]}>
-                    <Image source={require('../picture/LogoApp.png')} style={{ width: 150.83, height: 85.3, marginBottom: 10, }} />
+                    <Image source={require('../picture/LogoApp.png')} style={{ width: 150.83, height: 85.3, marginBottom: 10 }} />
                     <Image source={require('../picture/check2.png')} style={{ width: 64, height: 64 }} />
                     <Text style={[styles.successfulText]}>Location Verified</Text>
                   </View>

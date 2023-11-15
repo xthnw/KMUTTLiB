@@ -1,12 +1,9 @@
 import { View, Text, Pressable, Image, Dimensions, StatusBar, ScrollView, Platform } from 'react-native'
 import React, { useState } from 'react'
-import { LinearGradient } from "expo-linear-gradient";
+import { LinearGradient } from 'expo-linear-gradient';
 import COLORS from '../customStyles/colors';
 import Button from '../customStyles/button';
 import { useAuth } from './auth';
-import SystemNavigationBar from 'react-native-system-navigation-bar';
-
-
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -38,9 +35,9 @@ const Welcome = ({ navigation }) => {
                 }}>
                     {/* <StatusBar hidden /> */}
 
-                    <View style={[{ padding: 24, marginTop: 24, }]}>
+                    <View style={[{ padding: 24, marginTop: 24 }]}>
                         <Image
-                            source={require("../picture/kujong.png")}
+                            source={require('../picture/kujong.png')}
                             style={{
                                 height: 128,
                                 width: 128,
@@ -61,27 +58,27 @@ const Welcome = ({ navigation }) => {
                     </View>
                     <View style={[{ alignItems: 'center', flex: 1 }]}>
                         <Image
-                            source={require("../picture/iconWelcome.png")}
+                            source={require('../picture/iconWelcome.png')}
                             style={{
                                 height: 371,
                                 width: 354,
                             }}
                         />
                     </View>
-                    <View style={[{ alignItems: 'center', flex: 1, }]}>
+                    <View style={[{ alignItems: 'center', flex: 1 }]}>
                         <Button
-                            title="Sign in with Email"
+                            title='Sign in with Email'
 
-                            onPress={() => navigation.navigate("LoginFIFA")}
+                            onPress={() => navigation.navigate('LoginFIFA')}
                             style={{
                                 borderColor: COLORS.primary,
-                                width: "90%",
+                                width: '90%',
                                 color: COLORS.black,
                                 fontFamily: 'LeagueSpartanMedium'
                             }}
                         />
                         <Button
-                            title="Login with guest"
+                            title='Login with guest'
                             onPress={() => {
                                 setAuthenticated(false);
                                 dispatch({ type: 'LOGOUT', payload: null });
@@ -92,7 +89,7 @@ const Welcome = ({ navigation }) => {
                                 borderColor: COLORS.grey,
                                 backgroundColor: COLORS.grey,
                                 // textColor: 
-                                width: "90%",
+                                width: '90%',
                                 color: COLORS.black
                             }}
                         />

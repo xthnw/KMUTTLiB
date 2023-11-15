@@ -83,7 +83,7 @@ export default class ReservationScreen extends Component {
     }
   };
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     this.focusListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setBarStyle('light-content');
       StatusBar.setHidden(false);
@@ -116,7 +116,7 @@ export default class ReservationScreen extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this.focusListener();
     this.blurListener();
   }
@@ -170,10 +170,10 @@ export default class ReservationScreen extends Component {
           <View style={styles.logOutContainer}>
             {userData === null ? (
               <TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
-                <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14, }}>Login</Text>
+                <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Login</Text>
               </TouchableOpacity>
             ) : (<TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
-              <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14, }}>Logout</Text>
+              <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Logout</Text>
             </TouchableOpacity>
             )}
           </View>
@@ -186,15 +186,15 @@ export default class ReservationScreen extends Component {
             {userData === null ? (
               <Text style={styles.hiUserNameLabel}>Hi, Guest</Text>
             ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_LName}</Text>)}
-            <Iconify style={[{ marginLeft: 20, marginTop: 20, }]} icon='streamline-emojis:ant' size={32} />
+            <Iconify style={[{ marginLeft: 20, marginTop: 20 }]} icon='streamline-emojis:ant' size={32} />
           </View>
 
           <View style={styles.RoundedWhiteCoverContainer}>
             <View style={styles.subRoundedWhiteCoverContainer}>
-              <View style={[styles.calendarView, { flex: 0, }]}>
+              <View style={[styles.calendarView, { flex: 0 }]}>
                 <CalendarStrip
                   scrollable={true}
-                  style={{ height: screenHeight * 0.1, paddingTop: 10, }}
+                  style={{ height: screenHeight * 0.1, paddingTop: 10 }}
                   calendarAnimation={{ type: 'parallel', duration: 300, useNativeDriver: true }}
                   daySelectionAnimation={{ type: 'border', borderWidth: 1, duration: 300 }}
                   dateNumberStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}

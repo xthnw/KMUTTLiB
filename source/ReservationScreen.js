@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StatusBar, Animated, ScrollView, Easing, TouchableWithoutFeedback, ImageBackground, RefreshControl, } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, StatusBar, Animated, ScrollView, Easing, TouchableWithoutFeedback, ImageBackground, RefreshControl } from 'react-native';
 import { Iconify } from 'react-native-iconify';
 import CalendarStrip from 'react-native-scrollable-calendar-strip';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -47,7 +47,7 @@ export default class ReservationScreen extends Component {
     this.scrollViewRef = React.createRef(); //for header image background
   }
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     this.focusListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setHidden(true);
     });
@@ -81,7 +81,7 @@ export default class ReservationScreen extends Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this.focusListener();
     this.blurListener();
     this.stopAutoSlide();
@@ -215,7 +215,7 @@ export default class ReservationScreen extends Component {
     }
   };
 
-  handleRequestPress(buttonId, roomId) {
+  handleRequestPress = (buttonId, roomId) => {
     const { selectedDate } = this.state;
     const { route } = this.props;
     const { userData } = route.params;
@@ -230,7 +230,7 @@ export default class ReservationScreen extends Component {
     this.props.navigation.navigate('ReservationRequest');
   };
 
-  handleButtonPressIn(buttonId) {
+  handleButtonPressIn = (buttonId) => {
     Animated.timing(this.buttonScaleValues[buttonId], {
       toValue: 0.95,
       duration: 150,
@@ -239,7 +239,7 @@ export default class ReservationScreen extends Component {
     }).start();
   }
 
-  handleButtonPressOut(buttonId) {
+  handleButtonPressOut = (buttonId) => {
     Animated.timing(this.buttonScaleValues[buttonId], {
       toValue: 1,
       duration: 150,
@@ -326,7 +326,7 @@ export default class ReservationScreen extends Component {
         style={styles.touchableButton}
         activeOpacity={1}
       >
-        <Animated.View style={[{ transform: [{ scale: this.buttonScaleValues[buttonId] }], },]}>
+        <Animated.View style={[{ transform: [{ scale: this.buttonScaleValues[buttonId] }] }]}>
           <View style={buttonStyle}>
             <Text style={textStyle}>{text}</Text>
           </View>
@@ -335,7 +335,7 @@ export default class ReservationScreen extends Component {
     );
   };
 
-  render() {
+  render = () => {
     const { isModalVisibleFull } = this.state;
     const { roomStatus } = this.state;
     const targetTimeSlot_1 = '08:30 - 10:20';
@@ -395,7 +395,7 @@ export default class ReservationScreen extends Component {
     };
 
     return (
-      <View style={[{ marginTop: 0, flex: 1, flexGrow: 1, }]}>
+      <View style={[{ marginTop: 0, flex: 1, flexGrow: 1 }]}>
         <View style={{ flex: 1 }}>
           <ScrollView ref={this.scrollViewRef}
             horizontal
@@ -415,10 +415,10 @@ export default class ReservationScreen extends Component {
           </ScrollView>
         </View>
         <View style={styles.OverlapToHeaderImagebg}>
-          <View style={[{ flex: 0, paddingTop: 12, }]}>
+          <View style={[{ flex: 0, paddingTop: 12 }]}>
             <CalendarStrip
               scrollable={true}
-              style={{ height: screenHeight * 0.1, paddingTop: 10, }}
+              style={{ height: screenHeight * 0.1, paddingTop: 10 }}
               calendarAnimation={{ type: 'parallel', duration: 300, useNativeDriver: true }}
               daySelectionAnimation={{ type: 'border', borderWidth: 1, duration: 300 }}
               dateNumberStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
@@ -435,7 +435,7 @@ export default class ReservationScreen extends Component {
               maxDate={moment().add(2, 'weeks').format('YYYY-MM-DD')}
             />
           </View>
-          <View style={[{ flex: 0, zIndex: 1, }]}>
+          <View style={[{ flex: 0, zIndex: 1 }]}>
             <View style={styles.viewShadowStyles}></View>
           </View>
           <View style={styles.spaceOutsideRoomBox}>
@@ -524,24 +524,24 @@ export default class ReservationScreen extends Component {
         >
           <View style={styles.modalContentFull}>
             <View style={styles.modalInnerContainer}>
-              <ScrollView contentContainerStyle={[{ flexGrow: 1, }]} showsVerticalScrollIndicator={false}>
+              <ScrollView contentContainerStyle={[{ flexGrow: 1 }]} showsVerticalScrollIndicator={false}>
                 <Text style={styles.modalRoomNolable}>KM-Room {this.state.modalRoom_ID}</Text>
                 <Text style={styles.modalTimelable}>Time : {this.state.modalPeriod} | {this.state.modalFormattedDate}</Text>
                 <View style={styles.dividerLine} />
-                <View style={[{ flexDirection: 'row', alignItems: 'center', }]}>
-                  <View style={[{ flex: 1, }]}>
+                <View style={[{ flexDirection: 'row', alignItems: 'center' }]}>
+                  <View style={[{ flex: 1 }]}>
                     <Text style={styles.reservationBylable}>Reservations by</Text>
-                    <View style={[{ flexDirection: 'row', marginBottom: 10, }]}>
-                      <View style={[{ marginRight: 10, paddingHorizontal: 4, }]}>
+                    <View style={[{ flexDirection: 'row', marginBottom: 10 }]}>
+                      <View style={[{ marginRight: 10, paddingHorizontal: 4 }]}>
                         <Iconify icon='fluent-emoji:man-student-medium-light' size={32} />
                       </View>
-                      <View style={[{ flexDirection: 'column', }]}>
+                      <View style={[{ flexDirection: 'column' }]}>
                         <Text style={styles.modalStudentLabel}>Students</Text>
                         {renderUserNames()}
                       </View>
                     </View>
                   </View>
-                  <View style={[{ marginLeft: 10, }]}><Iconify icon='openmoji:no-entry' color='black' size={48} /></View>
+                  <View style={[{ marginLeft: 10 }]}><Iconify icon='openmoji:no-entry' color='black' size={48} /></View>
                 </View>
                 <View style={[styles.emptyViewforScrolling]}></View>
               </ScrollView>

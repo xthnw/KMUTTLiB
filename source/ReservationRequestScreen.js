@@ -43,7 +43,7 @@ const roomLabels = {
   'KM5': 'ROOM 5',
 };
 
-const ReservationRequestScreen = ({ navigation, }) => {
+const ReservationRequestScreen = ({ navigation }) => {
   const route = useRoute();
   const { buttonId, selectedDate, roomId, userData } = route.params;
   const [selectedOption, setSelectedOption] = useState('');
@@ -262,7 +262,7 @@ const ReservationRequestScreen = ({ navigation, }) => {
                       }}
                       value={bookingFor}
                     >
-                      <Text style={[{ color: 'gray', fontFamily: 'LeagueSpartan', }]}>{option}</Text>
+                      <Text style={[{ color: 'gray', fontFamily: 'LeagueSpartan' }]}>{option}</Text>
                     </TouchableOpacity>
                   ))}
                 </View>
@@ -368,7 +368,7 @@ const ReservationRequestScreen = ({ navigation, }) => {
                 onPressOut={handleButtonPressOut}
                 onPress={toggleModal}
               >
-                <Animated.View style={[styles.submitButtonStyle, { transform: [{ scale: buttonScale }] },]}>
+                <Animated.View style={[styles.submitButtonStyle, { transform: [{ scale: buttonScale }] }]}>
                   <Text style={styles.submitTextStyle}>Submit</Text>
                 </Animated.View>
               </TouchableWithoutFeedback>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Image, Text, TouchableOpacity, TouchableWithoutFeedback, SafeAreaView, RefreshControl, } from 'react-native';
+import { ScrollView, View, Image, Text, TouchableOpacity, TouchableWithoutFeedback, SafeAreaView, RefreshControl } from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
@@ -128,10 +128,10 @@ const ReservationList = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: 'white', }}>
+    <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10, backgroundColor: 'white' }}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer} showsVerticalScrollIndicator={false}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}>
-        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 12, }}>
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginBottom: 12 }}>
           <Text style={styles.formTitle}>My Room</Text>
         </View>
         {responseData === null || responseData?.data?.booking.length === 0 ? (
@@ -154,15 +154,15 @@ const ReservationList = () => {
                     <View style={[{}]}>
                       <Image source={require('../picture/room1.png')} style={styles.image} resizeMode='cover' />
                     </View>
-                    <View style={[{ marginLeft: 4, }]}>
+                    <View style={[{ marginLeft: 4 }]}>
                       <Text style={styles.textbold}>{roomLabels[booking.data.Room_ID] || 'Unknown Room'}</Text>
                       <View style={styles.boxRow}>
                         <View style={styles.label}>
                           <Text style={styles.Tag}>Location</Text>
-                          <View style={[{ marginVertical: 2, }]}>
+                          <View style={[{ marginVertical: 2 }]}>
                             <Text style={styles.Tag}>Status</Text>
                           </View>
-                          <View style={[{ marginTop: 2, }]}>
+                          <View style={[{ marginTop: 2 }]}>
                             <Text style={styles.Tag}>Date</Text>
                           </View>
                           <Text style={styles.Tag}>Time</Text>
@@ -196,15 +196,15 @@ const ReservationList = () => {
           <View style={styles.blankBgModalView}>
             <View style={styles.alertModalcontainer}>
               <TouchableOpacity onPress={this.toggleModalClose} style={styles.closebuttonView}></TouchableOpacity>
-              <View style={[{ padding: 16, }]}>
+              <View style={[{ padding: 16 }]}>
                 <Text style={styles.alertheaderText}>Cancel Reservation ?</Text>
                 <Text style={styles.alertdetailsText}>Are you sure to cancel ?</Text>
                 <View style={{ flexDirection: 'row', marginTop: 20 }}>
                   <TouchableOpacity style={styles.staybutton} onPress={toggleModal}>
-                    <Text style={{ color: 'gray', fontFamily: 'LeagueSpartanSemiBold', fontSize: 18, }}>Stay</Text>
+                    <Text style={{ color: 'gray', fontFamily: 'LeagueSpartanSemiBold', fontSize: 18 }}>Stay</Text>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.yesCancelbutton} onPress={handleDeleteBooking}>
-                    <Text style={{ color: 'white', fontFamily: 'LeagueSpartanSemiBold', fontSize: 18, }}>Yes, cancel</Text>
+                    <Text style={{ color: 'white', fontFamily: 'LeagueSpartanSemiBold', fontSize: 18 }}>Yes, cancel</Text>
                   </TouchableOpacity>
                 </View>
               </View>

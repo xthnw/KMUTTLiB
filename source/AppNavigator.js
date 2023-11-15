@@ -17,7 +17,7 @@ import { Iconify } from 'react-native-iconify';
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-function MainNavigator() {
+const MainNavigator = () => {
   const { state } = useAuth();
   // Extract the authenticated state and userData from the context
   const { authenticated, userData } = state;
@@ -106,7 +106,7 @@ function MainNavigator() {
 
 
 
-function AppNavigator() {
+const AppNavigator = () => {
   // Use a state variable to track the user's authentication status
   // const [authenticated, setAuthenticated] = useState(false);
   const { state } = useAuth();
