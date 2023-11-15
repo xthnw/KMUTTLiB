@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, } from 'react-native';
+import COLORS from './colors';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   contentContainer: {
-    backgroundColor: '#fbfbfb',
+    backgroundColor: COLORS.gray_5,
     borderRadius: 10,
     padding: 20,
     elevation: 3,
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20, // Half of the width/height to create a circle
     backgroundColor: 'white',
-    borderColor: '#e7e7e7',
+    borderColor: COLORS.gray_6,
     borderWidth: 0.5,
     alignItems: 'center',
     justifyContent: 'center',
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
   waitforDropdownOptionContainer: {
     flex: 1,
     borderWidth: 2,
-    borderColor: '#e7e7e7',
+    borderColor: COLORS.gray_6,
     borderRadius: 15,
     backgroundColor: 'white',
     padding: 10,
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     borderWidth: 2,
-    borderColor: '#e7e7e7',
+    borderColor: COLORS.gray_6,
     borderRadius: 15,
     backgroundColor: 'white',
     overflow: 'hidden',
@@ -96,14 +97,14 @@ const styles = StyleSheet.create({
   },
   studentIdInputboxContainer: {
     flex: 1,
-    borderColor: '#e7e7e7',
+    borderColor: COLORS.gray_6,
     borderWidth: 2,
     backgroundColor: 'white',
     borderRadius: 15,
     padding: 10,
     fontSize: 16,
     fontFamily: 'LeagueSpartan',
-    color: 'black',
+    color: COLORS.gray_3,
   },
   submitButtonView: {
     flex: 1,
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   submitButtonStyle: {
-    backgroundColor: 'orange',
+    backgroundColor: COLORS.primary,
     padding: 16,
     borderRadius: 15,
     width: '80%',
@@ -136,9 +137,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 35,
     borderWidth: 2,
-    borderColor: '#e7e7e7',
+    borderColor: COLORS.gray_6,
     elevation: 8,
-    shadowColor: '#000',
+    shadowColor: 'black',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
@@ -146,15 +147,15 @@ const styles = StyleSheet.create({
   },
   closebuttonView: {
     position: 'absolute',
-    top: 16,
-    right: 16,
+    top: 12,
+    right: 12,
     zIndex: 1, // Ensure the icon is displayed above
   },
   alertheaderText: {
     fontSize: 18,
     fontFamily: 'IBMPlexSansThaiBold',
     textAlign: 'center',
-    color: 'red',
+    color: COLORS.red,
   },
   alertdetailsText: {
     fontSize: 14,
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   acceptbuttonStyle: {
-    backgroundColor: 'orange',
+    backgroundColor: COLORS.primary,
     padding: 12,
     borderRadius: 20,
     marginTop: 16,
@@ -177,12 +178,11 @@ const styles = StyleSheet.create({
   sucessModalcontainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: height * 0.4,
-    height: height * 0.3,
     backgroundColor: 'white',
-    borderRadius: 35,
+    padding: 24,
+    borderRadius: 25,
     elevation: 8,
-    shadowColor: '#000',
+    shadowColor: 'black',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
@@ -190,15 +190,19 @@ const styles = StyleSheet.create({
   errorModalcontainer: {
     alignItems: 'center',
     backgroundColor: 'white',
+    paddingTop: 24,
     borderRadius: 25,
     elevation: 8,
-    shadowColor: '#000',
+    shadowColor: 'black',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
   },
   paddingViewforinsideModal: {
-    paddingTop: 24,
+    padding: 32,
+    alignItems: 'center'
+  },
+  paddingViewforinsideModalError: {
     alignItems: 'center'
   },
   errorHeaderStyle: {
@@ -211,7 +215,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'LeagueSpartanMedium',
     textAlign: 'center',
-    color: 'orange',
+    color: COLORS.primary,
   },
   errorTextStyle: {
     fontSize: 18,
@@ -221,10 +225,10 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   sucessTextStyle: {
-    fontSize: 18,
-    fontFamily: 'LeagueSpartan',
+    fontSize: 20,
+    fontFamily: 'LeagueSpartanSemiBold',
     textAlign: 'center',
-    color: '#32ba7c',
+    color: COLORS.green_2,
     marginTop: 16,
   },
   formTitle: {
@@ -234,7 +238,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   detailsText: {
-    color: 'orange',
+    color: COLORS.primary,
     marginBottom: 20,
     fontFamily: 'LeagueSpartanMedium',
   },
@@ -252,12 +256,13 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 2,
-    borderColor: '#e7e7e7',
+    borderColor: COLORS.gray_6,
     backgroundColor: 'white',
     borderRadius: 15,
     padding: '3%',
     fontSize: 16,
     fontFamily: 'LeagueSpartan',
+    color: COLORS.gray_3,
     height: 40,
     width: screenWidth * 0.35,
     marginBottom: 10,
@@ -272,7 +277,7 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.8, // Take up 100% width
     marginTop: 20, // Adjust the margin as needed
     padding: 15,
-    backgroundColor: 'gray',
+    backgroundColor: COLORS.primary,
     borderBottomRightRadius: 26,
     borderBottomLeftRadius: 26,
   },

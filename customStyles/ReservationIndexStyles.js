@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, } from 'react-native';
+import COLORS from './colors';
 import { PixelRatio } from 'react-native';
 
 // Get the pixel ratio of the device
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     calendarHighlightDateNumber: {
         color: 'black',
         textDecorationLine: 'underline', // Add underline style
-        textDecorationColor: 'orange', // Color of the underline
+        textDecorationColor: COLORS.primary, // Color of the underline
         fontFamily: 'LeagueSpartanMedium',
     },
     imageInBoxContainer: {
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
         fontFamily: 'LeagueSpartan',
     },
     statusLabel: {
-        backgroundColor: '#29b95f', // Green background color
+        backgroundColor: COLORS.green, // Green background color
         borderRadius: 15, // Adjust the border radius as needed
         marginLeft: 5, // Add spacing between 'Status:' and the green label
         paddingVertical: 5, // Add vertical padding for better appearance
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
         fontFamily: 'LeagueSpartan',
     },
     statusLabelFull: {
-        backgroundColor: '#979797', // Green background color
+        backgroundColor: COLORS.gray_2, // Green background color
         borderRadius: 15, // Adjust the border radius as needed
         marginLeft: 5, // Add spacing between 'Status:' and the green label
         paddingVertical: 5, // Add vertical padding for better appearance
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
         fontFamily: 'LeagueSpartan',
     },
     statusLabelClose: {
-        backgroundColor: '#d10000', // Green background color
+        backgroundColor: COLORS.red, // Green background color
         borderRadius: 15, // Adjust the border radius as needed
         marginLeft: 5, // Add spacing between 'Status:' and the green label
         paddingVertical: 5, // Add vertical padding for better appearance
@@ -180,7 +181,7 @@ const styles = StyleSheet.create({
     description: {
         marginTop: 5,
         fontSize: PixelRatio.getFontScale() * 12, // Adjust the font size as needed
-        color: '#a1a1a1', // You can adjust the color
+        color: COLORS.gray_9, // You can adjust the color
         textAlign: 'left',
         fontFamily: 'LeagueSpartan',
     },

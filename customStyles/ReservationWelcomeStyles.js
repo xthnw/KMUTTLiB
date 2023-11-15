@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         color: COLORS.black
     },
     contentContainer: {
-        backgroundColor: '#fbfbfb',
+        backgroundColor: COLORS.gray_5,
         borderRadius: 10,
         padding: 20,
         elevation: 3,

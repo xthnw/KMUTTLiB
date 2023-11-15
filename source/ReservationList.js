@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useAuth } from './auth';
 import axios from 'axios';
 import styles from '../customStyles/ReservationListStyles';
+import COLORS from '../customStyles/colors';
 import { listApiUrl, deleteApiUrl } from '../constants/apiConfig';
 
 const ReservationList = () => {
@@ -173,7 +174,7 @@ const ReservationList = () => {
                             <Text style={styles.statusInner}>{booking.data.Booking_Status}</Text>
                           </View>
                           <Text style={styles.text}>
-                            <Icon name='calendar' size={15} color={'#FF8A00'} /> {formatDate(booking.data.Booking_date)}
+                            <Icon name='calendar' size={15} color={COLORS.primary} /> {formatDate(booking.data.Booking_date)}
                           </Text>
                           <Text style={[styles.text, {}]}>{booking.data.Booking_period}</Text>
                           <TouchableOpacity style={styles.statusDetail} onPress={() => navigateToNextScreen(booking)}>

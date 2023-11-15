@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, } from 'react-native';
+import COLORS from './colors';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 20, // Half of the width/height to create a circle
         backgroundColor: 'white',
-        borderColor: '#dadada',
+        borderColor: COLORS.gray_7,
         borderWidth: 0.5,
         alignItems: 'center',
         justifyContent: 'center',
@@ -42,21 +43,21 @@ const styles = StyleSheet.create({
     OverviewLable: {
         fontSize: 18,
         alignItems: 'center',
-        color: 'orange',
+        color: COLORS.primary,
         marginTop: 20,
         marginBottom: 10,
         fontFamily: 'LeagueSpartanSemiBold',
     },
     backgroundclockIcon: {
         marginRight: 10,
-        backgroundColor: '#F2F2F2',
+        backgroundColor: COLORS.gray_8,
         paddingHorizontal: 4,
         paddingVertical: 2,
         borderRadius: 4,
     },
     timeLabel: {
         fontSize: 14,
-        color: '#b7b7b7',
+        color: COLORS.gray_2,
         fontFamily: 'LeagueSpartanMedium',
     },
     hoursLable: {
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: 'LeagueSpartanSemiBold',
         alignItems: 'center',
-        color: 'orange',
+        color: COLORS.primary,
         marginTop: 8,
         marginBottom: 10,
     },
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
         shadowRadius: 6,
     },
     checkInContainer: {
-        backgroundColor: '#131313',
+        backgroundColor: COLORS.black_2,
         height: screenHeight * 0.06,
         borderRadius: 20,
         justifyContent: 'center',
@@ -109,7 +110,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     checkInContainerDisabled: {
-        backgroundColor: '#D7D7D7',
+        backgroundColor: COLORS.gray_4,
         height: screenHeight * 0.06,
         borderRadius: 20,
         justifyContent: 'center',
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
         zIndex: 1, // Ensure the icon is displayed above the map
     },
     confirmLocationContainer: {
-        backgroundColor: '#3e64da',
+        backgroundColor: COLORS.blue,
         height: screenHeight * 0.06,
         borderRadius: 20,
         justifyContent: 'center',
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 35,
         elevation: 8,
-        shadowColor: '#000',
+        shadowColor: 'black',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
@@ -186,11 +187,11 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: 'LeagueSpartanSemiBold',
         textAlign: 'center',
-        color: 'orange',
+        color: COLORS.primary,
         marginTop: 16,
     },
     cooperationRequestlabel: {
-        color: 'red',
+        color: COLORS.red,
         fontSize: 14,
         fontFamily: 'LeagueSpartan',
         textAlign: 'center',

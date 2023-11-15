@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import customPinImage from '../picture/pin.png';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../customStyles/ReservationCheckInStyles';
+import COLORS from '../customStyles/colors';
 
 export default class ReservationCheckInScreen extends Component {
   constructor(props) {
@@ -170,7 +171,7 @@ export default class ReservationCheckInScreen extends Component {
     if (loading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator size='large' color='orange' />
+          <ActivityIndicator size='large' color={COLORS.primary} />
           <Text style={[styles.OverviewLable]}>Loading...</Text>
         </View>
       );

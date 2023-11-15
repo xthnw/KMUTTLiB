@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
     },
     yesCancelbutton: {
         flex: 1,
-        backgroundColor: 'red',
+        backgroundColor: COLORS.red,
         padding: 10,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 10,
         borderWidth: 1,
-        borderColor: 'red',
+        borderColor: COLORS.red,
     },
     blankBgModalView: {
         flex: 1,
@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 15,
         borderWidth: 2,
-        borderColor: '#e7e7e7',
+        borderColor: COLORS.gray_6,
         elevation: 8,
-        shadowColor: '#000',
+        shadowColor: 'black',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         color: 'gray',
     },
     acceptbuttonStyle: {
-        backgroundColor: 'orange',
+        backgroundColor: COLORS.primary,
         padding: 12,
         borderRadius: 20,
         marginTop: 16,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         color: COLORS.primary,
     },
     detailsText: {
-        color: 'orange',
+        color: COLORS.primary,
         marginBottom: 20,
     },
     innerBox: {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         padding: 8,
         backgroundColor: COLORS.white,
         elevation: 8,
-        shadowColor: '#000',
+        shadowColor: 'black',
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         shadowRadius: 2,
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
         textAlign: 'left',
     },
     status: {
-        backgroundColor: 'green',
+        backgroundColor: COLORS.green,
         borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     deleteBooking: {
         backgroundColor: 'white',
         borderWidth: 1,
-        borderColor: '#ff5c5c',
+        borderColor: COLORS.red_2,
         padding: 2,
         borderRadius: 5,
         justifyContent: 'center',
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
         fontFamily: 'LeagueSpartanMedium',
     },
     statusDelete: {
-        color: '#ff5c5c',
+        color: COLORS.red_2,
         padding: 5,
         justifyContent: 'center',
         alignItems: 'center',

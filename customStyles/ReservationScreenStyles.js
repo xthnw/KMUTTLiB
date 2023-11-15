@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions, } from 'react-native';
+import COLORS from './colors';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     marginLeft: 12,
     fontSize: 12, // Adjust the font size as needed
-    color: '#a1a1a1', // You can adjust the color
+    color: COLORS.gray_9, // You can adjust the color
     textAlign: 'left',
     fontFamily: 'LeagueSpartan',
   },
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   modalTimelable: {
-    color: 'orange',
+    color: COLORS.primary,
     fontFamily: 'LeagueSpartanMedium',
   },
   dividerLine: {
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'LeagueSpartanMedium',
     alignItems: 'center',
-    color: 'orange',
+    color: COLORS.primary,
     marginBottom: 10,
   },
   modalStudentLabel: {
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
   },
   modalContentFull: {
     flex: 0,
-    backgroundColor: '#fbfbfb',
+    backgroundColor: COLORS.gray_5,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 10,
@@ -161,8 +162,8 @@ const styles = StyleSheet.create({
   },
   buttonSelected: {
     borderWidth: 1,
-    borderColor: 'orange', // Change the border color when selected
-    backgroundColor: 'orange', // Change the background color when selected
+    borderColor: COLORS.primary, // Change the border color when selected
+    backgroundColor: COLORS.primary, // Change the background color when selected
     borderRadius: 10,
     width: screenWidth * 0.2, // Set the desired width
     height: screenHeight * 0.03,
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 10,
-    backgroundColor: '#5f5f5f',
+    backgroundColor: COLORS.gray_10,
     width: screenWidth * 0.2, // Set the desired width
     height: screenHeight * 0.03,
     marginBottom: screenHeight * 0.01,
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
     marginVertical: screenHeight * 0.01, // ความห่างของแต่ละกล่องบนล่าง
     backgroundColor: 'white',
     elevation: 8,
-    shadowColor: '#000',
+    shadowColor: 'black',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 4,

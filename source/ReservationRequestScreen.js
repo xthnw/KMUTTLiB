@@ -289,7 +289,7 @@ const ReservationRequestScreen = ({ navigation }) => {
             <View style={styles.dropdownOptionView}>
               <Text style={styles.label}>Request for</Text>
               <TouchableOpacity style={styles.waitforDropdownOptionContainer} onPress={this.toggleDropdown}>
-                <Text style={{ color: '#666666', fontFamily: 'LeagueSpartan' }}>
+                <Text style={{ color: COLORS.gray_3, fontFamily: 'LeagueSpartan' }}>
                   {selectedOption || 'Select an option'}
                 </Text>
                 <Icon name='angle-down' size={20} color='orange' />
@@ -337,32 +337,7 @@ const ReservationRequestScreen = ({ navigation }) => {
             </View>
 
 
-            <Pressable
-              style={[{ alignItems: 'center' }]}
-              onPress={() => {
-                setBookingDate(selectedDate);
-                setBookingTime(timeLabel);
-                setRoomID(roomId);
-                setStudentID(userData.University_ID);
-                setBookingUser0(`${userData.User_FName} ${userData.User_LName}`);
-                setBookingUser1(userData.University_ID);
-                setBookingUser2('64060501023');
-                setBookingUser3('64060501024');
-                setBookingUser4('64060501025');
-                setBookingUser5('64060501026');
-                setBookingUser6('64060501027');
-                setCourseCode('CPE555');
-                selectOption('Other');
-                setBookingFor('Other');
-              }}
-            >
-              <Text style={{
-                fontSize: 16,
-                color: COLORS.primary,
-                fontWeight: 'bold',
-                marginLeft: 6
-              }}>Auto set Forms</Text>
-            </Pressable>
+
 
             <View style={styles.submitButtonView}>
               <TouchableWithoutFeedback
@@ -375,6 +350,33 @@ const ReservationRequestScreen = ({ navigation }) => {
                 </Animated.View>
               </TouchableWithoutFeedback>
 
+              <Pressable
+                style={[{ alignItems: 'center' }]}
+                onPress={() => {
+                  setBookingDate(selectedDate);
+                  setBookingTime(timeLabel);
+                  setRoomID(roomId);
+                  setStudentID(userData.University_ID);
+                  setBookingUser0(`${userData.User_FName} ${userData.User_LName}`);
+                  setBookingUser1(userData.University_ID);
+                  setBookingUser2('64060501023');
+                  setBookingUser3('64060501024');
+                  setBookingUser4('64060501025');
+                  setBookingUser5('64060501026');
+                  setBookingUser6('64060501027');
+                  setCourseCode('CPE555');
+                  selectOption('Other');
+                  setBookingFor('Other');
+                }}
+              >
+                <Text style={{
+                  fontSize: 16,
+                  color: COLORS.primary,
+                  fontWeight: 'bold',
+                  marginTop: 16
+                }}>Auto set Forms</Text>
+              </Pressable>
+
               <Modal animationType='slide' transparent={true} visible={isModalVisible}>
                 <View style={styles.blankBgModalView}>
                   <View style={styles.alertModalcontainer}>
@@ -382,7 +384,7 @@ const ReservationRequestScreen = ({ navigation }) => {
                       <Ionicons name='close' size={32} color='orange' />
                     </TouchableOpacity>
                     <View style={[{ padding: 16, alignItems: 'center' }]}>
-                      <Icon name='exclamation-triangle' size={24} color='red' />
+                      <Icon name='exclamation-triangle' size={24} color={COLORS.red} />
                       <Text style={styles.alertheaderText}>คำเตือน</Text>
                       <Text style={styles.alertdetailsText}>
                         1. หากมีอุปกรณ์ชำรุดเสียหายจะถือเป็นความรับผิดชอบของผู้ใช้บริการห้อง KM โปรเจ็คเตอร์ มูลค่า 100,000 บาท
@@ -405,7 +407,7 @@ const ReservationRequestScreen = ({ navigation }) => {
                       <Ionicons name='close' size={32} color='orange' />
                     </TouchableOpacity>
                     <View style={styles.paddingViewforinsideModal}>
-                      <Image source={require('../picture/check2.png')} style={{ width: 50, height: 50 }} />
+                      <Image source={require('../picture/check2.png')} style={[{ width: 60, height: 60 }]} />
                       <Text style={styles.sucessTextStyle}>Reserve Room Successfully!</Text>
                     </View>
                   </View>
@@ -414,7 +416,7 @@ const ReservationRequestScreen = ({ navigation }) => {
               <Modal animationType='slide' transparent={true} visible={isModalErrorVisible}>
                 <View style={styles.blankBgModalView}>
                   <View style={styles.errorModalcontainer}>
-                    <View style={styles.paddingViewforinsideModal}>
+                    <View style={styles.paddingViewforinsideModalError}>
                       <Text style={styles.errorHeaderStyle}>Room Reserving Error!</Text>
                       <Text style={styles.errorTextStyle}>The operation couldn't be completed</Text>
                       <Text style={styles.errorTextStyle}>({reservationMessage})</Text>

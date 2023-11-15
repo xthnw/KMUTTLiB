@@ -7,6 +7,7 @@ import styles from '../customStyles/ReservationIndexStyles';
 import axios from 'axios';
 import moment from 'moment/moment';
 import { roomApiUrl } from '../constants/apiConfig';
+import COLORS from '../customStyles/colors';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -190,7 +191,7 @@ export default class ReservationScreen extends Component {
                   daySelectionAnimation={{ type: 'border', borderWidth: 1, duration: 300 }}
                   dateNumberStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
                   dateNameStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
-                  highlightDateNumberStyle={{ color: 'black', textDecorationLine: 'underline', textDecorationColor: 'orange', fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
+                  highlightDateNumberStyle={{ color: 'black', textDecorationLine: 'underline', textDecorationColor: COLORS.primary, fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}
                   highlightDateNameStyle={{ color: 'black', fontFamily: 'LeagueSpartan', fontSize: 12 }}
                   disabledDateNameStyle={{ color: 'grey', fontFamily: 'LeagueSpartan', fontSize: 12 }}
                   disabledDateNumberStyle={{ color: 'grey', fontFamily: 'LeagueSpartan', fontSize: 12 }}

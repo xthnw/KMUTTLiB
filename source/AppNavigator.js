@@ -13,6 +13,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { Iconify } from 'react-native-iconify';
+import COLORS from '../customStyles/colors';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -43,7 +44,7 @@ const MainNavigator = () => {
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
               <View
                 style={{
-                  backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
+                  backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
                   borderRadius: 999, // Set a large value for borderRadius to create a circle
                   padding: 8, // Adjust the padding as needed
                 }}
@@ -67,7 +68,7 @@ const MainNavigator = () => {
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
               <View
                 style={{
-                  backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
+                  backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
                   borderRadius: 999, // Set a large value for borderRadius to create a circle
                   padding: 8,
                 }}
@@ -88,7 +89,7 @@ const MainNavigator = () => {
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
               <View
                 style={{
-                  backgroundColor: focused ? '#ff8a00' : 'transparent', // Change the background color when focused
+                  backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
                   borderRadius: 999, // Set a large value for borderRadius to create a circle
                   padding: 8,
                 }}
@@ -139,7 +140,7 @@ const AppNavigator = () => {
             <Stack.Screen name='ReservationCheckInScreen' component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name='ReservationRequestScreen' component={ReservationRequestScreen} options={{ title: null, headerLeft: null }} />
             <Stack.Screen name='ReservationList' component={ReservationList} options={{ title: null, headerLeft: null }} /> */}
-          <Stack.Screen name='Welcome' component={Welcome} options={{ title: null, headerLeft: null }} />
+            <Stack.Screen name='Welcome' component={Welcome} options={{ title: null, headerLeft: null }} />
           </>
         ) : (
           // <Stack.Screen name='LoginFIFA'>

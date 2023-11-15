@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     contentContainer: {
-        backgroundColor: '#fbfbfb',
+        backgroundColor: COLORS.gray_5,
         borderRadius: 10,
         padding: 20,
         elevation: 3,
