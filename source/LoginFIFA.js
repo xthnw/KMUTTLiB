@@ -2,16 +2,12 @@ import { View, Text, Image, TextInput, TouchableOpacity, Pressable, StyleSheet, 
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import styles from '../customStyles/ReservationLogin';
+import styles from '../customStyles/ReservationLoginStyles';
 import COLORS from '../customStyles/colors';
 import axios from 'axios';
 import { useAuth } from './auth';
 
 StatusBar.setHidden(true);
-
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
-const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
 
 
 const LoginFIFA = ({ navigation }) => {
@@ -23,11 +19,7 @@ const LoginFIFA = ({ navigation }) => {
     const [authenticated, setAuthenticated] = useState(false);
     const [loginFailed, setLoginFailed] = useState(false); // New state variable for login status
 
-    const [isToggled, setToggled] = useState(false);
-    const handleToggle = () => {
-        setToggled(!isToggled);
-      };
-      
+
     const handleLogin = async () => {
         try {
             const apiUrl = 'http://192.168.13.43:8080/api/authen';
@@ -66,36 +58,34 @@ const LoginFIFA = ({ navigation }) => {
                             console.log(responseLIST.data);
                         }
                 } catch (error) {
-                    // console.error('Error:', error);
+                    console.error('Login failed case1');
+                    console.error('Error:', error);
                     console.log('Login status:', response.data.status);
                 }
 
             } else {
                 // Login failed
-                // console.error('Login failed');
+                // console.error('Login failed case2');
                 // setLoginFailed(!loginFailed); // Set loginFailed state to true
                 // console.log('Login status:', response.data.status);
             }
         } catch (error) {
-            console.error('Login failed');
-            setLoginFailed(!loginFailed); // Set loginFailed state to true
+            
+            console.error('Login failed case3');
+            setLoginFailed(true); // Set loginFailed state to true
             
         }
     };
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
-            <View style={[{ padding: 24, alignItems: 'center', marginTop: 24, }]}>
+            <View style={styles.container}>
                 <Image
                     source={require('../picture/LogoApp.png')}
-                    style={{
-                        height: 138,
-                        width: 244,
-                    }}
+                    style={styles.imgSize}
                 />
-
             </View>
 
-            <View style={{ padding: 24, }}>
+            <View style={styles.paddingSpace}>
                 <View >
                     <Text style={styles.title}>
                         Hi Welcome Back ! 👋
@@ -107,18 +97,15 @@ const LoginFIFA = ({ navigation }) => {
                 </View>
 
                 <View style={{ marginBottom: 12 }}>
-                    <Text style={styles.title}>
+                    <Text style={styles.titleInput}>
                         Email address
                     </Text>
                     <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your mail@kmutt.ac.th'
-                            placeholderTextColor={COLORS.black}
+                            placeholderTextColor={COLORS.grey}
                             keyboardType='email-address'
-                            style={{
-                                fontFamily: 'LeagueSpartan',
-                                width: '100%',
-                            }}
+                            style={styles.input}
                             value={email}
                             onChangeText={(text) => setEmail(text)}
                         />
@@ -126,35 +113,22 @@ const LoginFIFA = ({ navigation }) => {
                 </View>
 
                 <View style={{ marginBottom: 12 }}>
-                    <Text style={{
-                        fontFamily: 'LeagueSpartan',
-                        fontSize: 16,
-                        fontWeight: 400,
-                        marginVertical: 8,
-                    }}>Password</Text>
+                    <Text style={styles.titleInput}>Password</Text>
 
                 <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your password'
-                            placeholderTextColor={COLORS.black}
+                            placeholderTextColor={COLORS.grey}
                             secureTextEntry={isPasswordShown}
-                            style={{
-                                fontFamily: 'LeagueSpartan',
-                                width: '100%'
-                            }}
+                            style={styles.input}
                             value={password}
                             onChangeText={(text) => setPassword(text)}
                         />
 
                         <TouchableOpacity
                             onPress={() => setIsPasswordShown(!isPasswordShown)}
-                            style={{
-                                position: 'absolute',
-                                right: 12
-                            }}
-                        >
-                            {
-                                isPasswordShown == true ? (
+                            style={styles.eyePosition}>
+                            {isPasswordShown == true ? (
                                     <Ionicons name='eye-off' size={24} color={COLORS.black} />
                                 ) : (
                                     <Ionicons name='eye' size={24} color={COLORS.black} />
@@ -163,35 +137,29 @@ const LoginFIFA = ({ navigation }) => {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <View style={styles.TextError}>
+                        {loginFailed && (
+                        <Text style={styles.TextError}>This is a visible box</Text>
+                        )}
+                </View>
 
             <TouchableOpacity
                 style={styles.button}
                 onPress={handleLogin}>
 
-                <Text style={{ 
-                    fontFamily: 'LeagueSpartan',
-                    fontSize: 18,
-                    color:COLORS.white 
-
-                }}>Login with Email</Text>
+                <Text style={styles.textButton}>
+                    Login with Email</Text>
             </TouchableOpacity>
 
 
-                <View style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    marginVertical: 22
-                }}>
+                <View style={styles.positionTest}>
                     <Pressable onPress={() => {
                         setEmail('jedsada_chai@kmutt.ac.th');
                         setPassword('secret123');
                     }}>
-                        <Text style={{
-                            fontSize: 16,
-                            color: COLORS.primary,
-                            fontWeight: 'bold',
-                            marginLeft: 6
-                        }}>Auto set Email & Password</Text>
+                        <Text 
+                        style={styles.titleTest}>
+                        Auto set Email & Password</Text>
                     </Pressable>
                 </View>
             </View>
