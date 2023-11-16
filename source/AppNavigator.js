@@ -6,7 +6,7 @@ import ReservationIndexScreen from './ReservationIndex';
 import ReservationRequestScreen from './ReservationRequestScreen';
 import ReservationCheckInScreen from './ReservationCheckInScreen';
 import ReservationList from './ReservationList';
-import LoginFIFA from './LoginFIFA';
+import ReservationLogin from './ReservationLogin';
 import Welcome from './Welcome';
 import { AuthProvider, useAuth } from './auth';
 import React, { useState, useEffect } from 'react';
@@ -126,7 +126,7 @@ const AppNavigator = () => {
           headerTintColor: 'black', // Set the text color of the header
           headerShown: false,
         }}>
-        <Stack.Screen name='LoginFIFA' component={LoginFIFA} options={{ title: null, headerLeft: null }} />
+        <Stack.Screen name='ReservationLogin' component={ReservationLogin} options={{ title: null, headerLeft: null }} />
         <Stack.Screen name='MainNavigator' component={MainNavigator} options={{ title: null, headerLeft: null }} userData={userData} />
         <Stack.Screen name='ReservationIndex' component={ReservationIndexScreen} options={{ title: null, headerLeft: null }} userData={userData} />
         <Stack.Screen name='ReservationCheckInScreen' component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} />
@@ -143,8 +143,8 @@ const AppNavigator = () => {
             <Stack.Screen name='Welcome' component={Welcome} options={{ title: null, headerLeft: null }} />
           </>
         ) : (
-          // <Stack.Screen name='LoginFIFA'>
-          //   {(props) => <LoginFIFA {...props} setAuthenticated={setAuthenticated} />}
+          // <Stack.Screen name='ReservationLogin'>
+          //   {(props) => <ReservationLogin {...props} setAuthenticated={setAuthenticated} />}
           // </Stack.Screen>
           <Stack.Screen name='Welcome' component={Welcome} options={{ title: null, headerLeft: null }} />
         )}

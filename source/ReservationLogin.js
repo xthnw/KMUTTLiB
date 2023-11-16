@@ -10,7 +10,7 @@ import { listApiUrl, authenApiUrl } from '../constants/apiConfig';
 
 StatusBar.setHidden(true);
 
-const LoginFIFA = ({ navigation }) => {
+const ReservationLogin = ({ navigation }) => {
     const [isPasswordShown, setIsPasswordShown] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
     const [loginFailed, setLoginFailed] = useState(false);
@@ -50,14 +50,12 @@ const LoginFIFA = ({ navigation }) => {
                         console.log(responseLIST.data);
                     }
                 } catch (error) {
-                    // console.error('Error:', error);
+                    console.error('Error:', error);
                     console.log('Login status:', response.data.status);
                 }
 
             } else {
-                // console.error('Login failed');
-                // setLoginFailed(!loginFailed); // Set loginFailed state to true
-                // console.log('Login status:', response.data.status);
+                console.error('Login failed');
             }
         } catch (error) {
             console.error('Login failed');
@@ -130,4 +128,4 @@ const LoginFIFA = ({ navigation }) => {
     );
 };
 
-export default LoginFIFA;
+export default ReservationLogin;

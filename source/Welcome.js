@@ -33,7 +33,7 @@ const Welcome = ({ navigation }) => {
                         <Image source={require('../picture/iconWelcome.png')} style={{ height: 371, width: 354, }} />
                     </View>
                     <View style={[{ alignItems: 'center', flex: 1 }]}>
-                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LoginFIFA')}>
+                        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ReservationLogin')}>
                             <Text style={{
                                 fontFamily: 'LeagueSpartan',
                                 fontSize: 18,
