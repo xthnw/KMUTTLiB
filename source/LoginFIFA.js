@@ -103,7 +103,7 @@ const LoginFIFA = ({ navigation }) => {
                     <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your mail@kmutt.ac.th'
-                            placeholderTextColor={COLORS.grey}
+                            placeholderTextColor={COLORS.SubTitle}
                             keyboardType='email-address'
                             style={styles.input}
                             value={email}
@@ -118,7 +118,7 @@ const LoginFIFA = ({ navigation }) => {
                 <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your password'
-                            placeholderTextColor={COLORS.grey}
+                            placeholderTextColor={COLORS.SubTitle}
                             secureTextEntry={isPasswordShown}
                             style={styles.input}
                             value={password}
@@ -139,7 +139,7 @@ const LoginFIFA = ({ navigation }) => {
                 </View>
                 <View style={styles.TextError}>
                         {loginFailed && (
-                        <Text style={styles.TextError}>This is a visible box</Text>
+                        <Text style={styles.TextError}>Invalid Email or Password. Try in</Text>
                         )}
                 </View>
 
