@@ -46,7 +46,6 @@ const ReservationList = () => {
     console.log('Response Data of now:', responseData);
   }, [responseData]);
 
-
   const handleDeleteBooking = async () => {
     const jsonData = {
       id: selectedBookingId,

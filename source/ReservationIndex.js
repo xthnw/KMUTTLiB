@@ -33,10 +33,6 @@ export default class ReservationScreen extends Component {
     this.props.navigation.navigate('ReservationScreen');
   };
 
-
-
-
-
   handleRefresh = async () => {
     this.setState({ refreshing: true });
     const { selectedDate } = this.state; // Access selectedDate from the state
@@ -65,12 +61,11 @@ export default class ReservationScreen extends Component {
     this.fetchRoomStatus(new Date(date));
   };
 
-
-
   componentDidMount = () => {
     this.setListeners();
     this.fetchRoomStatus();
   };
+
   setListeners = () => {
     this.focusListener = this.props.navigation.addListener('focus', () => {
       StatusBar.setBarStyle('light-content');
@@ -81,6 +76,7 @@ export default class ReservationScreen extends Component {
       StatusBar.setBarStyle('dark-content');
     });
   };
+
   fetchRoomStatus = async (date = new Date()) => {
     const formattedDate = this.formatDate(date);
 
@@ -149,6 +145,7 @@ export default class ReservationScreen extends Component {
     const isAllSlotsReserved_5 = timeSlotsToCheck.every(timeSlot =>
       filteredData_5 && filteredData_5.some(room => room.data.Booking_period === timeSlot)
     );
+    
     const statusAvailableStyle = styles.statusLabel;
     const statusFullStyle = styles.statusLabelFull;
     const statusStyleChecker_1 = isAllSlotsReserved_1 ? statusFullStyle : statusAvailableStyle;
@@ -156,6 +153,7 @@ export default class ReservationScreen extends Component {
     const statusStyleChecker_3 = isAllSlotsReserved_3 ? statusFullStyle : statusAvailableStyle;
     const statusStyleChecker_4 = isAllSlotsReserved_4 ? statusFullStyle : statusAvailableStyle;
     const statusStyleChecker_5 = isAllSlotsReserved_5 ? statusFullStyle : statusAvailableStyle;
+
     return (
       <LinearGradient colors={['#fe4914', '#ff9f24']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={[{ flex: 1 }]}>
         <View style={styles.container}>

@@ -176,11 +176,10 @@ const ReservationRequestScreen = ({ navigation }) => {
         console.error('Reservation Error:', responseCreate.data.message);
         setReservationMessage(responseCreate.data.message);
         toggleModalError();
-        // Handle the error case, show a message, etc.
 
       } else {
         console.error('Unexpected Response:', responseCreate.data);
-        // Handle unexpected responses here
+
       }
     } catch (error) {
       console.error('Error:', error);
@@ -235,10 +234,7 @@ const ReservationRequestScreen = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 10 }}>
       <View>
         <View style={styles.contentContainer}>
-          <ScrollView
-            contentContainerStyle={styles.scrollViewContainer}
-            showsVerticalScrollIndicator={false}
-          >
+          <ScrollView contentContainerStyle={styles.scrollViewContainer} showsVerticalScrollIndicator={false}>
             <TouchableOpacity onPress={this.handleBackPress} style={styles.backcirclebutton}>
               <View style={styles.subbackcirclebutton}>
                 <IconM name='keyboard-arrow-left' size={30} color='orange' />
@@ -335,10 +331,6 @@ const ReservationRequestScreen = ({ navigation }) => {
                 </View>
               ))}
             </View>
-
-
-
-
             <View style={styles.submitButtonView}>
               <TouchableWithoutFeedback
                 onPressIn={handleButtonPressIn}
@@ -349,7 +341,6 @@ const ReservationRequestScreen = ({ navigation }) => {
                   <Text style={styles.submitTextStyle}>Submit</Text>
                 </Animated.View>
               </TouchableWithoutFeedback>
-
               <Pressable
                 style={[{ alignItems: 'center' }]}
                 onPress={() => {
@@ -376,7 +367,6 @@ const ReservationRequestScreen = ({ navigation }) => {
                   marginTop: 16
                 }}>Auto set Forms</Text>
               </Pressable>
-
               <Modal animationType='slide' transparent={true} visible={isModalVisible}>
                 <View style={styles.blankBgModalView}>
                   <View style={styles.alertModalcontainer}>
@@ -399,7 +389,6 @@ const ReservationRequestScreen = ({ navigation }) => {
                   </View>
                 </View>
               </Modal>
-
               <Modal animationType='slide' transparent={true} visible={isModalCompleteVisible}>
                 <View style={styles.blankBgModalView}>
                   <View style={styles.sucessModalcontainer}>

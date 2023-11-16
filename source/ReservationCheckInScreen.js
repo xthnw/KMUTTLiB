@@ -22,9 +22,11 @@ export default class ReservationCheckInScreen extends Component {
       refreshing: false,
     };
   }
+
   componentDidMount = () => {
     this.requestLocationPermission();
   }
+  
   requestLocationPermission = async () => {
     const { status } = await requestForegroundPermissionsAsync();
     if (status === 'granted') {
