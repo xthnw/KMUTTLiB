@@ -1,102 +1,61 @@
-import { View, Text, Pressable, Image, Dimensions, TouchableOpacity, ScrollView, Button } from 'react-native'
+import { View, Text, SafeAreaView, Image, Dimensions, TouchableOpacity, ScrollView, Button } from 'react-native'
 import React, { useState } from 'react'
-import { LinearGradient } from "expo-linear-gradient";
-import COLORS from '../customStyles/colors';
 import { useAuth } from './auth';
 import styles from '../customStyles/ReservationWelcome';
 
-
-
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
-const imageSize = Math.min(screenWidth, screenHeight) * 0.9;
-
 const Welcome = ({ navigation }) => {
-
     const { dispatch } = useAuth();
-
     const [authenticated, setAuthenticated] = useState(false);
 
     return (
-        <LinearGradient
-            style={{
-                flex: 1
-
-            }}
-            colors={[
-                COLORS.white,
-                COLORS.white
-            ]}>
+        <SafeAreaView
+            style={styles.container}>
             <ScrollView
                 contentContainerStyle={[{ flexGrow: 1 }]}
                 showsVerticalScrollIndicator={false}>
-                <View style={{
-                    padding: 10,
-                    flex: 1
-                }}>
+                <View style={styles.paddingSpace}>
 
-                    <View style={[{ padding: 24, marginTop: 24, }]}>
+                    <View style={styles.paddingSpace2}>
                         <Image
                             source={require("../picture/kujong.png")}
-                            style={{
-                                height: 128,
-                                width: 128,
-                            }}
+                            style={styles.imgSize}
                         />
-                        <Text style={{
-                            paddingTop: 10,
-                            fontSize: 40,
-                            fontFamily: 'LeagueSpartanSemiBold',
-                            color: COLORS.black
-                        }}>Welcome to</Text>
-                        <Text style={{
-                            fontSize: 37,
-                            fontFamily: 'LeagueSpartanSemiBold',
-                            color: COLORS.black
-                        }}>KMUTT LiB</Text>
+                        <Text 
+                        style={styles.title}>
+                        Welcome to</Text>
+                        <Text
+                        style={styles.subtitle}
+                        >KMUTT LiB</Text>
 
                     </View>
-                    <View style={[{ alignItems: 'center', flex: 1 }]}>
+                    <View style={styles.contentContainer}>
                         <Image
                             source={require("../picture/iconWelcome.png")}
-                            style={{
-                                height: 371,
-                                width: 354,
-                            }}
+                            style={styles.imgSize2}
                         />
-                    </View>
-                    <View style={[{ alignItems: 'center', flex: 1, }]}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => navigation.navigate("LoginFIFA")}>
+                            <TouchableOpacity
+                                style={styles.button}
+                                onPress={() => navigation.navigate("LoginFIFA")}>
 
-                        <Text style={{ 
-                               fontFamily: 'LeagueSpartan',
-                               fontSize: 18,
-                               color:COLORS.white 
-                        }}>Login with Email</Text>
-                    </TouchableOpacity>
-                            
-                
-                    <TouchableOpacity
-                    style={styles.buttonGust}
-                    onPress={() => {
-                        setAuthenticated(false);
-                        dispatch({ type: 'LOGOUT', payload: null });
-                        navigation.navigate('MainNavigator');
-                    }}>
+                                <Text style={styles.textButton}>
+                                    Login with Email</Text>
+                            </TouchableOpacity>
 
-                    <Text style={{
-                           fontFamily: 'LeagueSpartan',
-                           fontSize: 18,
-                           color:COLORS.white 
+                            <TouchableOpacity
+                            style={styles.buttonGust}
+                            onPress={() => {
+                                setAuthenticated(false);
+                                dispatch({ type: 'LOGOUT', payload: null });
+                                navigation.navigate('MainNavigator');
+                            }}>
 
-                    }}>Login with guest</Text>
-                </TouchableOpacity>
+                                <Text style={styles.textButton}>
+                                    Login with guest</Text>
+                            </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>
-        </LinearGradient >
+        </SafeAreaView >
     )
 }
 
