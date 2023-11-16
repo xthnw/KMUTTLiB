@@ -37,14 +37,16 @@ const styles = StyleSheet.create({
     title: {
       fontSize: 22,
       fontWeight: 'bold',
-      marginVertical: 10,
+      // marginVertical: 10,
       color: COLORS.black,
       fontFamily: 'LeagueSpartan'
     },
     subtitle: {
-      fontSize: 16,
-      color: COLORS.black,
+      fontSize: 14,
+      color: COLORS.SubTitle,
+      fontWeight: 'bold',
       fontFamily: 'LeagueSpartan',
+      marginBottom: 15,
     },
 
     titleInput: {
