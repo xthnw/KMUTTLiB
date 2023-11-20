@@ -113,6 +113,9 @@ export default class ReservationScreen extends Component {
       isModalVisibleFull: !this.state.isModalVisibleFull,
     });
   };
+  toggleModalTeacher = () => {
+
+  }
 
   toggleModalFull = (buttonId, targetTimeSlot, Room_ID) => {
     const selectedDate = this.state.selectedDate; // Get the selected date in 'DD/MM/YYYY' format
@@ -297,13 +300,13 @@ export default class ReservationScreen extends Component {
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 3) : () => this.props.navigation.navigate('Welcome')),
       12: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 3); } else { this.handleRequestPress(buttonId, 'KM3'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 3) : () => this.props.navigation.navigate('Welcome')),
-      13: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 4); } else { this.handleRequestPress(buttonId, 'KM4'); } }) :
+      13: userData ? (() => { if (isSlotReserved) { this.toggleModalTeacher(buttonId, targetTimeSlot_1, 4); } else { this.toggleModalTeacher(buttonId, 'KM4'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 4) : () => this.props.navigation.navigate('Welcome')),
-      14: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_2, 4); } else { this.handleRequestPress(buttonId, 'KM4'); } }) :
+      14: userData ? (() => { if (isSlotReserved) { this.toggleModalTeacher(buttonId, targetTimeSlot_2, 4); } else { this.toggleModalTeacher(buttonId, 'KM4'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_2, 4) : () => this.props.navigation.navigate('Welcome')),
-      15: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_3, 4); } else { this.handleRequestPress(buttonId, 'KM4'); } }) :
+      15: userData ? (() => { if (isSlotReserved) { this.toggleModalTeacher(buttonId, targetTimeSlot_3, 4); } else { this.toggleModalTeacher(buttonId, 'KM4'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_3, 4) : () => this.props.navigation.navigate('Welcome')),
-      16: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_4, 4); } else { this.handleRequestPress(buttonId, 'KM4'); } }) :
+      16: userData ? (() => { if (isSlotReserved) { this.toggleModalTeacher(buttonId, targetTimeSlot_4, 4); } else { this.toggleModalTeacher(buttonId, 'KM4'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_4, 4) : () => this.props.navigation.navigate('Welcome')),
       17: userData ? (() => { if (isSlotReserved) { this.toggleModalFull(buttonId, targetTimeSlot_1, 5); } else { this.handleRequestPress(buttonId, 'KM5'); } }) :
         (isSlotReserved ? () => this.toggleModalFull(buttonId, targetTimeSlot_1, 5) : () => this.props.navigation.navigate('Welcome')),
@@ -430,7 +433,7 @@ export default class ReservationScreen extends Component {
               iconContainer={{ flex: 0.1 }}
               onDateSelected={this.handleDateSelected}
               datesBlacklist={datesBlacklist}
-              minDate={moment().subtract(2, 'weeks').format('YYYY-MM-DD')}
+              minDate={moment().subtract(0, 'days').format('YYYY-MM-DD')}
               maxDate={moment().add(2, 'weeks').format('YYYY-MM-DD')}
             />
           </View>

@@ -145,7 +145,7 @@ export default class ReservationScreen extends Component {
     const isAllSlotsReserved_5 = timeSlotsToCheck.every(timeSlot =>
       filteredData_5 && filteredData_5.some(room => room.data.Booking_period === timeSlot)
     );
-    
+
     const statusAvailableStyle = styles.statusLabel;
     const statusFullStyle = styles.statusLabelFull;
     const statusStyleChecker_1 = isAllSlotsReserved_1 ? statusFullStyle : statusAvailableStyle;
@@ -155,7 +155,12 @@ export default class ReservationScreen extends Component {
     const statusStyleChecker_5 = isAllSlotsReserved_5 ? statusFullStyle : statusAvailableStyle;
 
     return (
-      <LinearGradient colors={['#fe4914', '#ff9f24']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={[{ flex: 1 }]}>
+      <LinearGradient
+        colors={userData ? ['#fe4914', '#ff9f24'] : ['gray', 'gray']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={{ flex: 1 }}
+      >
         <View style={styles.container}>
           <View style={styles.logOutContainer}>
             {userData === null ? (
@@ -174,9 +179,9 @@ export default class ReservationScreen extends Component {
               ) : (<Image source={this.imageMap[profilePicture]} style={{ width: '100%', height: '100%', borderRadius: 50 }} />)}
             </View>
             {userData === null ? (
-              <Text style={styles.hiUserNameLabel}>Hi, Guest</Text>
+              <Text style={styles.hiUserNameLabel}>Guest User</Text>
             ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_LName}</Text>)}
-            <Iconify style={[{ marginLeft: 20, marginTop: 20 }]} icon='streamline-emojis:ant' size={32} />
+            {userData && <Iconify style={{ marginLeft: 20, marginTop: 20 }} icon='streamline-emojis:ant' size={32} />}
           </View>
 
           <View style={styles.RoundedWhiteCoverContainer}>
@@ -197,7 +202,7 @@ export default class ReservationScreen extends Component {
                   iconContainer={{ flex: 0.1 }}
                   onDateSelected={this.handleDateSelected}
                   datesBlacklist={datesBlacklist}
-                  minDate={moment().subtract(2, 'weeks').format('YYYY-MM-DD')}
+                  minDate={moment().subtract(0, 'days').format('YYYY-MM-DD')}
                   maxDate={moment().add(2, 'weeks').format('YYYY-MM-DD')}
                 />
               </View>
@@ -233,8 +238,8 @@ export default class ReservationScreen extends Component {
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
                             <Text style={styles.statusText}>Status:</Text>
-                            <View style={[styles.statusLabelClose]}>
-                              <Text style={styles.statusLabelInner}>Teacher</Text>
+                            <View style={statusStyleChecker_2}>
+                              <Text style={styles.statusLabelInner}>{isAllSlotsReserved_2 ? 'Full' : 'Available'}</Text>
                             </View>
                           </View>
                         </View>
@@ -270,8 +275,8 @@ export default class ReservationScreen extends Component {
                           <Text style={styles.description}>5th Floor</Text>
                           <View style={[styles.statusContainer, {}]}>
                             <Text style={styles.statusText}>Status:</Text>
-                            <View style={statusStyleChecker_4}>
-                              <Text style={styles.statusLabelInner}>{isAllSlotsReserved_4 ? 'Full' : 'Available'}</Text>
+                            <View style={[styles.statusLabelClose]}>
+                              <Text style={styles.statusLabelInner}>Teacher</Text>
                             </View>
                           </View>
                         </View>

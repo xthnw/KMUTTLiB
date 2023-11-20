@@ -138,8 +138,8 @@ const ReservationList = () => {
             </View>
           ) : (
             <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-              <Image source={require('../picture/profile.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
-              <Text style={styles.text}>Please login first</Text>
+              {/* <Image source={require('../picture/profile.png')} style={{ width: 100, height: 100, borderRadius: 50 }} />
+              <Text style={styles.text}>Please login first</Text> */}
             </View>
           )
         ) : (
@@ -177,7 +177,7 @@ const ReservationList = () => {
                           </Text>
                           <Text style={[styles.text, {}]}>{booking.data.Booking_period}</Text>
                           <TouchableOpacity style={styles.statusDetail} onPress={() => navigateToNextScreen(booking)}>
-                            <Text style={styles.statusInner}>Detail</Text>
+                            <Text style={styles.statusInner}>Details</Text>
                           </TouchableOpacity>
                         </View>
                       </View>
