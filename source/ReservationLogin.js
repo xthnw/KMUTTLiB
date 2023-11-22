@@ -68,14 +68,14 @@ const ReservationLogin = ({ navigation }) => {
                 <Image source={require('../picture/LogoApp.png')} style={[{ height: 138, width: 244 }]} />
             </View>
             <View style={[{ padding: 24 }]}>
-                <Text style={styles.title}>Hi Welcome Back ! 👋</Text>
-                <Text style={styles.subtitle}>Hello again you have been missed!</Text>
-                <View style={[{ marginBottom: 12 }]}>
-                    <Text style={styles.title}>Email address</Text>
+                <Text style={[styles.title, { fontFamily: 'LeagueSpartanSemiBold' }]}>Hi Welcome Back ! 👋</Text>
+                <Text style={[styles.subtitle, { fontFamily: 'LeagueSpartanSemiBold' }]}>Hello again you have been missed!</Text>
+                <View style={[{ marginBottom: 8 }]}>
+                    <Text style={[styles.title, { fontFamily: 'LeagueSpartan', marginTop: 28, }]}>Student ID</Text>
                     <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
-                            placeholder='Enter your mail@kmutt.ac.th'
-                            placeholderTextColor={COLORS.black}
+                            placeholder='Enter your Student ID'
+                            placeholderTextColor={COLORS.gray_3}
                             keyboardType='email-address'
                             style={[{ fontFamily: 'LeagueSpartan', width: '100%' }]}
                             value={email}
@@ -83,12 +83,12 @@ const ReservationLogin = ({ navigation }) => {
                         />
                     </View>
                 </View>
-                <View style={[{ marginBottom: 12 }]}>
+                <View style={[{ marginBottom: 16 }]}>
                     <Text style={styles.title}>Password</Text>
                     <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your password'
-                            placeholderTextColor={COLORS.black}
+                            placeholderTextColor={COLORS.gray_3}
                             secureTextEntry={isPasswordShown}
                             style={[{ fontFamily: 'LeagueSpartan', width: '100%' }]}
                             value={password}
@@ -106,9 +106,16 @@ const ReservationLogin = ({ navigation }) => {
                             }
                         </TouchableOpacity>
                     </View>
+                    {loginFailed ? (
+                        <View>
+                            <Text style={[{ fontFamily: 'LeagueSpartanSemiBold', marginTop: 8, color: COLORS.red }]}>Invalid Student ID or Password. Try Again!</Text>
+                        </View>
+                    ) : (
+                        <View></View>
+                    )}
                 </View>
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                    <Text style={[{ fontFamily: 'LeagueSpartan', fontSize: 18, color: COLORS.white }]}>Login with Email</Text>
+                    <Text style={[{ fontFamily: 'LeagueSpartanMedium', fontSize: 18, color: COLORS.white }]}>Sign in with Email</Text>
                 </TouchableOpacity>
                 <View style={[{ flexDirection: 'row', justifyContent: 'center', marginVertical: 20 }]}>
                     <Pressable onPress={() => {
@@ -124,7 +131,7 @@ const ReservationLogin = ({ navigation }) => {
                     </Pressable>
                 </View>
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 };
 

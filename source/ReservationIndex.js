@@ -165,10 +165,10 @@ export default class ReservationScreen extends Component {
           <View style={styles.logOutContainer}>
             {userData === null ? (
               <TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
-                <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Login</Text>
+                <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Sign in</Text>
               </TouchableOpacity>
             ) : (<TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
-              <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Logout</Text>
+              <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Log Out</Text>
             </TouchableOpacity>
             )}
           </View>

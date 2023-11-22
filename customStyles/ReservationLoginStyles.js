@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 16,
-        color: COLORS.black,
+        color: COLORS.gray_3,
         fontFamily: 'LeagueSpartan',
     },
     titleInput: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     box: {
         width: '100%',
         height: 48,
-        borderColor: COLORS.black,
+        borderColor: COLORS.gray_9,
         borderWidth: 1,
         borderRadius: 8,
         alignItems: 'center',
