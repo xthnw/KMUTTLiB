@@ -422,7 +422,7 @@ export default class ReservationScreen extends Component {
               scrollable={true}
               style={{ height: screenHeight * 0.1, paddingTop: 10 }}
               calendarAnimation={{ type: 'parallel', duration: 300, useNativeDriver: true }}
-              daySelectionAnimation={{ type: 'border', borderWidth: 1, duration: 300 }}
+              // daySelectionAnimation={{ type: 'border', borderWidth: 1, duration: 300 }}
               dateNumberStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
               dateNameStyle={{ color: 'gray', fontFamily: 'LeagueSpartan', fontSize: 12 }}
               highlightDateNumberStyle={{ color: 'black', textDecorationLine: 'underline', textDecorationColor: 'orange', fontFamily: 'LeagueSpartanMedium', fontSize: 12 }}

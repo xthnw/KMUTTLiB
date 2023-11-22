@@ -247,7 +247,8 @@ const ReservationRequestScreen = ({ navigation }) => {
                 <Text style={styles.label}>Student ID</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder='Enter Student ID'
+                  placeholder={userData.University_ID}
+                  placeholderTextColor={COLORS.gray_2}
                   onChangeText={(text) => setStudentID(text)}
                   value={studentID}
                 />
@@ -256,7 +257,8 @@ const ReservationRequestScreen = ({ navigation }) => {
                 <Text style={styles.label}>Name</Text>
                 <TextInput
                   style={styles.input}
-                  placeholder='Enter Name'
+                  placeholder={userData.User_FName}
+                  placeholderTextColor={COLORS.gray_2}
                   onChangeText={(text) => setBookingUser0(text)}
                   value={bookingUser0}
                 />
@@ -268,6 +270,7 @@ const ReservationRequestScreen = ({ navigation }) => {
                 <TextInput
                   style={styles.input}
                   placeholder='Bachelor'
+                  placeholderTextColor={COLORS.gray_2}
                 // onChangeText={(text) => this.setState({ Service: text })}
                 // value={this.state.Service}
                 />
@@ -277,6 +280,7 @@ const ReservationRequestScreen = ({ navigation }) => {
                 <TextInput
                   style={styles.input}
                   placeholder='Computer Engineering'
+                  placeholderTextColor={COLORS.gray_2}
                 // onChangeText={(text) => this.setState({ Department: text })}
                 // value={this.state.Department}
                 />
@@ -313,6 +317,7 @@ const ReservationRequestScreen = ({ navigation }) => {
               <TextInput
                 style={styles.studentIdInputboxContainer}
                 placeholder='Fill course code'
+                placeholderTextColor={COLORS.gray_2}
                 onChangeText={(text) => setCourseCode(text)}
                 value={CourseCode}
               />
