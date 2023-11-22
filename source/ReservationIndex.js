@@ -156,7 +156,7 @@ export default class ReservationScreen extends Component {
 
     return (
       <LinearGradient
-        colors={userData ? ['#fe4914', '#ff9f24'] : ['gray', 'gray']}
+        colors={userData ? ['#fe4914', '#ff9f24'] : ['#fe4914', '#ff9f24']}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
         style={{ flex: 1 }}

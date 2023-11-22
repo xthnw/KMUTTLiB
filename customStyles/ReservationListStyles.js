@@ -191,6 +191,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         fontSize: 12,
     },
+    statusVerified: {
+        backgroundColor: COLORS.blue,
+        borderRadius: 25,
+        borderWidth: 1,
+        borderColor: COLORS.black,
+        padding: 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 12,
+    },
     space: {
     },
     statusInner: {

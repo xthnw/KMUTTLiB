@@ -18,6 +18,30 @@ const ReservationList = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [selectedBookingId, setSelectedBookingId] = useState(null);
 
+  const handleRefresh = async () => {
+
+    if (userData) {
+      setRefreshing(true);
+      try {
+        const jsonData = {
+          email: userData.User_Email,
+        };
+        const response = await axios.post(listApiUrl, jsonData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.data.data.booking) {
+          setResponseData(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+      setRefreshing(false);
+    }
+  };
+
   useEffect(() => {
     if (userData) {
       const fetchData = async () => {
@@ -71,30 +95,6 @@ const ReservationList = () => {
   const handleSelectBooking = (bookingId) => {
     setSelectedBookingId(bookingId);
     setModalVisible(true);
-  };
-
-  const handleRefresh = async () => {
-
-    if (userData) {
-      setRefreshing(true);
-      try {
-        const jsonData = {
-          email: userData.User_Email,
-        };
-        const response = await axios.post(listApiUrl, jsonData, {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (response.data.data.booking) {
-          setResponseData(response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-      setRefreshing(false);
-    }
   };
 
   const formatDate = (dateString) => {
@@ -176,9 +176,15 @@ const ReservationList = () => {
                             <Icon name='calendar' size={15} color={COLORS.primary} /> {formatDate(booking.data.Booking_date)}
                           </Text>
                           <Text style={[styles.text, {}]}>{booking.data.Booking_period}</Text>
-                          <TouchableOpacity style={styles.statusDetail} onPress={() => navigateToNextScreen(booking)}>
-                            <Text style={styles.statusInner}>Details</Text>
-                          </TouchableOpacity>
+                          {booking?.data?.Booking_Status === 'Reserved' ? (
+                            <TouchableOpacity style={styles.statusDetail} onPress={() => navigateToNextScreen(booking)}>
+                              <Text style={styles.statusInner}>Details</Text>
+                            </TouchableOpacity>
+                          ) : (
+                            <TouchableOpacity style={styles.statusVerified} activeOpacity={1}>
+                              <Text style={styles.statusInner}>Location Verified</Text>
+                            </TouchableOpacity>
+                          )}
                         </View>
                       </View>
                     </View>

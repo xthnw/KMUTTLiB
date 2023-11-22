@@ -7,6 +7,8 @@ import { requestForegroundPermissionsAsync, getCurrentPositionAsync } from 'expo
 import { Ionicons } from '@expo/vector-icons';
 import customPinImage from '../picture/pin.png';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import axios from 'axios';
+import { checkInApiUrl } from '../constants/apiConfig';
 import styles from '../customStyles/ReservationCheckInStyles';
 import COLORS from '../customStyles/colors';
 
@@ -26,7 +28,7 @@ export default class ReservationCheckInScreen extends Component {
   componentDidMount = () => {
     this.requestLocationPermission();
   }
-  
+
   requestLocationPermission = async () => {
     const { status } = await requestForegroundPermissionsAsync();
     if (status === 'granted') {
@@ -62,11 +64,30 @@ export default class ReservationCheckInScreen extends Component {
     });
   };
 
-  toggleModalCompleteVerified = () => {
+  toggleModalCompleteVerified = async () => {
     this.setState({
       isModalCompleteVisible: !this.state.isModalCompleteVisible,
     });
+    const { route } = this.props;
+    const { booking } = route.params;
+    console.log('check in screen id', booking.id);
+    try {
+      const jsonData = {
+        id: booking.id,
+        Booking_Status: 'Verified',
+      };
+      const response = await axios.post(checkInApiUrl, jsonData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      this.setState({ roomStatus: response.data.bookings });
+    } catch (error) {
+      console.error('Error:', error);
+    }
     this.props.navigation.goBack();
+    handleRefresh();
   };
 
   toggleModalClose = () => {
@@ -124,8 +145,8 @@ export default class ReservationCheckInScreen extends Component {
     if (!userLocation) return;
 
     const libraryLocation = {
-      latitude: 13.661650769703941,
-      longitude: 100.50526513962733,
+      latitude: 13.6615673673737,
+      longitude: 100.50521149544932,
     };
     // Haversine formula to calculate distance
     const rad = (x) => (x * Math.PI) / 180;
@@ -144,7 +165,7 @@ export default class ReservationCheckInScreen extends Component {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = earthRadius * c * 1000; // Distance in meters
 
-    const within30Meters = distance <= 30;
+    const within30Meters = distance <= 300;
     this.setState({ isWithin30Meters: within30Meters });
   }
 
