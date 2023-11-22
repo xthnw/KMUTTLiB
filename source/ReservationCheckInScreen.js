@@ -87,7 +87,6 @@ export default class ReservationCheckInScreen extends Component {
       console.error('Error:', error);
     }
     this.props.navigation.goBack();
-    handleRefresh();
   };
 
   toggleModalClose = () => {

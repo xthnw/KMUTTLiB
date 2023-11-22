@@ -184,8 +184,10 @@ const styles = StyleSheet.create({
     elevation: 8,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     shadowRadius: 4,
+    borderColor: COLORS.gray_6,
+    borderWidth: 2,
   },
   errorModalcontainer: {
     alignItems: 'center',
@@ -195,8 +197,10 @@ const styles = StyleSheet.create({
     elevation: 8,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     shadowRadius: 4,
+    borderColor: COLORS.gray_6,
+    borderWidth: 2,
   },
   paddingViewforinsideModal: {
     padding: 32,
