@@ -11,7 +11,7 @@ const screenHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     logOutbutton: {
         flex: 0,
-        padding: 10,
+        padding: 8,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginBottom: 60,
+        marginBottom: 20,
         marginLeft: 20,
     },
     circleViewProfile: {

@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, Pressable, StatusBar } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, TouchableWithoutFeedback, Animated, Pressable, StatusBar } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -7,6 +7,7 @@ import COLORS from '../customStyles/colors';
 import axios from 'axios';
 import { useAuth } from './auth';
 import { listApiUrl, authenApiUrl } from '../constants/apiConfig';
+import { createButtonAnimation } from '../customStyles/TouchAnimation';
 
 StatusBar.setHidden(true);
 
@@ -17,6 +18,10 @@ const ReservationLogin = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { dispatch } = useAuth();
+    const { buttonScaleValue: button1ScaleValue,
+        handleButtonPressIn: handleButton1PressIn,
+        handleButtonPressOut: handleButton1PressOut,
+    } = createButtonAnimation();
 
     const handleLogin = async () => {
         try {
@@ -114,9 +119,16 @@ const ReservationLogin = ({ navigation }) => {
                         <View></View>
                     )}
                 </View>
-                <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                    <Text style={[{ fontFamily: 'LeagueSpartanMedium', fontSize: 18, color: COLORS.white }]}>Sign in with Email</Text>
-                </TouchableOpacity>
+                <TouchableWithoutFeedback
+                    onPress={handleLogin}
+                    onPressIn={handleButton1PressIn}
+                    onPressOut={handleButton1PressOut}
+                    activeOpacity={1}
+                >
+                    <Animated.View style={[styles.button, { transform: [{ scale: button1ScaleValue }] }]}>
+                        <Text style={[{ fontFamily: 'LeagueSpartanMedium', fontSize: 18, color: COLORS.white }]}>Sign in with Email</Text>
+                    </Animated.View>
+                </TouchableWithoutFeedback>
                 <View style={[{ flexDirection: 'row', justifyContent: 'center', marginVertical: 20 }]}>
                     <Pressable onPress={() => {
                         setEmail('jedsada_chai@kmutt.ac.th');
