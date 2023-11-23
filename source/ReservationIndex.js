@@ -162,28 +162,29 @@ export default class ReservationScreen extends Component {
         style={{ flex: 1 }}
       >
         <View style={styles.container}>
-          <View style={styles.logOutContainer}>
-            {userData === null ? (
-              <TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
-                <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Sign in</Text>
-              </TouchableOpacity>
-            ) : (<TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
-              <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Log Out</Text>
-            </TouchableOpacity>
-            )}
-          </View>
-          <View style={styles.topProfileContainer}>
-            <View style={styles.circleViewProfile}>
+          <View style={styles.rowingTopContainer}>
+            <View style={styles.topProfileContainer}>
+              <View style={styles.circleViewProfile}>
+                {userData === null ? (
+                  <Image source={require('../picture/profile.png')} style={{ width: '100%', height: '100%', borderRadius: 50 }} />
+                ) : (<Image source={this.imageMap[profilePicture]} style={{ width: '100%', height: '100%', borderRadius: 50 }} />)}
+              </View>
               {userData === null ? (
-                <Image source={require('../picture/profile.png')} style={{ width: '100%', height: '100%', borderRadius: 50 }} />
-              ) : (<Image source={this.imageMap[profilePicture]} style={{ width: '100%', height: '100%', borderRadius: 50 }} />)}
+                <Text style={styles.hiUserNameLabel}>Guest User</Text>
+              ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_LName}</Text>)}
+              {/* {userData && <Iconify style={{ marginLeft: 20, marginTop: 20 }} icon='streamline-emojis:ant' size={32} />} */}
             </View>
-            {userData === null ? (
-              <Text style={styles.hiUserNameLabel}>Guest User</Text>
-            ) : (<Text style={styles.hiUserNameLabel}>Hi, {userData.User_FName} {userData.User_LName}</Text>)}
-            {userData && <Iconify style={{ marginLeft: 20, marginTop: 20 }} icon='streamline-emojis:ant' size={32} />}
+            <View style={styles.logOutContainer}>
+              {userData === null ? (
+                <TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
+                  <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Sign in</Text>
+                </TouchableOpacity>
+              ) : (<TouchableOpacity style={styles.logOutbutton} onPress={this.handlelogOut}>
+                <Text style={{ color: 'white', fontFamily: 'LeagueSpartanMedium', fontSize: 14 }}>Log out</Text>
+              </TouchableOpacity>
+              )}
+            </View>
           </View>
-
           <View style={styles.RoundedWhiteCoverContainer}>
             <View style={styles.subRoundedWhiteCoverContainer}>
               <View style={[styles.calendarView, { flex: 0 }]}>

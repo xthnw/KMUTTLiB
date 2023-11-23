@@ -42,7 +42,7 @@ const Welcome = ({ navigation }) => {
                         }]}>KMUTT LiB</Text>
                     </View>
                     <View style={[{ alignItems: 'center', flex: 0.5 }]}>
-                        <Image source={require('../picture/iconWelcome.png')} style={{ height: 371, width: 354, }} />
+                        <Image source={require('../picture/iconWelcome.png')} style={{ height: 293, width: 354, }} />
                     </View>
                     <View style={[{ alignItems: 'center', flex: 1 }]}>
                         <TouchableWithoutFeedback

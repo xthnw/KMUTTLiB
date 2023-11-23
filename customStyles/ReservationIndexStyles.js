@@ -9,13 +9,19 @@ const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
+    rowingTopContainer: {
+        flexDirection: 'row', // This makes the children of the container appear in a row
+        justifyContent: 'space-between', // This distributes the children along the main axis (horizontally)
+        paddingHorizontal: 16, // Adjust the padding according to your design
+        marginTop: 60,
+        marginBottom: 30,
+    },
     logOutbutton: {
         flex: 0,
         padding: 8,
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 10,
         borderColor: 'white',
         borderWidth: 1,
     },
@@ -23,15 +29,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        marginRight: 20,
-        marginTop: 60,
     },
     topProfileContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginBottom: 20,
-        marginLeft: 20,
+        marginLeft: 10,
     },
     circleViewProfile: {
         width: 60,
