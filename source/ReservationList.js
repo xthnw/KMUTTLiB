@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, View, Image, Text, TouchableOpacity, TouchableWithoutFeedback, SafeAreaView, RefreshControl } from 'react-native';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import IconM from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import { useAuth } from './auth';
 import axios from 'axios';
@@ -177,9 +178,16 @@ const ReservationList = () => {
                           </Text>
                           <Text style={[styles.text, {}]}>{booking.data.Booking_period}</Text>
                           {booking?.data?.Booking_Status === 'Reserved' ? (
-                            <TouchableOpacity style={styles.statusDetail} onPress={() => navigateToNextScreen(booking)}>
-                              <Text style={styles.statusInner}>Details</Text>
-                            </TouchableOpacity>
+                            <View style={styles.buttonWrapper}>
+                              <TouchableOpacity activeOpacity={1} style={styles.statusDetail} >
+                                <Text style={styles.statusInner}>Details</Text>
+                                <TouchableOpacity onPress={() => navigateToNextScreen(booking)}>
+                                  <View style={styles.arrowContainer}>
+                                    <IconM name="keyboard-arrow-right" size={16} color="white" />
+                                  </View>
+                                </TouchableOpacity>
+                              </TouchableOpacity>
+                            </View>
                           ) : (
                             <TouchableOpacity style={styles.statusVerified} activeOpacity={1}>
                               <Text style={styles.statusInner}>Location Verified</Text>

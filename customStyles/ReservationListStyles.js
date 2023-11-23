@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     },
     status: {
         backgroundColor: COLORS.green,
-        borderRadius: 5,
+        borderRadius: 25,
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1,
@@ -182,14 +182,14 @@ const styles = StyleSheet.create({
         marginRight: 10,
     },
     statusDetail: {
+        flexDirection: 'row',
         backgroundColor: COLORS.primary,
         borderRadius: 25,
         borderWidth: 1,
         borderColor: COLORS.primary,
-        padding: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: 12,
+        textAlign: 'center',
     },
     statusVerified: {
         backgroundColor: COLORS.blue,
@@ -201,6 +201,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         fontSize: 12,
     },
+    arrowContainer: {
+        backgroundColor: COLORS.primary,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 4,
+        elevation: 2,
+        shadowColor: COLORS.black,
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+    },
+    buttonWrapper: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     space: {
     },
     statusInner: {
@@ -208,6 +224,7 @@ const styles = StyleSheet.create({
         padding: 5,
         justifyContent: 'center',
         alignItems: 'center',
+        textAlign: 'center',
         fontSize: 12,
         fontFamily: 'LeagueSpartanMedium',
     },
