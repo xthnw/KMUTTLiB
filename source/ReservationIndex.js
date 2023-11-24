@@ -302,7 +302,6 @@ export default class ReservationScreen extends Component {
                         </View>
                       </View>
                     </TouchableOpacity>
-                    <View style={styles.space} />
                   </View>
                 </ScrollView>
               </View>

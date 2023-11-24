@@ -14,6 +14,7 @@ import { Text, View, StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { Iconify } from 'react-native-iconify';
 import COLORS from '../customStyles/colors';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -24,83 +25,90 @@ const MainNavigator = () => {
   const { authenticated, userData } = state;
   return (
 
-    <Tab.Navigator
-      initialRouteName='ReservationIndexScreen'
-      shifting={false}
-      sceneAnimationEnabled={true}
-      activeColor='black'
-      inactiveColor='gray'
-      barStyle={{ backgroundColor: 'white' }}
-    >
-      <Tab.Screen
-        name='ReservationIndexScreen'
-        component={ReservationIndexScreen}
-        authenticated={authenticated}
-        userData={userData}
-        initialParams={{ userData: userData, authenticated: authenticated }}
-        options={{
-          tabBarLabel: <Text style={styles.tabBarLabel}>Home</Text>,
-          tabBarIcon: ({ color, focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <View
-                style={{
-                  backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
-                  borderRadius: 999, // Set a large value for borderRadius to create a circle
-                  padding: 8, // Adjust the padding as needed
-                }}
-              >
-                <Iconify icon='uil:home-alt' color={focused ? 'white' : color} size={32} />
-              </View>
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name='ReservationScreen'
-        component={ReservationScreen}
-        authenticated={authenticated}
-        userData={userData}
-        initialParams={{ userData: userData, authenticated: authenticated }}
-        options={{
-          tabBarLabel: <Text style={styles.tabBarLabel}>Reserve</Text>,
-          // tabBarBadge: true,
-          tabBarIcon: ({ color, focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <View
-                style={{
-                  backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
-                  borderRadius: 999, // Set a large value for borderRadius to create a circle
-                  padding: 8,
-                }}
-              >
-                <Iconify icon='mdi:ticket' color={focused ? 'white' : color} size={32} />
-              </View>
-            </View>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name='ReservationList'
-        component={ReservationList}
-        options={{
-          // tabBarBadge: '1',
-          tabBarLabel: <Text style={styles.tabBarLabel}>My Room</Text>,
-          tabBarIcon: ({ color, focused }) => (
-            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-              <View
-                style={{
-                  backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
-                  borderRadius: 999, // Set a large value for borderRadius to create a circle
-                  padding: 8,
-                }}
-              >
-                <Iconify icon='clarity:user-solid' color={focused ? 'white' : color} size={32} />
-              </View>
-            </View>
-          ),
-        }}
-      />
-    </Tab.Navigator>
+    <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: 'white' }}>
+
+        <Tab.Navigator
+          initialRouteName='ReservationIndexScreen'
+          shifting={false}
+          sceneAnimationEnabled={true}
+          activeColor='black'
+          inactiveColor='black'
+          barStyle={{
+            backgroundColor: 'transparent', height: 70, borderTopEndRadius: 25, borderTopStartRadius: 25, borderWidth: 1, borderColor: 'white', marginBottom: 20,
+          }}
+        >
+          <Tab.Screen
+            name='ReservationIndexScreen'
+            component={ReservationIndexScreen}
+            authenticated={authenticated}
+            userData={userData}
+            initialParams={{ userData: userData, authenticated: authenticated }}
+            options={{
+              tabBarLabel: <Text style={styles.tabBarLabel}></Text>,
+              tabBarIcon: ({ color, focused }) => (
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <View
+                    style={{
+                      backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
+                      borderRadius: 25, // Set a large value for borderRadius to create a circle
+                      padding: 4, // Adjust the padding as needed
+                    }}
+                  >
+                    <Iconify icon='uil:home-alt' color={focused ? 'white' : color} size={32} />
+                  </View>
+                </View>
+              ),
+            }}
+          />
+          <Tab.Screen
+            name='ReservationScreen'
+            component={ReservationScreen}
+            authenticated={authenticated}
+            userData={userData}
+            initialParams={{ userData: userData, authenticated: authenticated }}
+            options={{
+              tabBarLabel: <Text style={styles.tabBarLabel}></Text>,
+              // tabBarBadge: true,
+              tabBarIcon: ({ color, focused }) => (
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <View
+                    style={{
+                      backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
+                      borderRadius: 25, // Set a large value for borderRadius to create a circle
+                      padding: 4,
+                    }}
+                  >
+                    <Iconify icon='mdi:ticket' color={focused ? 'white' : color} size={32} />
+                  </View>
+                </View>
+              ),
+            }}
+          />
+          <Tab.Screen
+            name='ReservationList'
+            component={ReservationList}
+            options={{
+              // tabBarBadge: '1',
+              tabBarLabel: <Text style={styles.tabBarLabel}></Text>,
+              tabBarIcon: ({ color, focused }) => (
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <View
+                    style={{
+                      backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
+                      borderRadius: 25, // Set a large value for borderRadius to create a circle
+                      padding: 4,
+                    }}
+                  >
+                    <Iconify icon='clarity:user-solid' color={focused ? 'white' : color} size={32} />
+                  </View>
+                </View>
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </View>
+    </View>
 
   );
 }
