@@ -325,7 +325,14 @@ export default class ReservationCheckInScreen extends Component {
                       }}
                         title='Your Location'
                       >
-                        <Image source={this.imageMap[profilePicture]} style={{ width: 62, height: 92 }} />
+                        <View style={{ position: 'relative' }}>
+                        <Image source={customPinImage} style={{ width: 62, height: 92 }} />
+                        <View style={{ position: 'absolute', top: 9, left: 9, borderRadius: 50, overflow: 'hidden', borderColor: 'white', borderWidth: 2 }}>
+                          <View style={{ width: 40, height: 40, borderRadius: 50, overflow: 'hidden', borderColor: 'white', borderWidth: 1 }}>
+                            <Image source={this.imageMap[profilePicture]} style={{ width: 40, height: 40, borderRadius: 50, overflow: 'hidden' }} />
+                          </View>
+                        </View>
+                      </View>
                       </Marker>
                     )}
                   </MapView>
