@@ -55,7 +55,7 @@ const MainNavigator = () => {
                       padding: 4, // Adjust the padding as needed
                     }}
                   >
-                    <Iconify icon='uil:home-alt' color={focused ? 'white' : color} size={32} />
+                    <Iconify icon='uil:home-alt' color={focused ? 'white' : color} size={28} />
                   </View>
                 </View>
               ),
@@ -79,7 +79,7 @@ const MainNavigator = () => {
                       padding: 4,
                     }}
                   >
-                    <Iconify icon='mdi:ticket' color={focused ? 'white' : color} size={32} />
+                    <Iconify icon='mdi:ticket' color={focused ? 'white' : color} size={28} />
                   </View>
                 </View>
               ),
@@ -100,7 +100,7 @@ const MainNavigator = () => {
                       padding: 4,
                     }}
                   >
-                    <Iconify icon='clarity:user-solid' color={focused ? 'white' : color} size={32} />
+                    <Iconify icon='clarity:user-solid' color={focused ? 'white' : color} size={28} />
                   </View>
                 </View>
               ),
@@ -137,7 +137,8 @@ const AppNavigator = () => {
         <Stack.Screen name='ReservationLogin' component={ReservationLogin} options={{ title: null, headerLeft: null }} />
         <Stack.Screen name='MainNavigator' component={MainNavigator} options={{ title: null, headerLeft: null }} userData={userData} />
         <Stack.Screen name='ReservationIndex' component={ReservationIndexScreen} options={{ title: null, headerLeft: null }} userData={userData} />
-        <Stack.Screen name='ReservationCheckInScreen' component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} />
+        <Stack.Screen name='ReservationCheckInScreen' component={ReservationCheckInScreen} options={{ title: null, headerLeft: null }} userData={userData}
+          initialParams={{ userData: userData, authenticated: authenticated }} />
         <Stack.Screen name='ReservationRequestScreen' component={ReservationRequestScreen} options={{ title: null, headerLeft: null }} />
         <Stack.Screen name='ReservationList' component={ReservationList} options={{ title: null, headerLeft: null }} />
 

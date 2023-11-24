@@ -182,8 +182,18 @@ export default class ReservationCheckInScreen extends Component {
     return date.toLocaleDateString('en-US', options);
   };
 
+  imageMap = {
+    'image1012.png': require('../picture/image1012.png'),
+    'image1022.png': require('../picture/image1022.png'),
+    'image1023.png': require('../picture/image1023.png'),
+    'image1034.png': require('../picture/image1034.png'),
+    'image1051.png': require('../picture/image1051.png'),
+  };
+
   render = () => {
     const { route } = this.props;
+    const { userData } = route.params;
+    const profilePicture = userData?.Profile_Picture || 'profile.png';
     const { booking } = route.params;
     const bookingDate = booking.data.Booking_date;
     const bookingPeriod = booking.data.Booking_period;
@@ -246,7 +256,14 @@ export default class ReservationCheckInScreen extends Component {
                       longitude: userLocation.longitude,
                     }}
                       title='Your Location'>
-                      <Image source={customPinImage} style={{ width: 62, height: 92 }} />
+                      <View style={{ position: 'relative' }}>
+                        <Image source={customPinImage} style={{ width: 62, height: 92 }} />
+                        <View style={{ position: 'absolute', top: 9, left: 9, borderRadius: 50, overflow: 'hidden', borderColor: 'white', borderWidth: 2 }}>
+                          <View style={{ width: 40, height: 40, borderRadius: 50, overflow: 'hidden', borderColor: 'white', borderWidth: 1 }}>
+                            <Image source={this.imageMap[profilePicture]} style={{ width: 40, height: 40, borderRadius: 50, overflow: 'hidden' }} />
+                          </View>
+                        </View>
+                      </View>
                     </Marker>
                   )}
                 </MapView>
@@ -308,7 +325,7 @@ export default class ReservationCheckInScreen extends Component {
                       }}
                         title='Your Location'
                       >
-                        <Image source={customPinImage} style={{ width: 62, height: 92 }} />
+                        <Image source={this.imageMap[profilePicture]} style={{ width: 62, height: 92 }} />
                       </Marker>
                     )}
                   </MapView>
