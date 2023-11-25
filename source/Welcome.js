@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback, ScrollView, Animated } from 'react-native'
+import { View, Text, Image, TouchableWithoutFeedback, ScrollView, Animated } from 'react-native'
 import React, { useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import COLORS from '../customStyles/colors';
@@ -42,7 +42,7 @@ const Welcome = ({ navigation }) => {
                         }]}>KMUTT LiB</Text>
                     </View>
                     <View style={[{ alignItems: 'center', flex: 0.5 }]}>
-                        <Image source={require('../picture/iconWelcome.png')} style={{ height: 293, width: 354, }} />
+                        <Image source={require('../picture/iconWelcome.png')} style={{ height: 293, width: 354 }} />
                     </View>
                     <View style={[{ alignItems: 'center', flex: 1 }]}>
                         <TouchableWithoutFeedback

@@ -14,7 +14,6 @@ import { Text, View, StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
 import { Iconify } from 'react-native-iconify';
 import COLORS from '../customStyles/colors';
-import { LinearGradient } from 'expo-linear-gradient';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();

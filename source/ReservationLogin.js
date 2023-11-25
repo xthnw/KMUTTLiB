@@ -76,7 +76,7 @@ const ReservationLogin = ({ navigation }) => {
                 <Text style={[styles.title, { fontFamily: 'LeagueSpartanSemiBold' }]}>Hi Welcome Back ! 👋</Text>
                 <Text style={[styles.subtitle, { fontFamily: 'LeagueSpartanSemiBold' }]}>Hello again you have been missed!</Text>
                 <View style={[{ marginBottom: 8 }]}>
-                    <Text style={[styles.title, { fontFamily: 'LeagueSpartan', marginTop: 28, }]}>Student ID</Text>
+                    <Text style={[styles.title, { fontFamily: 'LeagueSpartan', marginTop: 28 }]}>Student ID</Text>
                     <View style={[styles.box, loginFailed ? styles.toggledBox : null]}>
                         <TextInput
                             placeholder='Enter your Student ID'
