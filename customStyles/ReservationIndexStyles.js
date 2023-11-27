@@ -10,9 +10,9 @@ const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     rowingTopContainer: {
-        flexDirection: 'row', // This makes the children of the container appear in a row
-        justifyContent: 'space-between', // This distributes the children along the main axis (horizontally)
-        paddingHorizontal: 16, // Adjust the padding according to your design
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 16,
         marginTop: 60,
         marginBottom: 30,
     },
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexGrow: 1,
         backgroundColor: 'white',
-        borderTopLeftRadius: 25, // Adjust the top-left corner radius
-        borderTopRightRadius: 25, // Adjust the top-right corner radius
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
         overflow: 'hidden',
     },
 
@@ -76,74 +76,71 @@ const styles = StyleSheet.create({
     },
     calendarHighlightDateNumber: {
         color: 'black',
-        textDecorationLine: 'underline', // Add underline style
-        textDecorationColor: COLORS.primary, // Color of the underline
+        textDecorationLine: 'underline',
+        textDecorationColor: COLORS.primary,
         fontFamily: 'LeagueSpartanMedium',
     },
     imageInBoxContainer: {
-        width: screenWidth * 0.4, // Set the desired width
-        height: screenHeight * 0.15, // Set the desired height
+        width: screenWidth * 0.4,
+        height: screenHeight * 0.15,
         borderRadius: 15,
-        alignItems: 'center', // Center the image horizontally
+        alignItems: 'center',
     },
     emptyViewforNavbarShadow: {
         flex: 0,
         backgroundColor: 'black'
     },
     subemptyViewforNavbarShadow: {
-        backgroundColor: 'white', // Background color of the shadow view (match with main container)
+        backgroundColor: 'white',
         shadowColor: 'black',
         shadowOffset: { width: 0, height: -4 },
         shadowOpacity: 0.5,
         shadowRadius: 4,
-        elevation: 3, // Elevation for Android (simulates shadow)
+        elevation: 3,
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        height: 1, // Adjust the height of the shadow as needed
+        height: 1,
     },
-
-
-
     statusContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 10, // Adjust the margin value as needed
-        alignSelf: 'flex-end', // Align the container to the bottom of the box
+        marginTop: 10,
+        alignSelf: 'flex-end',
     },
     statusText: {
-        color: 'black', // Color of 'Status:'
+        color: 'black',
         fontFamily: 'LeagueSpartan',
     },
     statusLabel: {
-        backgroundColor: COLORS.green, // Green background color
+        backgroundColor: COLORS.green,
         borderColor: 'green',
         borderWidth: 1,
-        borderRadius: 15, // Adjust the border radius as needed
-        marginLeft: 5, // Add spacing between 'Status:' and the green label
-        paddingVertical: 5, // Add vertical padding for better appearance
-        paddingHorizontal: 10, // Add horizontal padding for better appearance
+        borderRadius: 15,
+        marginLeft: 5,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
         fontFamily: 'LeagueSpartan',
     },
     statusLabelFull: {
-        backgroundColor: COLORS.gray_2, // Green background color
-        borderRadius: 15, // Adjust the border radius as needed
-        marginLeft: 5, // Add spacing between 'Status:' and the green label
-        paddingVertical: 5, // Add vertical padding for better appearance
-        paddingHorizontal: 10, // Add horizontal padding for better appearance
+        backgroundColor: COLORS.gray_2,
+        borderRadius: 15,
+        marginLeft: 5,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
         fontFamily: 'LeagueSpartan',
     },
     statusLabelClose: {
-        backgroundColor: COLORS.red, // Green background color
-        borderRadius: 15, // Adjust the border radius as needed
-        marginLeft: 5, // Add spacing between 'Status:' and the green label
-        paddingVertical: 5, // Add vertical padding for better appearance
-        paddingHorizontal: 10, // Add horizontal padding for better appearance
+        backgroundColor: COLORS.red,
+        borderRadius: 15,
+        marginLeft: 5,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
         fontFamily: 'LeagueSpartan',
     },
     statusLabelInner: {
-        color: 'white', // Text color
+        color: 'white',
         fontFamily: 'LeagueSpartan',
     },
     innerBox: {
@@ -151,21 +148,21 @@ const styles = StyleSheet.create({
     },
     space: {},
     boxRow: {
-        flexDirection: 'row', // Arrange boxes horizontally
-        justifyContent: 'space-between', // Add space between boxes
-        marginBottom: 10, // Add vertical spacing between rows
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 10,
         paddingTop: 12,
         paddingHorizontal: 8,
     },
     box: {
-        width: screenWidth * 0.45, // Adjust the width as needed
+        width: screenWidth * 0.45,
         alignItems: 'center',
         justifyContent: 'center',
         borderWidth: 1,
         borderColor: 'white',
         borderRadius: 15,
-        padding: 8, // ขอบบนรูปกับขอบกล่อง
-        marginVertical: 2, // ความห่างของแต่ละกล่องบนล่าง
+        padding: 8,
+        marginVertical: 2,
         backgroundColor: 'white',
         elevation: 2,
         shadowColor: 'black',
@@ -185,8 +182,8 @@ const styles = StyleSheet.create({
     },
     description: {
         marginTop: 5,
-        fontSize: PixelRatio.getFontScale() * 12, // Adjust the font size as needed
-        color: COLORS.gray_9, // You can adjust the color
+        fontSize: PixelRatio.getFontScale() * 12,
+        color: COLORS.gray_9,
         textAlign: 'left',
         fontFamily: 'LeagueSpartan',
     },

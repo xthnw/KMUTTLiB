@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     backButton: {
         width: 40,
         height: 40,
-        borderRadius: 20, // Half of the width/height to create a circle
+        borderRadius: 20,
         backgroundColor: 'white',
         borderColor: COLORS.gray_7,
         borderWidth: 0.5,
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     datetimeDetailLable: {
-        fontSize: 14, // Adjust font size as needed
+        fontSize: 14,
         fontFamily: 'LeagueSpartanMedium',
         color: 'black',
         marginBottom: 10,

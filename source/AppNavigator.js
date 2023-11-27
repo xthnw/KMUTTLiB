@@ -49,9 +49,9 @@ const MainNavigator = () => {
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <View
                     style={{
-                      backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
-                      borderRadius: 25, // Set a large value for borderRadius to create a circle
-                      padding: 4, // Adjust the padding as needed
+                      backgroundColor: focused ? COLORS.primary : 'transparent',
+                      borderRadius: 25,
+                      padding: 4,
                     }}
                   >
                     <Iconify icon='uil:home-alt' color={focused ? 'white' : color} size={28} />
@@ -73,8 +73,8 @@ const MainNavigator = () => {
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <View
                     style={{
-                      backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
-                      borderRadius: 25, // Set a large value for borderRadius to create a circle
+                      backgroundColor: focused ? COLORS.primary : 'transparent',
+                      borderRadius: 25,
                       padding: 4,
                     }}
                   >
@@ -94,8 +94,8 @@ const MainNavigator = () => {
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                   <View
                     style={{
-                      backgroundColor: focused ? COLORS.primary : 'transparent', // Change the background color when focused
-                      borderRadius: 25, // Set a large value for borderRadius to create a circle
+                      backgroundColor: focused ? COLORS.primary : 'transparent',
+                      borderRadius: 25,
                       padding: 4,
                     }}
                   >
@@ -129,8 +129,8 @@ const AppNavigator = () => {
         // initialRouteName={authenticated ? 'MainNavigator' : 'Welcome'}
         initialRouteName={'Welcome'}
         screenOptions={{
-          headerStyle: { backgroundColor: 'transparent' }, // Set the background color of the header
-          headerTintColor: 'black', // Set the text color of the header
+          headerStyle: { backgroundColor: 'transparent' },
+          headerTintColor: 'black',
           headerShown: false,
         }}>
         <Stack.Screen name='ReservationLogin' component={ReservationLogin} options={{ title: null, headerLeft: null }} />

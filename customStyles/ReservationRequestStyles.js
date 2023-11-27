@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   backcirclebutton: {
     width: 40,
     height: 40,
-    borderRadius: 20, // Half of the width/height to create a circle
+    borderRadius: 20,
     backgroundColor: 'white',
     borderColor: COLORS.gray_6,
     borderWidth: 0.5,
@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     backgroundColor: 'white',
     padding: 10,
-    flexDirection: 'row', // Add flexDirection to align icon and text horizontally
-    justifyContent: 'space-between', // Add this to space out icon and text
-    alignItems: 'center', // Center items vertically
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   dropdownOptionContainer: {
     top: '5%',
@@ -247,11 +247,11 @@ const styles = StyleSheet.create({
     fontFamily: 'LeagueSpartanMedium',
   },
   inputRow: {
-    flexDirection: 'row', // Arrange inputs horizontally
-    justifyContent: 'space-between', // Add space between inputs
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   inputContainer: {
-    marginBottom: 20, //ยืด Container ขาว ๆ ลงล่าง
+    marginBottom: 20,
   },
   label: {
     fontSize: 16,
@@ -278,8 +278,8 @@ const styles = StyleSheet.create({
   },
 
   okButtonContainer: {
-    width: screenWidth * 0.8, // Take up 100% width
-    marginTop: 20, // Adjust the margin as needed
+    width: screenWidth * 0.8,
+    marginTop: 20,
     padding: 15,
     backgroundColor: COLORS.primary,
     borderBottomRightRadius: 26,
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'LeagueSpartanMedium',
     color: 'white',
-    textAlign: 'center', // Center the text within the button
+    textAlign: 'center',
   },
 });
 

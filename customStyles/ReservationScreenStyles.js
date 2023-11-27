@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
   selectedDateLable: {
     marginBottom: 12,
     marginLeft: 12,
-    fontSize: 12, // Adjust the font size as needed
-    color: COLORS.gray_9, // You can adjust the color
+    fontSize: 12,
+    color: COLORS.gray_9,
     textAlign: 'left',
     fontFamily: 'LeagueSpartan',
   },
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     right: 0,
     position: 'absolute',
     backgroundColor: 'transparent',
-    elevation: 3, // Adjust the elevation value for the shadow
+    elevation: 3,
     shadowColor: 'gray',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.8,
@@ -48,17 +48,17 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   viewShadowStylesNavbar: {
-    backgroundColor: 'white', // Background color of the shadow view (match with main container)
+    backgroundColor: 'white',
     shadowColor: 'black',
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.5,
     shadowRadius: 4,
-    elevation: 3, // Elevation for Android (simulates shadow)
+    elevation: 3,
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    height: 1, // Adjust the height of the shadow as needed
+    height: 1,
   },
   modalInnerContainer: {
     flex: 0,
@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
     fontFamily: 'LeagueSpartanMedium',
   },
   dividerLine: {
-    borderBottomColor: 'gray', // Color of the horizontal line
-    borderBottomWidth: 1, // Thickness of the line
+    borderBottomColor: 'gray',
+    borderBottomWidth: 1,
     borderRadius: 50,
-    marginVertical: 10, // Adjust as needed to control the spacing
+    marginVertical: 10,
   },
   reservationBylable: {
     fontSize: 18,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   modalStudentLabel: {
-    fontSize: 14, // Adjust font size as needed
+    fontSize: 14,
     fontFamily: 'LeagueSpartanMedium',
     color: 'gray',
     marginBottom: 10,
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   modalStudentName: {
     flex: 1,
     flexWrap: 'wrap',
-    fontSize: 14, // Adjust font size as needed
+    fontSize: 14,
     fontFamily: 'LeagueSpartanMedium',
     marginBottom: 10,
   },
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 10,
-    maxHeight: '40%', // Maximum height set to 50% of the screen height
-    justifyContent: 'flex-start', // Align content at the top
+    maxHeight: '40%',
+    justifyContent: 'flex-start',
   },
 
 
@@ -130,28 +130,26 @@ const styles = StyleSheet.create({
 
   touchableButton: {
     borderRadius: 10,
-    overflow: 'hidden', // Clip the child view to fit the button's rounded corners
+    overflow: 'hidden',
     // margin: 5,
   },
   ButtonRowcontainer: {
-    flexDirection: 'row', // Arrange buttons horizontally
-    justifyContent: 'space-between', // Add space between buttons
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   button: {
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 10,
     backgroundColor: 'white',
-    width: screenWidth * 0.2, // Set the desired width
+    width: screenWidth * 0.2,
     height: screenHeight * 0.03,
     marginBottom: screenHeight * 0.01,
     justifyContent: 'center',
-    // Shadow properties for iOS
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 4 }, // Decrease the height value
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 0,
-    // Shadow properties for Android
     elevation: 2,
   },
   buttonText: {
@@ -162,10 +160,10 @@ const styles = StyleSheet.create({
   },
   buttonSelected: {
     borderWidth: 1,
-    borderColor: COLORS.primary, // Change the border color when selected
-    backgroundColor: COLORS.primary, // Change the background color when selected
+    borderColor: COLORS.primary,
+    backgroundColor: COLORS.primary,
     borderRadius: 10,
-    width: screenWidth * 0.2, // Set the desired width
+    width: screenWidth * 0.2,
     height: screenHeight * 0.03,
     marginTop: screenHeight * 0.02,
     justifyContent: 'center',
@@ -180,16 +178,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     backgroundColor: COLORS.gray_10,
-    width: screenWidth * 0.2, // Set the desired width
+    width: screenWidth * 0.2,
     height: screenHeight * 0.03,
     marginBottom: screenHeight * 0.01,
     justifyContent: 'center',
-    // Shadow properties for iOS
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 4 }, // Decrease the height value
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 0,
-    // Shadow properties for Android
     elevation: 2,
   },
   textDisabled: {
@@ -202,19 +198,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   boxRow: {
-    flexDirection: 'column', // Arrange boxes horizontally
-    justifyContent: 'center', // Add space between boxes
-    marginBottom: 10, // Add vertical spacing between rows
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginBottom: 10,
     alignItems: 'center',
   },
   box: {
-    width: screenWidth * 0.95, // Adjust the width as needed
+    width: screenWidth * 0.95,
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'white',
     borderRadius: 15,
-    padding: 8, // ขอบบนรูปกับขอบกล่อง
-    marginVertical: screenHeight * 0.01, // ความห่างของแต่ละกล่องบนล่าง
+    padding: 8,
+    marginVertical: screenHeight * 0.01,
     backgroundColor: 'white',
     elevation: 8,
     shadowColor: 'black',
@@ -227,9 +223,9 @@ const styles = StyleSheet.create({
     marginVertical: screenHeight * 0.01,
   },
   textContent: {
-    alignItems: 'flex-start', // Align text to the left
-    paddingLeft: screenWidth * 0.02, // Add left padding (adjust the value as needed)
-    paddingTop: screenHeight * 0.005, // Add left padding (adjust the value as needed)
+    alignItems: 'flex-start',
+    paddingLeft: screenWidth * 0.02,
+    paddingTop: screenHeight * 0.005,
   },
   textbold: {
     marginTop: 5,
@@ -238,8 +234,8 @@ const styles = StyleSheet.create({
     fontFamily: 'LeagueSpartan',
   },
   description: {
-    fontSize: 8, // Adjust the font size as needed
-    color: 'gray', // You can adjust the color
+    fontSize: 8,
+    color: 'gray',
     textAlign: 'left',
   },
   scrollViewContainer: {
@@ -247,11 +243,11 @@ const styles = StyleSheet.create({
   },
   headerImageBackground: {
     height: screenHeight / 3.5,
-    resizeMode: 'cover', // Adjust as needed
+    resizeMode: 'cover',
     width: screenWidth
   },
   contentContainer: {
-    marginTop: 0, // Adjust the marginTop to control the spacing between header and content
+    marginTop: 0,
     // Default is marginTop: 10,
   },
   gradient: {
@@ -259,7 +255,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    height: 100, // Adjust the height of the gradient overlay
+    height: 100,
     justifyContent: 'center',
     alignItems: 'center',
   },
