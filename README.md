@@ -9,12 +9,22 @@ Library reservation application of King Mongkut's University of Technology Thonb
 - Android (Minimum version required Android 10)
 
 
-## Features
+## Features (Non-Functional Requirements)
 
-- Live previews
-- Fullscreen mode
+- User Authentication
+- The Right Reserve First Control
+- Redundancy Control
+- Concurrency Control
 - Cross platform
 - Guest mode
+- Refreshing Information
+- Navigation System
+- Integration with External APIs
+- User Profile
+- Reservation Listing
+- Error Handling
+- Styling and User Interface
+- Animation
 
 ## Functional Requirements
 
@@ -22,7 +32,6 @@ Library reservation application of King Mongkut's University of Technology Thonb
 - Viewing the status of all rooms
 - Cancellation of reservation
 - Verification of room using GPS location
-- Refreshing
 
 
 ## Screenshots
@@ -147,9 +156,11 @@ Open Application
 
 ## Tech Stack
 
-**Client:** React, React-Native, Expo, 
+**Client:** React, React-Native, Expo, Expo Go
 
 **Server:** Node.js, Axios
+
+**Database:** Firebase, FireStore
 
 
 ## Support
